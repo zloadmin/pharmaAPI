@@ -17,6 +17,6 @@ class Admin extends User
      * @var array
      */
     protected $attributes = [
-        'role' => UserRole::admin
+        'role' => UserRole::Admin
     ];
 }

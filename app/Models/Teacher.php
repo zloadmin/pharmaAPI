@@ -17,6 +17,6 @@ class Teacher extends User
      * @var array
      */
     protected $attributes = [
-        'role' => UserRole::teacher
+        'role' => UserRole::Teacher
     ];
 }

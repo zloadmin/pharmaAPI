@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\Student\EducationMode;
 use App\Enums\User\UserRole;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
@@ -15,6 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
+
 
     protected $table = 'users';
     protected $guarded = [];
@@ -38,8 +40,11 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'date_of_birth'     => 'date',
             'password'          => 'hashed',
-            'role'              => UserRole::class
+            'role'              => UserRole::class,
+            'education_mode'    => EducationMode::class,
+            'teacher_id'        => 'integer'
         ];
     }
 

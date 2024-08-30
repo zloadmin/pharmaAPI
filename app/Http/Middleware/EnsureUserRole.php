@@ -15,9 +15,10 @@ class EnsureUserRole
      *
      * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
      */
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        if (auth()->user()->role->value == $role) {
+
+        if (in_array(auth()->user()->role->value, $roles)) {
             return $next($request);
         }
         return response()->json(['status' => 'error', 'message' => 'Wrong role'], ResponseCode::HTTP_BAD_REQUEST);

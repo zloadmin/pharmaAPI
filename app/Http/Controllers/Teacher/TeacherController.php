@@ -22,7 +22,7 @@ class TeacherController extends ApiController
      *
      * @authenticated
      * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
-     * @apiResourceCollection App\Http\Resources\User\UserResource
+     * @apiResourceCollection App\Http\Resources\Teacher\TeacherResource
      * @apiResourceModel App\Models\Teacher paginate=15
      * @queryParam page int The page number.
      */
@@ -36,7 +36,7 @@ class TeacherController extends ApiController
      * Показать
      *
      * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
-     * @apiResource App\Http\Resources\User\UserResource
+     * @apiResource App\Http\Resources\Teacher\TeacherResource
      * @apiResourceModel App\Models\Teacher
      * @param Teacher $teacher
      * @return UserResource
@@ -52,7 +52,7 @@ class TeacherController extends ApiController
      * @authenticated
      * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
      * @response status=429 scenario="Validation Errors" {"message":"The full name field is required. (and 3 more errors)","errors":{"full_name":["The full name field is required."],"email":["The email has already been taken."],"password":["The password field is required."],"password_confirmation":["The password confirmation field is required."]}}
-     * @apiResource App\Http\Resources\User\UserResource
+     * @apiResource App\Http\Resources\Teacher\TeacherResource
      * @apiResourceModel App\Models\Teacher
      * @param StoreUserRequest $request
      * @return UserResource
@@ -69,7 +69,7 @@ class TeacherController extends ApiController
      * @authenticated
      * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
      * @response status=429 scenario="Validation Errors"
-     * @apiResource App\Http\Resources\User\UserResource
+     * @apiResource App\Http\Resources\Teacher\TeacherResource
      * @apiResourceModel App\Models\Teacher
      * @param Teacher $teacher
      * @param UpdateTeacherRequest $request

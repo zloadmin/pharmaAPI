@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\ApiController;
-use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Requests\User\UpdateStudentRequest;
-use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\Student\StoreStudentRequest;
+use App\Http\Requests\Student\UpdateStudentRequest;
+use App\Http\Resources\Student\StudentResource;
 use App\Http\Resources\User\UserResource;
 use App\Models\Student;
 
@@ -20,28 +20,29 @@ class StudentController extends ApiController
      *
      * @authenticated
      * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
-     * @apiResourceCollection App\Http\Resources\User\UserResource
-     * @apiResourceModel App\Models\Student paginate=15
+     * @apiResourceCollection App\Http\Resources\Student\StudentResource
+     * @apiResourceModel App\Models\Student with=teacher,group paginate=15
      * @queryParam page int The page number.
      */
     public function list()
     {
-        $students = Student::query();
-        return UserResource::collection($students->paginate());
+        $students = Student::query()->with(['teacher', 'group']);
+        return StudentResource::collection($students->paginate());
     }
 
     /**
      * Показать
      *
      * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
-     * @apiResource App\Http\Resources\User\UserResource
-     * @apiResourceModel App\Models\Student
+     * @apiResource App\Http\Resources\Student\StudentResource
+     * @apiResourceModel App\Models\Student with=teacher,group
      * @param Student $student
-     * @return UserResource
+     * @return StudentResource
      */
     public function show(Student $student)
     {
-        return new UserResource($student);
+        $student->load(['teacher', 'group']);
+        return new StudentResource($student);
     }
 
     /**
@@ -50,15 +51,17 @@ class StudentController extends ApiController
      * @authenticated
      * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
      * @response status=429 scenario="Validation Errors" {"message":"The full name field is required. (and 3 more errors)","errors":{"full_name":["The full name field is required."],"email":["The email has already been taken."],"password":["The password field is required."],"password_confirmation":["The password confirmation field is required."]}}
-     * @apiResource App\Http\Resources\User\UserResource
-     * @apiResourceModel App\Models\Student
-     * @param StoreUserRequest $request
-     * @return UserResource
+     * @apiResource App\Http\Resources\Student\StudentResource
+     * @apiResourceModel App\Models\Student with=teacher,group
+     * @param StoreStudentRequest $request
+     * @return StudentResource
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreStudentRequest $request)
     {
-        $student = Student::createFromStoreUserRequest($request);
-        return new UserResource($student);
+        $student = Student::createFromStoreStudentRequest($request);
+
+        $student->load(['teacher', 'group']);
+        return new StudentResource($student);
     }
 
     /**
@@ -67,16 +70,17 @@ class StudentController extends ApiController
      * @authenticated
      * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
      * @response status=429 scenario="Validation Errors"
-     * @apiResource App\Http\Resources\User\UserResource
-     * @apiResourceModel App\Models\Student
+     * @apiResource App\Http\Resources\Student\StudentResource
+     * @apiResourceModel App\Models\Student with=teacher,group
      * @param Student $student
      * @param UpdateStudentRequest $request
-     * @return UserResource
+     * @return StudentResource
      */
     public function update(Student $student, UpdateStudentRequest $request)
     {
-        $student->updateFromUpdateUserRequest($request);
-        return new UserResource($student);
+        $student->updateFromUpdateStudentRequest($request);
+        $student->load(['teacher', 'group']);
+        return new StudentResource($student);
     }
 
     /**

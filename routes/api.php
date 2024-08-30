@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Group\GroupController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Teacher\TeacherController;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
 
         // Admin
-        Route::prefix('admin')->middleware('role:admin')->group(function () {
+        Route::prefix('admin')->middleware('role:admin,teacher')->group(function () {
 
             // Teachers
             Route::prefix('teacher')->group(function () {
@@ -28,6 +29,7 @@ Route::prefix('v1')->group(function () {
                 Route::put('update/{teacher}', [TeacherController::class, 'update']);
                 Route::delete('delete/{teacher}', [TeacherController::class, 'delete']);
             });
+
             // Students
             Route::prefix('student')->group(function () {
                 Route::get('/', [StudentController::class, 'list']);
@@ -35,6 +37,15 @@ Route::prefix('v1')->group(function () {
                 Route::post('create', [StudentController::class, 'store']);
                 Route::put('update/{student}', [StudentController::class, 'update']);
                 Route::delete('delete/{student}', [StudentController::class, 'delete']);
+            });
+
+            // Groups
+            Route::prefix('group')->group(function () {
+                Route::get('/', [GroupController::class, 'list']);
+                Route::get('{group}', [GroupController::class, 'show']);
+                Route::post('create', [GroupController::class, 'store']);
+                Route::put('update/{group}', [GroupController::class, 'update']);
+                Route::delete('delete/{group}', [GroupController::class, 'delete']);
             });
 
 

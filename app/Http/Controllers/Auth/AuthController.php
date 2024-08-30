@@ -22,7 +22,7 @@ class AuthController extends ApiController
      * @authenticated
      * @response status=400 scenario="Credential Mismatch" {"status":"error","message":"Credential Mismatch"}
      * @response status=429 scenario="Validation Errors" {"message":"The email field is required. (and 1 more error)","errors":{"email":["The email field is required."],"password":["The password field is required."]}}
-     * @apiResource App\Http\Resources\User\UserResource
+     * @apiResource App\Http\Resources\Teacher\TeacherResource
      * @apiResourceModel App\Models\USer
      * @apiResourceAdditional accessToken="2|6XJgxX0hXMLErQx34CoaKpEkV6YvN5JKC5Yi8cBTe38d4ec6"
      */

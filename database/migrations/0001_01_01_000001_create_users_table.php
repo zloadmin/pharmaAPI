@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Student\EducationMode;
 use App\Enums\User\UserRole;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,10 +18,19 @@ return new class extends Migration {
             $table->string('email')->unique()->comment('Электронная почта');
 //            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->comment('Пароль');
-            $table->enum('role', UserRole::values())->default(UserRole::student)->index()->comment('Роль');
+            $table->enum('role', UserRole::values())->default(UserRole::Student)->index()->comment('Роль');
+            // Student
+            $table->unsignedBigInteger('teacher_id')->nullable()->comment('Преподаватель');
+            $table->date('date_of_birth')->nullable()->comment('Дата рождения');
+            $table->enum('education_mode', EducationMode::values())->nullable()->comment('Режим обучения');
+
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
+        });;
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
