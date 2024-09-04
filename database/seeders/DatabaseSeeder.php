@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Ticket\TicketLevel;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             GroupSeeder::class,
+            TicketLevel::class,
         ]);
     }
 }
