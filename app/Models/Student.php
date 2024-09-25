@@ -23,12 +23,12 @@ class Student extends User
         'role' => UserRole::Student
     ];
 
-    static function createFromStoreStudentRequest(StoreStudentRequest $request): self
+    static function createFromStoreStudentRequest(StoreStudentRequest $request, string $password): self
     {
         $student = self::create([
             'full_name'      => $request->full_name,
             'email'          => $request->email,
-            'password'       => Hash::make($request->password),
+            'password'       => Hash::make($password),
             'teacher_id'     => $request->get('teacher_id'),
             'date_of_birth'  => Carbon::createFromFormat('d.m.Y', $request->date_of_birth),
             'education_mode' => $request->education_mode,

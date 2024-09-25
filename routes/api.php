@@ -1,10 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\Student\StudentController;
 use App\Http\Controllers\Admin\Teacher\TeacherController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Group\GroupController;
-use App\Http\Controllers\Student\StudentController;
-use App\Http\Controllers\Ticket\TicketController;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('/user', function (Request $request) {
@@ -30,14 +28,14 @@ Route::prefix('v1')->group(function () {
                 Route::delete('delete/{teacher}', [TeacherController::class, 'delete']);
             });
 
-//            // Students
-//            Route::prefix('student')->group(function () {
-//                Route::get('/', [StudentController::class, 'list']);
-//                Route::get('{student}', [StudentController::class, 'show']);
-//                Route::post('create', [StudentController::class, 'store']);
-//                Route::put('update/{student}', [StudentController::class, 'update']);
-//                Route::delete('delete/{student}', [StudentController::class, 'delete']);
-//            });
+            // Students
+            Route::prefix('student')->group(function () {
+                Route::get('/', [StudentController::class, 'list']);
+                Route::get('{student}', [StudentController::class, 'show']);
+                Route::post('create', [StudentController::class, 'store']);
+                Route::put('update/{student}', [StudentController::class, 'update']);
+                Route::delete('delete/{student}', [StudentController::class, 'delete']);
+            });
 //
 //            // Groups
 //            Route::prefix('group')->group(function () {

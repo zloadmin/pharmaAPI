@@ -27,8 +27,8 @@ class StoreGroupRequest extends FormRequest
             'name'        => ['description' => 'Название группы', 'example' => 'Группа 1'],
             'description' => ['description' => 'Описание группы', 'example' => 'текст'],
             'teacher_id'  => ['description' => 'ID преподователя', 'example' => 2],
-            'students'    => ['description' => 'Список студентов'],
-            'students.*'  => ['description' => 'ID студента', 'example' => 3],
+            'students'    => ['description' => 'Список учеников'],
+            'students.*'  => ['description' => 'ID ученика', 'example' => 3],
         ];
     }
 

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace App\Enum\Traits;
+namespace App\Enums\Traits;
 
 
 /**
@@ -14,7 +14,6 @@ trait Responsible
     {
         $result = [];
         foreach (self::cases() as $key => $item) {
-            // $result[$key]['name'] = $item->name; TODO: do we need it???
             $result[$key]['value'] = $item->value;
             if (method_exists($item, 'label')) {
                 $result[$key]['label'] = $item->label();

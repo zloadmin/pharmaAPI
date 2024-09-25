@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Student;
+namespace App\Http\Controllers\Admin\Student;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Student\StoreStudentRequest;
 use App\Http\Requests\Student\UpdateStudentRequest;
 use App\Http\Resources\Student\StudentResource;
-use App\Http\Resources\User\UserResource;
+use App\Mail\Student\StudentAccessEmail;
 use App\Models\Student;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 
 /**
- * @group Студенты
+ * @group [Admin] Ученики
  */
 class StudentController extends ApiController
 {
@@ -58,8 +60,9 @@ class StudentController extends ApiController
      */
     public function store(StoreStudentRequest $request)
     {
-        $student = Student::createFromStoreStudentRequest($request);
-
+        $password = Str::random();
+        $student = Student::createFromStoreStudentRequest($request, $password);
+        Mail::queue(new StudentAccessEmail($student, $password));
         $student->load(['teacher', 'group']);
         return new StudentResource($student);
     }

@@ -78,11 +78,12 @@ class TeacherController extends ApiController
      * @param UpdateTeacherRequest $request
      * @return TeacherResource
      */
-    public function update(Teacher $teacher, UpdateTeacherRequest $request)
+    public function update(UpdateTeacherRequest $request, Teacher $teacher)
     {
         $teacher->updateFromUpdateTeacherRequest($request);
         $group = Group::findOrFail($request->group_id);
         $group->setTeacher($teacher);
+        $teacher->refresh();
         $teacher->load('group');
 
         return new TeacherResource($teacher);

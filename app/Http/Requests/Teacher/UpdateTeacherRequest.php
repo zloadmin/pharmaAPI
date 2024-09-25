@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Teacher;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 
 class UpdateTeacherRequest extends FormRequest
@@ -35,7 +36,7 @@ class UpdateTeacherRequest extends FormRequest
 
         return [
             'full_name'             => ['required', 'string', 'max:250'],
-            'email'                 => ['required', 'email', Rule::unique('users')->ignore($this->route('teacher')->id)],
+            'email'                 => ['required', 'email', Rule::unique('users')->ignore($this->route('teacher')->id ?? null)], // for scribe https://github.com/knuckleswtf/scribe/issues/594
             'group_id'              => ['required', Rule::exists('groups', 'id')],
             'password'              => ['string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required_with:password']

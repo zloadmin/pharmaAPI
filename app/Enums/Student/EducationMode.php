@@ -2,6 +2,7 @@
 
 namespace App\Enums\Student;
 
+use App\Enums\Traits\Responsible;
 use App\Enums\Traits\Arrayable;
 use App\Enums\Traits\Randomable;
 

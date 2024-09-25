@@ -58,7 +58,7 @@ class Group extends Model
 
     public function setTeacher(Teacher $teacher): void
     {
-        Group::where('teacher_id', $teacher->id)->update(['teacher_id' => null]);
+        Group::where('teacher_id', $teacher->id)->where('id', '!=', $this->id)->update(['teacher_id' => null]);
         $this->update(['teacher_id' => $teacher->id]);
     }
 }
