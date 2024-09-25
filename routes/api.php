@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\Teacher\TeacherController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Group\GroupController;
 use App\Http\Controllers\Student\StudentController;
-use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\Ticket\TicketController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('/user', function (Request $request) {
@@ -20,7 +19,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
 
         // Admin
-        Route::prefix('admin')->middleware('role:admin,teacher')->group(function () {
+        Route::prefix('admin')->middleware('role:admin')->group(function () {
 
             // Teachers
             Route::prefix('teacher')->group(function () {
@@ -31,32 +30,32 @@ Route::prefix('v1')->group(function () {
                 Route::delete('delete/{teacher}', [TeacherController::class, 'delete']);
             });
 
-            // Students
-            Route::prefix('student')->group(function () {
-                Route::get('/', [StudentController::class, 'list']);
-                Route::get('{student}', [StudentController::class, 'show']);
-                Route::post('create', [StudentController::class, 'store']);
-                Route::put('update/{student}', [StudentController::class, 'update']);
-                Route::delete('delete/{student}', [StudentController::class, 'delete']);
-            });
-
-            // Groups
-            Route::prefix('group')->group(function () {
-                Route::get('/', [GroupController::class, 'list']);
-                Route::get('{group}', [GroupController::class, 'show']);
-                Route::post('create', [GroupController::class, 'store']);
-                Route::put('update/{group}', [GroupController::class, 'update']);
-                Route::delete('delete/{group}', [GroupController::class, 'delete']);
-            });
-
-            // Tickets
-            Route::prefix('ticket')->group(function () {
-                Route::get('/', [TicketController::class, 'list']);
-                Route::get('{ticket}', [TicketController::class, 'show']);
-                Route::post('create', [TicketController::class, 'store']);
-                Route::put('update/{ticket}', [TicketController::class, 'update']);
-                Route::delete('delete/{ticket}', [TicketController::class, 'delete']);
-            });
+//            // Students
+//            Route::prefix('student')->group(function () {
+//                Route::get('/', [StudentController::class, 'list']);
+//                Route::get('{student}', [StudentController::class, 'show']);
+//                Route::post('create', [StudentController::class, 'store']);
+//                Route::put('update/{student}', [StudentController::class, 'update']);
+//                Route::delete('delete/{student}', [StudentController::class, 'delete']);
+//            });
+//
+//            // Groups
+//            Route::prefix('group')->group(function () {
+//                Route::get('/', [GroupController::class, 'list']);
+//                Route::get('{group}', [GroupController::class, 'show']);
+//                Route::post('create', [GroupController::class, 'store']);
+//                Route::put('update/{group}', [GroupController::class, 'update']);
+//                Route::delete('delete/{group}', [GroupController::class, 'delete']);
+//            });
+//
+//            // Tickets
+//            Route::prefix('ticket')->group(function () {
+//                Route::get('/', [TicketController::class, 'list']);
+//                Route::get('{ticket}', [TicketController::class, 'show']);
+//                Route::post('create', [TicketController::class, 'store']);
+//                Route::put('update/{ticket}', [TicketController::class, 'update']);
+//                Route::delete('delete/{ticket}', [TicketController::class, 'delete']);
+//            });
 
 
         });

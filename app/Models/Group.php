@@ -50,4 +50,15 @@ class Group extends Model
             $this->students()->sync($request->get('students'));
         }
     }
+
+    public function unsetTeacher(): void
+    {
+        $this->update(['teacher_id' => null]);
+    }
+
+    public function setTeacher(Teacher $teacher): void
+    {
+        Group::where('teacher_id', $teacher->id)->update(['teacher_id' => null]);
+        $this->update(['teacher_id' => $teacher->id]);
+    }
 }

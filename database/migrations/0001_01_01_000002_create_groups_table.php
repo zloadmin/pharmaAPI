@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name')->comment('Название группы');
             $table->text('description')->comment('Описание группы');
-            $table->unsignedBigInteger('teacher_id')->comment('Назначение преподавателя');
+            $table->unsignedBigInteger('teacher_id')->nullable()->comment('Назначение преподавателя');
             $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

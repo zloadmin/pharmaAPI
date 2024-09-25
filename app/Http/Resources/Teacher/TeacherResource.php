@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Teacher;
 
+use App\Http\Resources\Group\GroupResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,6 +19,7 @@ class TeacherResource extends JsonResource
             'id'         => $this->id,
             'full_name'  => $this->full_name,
             'email'      => $this->email,
+            'group'      => GroupResource::make($this->whenLoaded('group')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

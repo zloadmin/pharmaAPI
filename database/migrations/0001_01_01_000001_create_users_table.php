@@ -19,6 +19,8 @@ return new class extends Migration {
 //            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->comment('Пароль');
             $table->enum('role', UserRole::values())->default(UserRole::Student)->index()->comment('Роль');
+//            // Teacher & Student
+//            $table->unsignedBigInteger('group_id')->nullable()->comment('Группа');
             // Student
             $table->unsignedBigInteger('teacher_id')->nullable()->comment('Преподаватель');
             $table->date('date_of_birth')->nullable()->comment('Дата рождения');

@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Teacher;
+namespace App\Http\Controllers\Admin\Teacher;
 
 use App\Http\Controllers\ApiController;
-use App\Http\Controllers\Controller;
-
-use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Requests\User\UpdateTeacherRequest;
-use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\Teacher\StoreTeacherRequest;
+use App\Http\Requests\Teacher\UpdateTeacherRequest;
+use App\Http\Resources\Teacher\TeacherResource;
 use App\Http\Resources\User\UserResource;
+use App\Models\Group;
 use App\Models\Teacher;
-use Illuminate\Http\Request;
 
 /**
- * @group Преподаватели
+ * @group [Admin] Преподаватели
  */
 class TeacherController extends ApiController
 {
@@ -23,13 +21,13 @@ class TeacherController extends ApiController
      * @authenticated
      * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
      * @apiResourceCollection App\Http\Resources\Teacher\TeacherResource
-     * @apiResourceModel App\Models\Teacher paginate=15
+     * @apiResourceModel App\Models\Teacher with=group paginate=15
      * @queryParam page int The page number.
      */
     public function list()
     {
-        $teachers = Teacher::query();
-        return UserResource::collection($teachers->paginate());
+        $teachers = Teacher::query()->with('group');
+        return TeacherResource::collection($teachers->paginate());
     }
 
     /**
@@ -37,13 +35,14 @@ class TeacherController extends ApiController
      *
      * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
      * @apiResource App\Http\Resources\Teacher\TeacherResource
-     * @apiResourceModel App\Models\Teacher
+     * @apiResourceModel App\Models\Teacher with=group
      * @param Teacher $teacher
-     * @return UserResource
+     * @return TeacherResource
      */
     public function show(Teacher $teacher)
     {
-        return new UserResource($teacher);
+        $teacher->load('group');
+        return new TeacherResource($teacher);
     }
 
     /**
@@ -53,14 +52,18 @@ class TeacherController extends ApiController
      * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
      * @response status=429 scenario="Validation Errors" {"message":"The full name field is required. (and 3 more errors)","errors":{"full_name":["The full name field is required."],"email":["The email has already been taken."],"password":["The password field is required."],"password_confirmation":["The password confirmation field is required."]}}
      * @apiResource App\Http\Resources\Teacher\TeacherResource
-     * @apiResourceModel App\Models\Teacher
-     * @param StoreUserRequest $request
-     * @return UserResource
+     * @apiResourceModel App\Models\Teacher with=group
+     * @param StoreTeacherRequest $request
+     * @return TeacherResource
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreTeacherRequest $request)
     {
-        $teacher = Teacher::createFromStoreUserRequest($request);
-        return new UserResource($teacher);
+        $teacher = Teacher::createFromStoreTeacherRequest($request);
+        $group = Group::findOrFail($request->group_id);
+        $group->setTeacher($teacher);
+        $teacher->load('group');
+
+        return new TeacherResource($teacher);
     }
 
     /**
@@ -70,15 +73,19 @@ class TeacherController extends ApiController
      * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
      * @response status=429 scenario="Validation Errors"
      * @apiResource App\Http\Resources\Teacher\TeacherResource
-     * @apiResourceModel App\Models\Teacher
+     * @apiResourceModel App\Models\Teacher with=group
      * @param Teacher $teacher
      * @param UpdateTeacherRequest $request
-     * @return UserResource
+     * @return TeacherResource
      */
     public function update(Teacher $teacher, UpdateTeacherRequest $request)
     {
-        $teacher->updateFromUpdateUserRequest($request);
-        return new UserResource($teacher);
+        $teacher->updateFromUpdateTeacherRequest($request);
+        $group = Group::findOrFail($request->group_id);
+        $group->setTeacher($teacher);
+        $teacher->load('group');
+
+        return new TeacherResource($teacher);
     }
 
     /**
@@ -90,6 +97,9 @@ class TeacherController extends ApiController
      */
     public function delete(Teacher $teacher)
     {
+        if ($teacher->group) {
+            $teacher->group->unsetTeacher();
+        }
         $teacher->delete();
         return $this->respondDeleted();
     }
