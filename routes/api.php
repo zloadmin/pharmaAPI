@@ -33,6 +33,7 @@ Route::prefix('v1')->group(function () {
                 Route::get('/', [StudentController::class, 'list']);
                 Route::get('{student}', [StudentController::class, 'show']);
                 Route::post('create', [StudentController::class, 'store']);
+                Route::post('import', [StudentController::class, 'import']);
                 Route::put('update/{student}', [StudentController::class, 'update']);
                 Route::delete('delete/{student}', [StudentController::class, 'delete']);
             });
