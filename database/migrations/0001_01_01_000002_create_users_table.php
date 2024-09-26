@@ -19,8 +19,8 @@ return new class extends Migration {
 //            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->comment('Пароль');
             $table->enum('role', UserRole::values())->default(UserRole::Student)->index()->comment('Роль');
-//            // Teacher & Student
-//            $table->unsignedBigInteger('group_id')->nullable()->comment('Группа');
+            // Teacher
+            $table->unsignedBigInteger('department_id')->nullable()->comment('Кафедра');
             // Student
             $table->unsignedBigInteger('teacher_id')->nullable()->comment('Преподаватель');
             $table->date('date_of_birth')->nullable()->comment('Дата рождения');
@@ -31,6 +31,7 @@ return new class extends Migration {
         });
 
         Schema::table('users', function (Blueprint $table) {
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
         });;
 

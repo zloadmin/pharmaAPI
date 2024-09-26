@@ -62,9 +62,15 @@ class Student extends User
 
     public function updateGroupID(int $group_id): void
     {
-        GroupStudent::where('student_id', $this->id)->update([
-            'group_id' => $group_id
-        ]);
+        $group = GroupStudent::where('student_id', $this->id)->first();
+        if($group) {
+            $group->update(['group_id' => $group_id]);
+        } else {
+            $this->addToGroupID($group_id);
+        }
+//        GroupStudent::where('student_id', $this->id)->update([
+//            'group_id' => $group_id
+//        ]);
     }
 
     public function teacher()

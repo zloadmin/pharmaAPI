@@ -11,7 +11,7 @@ use App\Models\Group;
 use App\Models\Teacher;
 
 /**
- * @group [Admin] Преподаватели
+ * @group [Админ] Преподаватели
  */
 class TeacherController extends ApiController
 {

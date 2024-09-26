@@ -1,18 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Group;
+namespace App\Http\Controllers\Admin\Group;
 
 use App\Http\Controllers\ApiController;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Http\Resources\Group\GroupResource;
-use App\Http\Resources\User\UserResource;
 use App\Models\Group;
-use App\Models\Student;
-use Illuminate\Http\Request;
 
 /**
- * @group Группы
+ * @group [Админ] Группы
  */
 class GroupController extends ApiController
 {
@@ -80,6 +76,7 @@ class GroupController extends ApiController
     public function update(Group $group, StoreGroupRequest $request)
     {
         $group->updateFromUpdateUserRequest($request);
+        $group->load(['teacher', 'students']);
         return new GroupResource($group);
     }
 

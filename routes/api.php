@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\Department\DepartmentController;
+use App\Http\Controllers\Admin\Group\GroupController;
 use App\Http\Controllers\Admin\Student\StudentController;
 use App\Http\Controllers\Admin\Teacher\TeacherController;
 use App\Http\Controllers\Auth\AuthController;
@@ -37,15 +39,24 @@ Route::prefix('v1')->group(function () {
                 Route::put('update/{student}', [StudentController::class, 'update']);
                 Route::delete('delete/{student}', [StudentController::class, 'delete']);
             });
-//
-//            // Groups
-//            Route::prefix('group')->group(function () {
-//                Route::get('/', [GroupController::class, 'list']);
-//                Route::get('{group}', [GroupController::class, 'show']);
-//                Route::post('create', [GroupController::class, 'store']);
-//                Route::put('update/{group}', [GroupController::class, 'update']);
-//                Route::delete('delete/{group}', [GroupController::class, 'delete']);
-//            });
+
+            // Groups
+            Route::prefix('group')->group(function () {
+                Route::get('/', [GroupController::class, 'list']);
+                Route::get('{group}', [GroupController::class, 'show']);
+                Route::post('create', [GroupController::class, 'store']);
+                Route::put('update/{group}', [GroupController::class, 'update']);
+                Route::delete('delete/{group}', [GroupController::class, 'delete']);
+            });
+
+            // Departments
+            Route::prefix('department')->group(function () {
+                Route::get('/', [DepartmentController::class, 'list']);
+                Route::get('{department}', [DepartmentController::class, 'show']);
+                Route::post('create', [DepartmentController::class, 'store']);
+                Route::put('update/{department}', [DepartmentController::class, 'update']);
+                Route::delete('delete/{department}', [DepartmentController::class, 'delete']);
+            });
 //
 //            // Tickets
 //            Route::prefix('ticket')->group(function () {
