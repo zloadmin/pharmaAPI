@@ -26,10 +26,10 @@ class UserSeeder extends Seeder
         $envService = new Env();
         $envService->set("SCRIBE_AUTH_KEY", $accessToken->plainTextToken);
 
-        Teacher::factory()->create([
-            'email'    => 'teacher@test.com',
-            'password' => Hash::make('password')
-        ]);
+//        Teacher::factory()->create([
+//            'email'    => 'teacher@test.com',
+//            'password' => Hash::make('password')
+//        ]);
         Student::factory()->create([
             'email'    => 'student@test.com',
             'password' => Hash::make('password')

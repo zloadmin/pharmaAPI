@@ -15,12 +15,15 @@ return new class extends Migration {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('full_name')->comment('Полное имя');
-            $table->string('email')->unique()->comment('Электронная почта');
+            $table->string('email')->nullable()->unique()->comment('Электронная почта');
 //            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->comment('Пароль');
+            $table->string('password')->nullable()->comment('Пароль');
             $table->enum('role', UserRole::values())->default(UserRole::Student)->index()->comment('Роль');
             // Teacher
             $table->unsignedBigInteger('department_id')->nullable()->comment('Кафедра');
+            $table->string('regalia')->nullable()->comment('Регалии');
+            $table->unsignedSmallInteger('age')->nullable()->comment('Возраст');
+
             // Student
             $table->unsignedBigInteger('teacher_id')->nullable()->comment('Преподаватель');
             $table->date('date_of_birth')->nullable()->comment('Дата рождения');
