@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\ApiController;
 
+use App\Http\Requests\Auth\ProfileRequest;
 use App\Http\Requests\Auth\SignInUserRequest;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 
 
 /**
- * @group Авторизация
+ * @group [Общее] Авторизация
  */
 class AuthController extends ApiController
 {
@@ -22,7 +23,7 @@ class AuthController extends ApiController
      * @authenticated
      * @response status=400 scenario="Credential Mismatch" {"status":"error","message":"Credential Mismatch"}
      * @response status=429 scenario="Validation Errors" {"message":"The email field is required. (and 1 more error)","errors":{"email":["The email field is required."],"password":["The password field is required."]}}
-     * @apiResource App\Http\Resources\Teacher\TeacherResource
+     * @apiResource App\Http\Resources\User\UserResource
      * @apiResourceModel App\Models\User
      * @apiResourceAdditional accessToken="2|6XJgxX0hXMLErQx34CoaKpEkV6YvN5JKC5Yi8cBTe38d4ec6"
      */
@@ -39,4 +40,5 @@ class AuthController extends ApiController
         }
         return $this->respondCredentialMismatch();
     }
+
 }
