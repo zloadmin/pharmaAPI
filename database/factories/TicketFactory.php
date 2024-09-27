@@ -22,7 +22,8 @@ class TicketFactory extends Factory
             'title'                     => fake()->word(),
             'description_path'          => fake()->filePath(),
             'description_original_name' => pathinfo(fake()->filePath(), PATHINFO_BASENAME),
-            'videos'                    => [fake()->url(), fake()->url(), fake()->url(), fake()->url()],
+            'article_path'              => fake()->filePath(),
+            'article_original_name'     => pathinfo(fake()->filePath(), PATHINFO_BASENAME),
             'level'                     => TicketLevel::random()
         ];
     }

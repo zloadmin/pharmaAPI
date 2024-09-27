@@ -21,8 +21,10 @@ class TicketResource extends JsonResource
             'title'                     => $this->title,
             'description_url'           => Storage::url($this->description_path),
             'description_original_name' => $this->description_original_name,
-            'videos'                    => $this->videos,
+            'article_url'               => Storage::url($this->article_path),
+            'article_original_name'     => $this->article_original_name,
             'level'                     => $this->level,
+            'videos'                    => TicketVideoResource::collection($this->whenLoaded('videos')),
             'created_at'                => $this->created_at,
             'updated_at'                => $this->updated_at,
         ];

@@ -17,7 +17,8 @@ return new class extends Migration {
             $table->string('title')->comment('Название билета');
             $table->string('description_path')->comment('Описание задания (путь на диске)');
             $table->string('description_original_name')->comment('Описание задания (название файла)');
-            $table->json('videos')->comment('Список видео');
+            $table->string('article_path')->comment('Фармакопейная статья (путь на диске)');
+            $table->string('article_original_name')->comment('Фармакопейная статья (название файла)');
             $table->enum('level', TicketLevel::values())->comment('Уровень сложности');
             $table->timestamps();
         });

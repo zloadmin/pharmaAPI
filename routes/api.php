@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Department\DepartmentController;
 use App\Http\Controllers\Admin\Group\GroupController;
 use App\Http\Controllers\Admin\Student\StudentController;
 use App\Http\Controllers\Admin\Teacher\TeacherController;
+use App\Http\Controllers\Admin\Ticket\TicketController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,18 +63,15 @@ Route::prefix('v1')->group(function () {
                 Route::delete('delete/{department}', [DepartmentController::class, 'delete']);
             });
 
-
-
-//
-//            // Tickets
-//            Route::prefix('ticket')->group(function () {
-//                Route::get('/', [TicketController::class, 'list']);
-//                Route::get('{ticket}', [TicketController::class, 'show']);
-//                Route::post('create', [TicketController::class, 'store']);
-//                Route::put('update/{ticket}', [TicketController::class, 'update']);
-//                Route::delete('delete/{ticket}', [TicketController::class, 'delete']);
-//            });
-
+            // Tickets
+            Route::prefix('ticket')->group(function () {
+                Route::get('/', [TicketController::class, 'list']);
+                Route::get('{ticket}', [TicketController::class, 'show']);
+                Route::post('create', [TicketController::class, 'store']);
+                Route::put('update/{ticket}', [TicketController::class, 'update']);
+                Route::put('update-videos/{ticket}', [TicketController::class, 'updateVideos']);
+                Route::delete('delete/{ticket}', [TicketController::class, 'delete']);
+            });
 
         });
     });

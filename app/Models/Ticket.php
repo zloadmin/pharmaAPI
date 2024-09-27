@@ -7,6 +7,7 @@ use App\Http\Requests\Ticket\StoreTicketRequest;
 use App\Http\Requests\Ticket\UpdateTicketRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Ticket extends Model
 {
@@ -14,9 +15,13 @@ class Ticket extends Model
 
     protected $guarded = [];
     protected $casts = [
-        'videos' => 'json',
-        'level'  => TicketLevel::class
+        'level' => TicketLevel::class
     ];
+
+    public function videos(): HasMany
+    {
+        return $this->hasMany(TicketVideo::class, 'ticket_id', 'id');
+    }
 
     static function createFromStoreTicketRequest(StoreTicketRequest $request): self
     {
@@ -25,7 +30,8 @@ class Ticket extends Model
             'title'                     => $request->title,
             'description_path'          => $request->file('description')->store('ticket_descriptions'),
             'description_original_name' => $request->file('description')->getClientOriginalName(),
-            'videos'                    => $request->videos,
+            'article_path'              => $request->file('article')->store('ticket_articles'),
+            'article_original_name'     => $request->file('article')->getClientOriginalName(),
             'level'                     => $request->level,
         ]);
     }
@@ -35,12 +41,15 @@ class Ticket extends Model
     {
         $this->number = $request->number;
         $this->title = $request->title;
-        $this->videos = $request->videos;
         $this->level = $request->level;
 
         if ($request->hasFile('description')) {
             $this->description_path = $request->file('description')->store('ticket_descriptions');
             $this->description_original_name = $request->file('description')->getClientOriginalName();
+        }
+        if ($request->hasFile('article')) {
+            $this->article_path = $request->file('article')->store('article_descriptions');
+            $this->article_original_name = $request->file('article')->getClientOriginalName();
         }
 
         $this->update();

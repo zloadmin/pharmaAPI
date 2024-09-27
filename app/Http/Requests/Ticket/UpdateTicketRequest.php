@@ -9,14 +9,6 @@ use Illuminate\Validation\Rule;
 class UpdateTicketRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
      * Fields descriptions
      *
      * @return array[]
@@ -27,8 +19,11 @@ class UpdateTicketRequest extends FormRequest
             'number'      => ['description' => '№ Билета', 'example' => '#120'],
             'title'       => ['description' => 'Название билета', 'example' => 'Теорема пифагора'],
             'description' => ['description' => 'Описание задания PDF'],
-            'videos'      => ['description' => 'Список видео'],
-            'videos.*'    => ['description' => 'Видео ссылка', 'example' => 'https://video.com/file.mp4'],
+            'article'     => ['description' => 'Фармакопейная статья PDF'],
+            //            'videos.*'            => ['description' => 'Список видео'],
+            //            'videos.*.name'       => ['description' => 'Видео название', 'example' => 'видео 123'],
+            //            'videos.*.stage_name' => ['description' => 'Видео название этапа задания', 'example' => 'этап 3'],
+            //            'videos.*.url'        => ['description' => 'Видео ссылка', 'example' => 'https://video.com/file.mp4'],
             'level'       => ['description' => 'Уровень сложности', 'example' => TicketLevel::random()],
         ];
     }
@@ -41,12 +36,15 @@ class UpdateTicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'number'      => ['required', 'string', 'max:250'],
-            'title'       => ['required', 'string', 'max:250'],
-            'description' => ['nullable', 'file', 'extensions:pdf'],
-            'videos'      => ['required', 'array'],
-            'videos.*'    => ['required', 'url'],
-            'level'       => ['required', Rule::in(TicketLevel::values())],
+            'number'              => ['required', 'string', 'max:250'],
+            'title'               => ['required', 'string', 'max:250'],
+            'description'         => ['nullable', 'file', 'extensions:pdf'],
+            'article'             => ['nullable', 'file', 'extensions:pdf'],
+//            'videos.*'            => ['required', 'array'],
+//            'videos.*.name'       => ['required', 'string', 'max:250'],
+//            'videos.*.stage_name' => ['required', 'string', 'max:250'],
+//            'videos.*.url'        => ['required', 'url', 'max:250'],
+            'level'               => ['required', Rule::in(TicketLevel::values())],
         ];
     }
 }
