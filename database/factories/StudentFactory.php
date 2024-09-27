@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\Student\EducationMode;
+use App\Enums\Student\EducationStatus;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -29,13 +30,14 @@ class StudentFactory extends UserFactory
     public function definition(): array
     {
         return [
-            'full_name'      => fake()->firstName() . ' ' . fake()->lastName(),
-            'email'          => fake()->unique()->safeEmail(),
-            'password'       => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
-            'teacher_id'     => rand(0, 1) ? Teacher::factory() : null,
-            'date_of_birth'  => now()->subDays(rand(365 * 18, 365 * 99))->toDateString(),
-            'education_mode' => EducationMode::random()
+            'full_name'        => fake()->firstName() . ' ' . fake()->lastName(),
+            'email'            => fake()->unique()->safeEmail(),
+            'password'         => static::$password ??= Hash::make('password'),
+            'remember_token'   => Str::random(10),
+            'teacher_id'       => rand(0, 1) ? Teacher::factory() : null,
+            'date_of_birth'    => now()->subDays(rand(365 * 18, 365 * 99))->toDateString(),
+            'education_mode'   => EducationMode::random(),
+            'education_status' => EducationStatus::random()
         ];
     }
 }

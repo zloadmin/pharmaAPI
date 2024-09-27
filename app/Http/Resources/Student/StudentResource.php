@@ -17,16 +17,17 @@ class StudentResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'             => $this->id,
-            'full_name'      => $this->full_name,
-            'email'          => $this->email,
-            'teacher_id'     => $this->teacher_id,
-            'teacher'        => TeacherResource::make($this->whenLoaded('teacher')),
-            'group'          => GroupResource::make($this->whenLoaded('group')),
-            'date_of_birth'  => $this->date_of_birth,
-            'education_mode' => $this->education_mode,
-            'created_at'     => $this->created_at,
-            'updated_at'     => $this->updated_at,
+            'id'               => $this->id,
+            'full_name'        => $this->full_name,
+            'email'            => $this->email,
+            'teacher_id'       => $this->teacher_id,
+            'teacher'          => TeacherResource::make($this->whenLoaded('teacher')),
+            'group'            => GroupResource::make($this->whenLoaded('group')),
+            'education_status' => $this->education_status,
+            'date_of_birth'    => $this->date_of_birth,
+            'education_mode'   => $this->education_mode,
+            'created_at'       => $this->created_at,
+            'updated_at'       => $this->updated_at,
         ];
     }
 }

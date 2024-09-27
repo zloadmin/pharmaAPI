@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin\Group;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Requests\Group\ReassignStudentRequest;
 use App\Http\Requests\Group\StoreGroupRequest;
 use App\Http\Resources\Group\GroupResource;
 use App\Models\Group;
+use App\Models\GroupStudent;
+use App\Models\Student;
+use App\Models\Teacher;
 
 /**
  * @group [Админ] Группы
@@ -94,4 +98,54 @@ class GroupController extends ApiController
         return $this->respondDeleted();
     }
 
+    /**
+     * Переназначить ученика
+     *
+     * @authenticated
+     * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
+     * @apiResource App\Http\Resources\Group\GroupResource
+     * @apiResourceModel App\Models\Group with=teacher,students
+     * @param Group $group
+     * @param Student $student
+     * @return GroupResource
+     */
+    public function reassignStudent(Group $group, Student $student)
+    {
+        // Move from old groups TODO: student can be inside a lot of groups?
+        GroupStudent::where('student_id', $student->id)->delete();
+
+        // Add to new group
+        GroupStudent::create(['student_id' => $student->id, 'group_id' => $group->id]);
+
+        // Ученики: Если ученик перемещается в другую группу, автоматически меняется назначенный преподаватель.
+        $student->update([
+            'teacher_id' => $group->teacher_id
+        ]);
+
+        $group->load(['teacher', 'students']);
+        return new GroupResource($group);
+    }
+
+    /**
+     * Переназначить преподавателя
+     *
+     * @authenticated
+     * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
+     * @apiResource App\Http\Resources\Group\GroupResource
+     * @apiResourceModel App\Models\Group with=teacher,students
+     * @param Group $group
+     * @param Teacher $teacher
+     * @return GroupResource
+     */
+    public function reassignTeacher(Group $group, Teacher $teacher)
+    {
+        // Move from old group
+        if ($teacher->group) {
+            $teacher->group->update(['teacher_id' => null]);
+        }
+
+        $group->update(['teacher_id' => $teacher->id]);
+        $group->load(['teacher', 'students']);
+        return new GroupResource($group);
+    }
 }

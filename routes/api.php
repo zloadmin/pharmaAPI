@@ -38,6 +38,8 @@ Route::prefix('v1')->group(function () {
                 Route::post('import', [StudentController::class, 'import']);
                 Route::put('update/{student}', [StudentController::class, 'update']);
                 Route::delete('delete/{student}', [StudentController::class, 'delete']);
+                Route::put('update-multiply/education-status', [StudentController::class, 'updateEducationStatusMultiply']);
+                Route::put('update/{student}/education-status', [StudentController::class, 'updateEducationStatus']);
             });
 
             // Groups
@@ -47,6 +49,8 @@ Route::prefix('v1')->group(function () {
                 Route::post('create', [GroupController::class, 'store']);
                 Route::put('update/{group}', [GroupController::class, 'update']);
                 Route::delete('delete/{group}', [GroupController::class, 'delete']);
+                Route::put('reassign/{group}/student/{student}', [GroupController::class, 'reassignStudent']);
+                Route::put('reassign/{group}/teacher/{teacher}', [GroupController::class, 'reassignTeacher']);
             });
 
             // Departments
@@ -57,6 +61,9 @@ Route::prefix('v1')->group(function () {
                 Route::put('update/{department}', [DepartmentController::class, 'update']);
                 Route::delete('delete/{department}', [DepartmentController::class, 'delete']);
             });
+
+
+
 //
 //            // Tickets
 //            Route::prefix('ticket')->group(function () {

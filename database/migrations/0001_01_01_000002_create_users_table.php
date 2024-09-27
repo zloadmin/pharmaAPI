@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Student\EducationMode;
+use App\Enums\Student\EducationStatus;
 use App\Enums\User\UserRole;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -28,6 +29,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('teacher_id')->nullable()->comment('Преподаватель');
             $table->date('date_of_birth')->nullable()->comment('Дата рождения');
             $table->enum('education_mode', EducationMode::values())->nullable()->comment('Режим обучения');
+            $table->enum('education_status', EducationStatus::values())->nullable()->comment('Статус');
+
 
             $table->rememberToken();
             $table->timestamps();

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Student\EducationMode;
+use App\Enums\Student\EducationStatus;
 use App\Enums\User\UserRole;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
@@ -44,6 +45,7 @@ class User extends Authenticatable
             'password'          => 'hashed',
             'role'              => UserRole::class,
             'education_mode'    => EducationMode::class,
+            'education_status'  => EducationStatus::class,
             'teacher_id'        => 'integer'
         ];
     }

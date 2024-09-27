@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin\Student;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Student\ImportStudentRequest;
 use App\Http\Requests\Student\StoreStudentRequest;
+use App\Http\Requests\Student\UpdateStudentEducationStatusMultiplyRequest;
+use App\Http\Requests\Student\UpdateStudentEducationStatusRequest;
 use App\Http\Requests\Student\UpdateStudentRequest;
 use App\Http\Resources\Student\StudentResource;
 use App\Imports\Student\StudentImport;
 use App\Mail\Student\StudentAccessEmail;
 use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
@@ -135,5 +138,44 @@ class StudentController extends ApiController
     {
         $student->delete();
         return $this->respondDeleted();
+    }
+
+    /**
+     * Изменить статус
+     *
+     * @authenticated
+     * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
+     * @response status=429 scenario="Validation Errors" {"message":"\u041f\u043e\u043b\u0435 education status \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u0434\u043b\u044f \u0437\u0430\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f.","errors":{"education_status":["\u041f\u043e\u043b\u0435 education status \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u0434\u043b\u044f \u0437\u0430\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f."]}}
+     * @apiResource App\Http\Resources\Student\StudentResource
+     * @apiResourceModel App\Models\Student with=teacher,group
+     * @param Student $student
+     * @param UpdateStudentEducationStatusRequest $request
+     * @return StudentResource
+     */
+    public function updateEducationStatus(UpdateStudentEducationStatusRequest $request, Student $student)
+    {
+        $student->update(['education_status' => $request->education_status]);
+        $student->load(['teacher', 'group']);
+        return new StudentResource($student);
+    }
+
+    /**
+     * Изменить статус множественно
+     *
+     * @authenticated
+     * @response status=201 scenario="Updated"
+     * @response status=401 scenario="Unauthorized" {"status":"error","message":"Unauthorized"}
+     * @response status=429 scenario="Validation Errors" {"message":"\u041f\u043e\u043b\u0435 education status \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u0434\u043b\u044f \u0437\u0430\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f. (and 1 more error)","errors":{"education_status":["\u041f\u043e\u043b\u0435 education status \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u0434\u043b\u044f \u0437\u0430\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f."],"students_ids":["\u041f\u043e\u043b\u0435 students ids \u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e \u0434\u043b\u044f \u0437\u0430\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u044f."]}}
+     * @param UpdateStudentEducationStatusMultiplyRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateEducationStatusMultiply(UpdateStudentEducationStatusMultiplyRequest $request)
+    {
+
+        Student::whereIn('id', $request->students_ids)
+            ->update(['education_status' => $request->education_status]);
+
+
+        return $this->respondUpdated();
     }
 }
