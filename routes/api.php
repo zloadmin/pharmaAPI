@@ -7,10 +7,10 @@ use App\Http\Controllers\Admin\Student\StudentController as AdminStudentControll
 use App\Http\Controllers\Admin\Teacher\TeacherController as AdminTeacherController;
 use App\Http\Controllers\Admin\Ticket\TicketController as AdminTicketController;
 
-use App\Http\Controllers\Teacher\Department\DepartmentController as TeacherDepartmentController;
-use App\Http\Controllers\Teacher\Group\GroupController as TeacherGroupController;
+//use App\Http\Controllers\Teacher\Department\DepartmentController as TeacherDepartmentController;
+//use App\Http\Controllers\Teacher\Group\GroupController as TeacherGroupController;
 use App\Http\Controllers\Teacher\Student\StudentController as TeacherStudentController;
-use App\Http\Controllers\Teacher\Teacher\TeacherController as TeacherTeacherController;
+//use App\Http\Controllers\Teacher\Teacher\TeacherController as TeacherTeacherController;
 use App\Http\Controllers\Teacher\Ticket\TicketController as TeacherTicketController;
 
 use App\Http\Controllers\Auth\AuthController;
