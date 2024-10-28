@@ -5,6 +5,10 @@ use App\Models\LaboratorySession;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('stage-store', LaboratorySession::start());
+    return view('welcome');
 });
-Route::get('stage/storage/{session}', StorageStage::class)->name('stage-store');
+Route::get('/start-stage-storage', function () {
+    return redirect()->route('stage-storage', LaboratorySession::start());
+});
+Route::get('stage/storage/{session}', StorageStage::class)->name('stage-storage');
+
