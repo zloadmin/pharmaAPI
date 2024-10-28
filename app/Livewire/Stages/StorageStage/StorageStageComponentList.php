@@ -28,6 +28,6 @@ class StorageStageComponentList extends Component
 
     private function setComponents(): void
     {
-        $this->components = StorageComponent::select('id', 'name', 'type', 'description')->get();
+        $this->components = StorageComponent::select('id', 'name', 'type', 'description', 'image')->get();
     }
 }

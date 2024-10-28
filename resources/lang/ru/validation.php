@@ -182,7 +182,10 @@ return [
         'role'                  => 'роль',
         'password_confirmation' => 'подтверждение пароля',
         'date_of_birth'         => 'дата рождения',
-        'email'                 => 'email'
+        'email'                 => 'email',
+        'value'                 => 'значение',
+        'type'                  => 'тип',
+        'image'                 => 'изображение',
     ],
 
 ];

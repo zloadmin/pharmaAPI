@@ -22,4 +22,12 @@ enum StorageComponentType: string
             self::Liquid => 'Жидкий',
         };
     }
+    public function badge(): string
+    {
+        return match ($this) {
+            self::Stuff => 'success',
+            self::Loose => 'warning',
+            self::Liquid => 'primary',
+        };
+    }
 }

@@ -20,7 +20,8 @@ class StorageComponentFactory extends Factory
         return [
             'name'        => fake()->name(),
             'type'        => StorageComponentType::random(),
-            'description' => 'Посуда для точного взвешивания выбранных веществ'
+            'description' => 'Посуда для точного взвешивания выбранных веществ',
+            'image'       => sprintf('storage_components/%d.jpg', rand(1, 5))
         ];
     }
 }
