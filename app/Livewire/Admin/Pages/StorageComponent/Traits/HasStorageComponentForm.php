@@ -15,17 +15,23 @@ trait HasStorageComponentForm
     use WithFileUploads;
 
     public $name = '';
+    public $short_name = '';
     public $description = '';
     public $type = '';
     public $image = '';
+    public $padding_top = 0.0;
+    public $padding_right = 0.0;
 
     public function rules(): array
     {
         return [
-            'name'        => ['required', 'string', 'max:250'],
-            'description' => ['required', 'string'],
-            'type'        => ['required', Rule::in(StorageComponentType::values())],
-            'image'       => ['required', 'image']
+            'name'          => ['required', 'string', 'max:250'],
+            'short_name'    => ['required', 'string', 'max:15'],
+            'description'   => ['required', 'string'],
+            'type'          => ['required', Rule::in(StorageComponentType::values())],
+            'image'         => ['required', 'image'],
+            'padding_top'   => ['required', 'numeric', 'min:0.001', 'max:100'],
+            'padding_right' => ['required', 'numeric', 'min:0.001', 'max:100'],
         ];
     }
 }

@@ -17,7 +17,7 @@ enum StorageComponentType: string
     public function label(): string
     {
         return match ($this) {
-            self::Stuff => 'Оборудование',
+            self::Stuff => 'Посуда',
             self::Loose => 'Сыпучий',
             self::Liquid => 'Жидкий',
         };
@@ -30,4 +30,5 @@ enum StorageComponentType: string
             self::Liquid => 'primary',
         };
     }
+
 }

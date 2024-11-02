@@ -23,10 +23,13 @@ class StorageComponentEditPage extends Component
     public function rules(): array
     {
         return [
-            'name'        => ['required', 'string', 'max:250'],
-            'description' => ['required', 'string'],
-            'type'        => ['required', Rule::in(StorageComponentType::values())],
-            'image'       => ['nullable', 'image']
+            'name'          => ['required', 'string', 'max:250'],
+            'short_name'    => ['required', 'string', 'max:15'],
+            'description'   => ['required', 'string'],
+            'type'          => ['required', Rule::in(StorageComponentType::values())],
+            'image'         => ['nullable', 'image'],
+            'padding_top'   => ['required', 'numeric', 'min:0.001', 'max:100'],
+            'padding_right' => ['required', 'numeric', 'min:0.001', 'max:100'],
         ];
     }
 
@@ -57,6 +60,7 @@ class StorageComponentEditPage extends Component
     {
 
         $this->storageComponent->name = $this->name;
+        $this->storageComponent->short_name = $this->short_name;
         $this->storageComponent->description = $this->description;
         $this->storageComponent->type = $this->type;
         if ($this->image) {
@@ -75,11 +79,14 @@ class StorageComponentEditPage extends Component
         $this->storageComponent = $storageComponent;
     }
 
-    private function setFormFields(StorageComponent $storageComponent)
+    private function setFormFields(StorageComponent $storageComponent): void
     {
         $this->name = $storageComponent->name;
+        $this->short_name = $storageComponent->short_name;
         $this->description = $storageComponent->description;
         $this->type = $storageComponent->type->value;
+        $this->padding_top = $storageComponent->padding_top;
+        $this->padding_right = $storageComponent->padding_right;
     }
 
 

@@ -18,17 +18,22 @@ class StorageStageComponentCart extends Component
     public function mount(string $session): void
     {
         $this->setSession($session);
-        $this->setCartStageComponent($session);
+        $this->setCartStageComponent();
     }
 
-    public function render() : View
+    public function render(): View
     {
         return view('livewire.stages.storage-stage.storage-stage-component-cart');
     }
 
-    private function setCartStageComponent(string $session): void
+    private function setCartStageComponent(): void
     {
-        $this->cartItems = CartStorageComponent::with('component')->bySession($session)->latest()->get();
+        $this->cartItems = CartStorageComponent::with('component')->bySession($this->session)->latest()->get();
+    }
+
+    public function getItem($id)
+    {
+        return CartStorageComponent::bySession($this->session)->where('id', $id)->first();
     }
 
     #[On('storage-component-added-in-cart')]
@@ -36,4 +41,14 @@ class StorageStageComponentCart extends Component
     {
         $this->setCartStageComponent($this->session);
     }
+
+    public function removeItem($id): void
+    {
+        if ($item = $this->getItem($id)) {
+            $item->delete();
+            $this->setCartStageComponent();
+        }
+    }
+
 }
+

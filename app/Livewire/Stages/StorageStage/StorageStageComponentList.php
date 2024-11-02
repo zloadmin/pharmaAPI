@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Stages\StorageStage;
 
-use App\Livewire\StoreStage\StoreStageComponentList\AddFormStuffType;
+
 use App\Livewire\Traits\HasSession;
 use App\Models\StorageComponent;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
+
+
 
 class StorageStageComponentList extends Component
 {
@@ -25,6 +27,8 @@ class StorageStageComponentList extends Component
     {
         return view('livewire.stages.storage-stage.storage-stage-component-list');
     }
+
+
 
     private function setComponents(): void
     {

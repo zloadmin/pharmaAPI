@@ -66,7 +66,6 @@ class MainComponent extends Component
         } else {
             $this->createInCart();
         }
-
     }
 
     private function getExistsInCart(): ?CartStorageComponent

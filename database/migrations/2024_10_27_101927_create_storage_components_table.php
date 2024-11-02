@@ -14,6 +14,9 @@ return new class extends Migration {
         Schema::create('storage_components', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('short_name');
+            $table->decimal('padding_top', 5, 3)->default(0);
+            $table->decimal('padding_right', 5, 3)->default(0);
             $table->text('description');
             $table->string('image');
             $table->enum('type', StorageComponentType::values());
