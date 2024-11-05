@@ -1,0 +1,44 @@
+@media print,
+(max-width: 1439px)
+{
+    /*-------------------
+        Global styles
+    -------------------*/
+
+
+
+    /*------------
+        Header
+    ------------*/
+    header .current_task
+    {
+        width: 484px;
+    }
+
+
+    header .current_task .dropdown
+    {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+
+
+    /*---------------
+        Warehouse
+    ---------------*/
+    .warehouse .modal
+    {
+        right: 37.792%;
+    }
+
+
+
+    /*---------------
+        Home page
+    ---------------*/
+    .home_page .rooms a
+    {
+        padding-bottom: 100px;
+    }
+}
