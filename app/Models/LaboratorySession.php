@@ -12,6 +12,9 @@ class LaboratorySession extends Model
 
     protected $guarded = [];
 
+    protected $casts  = [
+        'settings' => 'json'
+    ];
     static function start(): string
     {
         return self::create([

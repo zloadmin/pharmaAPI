@@ -2,7 +2,7 @@
     <!--- Назавние Field --->
     <div class="form-group">
         <label for="name">Назавние</label>
-        <input class="form-control @error('name') is-invalid @enderror" type="text" wire:model="name">
+        <input class="form-control @error('name') is-invalid @enderror" type="text" wire:model="name" required>
         @error('name')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -12,7 +12,7 @@
     <!--- Короткое название Field --->
     <div class="form-group">
         <label for="short_name">Короткое название</label>
-        <input class="form-control @error('short_name') is-invalid @enderror" type="text" wire:model="short_name" maxlength="15">
+        <input class="form-control @error('short_name') is-invalid @enderror" type="text" wire:model="short_name" maxlength="15" required>
         @error('short_name')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -23,7 +23,7 @@
     <!--- Описание Field --->
     <div class="form-group">
         <label for="description">Описание</label>
-        <textarea class="form-control @error('description') is-invalid @enderror" wire:model="description"></textarea>
+        <textarea class="form-control @error('description') is-invalid @enderror" wire:model="description" required></textarea>
         @error('description')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -34,7 +34,7 @@
     <!--- Тип Field --->
     <div class="form-group">
         <label for="type">Тип</label>
-        <select class="form-control @error('type') is-invalid @enderror" wire:model="type">
+        <select class="form-control @error('type') is-invalid @enderror" wire:model="type" required>
             <option value=""></option>
             @foreach(\App\Enums\StorageComponent\StorageComponentType::cases() as $item)
                 <option value="{{ $item }}">{{ $item->label() }}</option>

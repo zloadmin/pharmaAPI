@@ -17,6 +17,7 @@
         <tr>
             <th>Изображение</th>
             <th>Название</th>
+            <th>Короткое название</th>
             <th>Тип</th>
             <th>Описание</th>
             <th>Добавлен</th>
@@ -30,6 +31,7 @@
                     <img src="{{ $component->image_url }}" alt="" class="img-thumbnail" style="width: 100px">
                 </td>
                 <td>{{ $component->name }}</td>
+                <td>{{ $component->short_name }}</td>
                 <td>
                     <span class="badge badge-{{ $component->type->badge() }}">
                         {{ $component->type->label() }}

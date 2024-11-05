@@ -6,20 +6,16 @@
 
                 <div class="field">
                     <label class="checkbox">
-                        <input type="checkbox" name="group1" checked>
-
+                        <input type="checkbox" wire:model="filters.is_calibrated" wire:change="changeFilters">
                         <div class="check"></div>
-
                         <div>тарированные</div>
                     </label>
                 </div>
 
                 <div class="field">
                     <label class="checkbox">
-                        <input type="checkbox" name="group1" checked>
-
+                        <input type="checkbox" wire:model="filters.is_weighted" wire:change="changeFilters">
                         <div class="check"></div>
-
                         <div>взвешенные</div>
                     </label>
                 </div>

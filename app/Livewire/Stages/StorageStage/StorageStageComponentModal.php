@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Stages\StorageStage;
 
+use App\Enums\StorageComponent\StorageComponentType;
 use App\Livewire\Traits\HasSession;
 use App\Models\CartStorageComponent;
 use App\Models\StorageComponent;
@@ -85,10 +86,22 @@ class StorageStageComponentModal extends Component
 
     private function storeToCart(): void
     {
+        if ($this->component->type == StorageComponentType::Stuff) {
+            for ($i = 0; $i < $this->value; $i++) {
+                $this->insertToCart(1);
+            }
+        } else {
+            $this->insertToCart($this->value);
+        }
+
+    }
+
+    private function insertToCart($value): void
+    {
         CartStorageComponent::create([
             'session'                             => $this->session,
             'storage_component_id'                => $this->component->id,
-            $this->component->getValueFieldName() => $this->value
+            $this->component->getValueFieldName() => $value,
         ]);
     }
 
