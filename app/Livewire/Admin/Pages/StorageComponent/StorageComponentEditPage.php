@@ -66,6 +66,8 @@ class StorageComponentEditPage extends Component
         if ($this->image) {
             $this->storageComponent->image = $this->image->store(path: 'storage_components');
         }
+        $this->storageComponent->padding_top = $this->padding_top;
+        $this->storageComponent->padding_right = $this->padding_right;
         $this->storageComponent->update();
     }
 
