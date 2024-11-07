@@ -1,7 +1,9 @@
 <?php
 
 use App\Livewire\Admin\Pages\DashboardPage;
-
+use App\Livewire\Admin\Pages\Laboratory\LaboratoryCreatePage;
+use App\Livewire\Admin\Pages\Laboratory\LaboratoryEditPage;
+use App\Livewire\Admin\Pages\Laboratory\LaboratoriesPage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentCreatePage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentEditPage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentsPage;
@@ -27,8 +29,16 @@ Route::get('/stage/storage/{session}', StorageStage::class)->name('storage-stage
 
 Route::prefix('admin')->group(function () {
     Route::get('/', DashboardPage::class)->name('admin.dashboard-page');
-    Route::get('/storage-components', StorageComponentsPage::class)->name('admin.storage-components-page');
-    Route::get('/storage-components/create', StorageComponentCreatePage::class)->name('admin.storage-component-create-page');
-    Route::get('/storage-components/edit/{storageComponent}', StorageComponentEditPage::class)->name('admin.storage-component-edit-page');
+    Route::prefix('storage-components')->group(function () {
+        Route::get('/', StorageComponentsPage::class)->name('admin.storage-components-page');
+        Route::get('/create', StorageComponentCreatePage::class)->name('admin.storage-component-create-page');
+        Route::get('/edit/{storageComponent}', StorageComponentEditPage::class)->name('admin.storage-component-edit-page');
+    });
+    Route::prefix('laboratories')->group(function () {
+        Route::get('/', LaboratoriesPage::class)->name('admin.laboratories-page');
+        Route::get('/create', LaboratoryCreatePage::class)->name('admin.laboratory-create-page');
+        Route::get('/edit/{laboratory}', LaboratoryEditPage::class)->name('admin.laboratory-edit-page');
+    });
+
 
 });

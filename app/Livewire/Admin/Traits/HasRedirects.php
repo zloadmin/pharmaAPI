@@ -13,4 +13,8 @@ trait HasRedirects
     {
         $this->redirectRoute('admin.storage-components-page', [], true, true);
     }
+    public function redirectToLaboratoriesPage(): void
+    {
+        $this->redirectRoute('admin.laboratories-page', [], true, true);
+    }
 }

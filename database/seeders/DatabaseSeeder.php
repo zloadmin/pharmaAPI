@@ -6,6 +6,7 @@ use App\Enums\Ticket\TicketLevel;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Factories\LaboratoryFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,7 +22,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             GroupSeeder::class,
             TicketSeeder::class,
-            StorageComponentSeeder::class
+            StorageComponentSeeder::class,
+            LaboratorySeeder::class
         ]);
     }
 }

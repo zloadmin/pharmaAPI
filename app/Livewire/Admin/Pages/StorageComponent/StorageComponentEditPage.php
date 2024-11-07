@@ -44,7 +44,7 @@ class StorageComponentEditPage extends Component
     {
         return view('livewire.admin.pages.storage-component.storage-component-edit-page')
             ->layoutData([
-                'breadcrumb' => $this->getStorageComponentCreatePageBreadcrumb($this->storageComponent)
+                'breadcrumb' => $this->getStorageComponentEditPageBreadcrumb($this->storageComponent)
             ]);
     }
 

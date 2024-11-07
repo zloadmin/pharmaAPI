@@ -19,6 +19,11 @@ class StorageComponent extends Model
         'type' => StorageComponentType::class
     ];
 
+    public static function getDropdownArray(): array
+    {
+        return self::query()->pluck( 'name', 'id')->toArray();
+    }
+
     public function getImageUrlAttribute(): string
     {
         return Storage::url($this->image);
@@ -56,7 +61,7 @@ class StorageComponent extends Model
         };
     }
 
-    public function getValueFieldName() : string
+    public function getValueFieldName(): string
     {
         switch ($this->type) {
             case StorageComponentType::Stuff:
