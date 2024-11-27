@@ -11,7 +11,7 @@ trait HasRedirects
 
     public function redirectToStorageComponentsPage(): void
     {
-        $this->redirectRoute('admin.storage-components-page', [], true, true);
+        $this->redirectRoute('admin.components-page', [], true, true);
     }
     public function redirectToLaboratoriesPage(): void
     {

@@ -3,14 +3,14 @@
 namespace App\Livewire\Stages\StorageStage;
 
 use App\Livewire\Traits\HasSession;
-use App\Models\StorageComponent;
+use App\Models\Component;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 use Livewire\Attributes\Layout;
-use Livewire\Component;
+use Livewire\Component as LivewireComponent;
 
-class StorageStage extends Component
+class StorageStage extends LivewireComponent
 {
     use HasSession;
 

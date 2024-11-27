@@ -4,9 +4,9 @@ namespace App\Livewire\Stages;
 
 use App\Livewire\Traits\HasSession;
 use Livewire\Attributes\Layout;
-use Livewire\Component;
+use Livewire\Component as LivewireComponent;
 
-class IndexStage extends Component
+class IndexStage extends LivewireComponent
 {
     use HasSession;
 

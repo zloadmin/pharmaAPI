@@ -1,4 +1,4 @@
-<div class="modal" style="display: {{ $component ? 'block' : 'none' }}">
+<div class="modal object_modal" style="display: {{ $component ? 'block' : 'none' }}">
     @if ($component)
         <button class="close_btn" type="button" wire:click="close">
                 <svg class="icon">

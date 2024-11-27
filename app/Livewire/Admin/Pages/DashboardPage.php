@@ -3,9 +3,9 @@
 namespace App\Livewire\Admin\Pages;
 
 use Livewire\Attributes\Title;
-use Livewire\Component;
+use Livewire\Component as LivewireComponent;
 
-class DashboardPage extends Component
+class DashboardPage extends LivewireComponent
 {
     #[Title('Панель')]
     public function render()

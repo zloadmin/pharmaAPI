@@ -5,12 +5,12 @@ namespace App\Livewire\Admin\Pages\StorageComponent;
 use App\Livewire\Admin\Pages\StorageComponent\Traits\HasStorageComponentForm;
 use App\Livewire\Admin\Traits\HasBreadcrumb;
 use App\Livewire\Admin\Traits\HasRedirects;
-use App\Models\StorageComponent;
+use App\Models\Component;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Title;
-use Livewire\Component;
+use Livewire\Component as LivewireComponent;
 
-class StorageComponentCreatePage extends Component
+class StorageComponentCreatePage extends LivewireComponent
 {
     use HasBreadcrumb;
     use HasStorageComponentForm;
@@ -34,7 +34,7 @@ class StorageComponentCreatePage extends Component
 
     private function createStorageComponent(): void
     {
-        StorageComponent::create([
+        Component::create([
             'name'          => $this->name,
             'short_name'    => $this->name,
             'description'   => $this->description,

@@ -57,7 +57,8 @@
     }
 
 
-    header .menu .menu_item a
+    header .menu .menu_item a,
+    header .menu .menu_item .btn
     {
         font-family: var(--font_family);
         line-height: 24px;
@@ -78,7 +79,8 @@
     }
 
 
-    header .menu .menu_item a .icon
+    header .menu .menu_item a .icon,
+    header .menu .menu_item .btn .icon
     {
         color: #2a62a9;
     }
@@ -86,7 +88,254 @@
 
     header .menu .menu_item a:hover,
     header .menu .menu_item a.active
+    header .menu .menu_item .btn:hover,
+    header .menu .menu_item .btn.active
     {
         background: rgba(47, 94, 160, .11);
+    }
+
+
+
+    /*------------
+        Weight
+    ------------*/
+    .weight .right_data
+    {
+        width: 560px;
+        height: calc(100vh - 224px);
+    }
+
+
+    .weight .right_data .head .title
+    {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+
+    .weight .right_data .get_all_btn
+    {
+        font-size: 11px;
+
+        padding: 2px 11px;
+    }
+
+
+    .weight .right_data .item
+    {
+        font-size: 10px;
+
+        padding: 10px 4px 4px;
+    }
+
+
+    .weight .right_data .item .icons
+    {
+        gap: 2px;
+    }
+
+
+    .weight .right_data .item .icons > *.text
+    {
+        height: 18px;
+        padding: 2px 4px;
+    }
+
+
+    .weight .right_data .item .thumb
+    {
+        height: 56px;
+    }
+
+
+
+    .weight .interaction_data
+    {
+        top: 84px;
+        left: 20px;
+
+        width: 510px;
+    }
+
+
+
+    .weight .total_data
+    {
+        bottom: 140px;
+        left: 15.5%;
+    }
+
+
+
+    /*-------------
+        Exhaust
+    -------------*/
+    .exhaust .right_data
+    {
+        bottom: 137px;
+
+        width: 560px;
+        max-height: calc(100vh - 221px);
+    }
+
+
+    .exhaust .right_data .scroll
+    {
+        max-height: 256px;
+    }
+
+
+    .exhaust .right_data .head .title
+    {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+
+    .exhaust .right_data .get_all_btn
+    {
+        font-size: 11px;
+
+        padding: 2px 11px;
+    }
+
+
+    .exhaust .right_data .row > *
+    {
+        width: calc(20% - 20px);
+    }
+
+
+    .exhaust .right_data .item
+    {
+        font-size: 10px;
+
+        padding: 10px 4px 4px;
+    }
+
+
+    .exhaust .right_data .item .icons
+    {
+        gap: 2px;
+    }
+
+
+    .exhaust .right_data .item .icons > *.text
+    {
+        height: 18px;
+        padding: 2px 4px;
+    }
+
+
+    .exhaust .right_data .item .thumb
+    {
+        height: 56px;
+    }
+
+
+
+    /*-------------------
+        Chromatograph
+    -------------------*/
+    .chromatograph .main_data
+    {
+        top: 155px;
+        left: 24px;
+    }
+
+
+
+    /*------------------
+        Bottom panel
+    ------------------*/
+    .bottom_panel .data
+    {
+        min-height: 100px;
+        padding: 10px 12px;
+    }
+
+
+    .bottom_panel .filter .title
+    {
+        margin-bottom: 10px;
+    }
+
+
+    .bottom_panel .filter .field + .field
+    {
+        margin-top: 10px;
+    }
+
+
+    .bottom_panel .item
+    {
+        font-size: 10px;
+
+        padding: 10px 4px 4px;
+    }
+
+
+    .bottom_panel .item .icons.column
+    {
+        gap: 2px;
+    }
+
+
+    .bottom_panel .item .icons > *.text
+    {
+        height: 18px;
+        padding: 2px 4px;
+    }
+
+
+    .bottom_panel .item .thumb
+    {
+        height: 54px;
+    }
+
+
+
+    /*-----------------------
+        Select room modal
+    -----------------------*/
+    .select_room_modal .close_btn
+    {
+        top: 44px;
+        right: 50px;
+    }
+
+
+    .select_room_modal .scroll
+    {
+        padding: 60px 50px;
+    }
+
+
+    .select_room_modal .title
+    {
+        margin-bottom: 44px;
+    }
+
+
+    .select_room_modal .items > * + *
+    {
+        margin-top: 20px;
+    }
+
+
+    .select_room_modal .items a
+    {
+        padding-bottom: 22px;
+    }
+
+
+
+    /*----------------------------
+        PopUp - Periodic table
+    ----------------------------*/
+    #periodic_table_modal
+    {
+        width: 1004px;
+        padding: 52px 64px 64px;
     }
 }

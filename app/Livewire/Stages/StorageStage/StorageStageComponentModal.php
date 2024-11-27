@@ -2,30 +2,30 @@
 
 namespace App\Livewire\Stages\StorageStage;
 
-use App\Enums\StorageComponent\StorageComponentType;
+use App\Enums\Component\ComponentType;
 use App\Livewire\Traits\HasSession;
-use App\Models\CartStorageComponent;
-use App\Models\StorageComponent;
+use App\Models\SessionComponent;
+use App\Models\Component;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
-use Livewire\Component;
+use Livewire\Component as LivewireComponent;
 
-class StorageStageComponentModal extends Component
+class StorageStageComponentModal extends LivewireComponent
 {
     use HasSession;
 
-    public ?StorageComponent $component = null;
+    public ?Component $component = null;
     public $value = null;
 
     #[On('show-component-modal')]
     public function showModal($id): void
     {
         Log::info('StorageStageComponentModal::showModal', [$id]);
-        $this->setComponent(StorageComponent::find($id));
+        $this->setComponent(Component::find($id));
     }
 
     public function mount(string $session): void
@@ -44,7 +44,7 @@ class StorageStageComponentModal extends Component
         $this->setComponent();
     }
 
-    public function setComponent(StorageComponent $component = null): void
+    public function setComponent(Component $component = null): void
     {
         $this->component = $component;
         $this->value = $this->component ? $component->defaultValue() : null;
@@ -86,7 +86,7 @@ class StorageStageComponentModal extends Component
 
     private function storeToCart(): void
     {
-        if ($this->component->type == StorageComponentType::Stuff) {
+        if ($this->component->type == ComponentType::Stuff) {
             for ($i = 0; $i < $this->value; $i++) {
                 $this->insertToCart(1);
             }
@@ -98,7 +98,7 @@ class StorageStageComponentModal extends Component
 
     private function insertToCart($value): void
     {
-        CartStorageComponent::create([
+        SessionComponent::create([
             'session'                             => $this->session,
             'storage_component_id'                => $this->component->id,
             $this->component->getValueFieldName() => $value,

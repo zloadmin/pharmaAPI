@@ -4,14 +4,14 @@ namespace App\Livewire\Stages\StorageStage;
 
 
 use App\Livewire\Traits\HasSession;
-use App\Models\StorageComponent;
+use App\Models\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
-use Livewire\Component;
+use Livewire\Component as LivewireComponent;
 
 
 
-class StorageStageComponentList extends Component
+class StorageStageComponentList extends LivewireComponent
 {
     use HasSession;
 
@@ -32,6 +32,6 @@ class StorageStageComponentList extends Component
 
     private function setComponents(): void
     {
-        $this->components = StorageComponent::select('id', 'name', 'type', 'description', 'image')->get();
+        $this->components = Component::select('id', 'name', 'type', 'description', 'image')->get();
     }
 }

@@ -3,19 +3,19 @@
 namespace App\Livewire\Stages\StorageStage\StorageComponents;
 
 use App\Livewire\Traits\HasSession;
-use App\Models\CartStorageComponent;
-use App\Models\StorageComponent;
+use App\Models\SessionComponent;
+use App\Models\Component;
 use Livewire\Attributes\Validate;
-use Livewire\Component;
+use Livewire\Component as LivewireComponent;
 
-class MainComponent extends Component
+class MainComponent extends LivewireComponent
 {
     use HasSession;
 
     #[Validate('required|numeric|min:0.00001|max:10')]
     public $value = 0.00001;
 
-    public StorageComponent $component;
+    public Component $component;
 
     public function mount($component, $session): void
     {
@@ -23,7 +23,7 @@ class MainComponent extends Component
         $this->setSession($session);
     }
 
-    private function setComponent(StorageComponent $component): void
+    private function setComponent(Component $component): void
     {
         $this->component = $component;
     }
@@ -68,14 +68,14 @@ class MainComponent extends Component
         }
     }
 
-    private function getExistsInCart(): ?CartStorageComponent
+    private function getExistsInCart(): ?SessionComponent
     {
-        return CartStorageComponent::where('session', $this->session)
+        return SessionComponent::where('session', $this->session)
             ->where('storage_component_id', $this->component->id)
             ->first();
     }
 
-    private function updateInCart(CartStorageComponent $exist): void
+    private function updateInCart(SessionComponent $exist): void
     {
         $field = $this->getValueFieldName();
         $exist->update([
@@ -85,7 +85,7 @@ class MainComponent extends Component
 
     private function createInCart(): void
     {
-        CartStorageComponent::create([
+        SessionComponent::create([
             'session'                  => $this->session,
             'storage_component_id'     => $this->component->id,
             $this->getValueFieldName() => $this->value

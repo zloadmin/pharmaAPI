@@ -1,18 +1,15 @@
-<section class="warehouse">
-    <div class="back_btn">
-        <a href="{{ route('index-stage', $session)  }}">
-            <div class="icon">
-                <svg><use xlink:href="/web/images/sprite.svg#ic_arr_hor"></use></svg>
-            </div>
-            <span>Назад</span>
-        </a>
-    </div>
+<div class="main">
+    @include('components.layouts.web.header')
+    @include('components.layouts.web.change-stage-menu')
+    <section class="warehouse">
+        @include('livewire.stages.blocks.back-button')
 
-    <div class="image">
-        <img src="/web/images/tmp/warehouse_img.jpg" alt="" loading="lazy" class="img">
-        <livewire:stages.storage-stage.storage-stage-component-points :session='$session'  />
-        <livewire:stages.storage-stage.storage-stage-component-modal :session='$session'  />
-    </div>
+        <div class="image">
+            <img src="/web/images/tmp/warehouse_img.jpg" alt="" loading="lazy" class="img">
+            <livewire:stages.storage-stage.storage-stage-component-points :session='$session' />
+            <livewire:stages.components.modals.modal-storage-component :session='$session' />
+        </div>
 
-    <livewire:stages.storage-stage.storage-stage-component-cart :session='$session'/>
-</section>
+        <livewire:stages.components.component-cart :session='$session'/>
+    </section>
+</div>

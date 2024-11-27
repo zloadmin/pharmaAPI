@@ -30,9 +30,17 @@
     <link rel="stylesheet" href="/web/css/swiper-bundle.min.css" async>
     <link rel="stylesheet" href="/web/css/swiper.css" async>
     <link rel="stylesheet" href="/web/css/fancybox.css" async>
+    <link rel="stylesheet" href="/web/css/ion.rangeSlider.css" async>
     <link rel="stylesheet" href="/web/css/styles.css" async>
 
     <link rel="stylesheet" href="/web/css/response_1899.css" media="print, (max-width: 1899px)" async>
     <link rel="stylesheet" href="/web/css/response_1439.css" media="print, (max-width: 1439px)" async>
     @livewireStyles
+    <script src="/web/js/jquery-3.6.3.min.js"></script>
+    <script src="/web/js/swiper-bundle.min.js"></script>
+    <script src="/web/js/fancybox.js"></script>
+    <script src="/web/js/imask.js"></script>
+    <script src="/web/js/ion.rangeSlider.min.js"></script>
+    <script src="/web/js/functions.js"></script>
+
 </head>

@@ -6,21 +6,21 @@ use App\Livewire\Admin\Pages\Laboratory\Traits\HasLaboratoryForm;
 use App\Livewire\Admin\Traits\HasBreadcrumb;
 use App\Livewire\Admin\Traits\HasRedirects;
 use App\Models\Laboratory;
-use App\Models\StorageComponent;
+use App\Models\Component;
 use Livewire\Attributes\Title;
-use Livewire\Component;
+use Livewire\Component as LivewireComponent;
 
-class LaboratoryCreatePage extends Component
+class LaboratoryCreatePage extends LivewireComponent
 {
     use HasBreadcrumb;
     use HasLaboratoryForm;
     use HasRedirects;
 
-    public array $storageComponents;
+    public array $components;
 
     public function mount()
     {
-        $this->storageComponents = StorageComponent::getDropdownArray();
+        $this->components = Component::getDropdownArray();
     }
 
     public function save()
@@ -41,7 +41,7 @@ class LaboratoryCreatePage extends Component
 
     private function createLaboratoryStorageComponents(Laboratory $laboratory): void
     {
-        $laboratory->storageComponents()->sync($this->storage_component_ids);
+        $laboratory->components()->sync($this->component_ids);
     }
 
     #[Title('Создать')]

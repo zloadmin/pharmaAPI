@@ -1,7 +1,7 @@
 <div class="col-md-12">
     <div class="row mb-2">
         <div class="col-sm-4">
-            <a href="{{ route('admin.storage-component-create-page') }}" class="btn btn-danger mb-2" wire:navigate>
+            <a href="{{ route('admin.component-create-page') }}" class="btn btn-danger mb-2" wire:navigate>
                 <i class="mdi mdi-plus-circle mr-2"></i> Создать
             </a>
         </div>
@@ -42,7 +42,7 @@
                 <td>{{ $component->created_at->diffForHumans() }}</td>
 
                 <td class="table-action text-right">
-                    <a href="{{ route('admin.storage-component-edit-page', $component) }}" class="action-icon" wire:navigate>
+                    <a href="{{ route('admin.component-edit-page', $component) }}" class="action-icon" wire:navigate>
                         <i class="mdi mdi-square-edit-outline"></i>
                     </a>
                     <a href="#" class="action-icon"

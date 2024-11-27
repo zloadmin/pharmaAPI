@@ -2,23 +2,23 @@
 
 namespace App\Livewire\Admin\Pages\StorageComponent;
 
-use App\Enums\StorageComponent\StorageComponentType;
+use App\Enums\Component\ComponentType;
 use App\Livewire\Admin\Pages\StorageComponent\Traits\HasStorageComponentForm;
 use App\Livewire\Admin\Traits\HasBreadcrumb;
 use App\Livewire\Admin\Traits\HasRedirects;
-use App\Models\StorageComponent;
+use App\Models\Component;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Title;
-use Livewire\Component;
+use Livewire\Component as LivewireComponent;
 
-class StorageComponentEditPage extends Component
+class StorageComponentEditPage extends LivewireComponent
 {
     use HasBreadcrumb;
     use HasStorageComponentForm;
     use HasRedirects;
 
-    public StorageComponent $storageComponent;
+    public Component $storageComponent;
 
     public function rules(): array
     {
@@ -26,14 +26,14 @@ class StorageComponentEditPage extends Component
             'name'          => ['required', 'string', 'max:250'],
             'short_name'    => ['required', 'string', 'max:15'],
             'description'   => ['required', 'string'],
-            'type'          => ['required', Rule::in(StorageComponentType::values())],
+            'type'          => ['required', Rule::in(ComponentType::values())],
             'image'         => ['nullable', 'image'],
             'padding_top'   => ['required', 'numeric', 'min:0.001', 'max:100'],
             'padding_right' => ['required', 'numeric', 'min:0.001', 'max:100'],
         ];
     }
 
-    public function mount(StorageComponent $storageComponent): void
+    public function mount(Component $storageComponent): void
     {
         $this->setStorageComponent($storageComponent);
         $this->setFormFields($storageComponent);
@@ -73,15 +73,15 @@ class StorageComponentEditPage extends Component
 
     private function redirectToStorageComponentsPage(): void
     {
-        $this->redirectRoute('admin.storage-components-page', [], true, true);
+        $this->redirectRoute('admin.components-page', [], true, true);
     }
 
-    private function setStorageComponent(StorageComponent $storageComponent): void
+    private function setStorageComponent(Component $storageComponent): void
     {
         $this->storageComponent = $storageComponent;
     }
 
-    private function setFormFields(StorageComponent $storageComponent): void
+    private function setFormFields(Component $storageComponent): void
     {
         $this->name = $storageComponent->name;
         $this->short_name = $storageComponent->short_name;

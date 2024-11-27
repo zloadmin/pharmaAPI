@@ -5,9 +5,9 @@ namespace App\Livewire\Admin\Pages\Laboratory;
 use App\Livewire\Admin\Traits\HasBreadcrumb;
 use App\Models\Laboratory;
 use Livewire\Attributes\Title;
-use Livewire\Component;
+use Livewire\Component as LivewireComponent;
 
-class LaboratoriesPage extends Component
+class LaboratoriesPage extends LivewireComponent
 {
     use HasBreadcrumb;
 
@@ -15,7 +15,7 @@ class LaboratoriesPage extends Component
     public function render()
     {
         return view('livewire.admin.pages.laboratory.laboratories-page', [
-            'laboratories' => Laboratory::withCount('storageComponents')->latest()->paginate()
+            'laboratories' => Laboratory::withCount('components')->latest()->paginate()
         ])->layoutData([
             'breadcrumb' => $this->getLaboratoryPageBreadcrumb()
         ]);

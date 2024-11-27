@@ -25,7 +25,7 @@
                 <td>{{ $laboratory->id }}</td>
                 <td>{{ $laboratory->name }}</td>
                 <td>{{ \Illuminate\Support\Str::limit($laboratory->description) }}</td>
-                <td>{{ $laboratory->storage_components_count }}</td>
+                <td>{{ $laboratory->components_count }}</td>
                 <td>{{ $laboratory->created_at->diffForHumans() }}</td>
                 <td class="table-action text-right">
                     <a href="{{ route('admin.laboratory-edit-page', $laboratory) }}" class="action-icon" wire:navigate>

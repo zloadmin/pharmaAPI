@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             GroupSeeder::class,
             TicketSeeder::class,
-            StorageComponentSeeder::class,
+            ComponentSeeder::class,
             LaboratorySeeder::class
         ]);
     }

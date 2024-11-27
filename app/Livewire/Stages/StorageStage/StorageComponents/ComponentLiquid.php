@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Stages\StorageStage\StorageComponents;
 
-use App\Models\CartStorageComponent;
+use App\Models\SessionComponent;
 use Livewire\Attributes\Validate;
 
 class ComponentLiquid extends MainComponent
@@ -13,8 +13,6 @@ class ComponentLiquid extends MainComponent
     {
         return view('livewire.stages.storage-stage.storage-components.component-liquid');
     }
-
-
 
 
 }

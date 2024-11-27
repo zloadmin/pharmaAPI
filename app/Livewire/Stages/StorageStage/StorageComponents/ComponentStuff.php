@@ -3,7 +3,7 @@
 namespace App\Livewire\Stages\StorageStage\StorageComponents;
 
 use App\Livewire\Traits\HasSession;
-use App\Models\CartStorageComponent;
+use App\Models\SessionComponent;
 use Livewire\Attributes\Validate;
 
 class ComponentStuff extends MainComponent

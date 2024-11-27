@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Pages\StorageComponent\Traits;
 
 
-use App\Enums\StorageComponent\StorageComponentType;
+use App\Enums\Component\ComponentType;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
@@ -28,7 +28,7 @@ trait HasStorageComponentForm
             'name'          => ['required', 'string', 'max:250'],
             'short_name'    => ['required', 'string', 'max:15'],
             'description'   => ['required', 'string'],
-            'type'          => ['required', Rule::in(StorageComponentType::values())],
+            'type'          => ['required', Rule::in(ComponentType::values())],
             'image'         => ['required', 'image'],
             'padding_top'   => ['required', 'numeric', 'min:0.001', 'max:100'],
             'padding_right' => ['required', 'numeric', 'min:0.001', 'max:100'],

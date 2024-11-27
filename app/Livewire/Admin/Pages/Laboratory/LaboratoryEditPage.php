@@ -6,23 +6,23 @@ use App\Livewire\Admin\Pages\Laboratory\Traits\HasLaboratoryForm;
 use App\Livewire\Admin\Traits\HasBreadcrumb;
 use App\Livewire\Admin\Traits\HasRedirects;
 use App\Models\Laboratory;
-use App\Models\StorageComponent;
+use App\Models\Component;
 use Livewire\Attributes\Title;
-use Livewire\Component;
+use Livewire\Component as LivewireComponent;
 
-class LaboratoryEditPage extends Component
+class LaboratoryEditPage extends LivewireComponent
 {
     use HasBreadcrumb;
     use HasLaboratoryForm;
     use HasRedirects;
 
     public Laboratory $laboratory;
-    public array $storageComponents;
+    public array $components;
 
     public function mount(Laboratory $laboratory)
     {
         $this->laboratory = $laboratory;
-        $this->storageComponents = StorageComponent::getDropdownArray();
+        $this->components = Component::getDropdownArray();
         $this->loadFormFields($laboratory);
     }
 
@@ -44,7 +44,7 @@ class LaboratoryEditPage extends Component
 
     private function updateLaboratoryStorageComponents(): void
     {
-        $this->laboratory->storageComponents()->sync($this->storage_component_ids);
+        $this->laboratory->components()->sync($this->component_ids);
     }
 
     #[Title('Редактировать')]

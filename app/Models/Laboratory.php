@@ -12,8 +12,8 @@ class Laboratory extends Model
 
     protected $guarded = [];
 
-    public function storageComponents(): BelongsToMany
+    public function components(): BelongsToMany
     {
-        return $this->belongsToMany(StorageComponent::class);
+        return $this->belongsToMany(Component::class);
     }
 }

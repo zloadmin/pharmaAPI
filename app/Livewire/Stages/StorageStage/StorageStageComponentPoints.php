@@ -3,14 +3,16 @@
 namespace App\Livewire\Stages\StorageStage;
 
 use App\Livewire\Traits\HasSession;
-use App\Models\StorageComponent;
+use App\Models\Component;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 use Livewire\Attributes\Layout;
-use Livewire\Component;
+use Livewire\Attributes\On;
+use Livewire\Component as LivewireComponent;
 
-class StorageStageComponentPoints extends Component
+class StorageStageComponentPoints extends LivewireComponent
 {
     use HasSession;
 
@@ -28,8 +30,11 @@ class StorageStageComponentPoints extends Component
         return view('livewire.stages.storage-stage.storage-stage-component-points');
     }
 
+
+
+
     private function setComponents(): void
     {
-        $this->components = StorageComponent::select(['id', 'padding_top', 'padding_right', 'short_name'])->get();
+        $this->components = Component::select(['id', 'padding_top', 'padding_right', 'short_name'])->get();
     }
 }

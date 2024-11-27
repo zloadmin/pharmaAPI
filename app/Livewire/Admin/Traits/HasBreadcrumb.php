@@ -6,7 +6,7 @@ namespace App\Livewire\Admin\Traits;
 
 
 use App\Models\Laboratory;
-use App\Models\StorageComponent;
+use App\Models\Component;
 
 trait HasBreadcrumb
 {
@@ -17,7 +17,7 @@ trait HasBreadcrumb
 
     private function getStorageComponentsItem(): array
     {
-        return [route('admin.storage-components-page') => 'Компоненты склада'];
+        return [route('admin.components-page') => 'Компоненты'];
     }
     private function getLaboratoryItem(): array
     {
@@ -27,12 +27,12 @@ trait HasBreadcrumb
 
     private function getStorageComponentCreateItem(): array
     {
-        return [route('admin.storage-component-create-page') => 'Создать'];
+        return [route('admin.component-create-page') => 'Создать'];
     }
 
-    private function getStorageComponentEditItem(StorageComponent $storageComponent): array
+    private function getStorageComponentEditItem(Component $storageComponent): array
     {
-        return [route('admin.storage-component-edit-page', $storageComponent) => 'Редактировать'];
+        return [route('admin.component-edit-page', $storageComponent) => 'Редактировать'];
     }
     private function getLaboratoryEditItem(Laboratory $laboratory): array
     {
@@ -57,7 +57,7 @@ trait HasBreadcrumb
         return $this->getStorageComponentsItem() + $this->getStorageComponentCreateItem();
     }
 
-    private function getStorageComponentEditPageBreadcrumb(StorageComponent $storageComponent): array
+    private function getStorageComponentEditPageBreadcrumb(Component $storageComponent): array
     {
         return $this->getStorageComponentsItem() + $this->getStorageComponentEditItem($storageComponent);
     }

@@ -17,7 +17,7 @@ trait HasLaboratoryForm
     ];
     public $name = '';
     public $description = '';
-    public array $storage_component_ids = [];
+    public array $component_ids = [];
 
     public function showTab($tabKey): void
     {
@@ -28,7 +28,7 @@ trait HasLaboratoryForm
     {
         $this->name = $laboratory->name;
         $this->description = $laboratory->description;
-        $this->storage_component_ids = $laboratory->storageComponents()->pluck('id')->toArray();
+        $this->component_ids = $laboratory->components()->pluck('id')->toArray();
     }
 
     public function rules(): array

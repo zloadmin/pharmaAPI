@@ -33,10 +33,10 @@
                                     </a>
                                 </li>
                                 <li class="side-nav-item">
-                                    <a href="{{ route('admin.storage-components-page') }}" class="side-nav-link"
+                                    <a href="{{ route('admin.components-page') }}" class="side-nav-link"
                                        wire:navigate>
                                         <i class="uil-flask"></i>
-                                        <span>Компоненты склада</span>
+                                        <span>Компоненты</span>
                                     </a>
                                 </li>
                                 <li class="side-nav-item">

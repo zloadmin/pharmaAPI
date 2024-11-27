@@ -1,9 +1,9 @@
 <!--- Компаненты Field --->
 <div class="form-group">
     <label for="storage_component_ids">Компоненты</label>
-    <select class="form-control @error('storage_component_ids') is-invalid @enderror"
-            wire:model="storage_component_ids" multiple style="height: 300px">
-        @foreach($storageComponents as $id => $name)
+    <select class="form-control @error('component_ids') is-invalid @enderror"
+            wire:model="component_ids" multiple style="height: 300px">
+        @foreach($components as $id => $name)
             <option value="{{ $id }}">{{ $name }}</option>
         @endforeach
     </select>
