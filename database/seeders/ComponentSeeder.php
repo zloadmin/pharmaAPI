@@ -252,8 +252,10 @@ class ComponentSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach ($this->list as $item) {
-            $item['short_name'] = Str::limit($item['name'], 15);
+        foreach ($this->list as $key => $item) {
+
+            $item['name'] = $key;
+            $item['short_name'] = $key;
             Component::factory()->create($item);
         }
     }
