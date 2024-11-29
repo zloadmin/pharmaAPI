@@ -7,19 +7,14 @@
         <div class="title">Выбрать комнату</div>
 
         <div class="items">
-            <div><a href="#">
+            <div><a href="{{ route('index-stage', $session) }}">
                     <div class="number"><span></span></div>
                     <div>Лаборатория</div>
                 </a></div>
 
-            <div><a href="#">
+            <div><a href="{{ route('storage-stage', $session) }}" wire:navigate>
                     <div class="number"><span></span></div>
-                    <div>Хроматограф</div>
-                </a></div>
-
-            <div><a href="#">
-                    <div class="number"><span></span></div>
-                    <div>Приготовление растворов</div>
+                    <div>Склад</div>
                 </a></div>
 
             <div><a href="{{ route('weighting-stage', $session) }}" wire:navigate>
@@ -27,10 +22,21 @@
                     <div>Весовая</div>
                 </a></div>
 
-            <div><a href="{{ route('storage-stage', $session) }}" wire:navigate>
+
+
+            <div><a href="#">
                     <div class="number"><span></span></div>
-                    <div>Склад</div>
+                    <div>Приготовление растворов</div>
                 </a></div>
+
+            <div><a href="#">
+                    <div class="number"><span></span></div>
+                    <div>Хроматограф</div>
+                </a></div>
+
+
+
+
         </div>
     </div>
 </section>
