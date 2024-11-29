@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Pages\StorageComponent;
 
 use App\Enums\Component\ComponentType;
+use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Livewire\Admin\Pages\StorageComponent\Traits\HasStorageComponentForm;
 use App\Livewire\Admin\Traits\HasBreadcrumb;
 use App\Livewire\Admin\Traits\HasRedirects;
@@ -23,13 +24,15 @@ class StorageComponentEditPage extends LivewireComponent
     public function rules(): array
     {
         return [
-            'name'          => ['required', 'string', 'max:250'],
-            'short_name'    => ['required', 'string', 'max:15'],
-            'description'   => ['required', 'string'],
-            'type'          => ['required', Rule::in(ComponentType::values())],
-            'image'         => ['nullable', 'image'],
-            'padding_top'   => ['required', 'numeric', 'min:0.001', 'max:100'],
-            'padding_right' => ['required', 'numeric', 'min:0.001', 'max:100'],
+            'name'            => ['required', 'string', 'max:250'],
+            'short_name'      => ['required', 'string', 'max:15'],
+            'description'     => ['required', 'string'],
+            'type'            => ['required', Rule::in(ComponentType::values())],
+            'image'           => ['nullable', 'image'],
+            'padding_top'     => ['required', 'numeric', 'min:0.001', 'max:100'],
+            'padding_right'   => ['required', 'numeric', 'min:0.001', 'max:100'],
+            'on_scales_place' => ['required', Rule::in(SessionComponentPlace::getOnScalesValues())],
+            'weight'          => ['numeric', 'min:0', 'max:10']
         ];
     }
 
@@ -89,6 +92,8 @@ class StorageComponentEditPage extends LivewireComponent
         $this->type = $storageComponent->type->value;
         $this->padding_top = $storageComponent->padding_top;
         $this->padding_right = $storageComponent->padding_right;
+        $this->on_scales_place = $storageComponent->on_scales_place;
+        $this->weight = $storageComponent->weight;
     }
 
 

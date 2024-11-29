@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Component\ComponentType;
+use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Models\Component;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,16 +15,15 @@ return new class extends Migration {
     {
         Schema::create('components', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('short_name');
-            $table->decimal('padding_top', 5, 3)->default(0);
-            $table->decimal('padding_right', 5, 3)->default(0);
-            $table->text('description');
-            $table->string('image');
-            $table->enum('type', ComponentType::values());
-            foreach (Component::$booleanFields as $field) {
-                $table->boolean($field['name'])->default(false)->comment($field['label']);
-            }
+            $table->string('name')->comment('Назавние');
+            $table->string('short_name')->comment('Короткое название');
+            $table->decimal('padding_top', 5, 3)->default(0)->comment('Отступ сверху');
+            $table->decimal('padding_right', 5, 3)->default(0)->comment('Отступ справа');
+            $table->text('description')->comment('Описание');
+            $table->string('image')->comment('Изображение');
+            $table->enum('type', ComponentType::values())->comment('type');
+            $table->enum('on_scales_place', SessionComponentPlace::getOnScalesValues());
+            $table->decimal('weight', 4)->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

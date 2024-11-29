@@ -15,6 +15,11 @@
                     wire:click="showModalTableComponent({{ $sessionComponent->id }})"
                  @endif
             >
+                <div class="icons column">
+                    @if($sessionComponent->is_weighed)
+                        <div class="text">{{ $sessionComponent->weighed_value }}</div>
+                    @endif
+                </div>
                 <div class="thumb">
                     <img src="{{ $sessionComponent->component->image_url }}" alt="" loading="lazy">
                 </div>

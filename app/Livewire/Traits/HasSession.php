@@ -21,6 +21,18 @@ trait HasSession
         $this->sessionModel = $this->getSession();
     }
 
+    public function getSessionScalesWeightCalibration(): float
+    {
+        return $this->sessionModel->scales_weight_calibration;
+    }
+    public function setSessionScalesWeightCalibration(float $value): void
+    {
+
+        $this->sessionModel->update([
+            'scales_weight_calibration' => $value
+        ]);
+    }
+
     public function getSession(): LaboratorySession
     {
         return LaboratorySession::where('uuid', $this->session)->firstOrFail();

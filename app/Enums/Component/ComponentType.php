@@ -10,14 +10,13 @@ enum ComponentType: string
     use Arrayable;
     use Randomable;
 
-    case Stuff = 'Stuff';
     case Loose = 'Loose';
     case Liquid = 'Liquid';
+
 
     public function label(): string
     {
         return match ($this) {
-            self::Stuff => 'Посуда',
             self::Loose => 'Сыпучий',
             self::Liquid => 'Жидкий',
         };
@@ -25,7 +24,7 @@ enum ComponentType: string
     public function badge(): string
     {
         return match ($this) {
-            self::Stuff => 'success',
+//            self::Stuff => 'success',
             self::Loose => 'warning',
             self::Liquid => 'primary',
         };

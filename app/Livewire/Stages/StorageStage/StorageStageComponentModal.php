@@ -86,13 +86,14 @@ class StorageStageComponentModal extends LivewireComponent
 
     private function storeToCart(): void
     {
-        if ($this->component->type == ComponentType::Stuff) {
-            for ($i = 0; $i < $this->value; $i++) {
-                $this->insertToCart(1);
-            }
-        } else {
-            $this->insertToCart($this->value);
-        }
+        $this->insertToCart(1);
+//        if ($this->component->type == ComponentType::Stuff) {
+//            for ($i = 0; $i < $this->value; $i++) {
+//                $this->insertToCart(1);
+//            }
+//        } else {
+//            $this->insertToCart($this->value);
+//        }
 
     }
 

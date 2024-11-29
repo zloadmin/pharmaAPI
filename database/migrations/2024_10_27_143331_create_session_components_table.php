@@ -20,6 +20,17 @@ return new class extends Migration {
             $table->unsignedBigInteger('valueStuff')->nullable();
             $table->decimal('valueLoose', 7, 5)->nullable();
             $table->decimal('valueLiquid', 7, 5)->nullable();
+
+            // scales
+            $table->boolean('is_weighed')->default(false);
+            $table->decimal('weighed_value', 8, 4)->nullable();
+            $table->unsignedBigInteger('weighed_left_component_id')->nullable();
+            $table->foreign('weighed_left_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->unsignedBigInteger('weighed_right_component_id')->nullable();
+            $table->foreign('weighed_right_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->unsignedBigInteger('weighed_bottom_component_id')->nullable();
+            $table->foreign('weighed_bottom_component_id')->references('id')->on('session_components')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

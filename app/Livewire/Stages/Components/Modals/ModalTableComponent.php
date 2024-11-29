@@ -47,11 +47,12 @@ class ModalTableComponent extends ModalBase
             $this->setSessionComponent();
         }
     }
-    public function moveToScalesLeftBox() : void
+    public function moveToScales() : void
     {
         if($this->sessionComponent) {
-            $this->sessionComponent->moveToScales(SessionComponentPlace::onScalesLeftBox);
+            $this->sessionComponent->moveToScales($this->sessionComponent->component->on_scales_place);
             $this->dispatch('session-component-moved-to-scales');
+            $this->setSessionComponent();
         }
     }
     public function close(): void

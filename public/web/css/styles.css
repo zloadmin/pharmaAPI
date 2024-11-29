@@ -1522,12 +1522,60 @@ header .select_room_btn .icon
     background: rgba(47, 94, 160, .11);
     box-shadow: 6px 6px 14px 0 rgba(1, 33, 69, .15);
 }
+.weight .interaction_data .object .remove_btn
+{
+    position: absolute;
+    z-index: 5;
+    top: 3px;
+    right: 3px;
 
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
 
-.bottom_panel .item .remove_btn .icon
+    width: 16px;
+    height: 16px;
+
+    border-radius: 10px 4px 10px 10px;
+    background: rgba(47, 94, 160, .11);
+    box-shadow: 6px 6px 14px 0 rgba(1, 33, 69, .15);
+}
+.scales_additional_block {
+    position: relative;
+}
+.weight .interaction_data .scales_additional_block .remove_btn
+{
+    position: absolute;
+    z-index: 5;
+    top: 3px;
+    right: 3px;
+
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    width: 16px;
+    height: 16px;
+
+    border-radius: 10px 4px 10px 10px;
+    background: rgba(47, 94, 160, .11);
+    box-shadow: 6px 6px 14px 0 rgba(1, 33, 69, .15);
+}
+.weight .interaction_data .scales_additional_block .remove_btn .icon
 {
     display: block;
+    width: 10px;
+    height: 2px;
+}
 
+
+.weight .interaction_data .object .remove_btn .icon
+{
+    display: block;
     width: 10px;
     height: 2px;
 }
@@ -2802,7 +2850,7 @@ header .select_room_btn .icon
     content: '';
     pointer-events: none;
 
-    background: url(../images/objects_move_arrow.svg) 0 0/100% 100% no-repeat;
+    /*background: url(../images/objects_move_arrow.svg) 0 0/100% 100% no-repeat;*/
 }
 
 

@@ -23,7 +23,7 @@
         </div>
 
         <div class="btns">
-            <button wire:click="moveToScalesLeftBox" type="button" class="btn interaction_btn">Взаимодействовать</button>
+            <button wire:click="moveToScales" type="button" class="btn interaction_btn">Взаимодействовать</button>
             <button wire:click="moveToSink" type="button" class="btn border">Убрать в мойку</button>
             <button wire:click="moveToCart" type="button" class="btn border">Переместить в инвентарь</button>
         </div>

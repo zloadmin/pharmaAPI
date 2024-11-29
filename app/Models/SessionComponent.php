@@ -112,4 +112,5 @@ class SessionComponent extends Model
         $this->changePlace($place);
     }
 
+
 }

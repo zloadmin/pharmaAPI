@@ -1,4 +1,8 @@
 <div class="object">
+    <button class="remove_btn" type="button" wire:click="moveToTable('{{ $sessionComponent->component->on_scales_place }}')">
+        <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_remove"></use></svg>
+    </button>
+
     <div class="name">{{ $sessionComponent->component->name }}</div>
 
     <div class="overflow">

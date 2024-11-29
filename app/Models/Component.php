@@ -17,12 +17,10 @@ class Component extends Model
 
     protected $guarded = [];
     protected $casts = [
-        'type' => ComponentType::class
+        'type' => ComponentType::class,
+        'on_scales_place' => SessionComponentPlace::class
     ];
-    public static array $booleanFields = [
-        ['name' => 'main_component', 'label' => 'Основной компонент', 'description' => 'Может находится на весах в левой и правой части'],
-        ['name' => 'additional_component', 'label' => 'Вспомогательный  компонент', 'description' => 'Может находится на весах в нижней части']
-    ];
+
 
     public static function getDropdownArray(): array
     {
@@ -36,41 +34,45 @@ class Component extends Model
 
     public function defaultValue(): float|int
     {
-        return match ($this->type) {
-            ComponentType::Stuff => 1,
-            ComponentType::Loose, ComponentType::Liquid => 0.00001,
-        };
+        return  1;
+//        return match ($this->type) {
+////            ComponentType::Stuff => 1,
+//            ComponentType::Loose, ComponentType::Liquid => 0.00001,
+//        };
     }
 
     public function minValue(): float|int
     {
-        return match ($this->type) {
-            ComponentType::Stuff => 1,
-            ComponentType::Loose, ComponentType::Liquid => 0.00001,
-        };
+        return  1;
+//        return match ($this->type) {
+////            ComponentType::Stuff => 1,
+//            ComponentType::Loose, ComponentType::Liquid => 0.00001,
+//        };
     }
 
     public function maxValue(): float|int
     {
-        return match ($this->type) {
-            ComponentType::Stuff => 99,
-            ComponentType::Loose, ComponentType::Liquid => 10,
-        };
+        return 99;
+//        return match ($this->type) {
+////            ComponentType::Stuff => 99,
+//            ComponentType::Loose, ComponentType::Liquid => 10,
+//        };
     }
 
     public function stepValue(): float|int
     {
-        return match ($this->type) {
-            ComponentType::Stuff => 1,
-            ComponentType::Loose, ComponentType::Liquid => 0.00001,
-        };
+        return 1;
+//        return match ($this->type) {
+////            ComponentType::Stuff => 1,
+//            ComponentType::Loose, ComponentType::Liquid => 0.00001,
+//        };
     }
 
     public function getValueFieldName(): string
     {
         switch ($this->type) {
-            case ComponentType::Stuff:
-                return 'valueStuff';
+//            case ComponentType::Stuff:
+//                return 'valueStuff';
             case ComponentType::Loose:
                 return 'valueLoose';
             case ComponentType::Liquid:

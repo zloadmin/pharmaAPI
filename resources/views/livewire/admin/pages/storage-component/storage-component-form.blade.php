@@ -90,19 +90,32 @@
             </span>
         @enderror
     </div>
+    <!--- Положение на весах Field --->
+    <div class="form-group">
+        <label for="on_scales_place">Положение на весах</label>
+        <select class="form-control @error('on_scales_place') is-invalid @enderror" wire:model="on_scales_place">
+            <option value=""></option>
+            @foreach(\App\Enums\SessionComponent\SessionComponentPlace::getOnScales() as $item)
+                <option value="{{ $item->value }}">{{ $item->label() }}</option>
+            @endforeach
+        </select>
+        @error('on_scales_place')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+    <!--- Вес Field --->
+    <div class="form-group">
+        <label for="weight">Вес</label>
+        <input class="form-control @error('weight') is-invalid @enderror" type="number" step="0.01" min="0" max="10" wire:model="weight">
+        @error('weight')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
 
-    @foreach(\App\Models\Component::$booleanFields as $field)
-        <!--- {{ $field['label'] }} Field --->
-        <div class="form-check">
-          <input class="form-check-input @error($field['name']) is-invalid @enderror" type="checkbox" wire:model="{{ $field['name'] }}" id="checkbox_{{ $field['name'] }}">
-          <label class="form-check-label" for="checkbox_{{ $field['name'] }}">
-            {{ $field['label'] }} ({{ $field['description'] }})
-          </label>
-          @error($field['name'])
-        	<div class="invalid-feedback">{{ $message }}</div>
-          @enderror
-        </div>
-    @endforeach
     <button class="btn btn-primary pull-right float-right" wire:loading.attr="disabled" wire:target="save">
         <div wire:loading.delay wire:target="save">
             <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>

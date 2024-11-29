@@ -33,6 +33,7 @@ class WeightingTable extends Component
     #[On('session-component-moved-to-sink')]
     #[On('session-component-moved-to-cart')]
     #[On('session-component-moved-to-scales')]
+    #[On('session-component-moved-to-table')]
     public function updateList(): void
     {
         $this->setSessionComponents($this->session);

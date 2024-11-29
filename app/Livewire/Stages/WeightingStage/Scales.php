@@ -5,6 +5,7 @@ namespace App\Livewire\Stages\WeightingStage;
 use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Livewire\Traits\HasSession;
 use App\Models\SessionComponent;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -12,9 +13,12 @@ class Scales extends Component
 {
     use HasSession;
 
-    public ?SessionComponent $leftBoxComponent;
-    public ?SessionComponent $rightBoxComponent;
-    public ?SessionComponent $bottomBoxComponent;
+    public ?SessionComponent $leftBoxComponent = null;
+    public ?SessionComponent $rightBoxComponent = null;
+    public ?SessionComponent $bottomBoxComponent = null;
+    public $weight = 0;
+    public bool $isShowRange = false;
+    public float $value = 0;
 
     public function mount(string $session)
     {
@@ -27,8 +31,30 @@ class Scales extends Component
         $this->setLeftBoxComponent();
         $this->setRightBoxComponent();
         $this->setBottomBoxComponent();
+        $this->setScalesWeight();
+        $this->setIsShowRange();
+        $this->dispatch('scales-init');
     }
 
+    public function weigh()
+    {
+        if($this->isShowRange && $this->value > 0) {
+            // 1 save session component as weighed
+            $this->leftBoxComponent->update([
+                'is_weighed'                  => true,
+                'weighed_value'               => $this->value,
+                'weighed_left_component_id'   => $this->leftBoxComponent->id,
+                'weighed_right_component_id'  => $this->rightBoxComponent->id,
+                'weighed_bottom_component_id' => $this->bottomBoxComponent->id,
+            ]);
+            // 2 move all to table
+            $this->leftBoxComponent->moveToTable();
+            $this->rightBoxComponent->moveToTable();
+            $this->bottomBoxComponent->moveToTable();
+            // 3 dispatch events
+            $this->dispatch('session-component-moved-to-table');
+        }
+    }
 
     public function render()
     {
@@ -36,9 +62,16 @@ class Scales extends Component
     }
 
     #[On('session-component-moved-to-scales')]
+    #[On('session-component-moved-to-table')]
     public function updateScales(): void
     {
         $this->init($this->session);
+    }
+
+
+    public function submit()
+    {
+
     }
 
     private function setLeftBoxComponent(): void
@@ -54,6 +87,44 @@ class Scales extends Component
     private function setBottomBoxComponent(): void
     {
         $this->bottomBoxComponent = $this->getSessionComponentByPlace(SessionComponentPlace::onScalesBottomBox);
+    }
+
+    private function getWeightOfComponents(): float
+    {
+        $weight = 0;
+        if ($this->leftBoxComponent) {
+            $weight += $this->leftBoxComponent->component->weight;
+        }
+        if ($this->rightBoxComponent) {
+            $weight += $this->rightBoxComponent->component->weight;
+        }
+        if ($this->bottomBoxComponent) {
+            $weight += $this->bottomBoxComponent->component->weight;
+        }
+
+        return $weight;
+    }
+
+    private function setScalesWeight(): void
+    {
+        $this->weight = $this->getWeightOfComponents() - $this->sessionModel->scales_weight_calibration;
+    }
+
+    public function moveToTable(SessionComponentPlace $place)
+    {
+
+        $sessionComponent = $this->getSessionComponentByPlace($place);
+        if ($sessionComponent) {
+            $sessionComponent->moveToTable();
+            $this->dispatch('session-component-moved-to-table');
+        }
+    }
+
+    public function calibration(): void
+    {
+
+        $this->setSessionScalesWeightCalibration($this->getWeightOfComponents());
+        $this->init($this->session);
     }
 
     public function getSessionComponentByPlace(SessionComponentPlace $place): ?SessionComponent
@@ -82,4 +153,25 @@ class Scales extends Component
     {
         $this->dispatch('set-table-choose-mode', $place);
     }
+
+    public function isAllBoxHasComponent()
+    {
+        return $this->leftBoxComponent && $this->rightBoxComponent && $this->bottomBoxComponent;
+    }
+
+    public function isAllBoxComponentsHasSameType()
+    {
+        return $this->leftBoxComponent->component->type == $this->rightBoxComponent->component->type
+            && $this->rightBoxComponent->component->type == $this->bottomBoxComponent->component->type;
+    }
+
+    private function setIsShowRange(): void
+    {
+//        dd($this->leftBoxComponent->component->type, $this->rightBoxComponent->component->type, $this->bottomBoxComponent->component->type);
+
+        $this->isShowRange = $this->isAllBoxHasComponent() && $this->isAllBoxComponentsHasSameType();
+
+    }
+
+
 }

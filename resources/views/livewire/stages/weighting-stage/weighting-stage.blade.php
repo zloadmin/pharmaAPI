@@ -10,6 +10,7 @@
         <livewire:stages.weighting-stage.scales :session='$session'/>
 
 
+
 {{--        <div class="total_data">--}}
 {{--            <div class="status">Статус = <span>Дефолт</span></div>--}}
 

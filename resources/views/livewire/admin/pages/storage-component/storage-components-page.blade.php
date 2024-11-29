@@ -19,6 +19,8 @@
             <th>Название</th>
             <th>Короткое название</th>
             <th>Тип</th>
+            <th>Вес</th>
+            <th>Положение на весах</th>
             <th>Описание</th>
             <th>Добавлен</th>
             <th>Действия</th>
@@ -36,7 +38,12 @@
                     <span class="badge badge-{{ $component->type->badge() }}">
                         {{ $component->type->label() }}
                     </span>
-
+                </td>
+                <td>{{ $component->weight }}</td>
+                <td>
+                    <span class="badge badge-{{ $component->on_scales_place->badge() }}">
+                        {{ $component->on_scales_place->label() }}
+                    </span>
                 </td>
                 <td>{{ $component->description }}</td>
                 <td>{{ $component->created_at->diffForHumans() }}</td>

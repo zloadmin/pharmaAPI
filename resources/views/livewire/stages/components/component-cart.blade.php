@@ -33,6 +33,11 @@
                                 <button class="remove_btn" type="button" wire:click="removeItem({{ $cartItem->id }})">
                                     <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_remove"></use></svg>
                                 </button>
+                                <div class="icons column">
+                                    @if($cartItem->is_weighed)
+                                        <div class="text">{{ $cartItem->weighed_value }}</div>
+                                    @endif
+                                </div>
                                 <div class="thumb">
                                     <img src="{{ $cartItem->component->image_url }}" alt="" loading="lazy">
                                 </div>

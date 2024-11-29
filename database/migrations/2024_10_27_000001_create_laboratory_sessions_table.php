@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->uuid();
             $table->json('settings')->nullable();
+            $table->decimal('scales_weight_calibration', 4)->default(0);
             $table->timestamps();
         });
     }
