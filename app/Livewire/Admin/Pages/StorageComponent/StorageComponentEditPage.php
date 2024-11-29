@@ -23,6 +23,7 @@ class StorageComponentEditPage extends LivewireComponent
 
     public function rules(): array
     {
+
         return [
             'name'            => ['required', 'string', 'max:250'],
             'short_name'      => ['required', 'string', 'max:15'],
@@ -94,7 +95,7 @@ class StorageComponentEditPage extends LivewireComponent
         $this->type = $storageComponent->type->value;
         $this->padding_top = $storageComponent->padding_top;
         $this->padding_right = $storageComponent->padding_right;
-        $this->on_scales_place = $storageComponent->on_scales_place;
+        $this->on_scales_place = $storageComponent->on_scales_place->value;
         $this->weight = $storageComponent->weight;
     }
 

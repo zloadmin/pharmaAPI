@@ -3283,7 +3283,7 @@ header .select_room_btn .icon
 .weight .total_data
 {
     position: absolute;
-    z-index: 3;
+    z-index: 5;
     bottom: 166px;
     left: 17.083%;
 
