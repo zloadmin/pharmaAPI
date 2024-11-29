@@ -71,6 +71,8 @@ class StorageComponentEditPage extends LivewireComponent
         }
         $this->storageComponent->padding_top = $this->padding_top;
         $this->storageComponent->padding_right = $this->padding_right;
+        $this->storageComponent->on_scales_place = $this->on_scales_place;
+        $this->storageComponent->weight = $this->weight;
         $this->storageComponent->update();
     }
 
