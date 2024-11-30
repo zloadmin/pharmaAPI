@@ -11,11 +11,11 @@
                 <span>Весовая</span>
             </a>
 
-            <a href="#" wire:navigate>
+            <a href="{{ route('cooking-stage', $session) }}" wire:navigate>
                 <span>Приготовление<br> растворов</span>
             </a>
 
-            <a href="#" wire:navigate>
+            <a href="{{ route('chromatograph-stage', $session) }}" wire:navigate>
                 <span>Хроматограф</span>
             </a>
         </div>

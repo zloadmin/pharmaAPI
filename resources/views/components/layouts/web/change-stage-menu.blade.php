@@ -24,12 +24,12 @@
 
 
 
-            <div><a href="#">
+            <div><a href="{{ route('cooking-stage', $session) }}" wire:navigate>
                     <div class="number"><span></span></div>
                     <div>Приготовление растворов</div>
                 </a></div>
 
-            <div><a href="#">
+            <div><a href="{{ route('chromatograph-stage', $session) }}" wire:navigate>
                     <div class="number"><span></span></div>
                     <div>Хроматограф</div>
                 </a></div>

@@ -3,13 +3,12 @@
         <div class="current_task">
             <div class="current">
                 <div>Текущая задача: <b>1. Заполните расчетный лист в соответсвии с фармокопейной статьей</b></div>
-
-                <button class="start_btn">
+                <button class="start_btn" type="button">
                     <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_video_play"></use></svg>
                     <span>начать</span>
                 </button>
 
-                <button class="spoler_btn">
+                <button class="spoler_btn" type="button" onclick="showCurrentTask()">
                     <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
                 </button>
             </div>
@@ -51,7 +50,7 @@
 
             <div class="menu">
                 <div class="menu_item">
-                    <a href="/">
+                    <a href="#">
                         <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_menu1"></use></svg>
                         <span><b>ФС</b></span>
                     </a>
@@ -60,28 +59,28 @@
                 <div class="divider"></div>
 
                 <div class="menu_item">
-                    <button class="btn modal_btn" data-modal="tasks_modal">
+                    <button class="btn modal_btn" onclick="showModal('tasks_modal')">
                         <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_menu2"></use></svg>
                         <span>Задание</span>
                     </button>
                 </div>
 
                 <div class="menu_item">
-                    <button class="btn modal_btn" data-modal="notepad_modal">
+                    <button class="btn modal_btn" onclick="showModal('notepad_modal')">
                         <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_menu3"></use></svg>
                         <span>Блокнот</span>
                     </button>
                 </div>
 
                 <div class="menu_item">
-                    <button class="btn modal_btn" data-modal="pay_slip_modal">
+                    <button class="btn modal_btn" onclick="showModal('pay_slip_modal')">
                         <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_menu4"></use></svg>
                         <span>Расчетный лист</span>
                     </button>
                 </div>
 
                 <div class="menu_item">
-                    <button class="btn modal_btn" data-modal="periodic_table_modal">
+                    <button class="btn modal_btn" onclick="showModal('periodic_table_modal')">
                         <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_menu5"></use></svg>
                         <span>Таблица менделеева</span>
                     </button>

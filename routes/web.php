@@ -7,6 +7,8 @@ use App\Livewire\Admin\Pages\Laboratory\LaboratoriesPage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentCreatePage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentEditPage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentsPage;
+use App\Livewire\Stages\ChromatographStage\ChromatographStage;
+use App\Livewire\Stages\CookingStage\CookingStage;
 use App\Livewire\Stages\IndexStage;
 use App\Livewire\Stages\StorageStage\StorageStage;
 use App\Livewire\Stages\WeightingStage\WeightingStage;
@@ -28,6 +30,8 @@ Route::get('/', function () {
 Route::get('/stage/index/{session}', IndexStage::class)->name('index-stage');
 Route::get('/stage/storage/{session}', StorageStage::class)->name('storage-stage');
 Route::get('/stage/weighting/{session}', WeightingStage::class)->name('weighting-stage');
+Route::get('/stage/chromatograph/{session}', ChromatographStage::class)->name('chromatograph-stage');
+Route::get('/stage/cooking/{session}', CookingStage::class)->name('cooking-stage');
 
 Route::prefix('admin')->group(function () {
     Route::get('/', DashboardPage::class)->name('admin.dashboard-page');

@@ -1,0 +1,271 @@
+<section class="modal" id="tasks_modal">
+    <div class="modal_title">Задания</div>
+
+    <div class="head">
+        <div class="exp">Начните проходить обучение и отслеживайте свой прогресс</div>
+
+        <div class="ticket">
+            <img src="/web/images/ic_task_ticket.svg" alt="" loading="lazy">
+            <span>Билет: №1</span>
+        </div>
+
+        <div class="count">
+            <img src="/web/images/ic_task.svg" alt="" loading="lazy">
+            <span>Задач: 4</span>
+        </div>
+
+        <div class="progress">68%</div>
+    </div>
+
+    <div class="filter">
+        <button class="btn active" data-filter="all">Все</button>
+
+        <button class="btn" data-filter="in_process">В процессе</button>
+
+        <button class="btn" data-filter="finished">Завершенные</button>
+    </div>
+
+    <div class="list">
+        <div class="task all in_process">
+            <div class="status">В процессе</div>
+
+            <div class="info">
+                <div class="number">01</div>
+
+                <div class="type">Задача</div>
+
+                <div class="level">Простой</div>
+            </div>
+
+            <div>
+                <div class="name">Основы смешивания химических ингридиентов</div>
+
+                <div class="desc">Знакомство со стеклянной тарой для взвешивания. Общая идея смешивания.  Прочие идеи и лайфхаки.</div>
+            </div>
+
+            <div class="link">
+                <a href="/task_modal2.html" data-type="ajax">
+                    <span>Открыть</span>
+                    <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_arrow_hor"></use></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="task all finished error">
+            <div class="status">Ошибка</div>
+
+            <div class="info">
+                <div class="number">02</div>
+
+                <div class="type">Задача</div>
+
+                <div class="level">Простой</div>
+            </div>
+
+            <div>
+                <div class="name">Основы смешивания химических ингридиентов</div>
+
+                <div class="desc">Знакомство со стеклянной тарой для взвешивания. Общая идея смешивания.  Прочие идеи и лайфхаки.</div>
+            </div>
+
+            <div class="link">
+                <a href="/task_modal3.html" data-type="ajax">
+                    <span>Открыть</span>
+                    <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_arrow_hor"></use></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="task all finished success">
+            <div class="status">Успех</div>
+
+            <div class="info">
+                <div class="number">03</div>
+
+                <div class="type">Задача</div>
+
+                <div class="level">Простой</div>
+            </div>
+
+            <div>
+                <div class="name">Основы смешивания химических ингридиентов</div>
+
+                <div class="desc">Знакомство со стеклянной тарой для взвешивания. Общая идея смешивания.  Прочие идеи и лайфхаки.</div>
+            </div>
+
+            <div class="link">
+                <a href="/task_modal3.html" data-type="ajax">
+                    <span>Открыть</span>
+                    <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_arrow_hor"></use></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="task all new">
+            <div class="status">Новое</div>
+
+            <div class="info">
+                <div class="number">04</div>
+
+                <div class="type">Задача</div>
+
+                <div class="level">Простой</div>
+            </div>
+
+            <div>
+                <div class="name">Основы смешивания химических ингридиентов</div>
+
+                <div class="desc">Знакомство со стеклянной тарой для взвешивания. Общая идея смешивания.  Прочие идеи и лайфхаки.</div>
+            </div>
+
+            <div class="link">
+                <a href="/task_modal.html" data-type="ajax">
+                    <span>Открыть</span>
+                    <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_arrow_hor"></use></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="modal" id="notepad_modal">
+    <div class="modal_title">Блокнот</div>
+
+    <div class="modal_desc">Заметки будут здесь храниться только в текущей сесии (до перезагрузки браузера)</div>
+
+    <div class="list">
+        <div class="item">
+            <ul>
+                <li>Н2O – вода.</li>
+                <li>СО2 – углекислый газ.</li>
+                <li>C2H5OH – этиловый спирт (из которого делают водку).</li>
+                <li>NaCl – поваренная соль.</li>
+                <li>С – алмаз (и графит вместе с ним)</li>
+            </ul>
+
+            <p>AgBrбромид серебра(I)7785-23-1</p>
+
+            <p>AgIO3иодат серебра7783-97-3</p>
+        </div>
+    </div>
+
+    <form action="" class="form">
+        <div class="line">
+            <div class="field">
+                <input type="text" name="" value="" class="input" placeholder="Начните вводить ваш текст">
+            </div>
+        </div>
+    </form>
+</section>
+<section class="modal" id="pay_slip_modal">
+    <div class="status_wrap">
+        <div class="status">
+            <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_video_play"></use></svg>
+            <span>В процессе</span>
+        </div>
+    </div>
+
+    <div class="modal_title">Расчетный лист</div>
+
+    <div class="modal_desc">Вам необходимо внести молекулярную массу компонентов: Для этого восползуйтесь таблицей «Менделеева» и калькулятором.</div>
+
+    <div class="list">
+        <div class="item">
+            <div class="thumb">
+                <img src="/web/images/tmp/pay_slip_modal_thumb.png" alt="" loading="lazy">
+            </div>
+
+            <div>
+                <div class="indicator grey"></div>
+
+                <div class="name">Компонент - реанет химический №1, для  хим раствора сериала «Во все тяжкие»</div>
+
+                <div class="value">
+                    <input type="number" inputmode="numeric" name="" value="" class="input" placeholder="0.000">
+
+                    <div class="unit">
+                        <span>(мл)</span>
+                        <svg class="arr"><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
+                    </div>
+                </div>
+
+                <button class="add_btn">Внести</button>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="thumb">
+                <img src="/web/images/tmp/pay_slip_modal_thumb.png" alt="" loading="lazy">
+            </div>
+
+            <div>
+                <div class="indicator red"></div>
+
+                <div class="name">Компонент - реанет химический №1, для  хим раствора сериала «Во все тяжкие»</div>
+
+                <div class="value">
+                    <input type="number" inputmode="numeric" name="" value="" class="input" placeholder="0.000">
+
+                    <div class="unit">
+                        <span>(мл)</span>
+                        <svg class="arr"><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
+                    </div>
+                </div>
+
+                <button class="add_btn">Внести</button>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="thumb">
+                <img src="/web/images/tmp/pay_slip_modal_thumb.png" alt="" loading="lazy">
+            </div>
+
+            <div>
+                <div class="indicator green"></div>
+
+                <div class="name">Компонент - реанет химический №1, для  хим раствора сериала «Во все тяжкие»</div>
+
+                <div class="value">
+                    <input type="number" inputmode="numeric" name="" value="" class="input" placeholder="0.000">
+
+                    <div class="unit">
+                        <span>(мл)</span>
+                        <svg class="arr"><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
+                    </div>
+                </div>
+
+                <button class="add_btn">Внести</button>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="thumb">
+                <img src="/web/images/tmp/pay_slip_modal_thumb.png" alt="" loading="lazy">
+            </div>
+
+            <div>
+                <div class="indicator green"></div>
+
+                <div class="name">Компонент - реанет химический №1, для  хим раствора сериала «Во все тяжкие»</div>
+
+                <div class="value">
+                    <input type="number" inputmode="numeric" name="" value="" class="input" placeholder="0.000">
+
+                    <div class="unit">
+                        <span>(мл)</span>
+                        <svg class="arr"><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
+                    </div>
+                </div>
+
+                <button class="add_btn">Внести</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="check_btn">Проверить</button>
+</section>
+<section class="modal" id="periodic_table_modal">
+    <div class="modal_title">Таблица<br> Менделеева</div>
+
+    <img src="/web/images/tmp/periodic_table_img.png" alt="" loading="lazy">
+</section>
