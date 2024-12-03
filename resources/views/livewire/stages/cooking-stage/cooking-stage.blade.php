@@ -471,6 +471,7 @@
             </div>
         </div>
 
+{{--        <livewire:stages.components.modals.modal-cart-component :session='$session' />--}}
         <livewire:stages.components.component-cart :session='$session'/>
     </section>
 

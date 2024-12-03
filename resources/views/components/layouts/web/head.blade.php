@@ -22,9 +22,10 @@
     <meta name="theme-color" content="#2850A8">
 
     <!-- Connecting fonts from Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+{{--    <link rel="preconnect" href="https://fonts.googleapis.com">--}}
+{{--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>--}}
+{{--    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">--}}
+    <link href="/web/css/google-fonts.css" rel="stylesheet">
 
     <!-- Connecting style files -->
     <link rel="stylesheet" href="/web/css/swiper-bundle.min.css" async>

@@ -146,6 +146,7 @@
 
         <img src="/web/images/tmp/chromatograph_img.jpg" alt="" loading="lazy" class="bg">
 
+{{--        <livewire:stages.components.modals.modal-cart-component :session='$session' />--}}
         <livewire:stages.components.component-cart :session='$session'/>
     </section>
 

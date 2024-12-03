@@ -122,3 +122,49 @@ function showModal(modal)
     }])
 }
 
+function initCartSlider()
+{
+
+    const bottomPanelSliders = [],
+        bottomPanelSlider = document.querySelectorAll('.bottom_panel .swiper')
+
+    bottomPanelSlider.forEach((el, i) => {
+        el.classList.add('bottom_panel_s' + i)
+
+        let options = {
+            loop: false,
+            speed: 500,
+            watchSlidesProgress: true,
+            slideActiveClass: 'active',
+            slideVisibleClass: 'visible',
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            },
+            lazy: true,
+            spaceBetween: 16,
+            slidesPerView: 'auto',
+            on: {
+                init: swiper => setHeight(swiper.el.querySelectorAll('.item')),
+                resize: swiper => {
+                    let items = swiper.el.querySelectorAll('.item')
+
+                    items.forEach(el => el.style.height = 'auto')
+
+                    setHeight(items)
+                }
+            }
+        }
+
+        bottomPanelSliders.push(new Swiper('.bottom_panel_s' + i, options))
+    })
+}
+const setHeight = items => {
+    let maxheight = 0
+
+    items.forEach(el => {
+        if (el.offsetHeight > maxheight) maxheight = el.offsetHeight
+    })
+
+    items.forEach(el => el.style.height = maxheight + 'px')
+}

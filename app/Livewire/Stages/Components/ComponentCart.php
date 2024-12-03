@@ -26,6 +26,7 @@ class ComponentCart extends LivewireComponent
         $this->setIsShowModalMoveToTableComponent($isShowModalMoveToTableComponent);
         $this->setFilters();
         $this->setCartStageComponent();
+        $this->dispatch('cart-init');
     }
 
     public function changeFilters()
@@ -43,6 +44,7 @@ class ComponentCart extends LivewireComponent
     private function setCartStageComponent(): void
     {
         $this->cartItems = $this->getCartItemBuilder()->latest()->get();
+        $this->dispatch('cart-init');
     }
 
     public function getCartItemBuilder(): Builder

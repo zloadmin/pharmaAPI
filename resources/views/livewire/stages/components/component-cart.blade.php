@@ -27,6 +27,8 @@
                         <div class="swiper-slide visible swiper-slide-fully-visible active" style="margin-right: 16px;"
                              @if($isShowModalMoveToTableComponent)
                                  wire:click="$dispatch('show-modal-move-to-table-component', { id: {{ $cartItem->id }} })"
+                            @else
+                                 wire:click="$dispatch('show-cart-component-modal', { id: {{ $cartItem->id }} })"
                             @endif
                         >
                             <div class="item">
@@ -47,6 +49,13 @@
                         </div>
                     @endforeach
                 </div>
+                <button class="swiper-button-prev">
+                    <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_arr_hor"></use></svg>
+                </button>
+
+                <button class="swiper-button-next">
+                    <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_arr_hor"></use></svg>
+                </button>
             </div>
         </div>
     </div>
@@ -54,3 +63,12 @@
 </div>
 
 
+
+@script
+<script>
+    $wire.on('cart-init', () => {
+        console.log('cart-init');
+        setTimeout(initCartSlider, 100);
+    });
+</script>
+@endscript
