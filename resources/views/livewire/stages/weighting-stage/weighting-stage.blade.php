@@ -35,3 +35,4 @@
         <livewire:stages.components.component-cart :session='$session' is-show-modal-move-to-table-component="true"/>
 </section>
 </div>
+

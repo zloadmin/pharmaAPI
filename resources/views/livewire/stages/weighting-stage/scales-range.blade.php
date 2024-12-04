@@ -1,9 +1,11 @@
 @if ($this->isShowRange)
 {{--    <div style="border: 2px solid black;">--}}
-        <div class="range range1 rangeBlock" style="display: none">
+        <div class="range range1 rangeBlock" style="display: none"
+{{--        data-value="{{ $leftBoxComponent->isHasWeighedValue() ? $leftBoxComponent->weighed_value : $value }}"--}}
+        >
             <input type="hidden" id="range1" name="range1" value="{{ $value }}">
             <div class="field">
-                <input type="text" inputmode="numeric" name="" value="0.000" class="input from">
+                    <input type="text" inputmode="numeric" name="" value="{{ $value }}" class="input from">
 
                 <div class="unit">
                     <span>(г)</span>

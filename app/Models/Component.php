@@ -83,6 +83,6 @@ class Component extends Model
     public function isCanBeChoose(SessionComponentPlace $place): bool
     {
 
-        return ($this->main_component && $place->isScalesLeftOrRight()) || ($this->additional_component && $place->isScalesBottom());
+        return $this->on_scales_place === $place;
     }
 }

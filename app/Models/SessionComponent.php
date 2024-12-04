@@ -23,6 +23,21 @@ class SessionComponent extends Model
         return $this->hasOne(Component::class, 'id', 'component_id');
     }
 
+    public function weighedLeftComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'weighed_left_component_id');
+    }
+
+    public function weighedRightComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'weighed_right_component_id');
+    }
+
+    public function weighedBottomComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'weighed_bottom_component_id');
+    }
+
     /**
      * Scope a query to only include by session.
      *
@@ -103,13 +118,52 @@ class SessionComponent extends Model
         $this->changePlace(SessionComponentPlace::inSink);
     }
 
-    public function moveToScales(SessionComponentPlace $place): void
+    public function moveToTableIfExistsOnPlace(SessionComponentPlace $place): void
     {
-        // 1 check if exists already comp and move to table them
         $existsSessionComponent = self::bySession($this->session)->byPlace($place)->first();
         $existsSessionComponent?->moveToTable();
-        // 2 change place
-        $this->changePlace($place);
+    }
+
+    public function moveToScales(SessionComponentPlace $place): void
+    {
+
+
+        if ($this->isWeighed() && $this->isExistsWeighedComponents()) {
+            $this->moveToTableAllScalesComponents();
+            $this->moveToScalesWeighedComponents();
+        } else {
+            // 1 check if exists already comp and move to table them
+            $this->moveToTableIfExistsOnPlace($place);
+            // 2 change place
+            $this->changePlace($place);
+        }
+    }
+
+    public function moveToTableAllScalesComponents(): void
+    {
+        $this->moveToTableIfExistsOnPlace(SessionComponentPlace::onScalesLeftBox);
+        $this->moveToTableIfExistsOnPlace(SessionComponentPlace::onScalesRightBox);
+        $this->moveToTableIfExistsOnPlace(SessionComponentPlace::onScalesBottomBox);
+    }
+
+    public function moveToScalesWeighedComponents(): void
+    {
+        $this->weighedLeftComponent->changePlace(SessionComponentPlace::onScalesLeftBox);
+        $this->weighedRightComponent->changePlace(SessionComponentPlace::onScalesRightBox);
+        $this->weighedBottomComponent->changePlace(SessionComponentPlace::onScalesBottomBox);
+    }
+
+    public function isWeighed(): bool
+    {
+        return !!$this->is_weighed;
+    }
+    public function isHasWeighedValue() : bool
+    {
+        return  $this->is_weighed && $this->weighed_value;
+    }
+    public function isExistsWeighedComponents(): bool
+    {
+        return $this->weighedLeftComponent && $this->weighedRightComponent && $this->weighedBottomComponent;
     }
 
 

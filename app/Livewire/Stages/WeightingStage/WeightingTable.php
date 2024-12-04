@@ -40,10 +40,17 @@ class WeightingTable extends Component
     }
 
     #[On('set-table-choose-mode')]
-    public function setChooseMode(SessionComponentPlace $place): void
+    public function setChooseMode(?SessionComponentPlace $place): void
     {
         Log::info('WeightingTable::setChooseMode', [$place]);
         $this->chooseModePlace = $place;
+        $this->setSessionComponents();
+    }
+
+    #[On('unset-table-choose-mode')]
+    public function unsetTableChooseMode(): void
+    {
+        $this->chooseModePlace = null;
         $this->setSessionComponents();
     }
 
@@ -77,8 +84,9 @@ class WeightingTable extends Component
     public function moveToScales(int $sessionComponentId, SessionComponentPlace $place): void
     {
         $sessionComponent = $this->getSessionComponent($sessionComponentId);
-        if($sessionComponent) {
+        if ($sessionComponent) {
             $sessionComponent->moveToScales($place);
+            $this->chooseModePlace = null;
             $this->dispatch('session-component-moved-to-scales');
         }
     }

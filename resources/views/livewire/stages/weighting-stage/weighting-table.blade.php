@@ -8,7 +8,7 @@
         @foreach($sessionComponents as $sessionComponent)
             <div
                  @if($chooseModePlace && $sessionComponent->component->isCanBeChoose($chooseModePlace))
-                     class="item item_force_hover"
+                     class="item item_force_hover target_component"
                     wire:click="moveToScales({{ $sessionComponent->id }}, '{{ $chooseModePlace->value }}')"
                  @else
                      class="item"
@@ -30,3 +30,11 @@
 
     </div>
 </div>
+@script
+<script>
+    $wire.on('session-component-moved-to-scales', () => {
+        console.log('table::session-component-moved-to-scales');
+        window.table_choose_mode = null;
+    });
+</script>
+@endscript

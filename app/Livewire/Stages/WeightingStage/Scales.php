@@ -3,6 +3,7 @@
 namespace App\Livewire\Stages\WeightingStage;
 
 use App\Enums\SessionComponent\SessionComponentPlace;
+use App\Livewire\Traits\HasTableChooseMode;
 use App\Livewire\Traits\HasSession;
 use App\Models\SessionComponent;
 use Illuminate\Support\Facades\Log;
@@ -12,6 +13,7 @@ use Livewire\Component;
 class Scales extends Component
 {
     use HasSession;
+    use HasTableChooseMode;
 
     public ?SessionComponent $leftBoxComponent = null;
     public ?SessionComponent $rightBoxComponent = null;
@@ -31,14 +33,16 @@ class Scales extends Component
         $this->setLeftBoxComponent();
         $this->setRightBoxComponent();
         $this->setBottomBoxComponent();
+        $this->setValue();
         $this->setScalesWeight();
         $this->setIsShowRange();
+        $this->disableTableChooseMode();
         $this->dispatch('scales-init');
     }
 
     public function weigh()
     {
-        if($this->isShowRange && $this->value > 0) {
+        if ($this->isShowRange && $this->value > 0) {
             // 1 save session component as weighed
             $this->leftBoxComponent->update([
                 'is_weighed'                  => true,
@@ -47,13 +51,18 @@ class Scales extends Component
                 'weighed_right_component_id'  => $this->rightBoxComponent->id,
                 'weighed_bottom_component_id' => $this->bottomBoxComponent->id,
             ]);
-            // 2 move all to table
-            $this->leftBoxComponent->moveToTable();
-            $this->rightBoxComponent->moveToTable();
-            $this->bottomBoxComponent->moveToTable();
-            // 3 dispatch events
-            $this->dispatch('session-component-moved-to-table');
         }
+        $this->cleanScales();
+
+    }
+    public function cleanScales(): void
+    {
+        // 2 move all to table
+        $this->leftBoxComponent?->moveToTable();
+        $this->rightBoxComponent?->moveToTable();
+        $this->bottomBoxComponent?->moveToTable();
+        // 3 dispatch events
+        $this->dispatch('session-component-moved-to-table');
     }
 
     public function render()
@@ -134,25 +143,6 @@ class Scales extends Component
             ->first();
     }
 
-    public function setLeftBoxChooseMode(): void
-    {
-        $this->setTableChooseMode(SessionComponentPlace::onScalesLeftBox);
-    }
-
-    public function setRightBoxChooseMode(): void
-    {
-        $this->setTableChooseMode(SessionComponentPlace::onScalesRightBox);
-    }
-
-    public function setBottomBoxChooseMode(): void
-    {
-        $this->setTableChooseMode(SessionComponentPlace::onScalesBottomBox);
-    }
-
-    private function setTableChooseMode(SessionComponentPlace $place): void
-    {
-        $this->dispatch('set-table-choose-mode', $place);
-    }
 
     public function isAllBoxHasComponent()
     {
@@ -171,6 +161,11 @@ class Scales extends Component
 
         $this->isShowRange = $this->isAllBoxHasComponent() && $this->isAllBoxComponentsHasSameType();
 
+    }
+
+    private function setValue(): void
+    {
+        $this->value = $this->leftBoxComponent && $this->leftBoxComponent->isHasWeighedValue() ? $this->leftBoxComponent->weighed_value : 0;
     }
 
 

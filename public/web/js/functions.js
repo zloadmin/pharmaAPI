@@ -3,12 +3,19 @@ function initRange() {
         console.log('initRange exists', window.range);
         window.range.destroy();
     }
-    console.log('initRange');
+
+    if($('#range1').val()) {
+        window.range_from = parseFloat($('#range1').val());
+    } else {
+        window.range_from = 0.001;
+    }
     window.range_step = 0.001;
-    window.range_from = 0.001;
-    window.range_min = 0.001;
+    window.range_min = 0.000;
     window.range_max = 0.01;
     window.range_current = window.range_from;
+
+
+
     window.range = $('.interaction_data #range1').ionRangeSlider({
         min: window.range_min,
         max: window.range_max,
@@ -16,6 +23,9 @@ function initRange() {
         step: window.range_step,
         grid: true,
         postfix: ' г',
+        onStart: data => {
+            rangeValueUpdated();
+        },
         onChange: data => {
             // console.log('onChange', data.from);
             $('.interaction_data .range1 input.from').val(data.from.toFixed(4))
@@ -35,7 +45,7 @@ function initRange() {
             rangeValueUpdated();
         }
     }).data("ionRangeSlider");
-
+    // updateScalesValue();
     $('.rangeBlock').show();
 }
 
@@ -46,6 +56,7 @@ function rangeMinus() {
 }
 
 function rangePlus() {
+
 
     let nextValue = window.range_step + window.range_current;
     let value = nextValue >= window.range_max ? window.range_max : nextValue;

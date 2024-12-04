@@ -1,8 +1,10 @@
 <div class="total_data">
-    <div class="status">Статус = <span>Дефолт</span></div>
+    <div class="status">Статус = <span>Дефолт ( $weight {{ $weight }} $value {{ $value }})</span></div>
 
     <div class="val">
-        <span id="scales-value" data-current-value="{{ $weight }}">
+        <span id="scales-value" data-current-value="{{ $weight}}">
+{{--            {{ $weight + $value }}--}}
+{{--            {{  }}--}}
             {{ sprintf('%03d.%04d', $weight, $weight - floor($weight)) }}
         </span> <small>г</small>
     </div>
