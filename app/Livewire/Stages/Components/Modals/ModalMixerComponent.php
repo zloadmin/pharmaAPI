@@ -20,6 +20,8 @@ class ModalMixerComponent extends ModalBase
 
     public ?SessionComponent $sessionComponent = null;
     public bool $isShow = false;
+    public bool $isRun = false;
+    public int $seconds = 0;
 
 
     public function mount(string $session): void
@@ -31,7 +33,9 @@ class ModalMixerComponent extends ModalBase
     {
         $this->setSession($session);
         $this->setSessionComponent();
+        $this->setIsRun();
         $this->disableCookingTableChooseMode();
+        $this->dispatch('mixer-init');
     }
 
     #[On('session-component-moved-to-mixer')]
@@ -72,5 +76,18 @@ class ModalMixerComponent extends ModalBase
         return view('livewire.stages.components.modals.modal-mixer');
     }
 
+    private function setIsRun(): void
+    {
+        $this->isRun = false;
+    }
 
+    public function run()
+    {
+        if ($this->sessionComponent) {
+            $this->sessionComponent->addMixerSeconds($this->seconds);
+            $this->sessionComponent->moveToCookingTable();
+            $this->dispatch('hide-modal-mixer');
+            $this->dispatch('session-component-moved-to-cooking-table');
+        }
+    }
 }

@@ -48,6 +48,26 @@ function initRange() {
     // updateScalesValue();
     $('.rangeBlock').show();
 }
+function initTimeRange()
+{
+    if(window.timeRange) {
+        console.log('initRange exists', window.timeRange);
+        window.timeRange.destroy();
+    }
+
+    window.timeRange = $('#timeRange').ionRangeSlider({
+        min: 10,
+        max: 120,
+        from: 0,
+        step: 1,
+        grid: true,
+        grid_num: 11,
+        onFinish: data => {
+            console.log('time range ', data.from);
+            Livewire.getByName('stages.components.modals.modal-mixer-component')[0].set('seconds', data.from, false)
+        },
+    }).data('ionRangeSlider');
+}
 
 function rangeMinus() {
     let nextValue = window.range_current  - window.range_step ;

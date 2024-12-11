@@ -82,6 +82,7 @@ class SessionComponent extends Model
     {
         return $query->where('place', SessionComponentPlace::onWeightingTable);
     }
+
     /**
      * Scope a query to only include on cooking table.
      *
@@ -92,6 +93,7 @@ class SessionComponent extends Model
     {
         return $query->where('place', SessionComponentPlace::onCookingTable);
     }
+
     /**
      * Scope a query to only include on PH meter.
      *
@@ -102,6 +104,7 @@ class SessionComponent extends Model
     {
         return $query->where('place', SessionComponentPlace::onPHMeter);
     }
+
     /**
      * Scope a query to only include in mixer
      *
@@ -142,6 +145,7 @@ class SessionComponent extends Model
     {
         $this->changePlace(SessionComponentPlace::onWeightingTable);
     }
+
     public function moveToCookingTable(): void
     {
         $this->changePlace(SessionComponentPlace::onCookingTable);
@@ -191,14 +195,21 @@ class SessionComponent extends Model
     {
         return !!$this->is_weighed;
     }
-    public function isHasWeighedValue() : bool
+
+    public function isHasWeighedValue(): bool
     {
-        return  $this->is_weighed && $this->weighed_value;
+        return $this->is_weighed && $this->weighed_value;
     }
+
     public function isExistsWeighedComponents(): bool
     {
         return $this->weighedLeftComponent && $this->weighedRightComponent && $this->weighedBottomComponent;
     }
 
-
+    public function addMixerSeconds(int $seconds): void
+    {
+        $this->update([
+            'mixer_seconds' => $this->mixer_seconds + $seconds
+        ]);
+    }
 }

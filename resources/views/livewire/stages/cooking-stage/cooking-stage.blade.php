@@ -66,17 +66,31 @@
 </div>
 @script
 <script>
-   // TODO: add another events
-    $wire.on('session-component-moved-to-scales', () => {
-        console.log('scales::session-component-moved-to-ph-meter');
-        window.table_choose_mode = null;
+    $wire.on('show-modal-mixer', () => {
+        console.log('mixer::show-modal-mixer');
+        setTimeout(initTimeRange, 300);
     });
+
+   // TODO: add another events
+    $wire.on('session-component-moved-to-mixer', () => {
+        console.log('cooking::session-component-moved-to-mixer');
+        window.table_cooking_choose_mode = null;
+    });
+    $wire.on('session-component-moved-to-cooking-table', () => {
+        console.log('cooking::session-component-moved-to-cooking-table');
+        window.table_cooking_choose_mode = null;
+    });
+    $wire.on('session-component-moved-to-cooking-table', () => {
+        console.log('cooking::session-component-moved-to-cooking-table');
+        window.table_cooking_choose_mode = null;
+    });
+
     $wire.on('unset-cooking-table-choose-mode', () => {
-        console.log('scales::unset-cooking-table-choose-mode');
+        console.log('cooking::unset-cooking-table-choose-mode');
         window.table_cooking_choose_mode = null;
     });
     $wire.on('set-cooking-table-choose-mode', (place) => {
-        console.log('scales::set-cooking-table-choose-mode', place);
+        console.log('cooking::set-cooking-table-choose-mode', place);
         window.table_cooking_choose_mode = place;
     });
     // const components = document.querySelector('.target_component');
@@ -91,7 +105,7 @@
             }
         }
         if(!hasTarget && window.table_cooking_choose_mode) {
-            console.log('scales::DISPATCH unset-cooking-table-choose-mode')
+            console.log('cooking::DISPATCH unset-cooking-table-choose-mode')
             $wire.dispatch('unset-cooking-table-choose-mode');
         }
 
