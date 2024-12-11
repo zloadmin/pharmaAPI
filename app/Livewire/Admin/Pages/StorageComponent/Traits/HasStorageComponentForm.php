@@ -27,6 +27,7 @@ trait HasStorageComponentForm
     public $ph_meter_able = false;
     public $ph_meter_value = 0.0;
     public $mixer_able = false;
+    public $bath_able = false;
 
     public function rules(): array
     {
@@ -42,7 +43,8 @@ trait HasStorageComponentForm
             'weight'          => ['numeric', 'min:0', 'max:10'],
             'ph_meter_able'   => ['required', 'boolean'],
             'ph_meter_value'  => ['required', 'numeric', 'min:0', 'max:999.9999'],
-            'mixer_able'      => ['required', 'boolean']
+            'mixer_able'      => ['required', 'boolean'],
+            'bath_able'       => ['required', 'boolean'],
         ];
     }
 }

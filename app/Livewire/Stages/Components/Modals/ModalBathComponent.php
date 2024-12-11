@@ -2,6 +2,9 @@
 
 namespace App\Livewire\Stages\Components\Modals;
 
+use App\Enums\SessionComponent\SessionComponentPlace;
+use App\Livewire\Stages\CookingStage\Traits\HasCookingTableChooseMode;
+use App\Livewire\Stages\CookingStage\Traits\HasCookingTableMoving;
 use App\Livewire\Traits\HasSession;
 use App\Models\SessionComponent;
 use App\Models\Component;
@@ -12,8 +15,12 @@ use Livewire\Attributes\On;
 class ModalBathComponent extends ModalBase
 {
     use HasSession;
+    use HasCookingTableMoving;
+    use HasCookingTableChooseMode;
 
-    public ?SessionComponent $sessionComponent = null;
+
+    public ?SessionComponent $leftBoxSessionComponent = null;
+    public ?SessionComponent $rightBoxSessionComponent = null;
     public bool $isShow = false;
 
 
@@ -36,6 +43,15 @@ class ModalBathComponent extends ModalBase
     public function hideModal(): void
     {
         $this->isShow = false;
+    }
+
+    public function setBathLeftBoxChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inBathLeftBox);
+    }
+    public function setBathRightBoxChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inBathRightBox);
     }
 
 

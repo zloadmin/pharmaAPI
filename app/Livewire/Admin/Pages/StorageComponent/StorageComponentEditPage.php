@@ -36,7 +36,8 @@ class StorageComponentEditPage extends LivewireComponent
             'weight'          => ['numeric', 'min:0', 'max:10'],
             'ph_meter_able'   => ['required', 'boolean'],
             'ph_meter_value'  => ['required', 'numeric', 'min:0', 'max:999.9999'],
-            'mixer_able'      => ['required', 'boolean']
+            'mixer_able'      => ['required', 'boolean'],
+            'bath_able'       => ['required', 'boolean'],
         ];
     }
 
@@ -81,6 +82,7 @@ class StorageComponentEditPage extends LivewireComponent
         $this->storageComponent->ph_meter_able = $this->ph_meter_able;
         $this->storageComponent->ph_meter_value = $this->ph_meter_value;
         $this->storageComponent->mixer_able = $this->mixer_able;
+        $this->storageComponent->bath_able = $this->bath_able;
         $this->storageComponent->update();
     }
 
@@ -107,7 +109,7 @@ class StorageComponentEditPage extends LivewireComponent
         $this->ph_meter_able = $storageComponent->ph_meter_able;
         $this->ph_meter_value = $storageComponent->ph_meter_value;
         $this->mixer_able = $storageComponent->mixer_able;
+        $this->bath_able = $storageComponent->bath_able;
     }
-
 
 }

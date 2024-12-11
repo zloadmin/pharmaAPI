@@ -17,8 +17,8 @@ enum SessionComponentPlace: string
     case onCookingTable = 'onCookingTable';
     case onPHMeter = 'onPHMeter';
     case inMixer = 'inMixer';
-    case onBathLeftBox = 'onBathLeftBox';
-    case onBathRightBox = 'onBathRightBox';
+    case inBathLeftBox = 'inBathLeftBox';
+    case inBathRightBox = 'inBathRightBox';
     case onFiltrationBeforeLeftBox = 'onFiltrationBeforeLeftBox';
     case onFiltrationBeforeRightBox = 'onFiltrationBeforeRightBox';
     case onFiltrationAfterLeftBox = 'onFiltrationAfterLeftBox';
@@ -89,8 +89,8 @@ enum SessionComponentPlace: string
             self::onScalesBottomBox => throw new \Exception('To be implemented'),
             self::onCookingTable => throw new \Exception('To be implemented'),
             self::inMixer => 'mixer',
-            self::onBathLeftBox => throw new \Exception('To be implemented'),
-            self::onBathRightBox => throw new \Exception('To be implemented'),
+            self::inBathLeftBox => throw new \Exception('To be implemented'),
+            self::inBathRightBox => throw new \Exception('To be implemented'),
             self::onFiltrationBeforeLeftBox => throw new \Exception('To be implemented'),
             self::onFiltrationBeforeRightBox => throw new \Exception('To be implemented'),
             self::onFiltrationAfterLeftBox => throw new \Exception('To be implemented'),

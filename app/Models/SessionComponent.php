@@ -159,7 +159,7 @@ class SessionComponent extends Model
     public function moveToTableIfExistsOnPlace(SessionComponentPlace $place): void
     {
         $existsSessionComponent = self::bySession($this->session)->byPlace($place)->first();
-        $existsSessionComponent?->moveToTable();
+        $existsSessionComponent?->moveToWeightingTable();
     }
 
     public function moveToScales(SessionComponentPlace $place): void
