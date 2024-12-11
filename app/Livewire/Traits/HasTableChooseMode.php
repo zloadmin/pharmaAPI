@@ -52,14 +52,14 @@ trait HasTableChooseMode
     {
         if ($this->tableChooseMode == $place) {
             $this->tableChooseMode = null;
-            $this->dispatch('set-table-choose-mode', null);
+            $this->dispatch('set-weighting-table-choose-mode', null);
         } else {
             $this->tableChooseMode = $place;
-            $this->dispatch('set-table-choose-mode', $place);
+            $this->dispatch('set-weighting-table-choose-mode', $place);
         }
     }
 
-    #[On('unset-table-choose-mode')]
+    #[On('unset-weighting-table-choose-mode')]
     public function unsetTableChooseMode(): void
     {
         $this->tableChooseMode = null;

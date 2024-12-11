@@ -9,18 +9,27 @@ enum SessionComponentPlace: string
     use Arrayable;
 
     case inCart = 'inCart';
-    case onTable = 'onTable';
+    case onWeightingTable = 'onWeightingTable';
     case inSink = 'inSink';
     case onScalesLeftBox = 'onScalesLeftBox';
     case onScalesRightBox = 'onScalesRightBox';
     case onScalesBottomBox = 'onScalesBottomBox';
+    case onCookingTable = 'onCookingTable';
+    case onPHMeter = 'onPHMeter';
+    case inMixer = 'inMixer';
+    case onBathLeftBox = 'onBathLeftBox';
+    case onBathRightBox = 'onBathRightBox';
+    case onFiltrationBeforeLeftBox = 'onFiltrationBeforeLeftBox';
+    case onFiltrationBeforeRightBox = 'onFiltrationBeforeRightBox';
+    case onFiltrationAfterLeftBox = 'onFiltrationAfterLeftBox';
+    case onFiltrationAfterRightBox = 'onFiltrationAfterRightBox';
 
 
     public function label(): string
     {
         return match ($this) {
             self::inCart => 'inCart',
-            self::onTable => 'onTable',
+            self::onWeightingTable => 'onWeightingTable',
             self::inSink => 'inSink',
             self::onScalesLeftBox => 'Левый блок (посуда)',
             self::onScalesRightBox => 'Правый блок (вещества)',
@@ -32,7 +41,7 @@ enum SessionComponentPlace: string
     {
         return match ($this) {
             self::inCart => 'inCart',
-            self::onTable => 'onTable',
+            self::onWeightingTable => 'onWeightingTable',
             self::inSink => 'inSink',
             self::onScalesLeftBox => 'success',
             self::onScalesRightBox => 'warning',
@@ -66,5 +75,26 @@ enum SessionComponentPlace: string
     public function isScalesBottom(): bool
     {
         return $this === self::onScalesBottomBox;
+    }
+
+    public function generalName(): string
+    {
+        return match ($this) {
+            self::onPHMeter => 'ph-meter',
+            self::inCart => throw new \Exception('To be implemented'),
+            self::onWeightingTable => throw new \Exception('To be implemented'),
+            self::inSink => throw new \Exception('To be implemented'),
+            self::onScalesLeftBox => throw new \Exception('To be implemented'),
+            self::onScalesRightBox => throw new \Exception('To be implemented'),
+            self::onScalesBottomBox => throw new \Exception('To be implemented'),
+            self::onCookingTable => throw new \Exception('To be implemented'),
+            self::inMixer => 'mixer',
+            self::onBathLeftBox => throw new \Exception('To be implemented'),
+            self::onBathRightBox => throw new \Exception('To be implemented'),
+            self::onFiltrationBeforeLeftBox => throw new \Exception('To be implemented'),
+            self::onFiltrationBeforeRightBox => throw new \Exception('To be implemented'),
+            self::onFiltrationAfterLeftBox => throw new \Exception('To be implemented'),
+            self::onFiltrationAfterRightBox => throw new \Exception('To be implemented')
+        };
     }
 }

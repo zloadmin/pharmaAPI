@@ -1,4 +1,5 @@
 <form wire:submit.prevent="save">
+    @include('livewire.admin.blocks.form-header', ['title' => 'Общее'])
     <!--- Назавние Field --->
     <div class="form-group">
         <label for="name">Назавние</label>
@@ -58,6 +59,7 @@
             </span>
         @enderror
     </div>
+    @include('livewire.admin.blocks.form-header', ['title' => 'Весовая'])
     <!--- Отступ сверху % Field --->
     <div class="form-group">
         <label for="top">Отступ сверху</label>
@@ -90,6 +92,7 @@
             </span>
         @enderror
     </div>
+    @include('livewire.admin.blocks.form-header', ['title' => 'Весы'])
     <!--- Положение на весах Field --->
     <div class="form-group">
         <label for="on_scales_place">Положение на весах</label>
@@ -113,6 +116,39 @@
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
+        @enderror
+    </div>
+
+    @include('livewire.admin.blocks.form-header', ['title' => 'РН метр'])
+    <!--- РН метр Field --->
+    <div class="form-check mb-3">
+      <input class="form-check-input @error('ph_meter_able') is-invalid @enderror" type="checkbox" wire:model="ph_meter_able" id="checkbox_ph_meter_able">
+      <label class="form-check-label" for="checkbox_ph_meter_able">
+          РН метр
+      </label>
+      @error('ph_meter_able')
+    	<div class="invalid-feedback">{{ $message }}</div>
+      @enderror
+    </div>
+    <!--- РН метр значение Field --->
+    <div class="form-group">
+        <label for="ph_meter_value">РН метр значение</label>
+        <input class="form-control @error('ph_meter_value') is-invalid @enderror" type="number" min="0" max="999.9999" step="0.0001" wire:model="ph_meter_value">
+        @error('ph_meter_value')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+    @include('livewire.admin.blocks.form-header', ['title' => 'Мешалка'])
+    <!--- Мешалка Field --->
+    <div class="form-check mb-3">
+        <input class="form-check-input @error('mixer_able') is-invalid @enderror" type="checkbox" wire:model="mixer_able" id="checkbox_mixer_able">
+        <label class="form-check-label" for="checkbox_mixer_able">
+            Мешалка
+        </label>
+        @error('mixer_able')
+            <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
 

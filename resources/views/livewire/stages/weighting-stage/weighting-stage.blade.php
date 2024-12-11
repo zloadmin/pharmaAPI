@@ -29,10 +29,10 @@
         <img src="/web/images/tmp/weight_img.jpg" alt="" loading="lazy" class="bg">
 
         {{-- Modals --}}
-        <livewire:stages.components.modals.modal-move-to-table-component :session='$session'/>
-        <livewire:stages.components.modals.modal-table-component :session='$session'/>
+        <livewire:stages.components.modals.modal-move-to-weighting-table-component :session='$session'/>
+        <livewire:stages.components.modals.modal-weighting-table-component :session='$session'/>
         {{-- Table --}}
-        <livewire:stages.components.component-cart :session='$session' is-show-modal-move-to-table-component="true"/>
+        <livewire:stages.components.component-cart :session='$session' click-component-event="show-modal-move-to-weighting-table" />
 </section>
 </div>
 

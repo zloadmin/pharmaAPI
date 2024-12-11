@@ -17,8 +17,11 @@ class Component extends Model
 
     protected $guarded = [];
     protected $casts = [
-        'type' => ComponentType::class,
-        'on_scales_place' => SessionComponentPlace::class
+        'type'            => ComponentType::class,
+        'on_scales_place' => SessionComponentPlace::class,
+        'ph_meter_able'   => 'bool',
+        'mixer_able'      => 'bool',
+        'ph_meter_value'  => 'decimal:4'
     ];
 
 
@@ -34,7 +37,7 @@ class Component extends Model
 
     public function defaultValue(): float|int
     {
-        return  1;
+        return 1;
 //        return match ($this->type) {
 ////            ComponentType::Stuff => 1,
 //            ComponentType::Loose, ComponentType::Liquid => 0.00001,
@@ -43,7 +46,7 @@ class Component extends Model
 
     public function minValue(): float|int
     {
-        return  1;
+        return 1;
 //        return match ($this->type) {
 ////            ComponentType::Stuff => 1,
 //            ComponentType::Loose, ComponentType::Liquid => 0.00001,
@@ -83,6 +86,14 @@ class Component extends Model
     public function isCanBeChoose(SessionComponentPlace $place): bool
     {
 
-        return $this->on_scales_place === $place;
+        switch ($place) {
+            case SessionComponentPlace::onPHMeter:
+                return $this->ph_meter_able;
+            case SessionComponentPlace::inMixer:
+                return $this->mixer_able;
+            default:
+                return $this->on_scales_place === $place;
+        }
+
     }
 }

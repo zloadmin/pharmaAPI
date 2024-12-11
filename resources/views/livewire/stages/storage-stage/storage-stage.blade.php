@@ -11,6 +11,6 @@
             <livewire:stages.components.modals.modal-cart-component :session='$session' />
         </div>
 
-        <livewire:stages.components.component-cart :session='$session'/>
+        <livewire:stages.components.component-cart :session='$session' click-component-event="show-cart-component-modal" />
     </section>
 </div>

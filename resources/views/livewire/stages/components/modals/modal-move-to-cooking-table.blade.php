@@ -23,7 +23,7 @@
         </div>
 
         <div class="btns">
-            <button class="btn" type="button" wire:click="moveToTable">
+            <button class="btn" type="button" wire:click="moveToCookingTable">
                 Переместить на стол
             </button>
         </div>

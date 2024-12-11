@@ -9,16 +9,16 @@ use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 
-class ModalMoveToTableComponent extends ModalBase
+class ModalMoveToCookingTableComponent extends ModalBase
 {
     use HasSession;
 
     public ?SessionComponent $sessionComponent = null;
 
-    #[On('show-modal-move-to-table-component')]
+    #[On('show-modal-move-to-cooking-table')]
     public function showModal($id): void
     {
-        Log::info('ModalMoveToTableComponent::showModal', [$id]);
+        Log::info('ModalMoveToCookingTableComponent::showModal', [$id]);
         $this->setCartComponent(SessionComponent::with('component')->find($id));
     }
 
@@ -32,22 +32,22 @@ class ModalMoveToTableComponent extends ModalBase
         $this->setSession($session);
     }
 
-    public function moveToTable()
+    public function moveToCookingTable(): void
     {
         if ($this->sessionComponent) {
-            $this->sessionComponent->moveToTable();
-            $this->dispatch('session-component-moved-to-table');
+            $this->sessionComponent->moveToCookingTable();
+            $this->dispatch('session-component-moved-to-cooking-table');
             $this->setCartComponent();
         }
     }
-    public function close()
+    public function close(): void
     {
         $this->setCartComponent();
     }
 
     public function render()
     {
-        return view('livewire.stages.components.modals.modal-move-to-table');
+        return view('livewire.stages.components.modals.modal-move-to-cooking-table');
     }
 
 }

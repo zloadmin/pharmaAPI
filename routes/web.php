@@ -26,7 +26,7 @@ Route::get('/', function () {
 })->name('start-index-stage');
 
 
-//Route::get('/', IndexStage::class)->name('index-storage');
+
 Route::get('/stage/index/{session}', IndexStage::class)->name('index-stage');
 Route::get('/stage/storage/{session}', StorageStage::class)->name('storage-stage');
 Route::get('/stage/weighting/{session}', WeightingStage::class)->name('weighting-stage');

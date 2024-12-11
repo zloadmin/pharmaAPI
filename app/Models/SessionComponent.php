@@ -73,14 +73,44 @@ class SessionComponent extends Model
     }
 
     /**
-     * Scope a query to only include on table.
+     * Scope a query to only include on weighting table.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOnTable($query)
+    public function scopeOnWeightingTable(Builder $query): Builder
     {
-        return $query->where('place', SessionComponentPlace::onTable);
+        return $query->where('place', SessionComponentPlace::onWeightingTable);
+    }
+    /**
+     * Scope a query to only include on cooking table.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOnCookingTable(Builder $query): Builder
+    {
+        return $query->where('place', SessionComponentPlace::onCookingTable);
+    }
+    /**
+     * Scope a query to only include on PH meter.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOnPHMeter(Builder $query): Builder
+    {
+        return $query->where('place', SessionComponentPlace::onPHMeter);
+    }
+    /**
+     * Scope a query to only include in mixer
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeInMixer(Builder $query): Builder
+    {
+        return $query->where('place', SessionComponentPlace::inMixer);
     }
 
     public function getValueTextAttribute(): string
@@ -98,7 +128,7 @@ class SessionComponent extends Model
         return '';
     }
 
-    private function changePlace(SessionComponentPlace $place): void
+    public function changePlace(SessionComponentPlace $place): void
     {
         $this->update(['place' => $place]);
     }
@@ -108,9 +138,13 @@ class SessionComponent extends Model
         $this->changePlace(SessionComponentPlace::inCart);
     }
 
-    public function moveToTable(): void
+    public function moveToWeightingTable(): void
     {
-        $this->changePlace(SessionComponentPlace::onTable);
+        $this->changePlace(SessionComponentPlace::onWeightingTable);
+    }
+    public function moveToCookingTable(): void
+    {
+        $this->changePlace(SessionComponentPlace::onCookingTable);
     }
 
     public function moveToSink(): void

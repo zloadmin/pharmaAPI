@@ -87,12 +87,12 @@
         console.log('scales::session-component-moved-to-scales');
         window.table_choose_mode = null;
     });
-    $wire.on('unset-table-choose-mode', () => {
-        console.log('scales::unset-table-choose-mode');
+    $wire.on('unset-weighting-table-choose-mode', () => {
+        console.log('scales::unset-weighting-table-choose-mode');
         window.table_choose_mode = null;
     });
-    $wire.on('set-table-choose-mode', (place) => {
-        console.log('scales::set-table-choose-mode', place);
+    $wire.on('set-weighting-table-choose-mode', (place) => {
+        console.log('scales::set-weighting-table-choose-mode', place);
         window.table_choose_mode = place;
     });
     // const components = document.querySelector('.target_component');
@@ -107,8 +107,8 @@
             }
         }
         if(!hasTarget && window.table_choose_mode) {
-            console.log('scales::DISPATCH unset-table-choose-mode')
-            $wire.dispatch('unset-table-choose-mode');
+            console.log('scales::DISPATCH unset-weighting-table-choose-mode')
+            $wire.dispatch('unset-weighting-table-choose-mode');
         }
 
     })

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 
-class ModalTableComponent extends ModalBase
+class ModalWeightingTableComponent extends ModalBase
 {
     use HasSession;
 
@@ -24,7 +24,7 @@ class ModalTableComponent extends ModalBase
         $this->setSession($session);
     }
 
-    #[On('show-modal-table-component')]
+    #[On('show-modal-weighting-table-component')]
     public function showModal($sessionComponentId): void
     {
         Log::info('ModalTableComponent::showModal', [$sessionComponentId]);
@@ -62,7 +62,7 @@ class ModalTableComponent extends ModalBase
 
     public function render()
     {
-        return view('livewire.stages.components.modals.modal-table-component');
+        return view('livewire.stages.components.modals.modal-weighting-table-component');
     }
 
 

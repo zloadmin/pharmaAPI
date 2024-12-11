@@ -17,13 +17,13 @@ class ComponentCart extends LivewireComponent
 
     public Collection $cartItems;
     public array $filters;
-    public bool $isShowModalMoveToTableComponent = false;
+    public string $clickComponentEvent = '';
     const SETTING_FILTERS_KEY = 'cart_filters';
 
-    public function mount(string $session, bool $isShowModalMoveToTableComponent = false): void
+    public function mount(string $session, string $clickComponentEvent = ''): void
     {
         $this->setSession($session);
-        $this->setIsShowModalMoveToTableComponent($isShowModalMoveToTableComponent);
+        $this->setClickComponentEvent($clickComponentEvent);
         $this->setFilters();
         $this->setCartStageComponent();
         $this->dispatch('cart-init');
@@ -68,7 +68,8 @@ class ComponentCart extends LivewireComponent
     }
 
     #[On('storage-component-added-in-cart')]
-    #[On('session-component-moved-to-table')]
+    #[On('session-component-moved-to-weighting-table')]
+    #[On('session-component-moved-to-cooking-table')]
     #[On('session-component-moved-to-cart')]
     public function updateList(): void
     {
@@ -88,7 +89,7 @@ class ComponentCart extends LivewireComponent
     {
         Log::info('ComponentCart::showModalMoveToTable', [$id]);
         if ($this->isShowModalMoveToTable && $item = $this->getItem($id)) {
-            $this->dispatch('show-modal-move-to-table', $id);
+            $this->dispatch('show-modal-move-to-weighting-table', $id);
         }
     }
 
@@ -141,9 +142,9 @@ class ComponentCart extends LivewireComponent
         return $this->getSessionSetting(self::SETTING_FILTERS_KEY) ?? [];
     }
 
-    public function setIsShowModalMoveToTableComponent(bool $isShowModalMoveToTableComponent): void
+    public function setClickComponentEvent(string $clickComponentEvent): void
     {
-        $this->isShowModalMoveToTableComponent = $isShowModalMoveToTableComponent;
+        $this->clickComponentEvent = $clickComponentEvent;
     }
 
 

@@ -29,17 +29,17 @@ class WeightingTable extends Component
         return view('livewire.stages.weighting-stage.weighting-table');
     }
 
-    #[On('session-component-moved-to-table')]
+    #[On('session-component-moved-to-weighting-table')]
     #[On('session-component-moved-to-sink')]
     #[On('session-component-moved-to-cart')]
     #[On('session-component-moved-to-scales')]
-    #[On('session-component-moved-to-table')]
+    #[On('session-component-moved-to-weighting-table')]
     public function updateList(): void
     {
         $this->setSessionComponents($this->session);
     }
 
-    #[On('set-table-choose-mode')]
+    #[On('set-weighting-table-choose-mode')]
     public function setChooseMode(?SessionComponentPlace $place): void
     {
         Log::info('WeightingTable::setChooseMode', [$place]);
@@ -47,7 +47,7 @@ class WeightingTable extends Component
         $this->setSessionComponents();
     }
 
-    #[On('unset-table-choose-mode')]
+    #[On('unset-weighting-table-choose-mode')]
     public function unsetTableChooseMode(): void
     {
         $this->chooseModePlace = null;
@@ -56,19 +56,19 @@ class WeightingTable extends Component
 
     public function setSessionComponents(): void
     {
-        $this->sessionComponents = SessionComponent::with('component')->bySession($this->session)->onTable()->latest()->get();
+        $this->sessionComponents = SessionComponent::with('component')->bySession($this->session)->onWeightingTable()->latest()->get();
     }
 
     private function getSessionComponent(int $sessionComponentId): ?SessionComponent
     {
-        return SessionComponent::where('place', SessionComponentPlace::onTable)->find($sessionComponentId);
+        return SessionComponent::where('place', SessionComponentPlace::onWeightingTable)->find($sessionComponentId);
     }
 
     public function showModalTableComponent(int $sessionComponentId): void
     {
         $sessionComponent = $this->getSessionComponent($sessionComponentId);
         if ($sessionComponent) {
-            $this->dispatch('show-modal-table-component', $sessionComponentId);
+            $this->dispatch('show-modal-weighting-table-component', $sessionComponentId);
         }
     }
 
@@ -76,9 +76,9 @@ class WeightingTable extends Component
     {
         SessionComponent::bySession($this->session)
             ->byPlace(SessionComponentPlace::inCart)
-            ->update(['place' => SessionComponentPlace::onTable]);
+            ->update(['place' => SessionComponentPlace::onWeightingTable]);
 
-        $this->dispatch('session-component-moved-to-table');
+        $this->dispatch('session-component-moved-to-weighting-table');
     }
 
     public function moveToScales(int $sessionComponentId, SessionComponentPlace $place): void

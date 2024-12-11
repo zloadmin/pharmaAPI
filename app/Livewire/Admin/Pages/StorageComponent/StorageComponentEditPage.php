@@ -33,7 +33,10 @@ class StorageComponentEditPage extends LivewireComponent
             'padding_top'     => ['required', 'numeric', 'min:0.001', 'max:100'],
             'padding_right'   => ['required', 'numeric', 'min:0.001', 'max:100'],
             'on_scales_place' => ['required', Rule::in(SessionComponentPlace::getOnScalesValues())],
-            'weight'          => ['numeric', 'min:0', 'max:10']
+            'weight'          => ['numeric', 'min:0', 'max:10'],
+            'ph_meter_able'   => ['required', 'boolean'],
+            'ph_meter_value'  => ['required', 'numeric', 'min:0', 'max:999.9999'],
+            'mixer_able'      => ['required', 'boolean']
         ];
     }
 
@@ -63,6 +66,7 @@ class StorageComponentEditPage extends LivewireComponent
     private function updatedStorageComponent(): void
     {
 
+
         $this->storageComponent->name = $this->name;
         $this->storageComponent->short_name = $this->short_name;
         $this->storageComponent->description = $this->description;
@@ -74,6 +78,9 @@ class StorageComponentEditPage extends LivewireComponent
         $this->storageComponent->padding_right = $this->padding_right;
         $this->storageComponent->on_scales_place = $this->on_scales_place;
         $this->storageComponent->weight = $this->weight;
+        $this->storageComponent->ph_meter_able = $this->ph_meter_able;
+        $this->storageComponent->ph_meter_value = $this->ph_meter_value;
+        $this->storageComponent->mixer_able = $this->mixer_able;
         $this->storageComponent->update();
     }
 
@@ -97,6 +104,9 @@ class StorageComponentEditPage extends LivewireComponent
         $this->padding_right = $storageComponent->padding_right;
         $this->on_scales_place = $storageComponent->on_scales_place->value;
         $this->weight = $storageComponent->weight;
+        $this->ph_meter_able = $storageComponent->ph_meter_able;
+        $this->ph_meter_value = $storageComponent->ph_meter_value;
+        $this->mixer_able = $storageComponent->mixer_able;
     }
 
 

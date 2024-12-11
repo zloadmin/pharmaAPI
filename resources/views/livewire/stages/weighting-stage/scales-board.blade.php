@@ -1,5 +1,5 @@
 <div class="total_data">
-    <div class="status">Статус = <span>Дефолт ( $weight {{ $weight }} $value {{ $value }})</span></div>
+    <div class="status">Статус = <span>Дефол</span></div>
 
     <div class="val">
         <span id="scales-value" data-current-value="{{ $weight}}">

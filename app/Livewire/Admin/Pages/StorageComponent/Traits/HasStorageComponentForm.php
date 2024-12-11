@@ -24,6 +24,9 @@ trait HasStorageComponentForm
     public $padding_right = 0.0;
     public $on_scales_place = '';
     public $weight = 0;
+    public $ph_meter_able = false;
+    public $ph_meter_value = 0.0;
+    public $mixer_able = false;
 
     public function rules(): array
     {
@@ -36,7 +39,10 @@ trait HasStorageComponentForm
             'padding_top'     => ['required', 'numeric', 'min:0.001', 'max:100'],
             'padding_right'   => ['required', 'numeric', 'min:0.001', 'max:100'],
             'on_scales_place' => ['required', Rule::in(SessionComponentPlace::getOnScalesValues())],
-            'weight'          => ['numeric', 'min:0', 'max:10']
+            'weight'          => ['numeric', 'min:0', 'max:10'],
+            'ph_meter_able'   => ['required', 'boolean'],
+            'ph_meter_value'  => ['required', 'numeric', 'min:0', 'max:999.9999'],
+            'mixer_able'      => ['required', 'boolean']
         ];
     }
 }

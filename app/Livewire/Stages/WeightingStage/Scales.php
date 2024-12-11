@@ -58,11 +58,11 @@ class Scales extends Component
     public function cleanScales(): void
     {
         // 2 move all to table
-        $this->leftBoxComponent?->moveToTable();
-        $this->rightBoxComponent?->moveToTable();
-        $this->bottomBoxComponent?->moveToTable();
+        $this->leftBoxComponent?->moveToWeightingTable();
+        $this->rightBoxComponent?->moveToWeightingTable();
+        $this->bottomBoxComponent?->moveToWeightingTable();
         // 3 dispatch events
-        $this->dispatch('session-component-moved-to-table');
+        $this->dispatch('session-component-moved-to-weighting-table');
     }
 
     public function render()
@@ -71,7 +71,7 @@ class Scales extends Component
     }
 
     #[On('session-component-moved-to-scales')]
-    #[On('session-component-moved-to-table')]
+    #[On('session-component-moved-to-weighting-table')]
     public function updateScales(): void
     {
         $this->init($this->session);
@@ -124,8 +124,8 @@ class Scales extends Component
 
         $sessionComponent = $this->getSessionComponentByPlace($place);
         if ($sessionComponent) {
-            $sessionComponent->moveToTable();
-            $this->dispatch('session-component-moved-to-table');
+            $sessionComponent->moveToWeightingTable();
+            $this->dispatch('session-component-moved-to-weighting-table');
         }
     }
 

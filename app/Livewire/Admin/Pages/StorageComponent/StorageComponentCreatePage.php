@@ -44,6 +44,9 @@ class StorageComponentCreatePage extends LivewireComponent
             'padding_right'   => $this->padding_right,
             'on_scales_place' => $this->on_scales_place,
             'weight'          => $this->weight,
+            'ph_meter_able'   => $this->ph_meter_able,
+            'ph_meter_value'  => $this->ph_meter_value,
+            'mixer_able'      => $this->mixer_able,
         ]);
     }
 
