@@ -19,10 +19,7 @@ enum SessionComponentPlace: string
     case inMixer = 'inMixer';
     case inBathLeftBox = 'inBathLeftBox';
     case inBathRightBox = 'inBathRightBox';
-    case onFiltrationBeforeLeftBox = 'onFiltrationBeforeLeftBox';
-    case onFiltrationBeforeRightBox = 'onFiltrationBeforeRightBox';
-    case onFiltrationAfterLeftBox = 'onFiltrationAfterLeftBox';
-    case onFiltrationAfterRightBox = 'onFiltrationAfterRightBox';
+    case inFiltrationBox = 'inFiltrationBox';
 
 
     public function label(): string
@@ -91,10 +88,7 @@ enum SessionComponentPlace: string
             self::inMixer => 'mixer',
             self::inBathLeftBox => 'in-bath-left',
             self::inBathRightBox => 'in-bath-right',
-            self::onFiltrationBeforeLeftBox => throw new \Exception('To be implemented'),
-            self::onFiltrationBeforeRightBox => throw new \Exception('To be implemented'),
-            self::onFiltrationAfterLeftBox => throw new \Exception('To be implemented'),
-            self::onFiltrationAfterRightBox => throw new \Exception('To be implemented')
+            self::inFiltrationBox => 'in-filtration',
         };
     }
 }

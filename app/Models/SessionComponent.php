@@ -123,6 +123,17 @@ class SessionComponent extends Model
     }
 
     /**
+     * Scope a query to only include in filtratikon
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeInFiltration(Builder $query): Builder
+    {
+        return $query->where('place', SessionComponentPlace::inFiltrationBox);
+    }
+
+    /**
      * Scope a query to only include in bath left box
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -257,6 +268,13 @@ class SessionComponent extends Model
         $this->update([
             'bath_seconds'     => $seconds,
             'bath_temperature' => $temperature
+        ]);
+    }
+
+    public function markAsFiltered(): void
+    {
+        $this->update([
+            'filtered' => true
         ]);
     }
 }

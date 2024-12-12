@@ -58,18 +58,14 @@ class ModalMixerComponent extends ModalBase
 
     #[On('show-modal-ph-meter')]
     #[On('show-modal-bath')]
-    #[On('show-modal-filtration-before')]
-    #[On('show-modal-filtration-after')]
+    #[On('show-modal-filtration')]
     #[On('hide-modal-mixer')]
     public function hideModal(): void
     {
         $this->isShow = false;
     }
 
-    public function setMixerChooseMode(): void
-    {
-        $this->setCookingTableChooseMode(SessionComponentPlace::inMixer);
-    }
+
 
     public function render()
     {

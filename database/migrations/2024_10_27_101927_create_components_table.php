@@ -28,8 +28,7 @@ return new class extends Migration {
             $table->decimal('ph_meter_value', 7, 4)->default(0);
             $table->boolean('mixer_able')->default(false);
             $table->boolean('bath_able')->default(false);
-            $table->boolean('filtration_right_box_able')->default(false);
-            $table->boolean('filtration_left_box_able')->default(false);
+            $table->boolean('filtration_able')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -22,6 +22,7 @@ class Component extends Model
         'ph_meter_able'   => 'bool',
         'mixer_able'      => 'bool',
         'bath_able'       => 'bool',
+        'filtration_able' => 'bool',
         'ph_meter_value'  => 'decimal:4'
     ];
 
@@ -95,6 +96,8 @@ class Component extends Model
             case SessionComponentPlace::inBathLeftBox:
             case SessionComponentPlace::inBathRightBox:
                 return $this->bath_able;
+            case SessionComponentPlace::inFiltrationBox:
+                return $this->filtration_able;
             default:
                 return $this->on_scales_place === $place;
         }

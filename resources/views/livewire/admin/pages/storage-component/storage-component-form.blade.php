@@ -162,6 +162,17 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
+    @include('livewire.admin.blocks.form-header', ['title' => 'Установка фильтрации'])
+    <!--- УЗ ванна Field --->
+    <div class="form-check mb-3">
+        <input class="form-check-input @error('filtration_able') is-invalid @enderror" type="checkbox" wire:model="filtration_able" id="checkbox_filtration_able">
+        <label class="form-check-label" for="checkbox_filtration_able">
+            Установка фильтрации
+        </label>
+        @error('bath_able')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
 
     <button class="btn btn-primary pull-right float-right" wire:loading.attr="disabled" wire:target="save">
         <div wire:loading.delay wire:target="save">

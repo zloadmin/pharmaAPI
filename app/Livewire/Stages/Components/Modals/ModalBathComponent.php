@@ -58,24 +58,12 @@ class ModalBathComponent extends ModalBase
 
     #[On('show-modal-ph-meter')]
     #[On('show-modal-mixer')]
-    #[On('show-modal-filtration-before')]
-    #[On('show-modal-filtration-after')]
+    #[On('show-modal-filtration')]
     #[On('hide-modal-bath')]
     public function hideModal(): void
     {
         $this->isShow = false;
     }
-
-    public function setBathLeftBoxChooseMode(): void
-    {
-        $this->setCookingTableChooseMode(SessionComponentPlace::inBathLeftBox);
-    }
-
-    public function setBathRightBoxChooseMode(): void
-    {
-        $this->setCookingTableChooseMode(SessionComponentPlace::inBathRightBox);
-    }
-
 
     public function render()
     {

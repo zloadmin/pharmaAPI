@@ -51,7 +51,6 @@ class Scales extends Component
 
     public function weigh()
     {
-//        dd($this->scalesWeightOfComponents, $this->scalesRangeValue, $this->scalesWeightCalibration);
         if ($this->isShowRange && $this->getScalesWeight() > 0) {
             // 1 save session component as weighed
             $this->leftBoxComponent->update([
@@ -63,7 +62,6 @@ class Scales extends Component
             ]);
         }
         $this->cleanScales();
-
     }
 
     public function cleanScales(): void

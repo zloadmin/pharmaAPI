@@ -31,8 +31,8 @@ class ModalPHMeterComponent extends ModalBase
     {
         $this->setSession($session);
         $this->setSessionComponent();
-        $this->disableCookingTableChooseMode();
         $this->setIsSetElectrodes();
+        $this->disableCookingTableChooseMode();
     }
 
     #[On('session-component-moved-to-ph-meter')]
@@ -50,8 +50,7 @@ class ModalPHMeterComponent extends ModalBase
 
     #[On('show-modal-bath')]
     #[On('show-modal-mixer')]
-    #[On('show-modal-filtration-before')]
-    #[On('show-modal-filtration-after')]
+    #[On('show-modal-filtration')]
     #[On('hide-modal-ph-meter')]
     public function hideModal(): void
     {

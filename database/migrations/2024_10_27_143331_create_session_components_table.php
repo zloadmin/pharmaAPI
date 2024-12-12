@@ -36,6 +36,8 @@ return new class extends Migration {
             // bath
             $table->unsignedSmallInteger('bath_temperature')->nullable();
             $table->unsignedSmallInteger('bath_seconds')->nullable();
+            // filtration
+            $table->boolean('filtered')->default(false);
 
             $table->timestamps();
         });

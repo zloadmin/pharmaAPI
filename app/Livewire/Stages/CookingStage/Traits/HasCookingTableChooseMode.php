@@ -18,32 +18,24 @@ trait HasCookingTableChooseMode
     {
         $this->setCookingTableChooseMode(SessionComponentPlace::onPHMeter);
     }
-//
-//    public function setRightBoxChooseMode(): void
-//    {
-//        $this->setTableChooseMode(SessionComponentPlace::onScalesRightBox);
-//    }
-//
-//    public function setBottomBoxChooseMode(): void
-//    {
-//        $this->setTableChooseMode(SessionComponentPlace::onScalesBottomBox);
-//    }
+    public function setBathLeftBoxChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inBathLeftBox);
+    }
 
-//    public function isTableChooseModeBottom(): bool
-//    {
-//        return $this->tableChooseMode == SessionComponentPlace::onScalesBottomBox;
-//    }
-//
-//    public function isTableChooseModeRight(): bool
-//    {
-//        return $this->tableChooseMode == SessionComponentPlace::onScalesRightBox;
-//    }
-//
-//    public function isTableChooseModeLeft(): bool
-//    {
-//        return $this->tableChooseMode == SessionComponentPlace::onScalesLeftBox;
-//    }
-//
+    public function setBathRightBoxChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inBathRightBox);
+    }
+    public function setMixerChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inMixer);
+    }
+    public function setFiltrationBoxChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inFiltrationBox);
+    }
+
     public function disableCookingTableChooseMode(): void
     {
         $this->cookingTableChooseMode = null;

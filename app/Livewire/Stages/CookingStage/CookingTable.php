@@ -36,6 +36,7 @@ class CookingTable extends Component
     #[On('session-component-moved-to-mixer')]
     #[On('session-component-moved-to-in-bath-left')]
     #[On('session-component-moved-to-in-bath-right')]
+    #[On('session-component-moved-to-in-filtration')]
     public function updateList(): void
     {
         $this->setSessionComponents($this->session);

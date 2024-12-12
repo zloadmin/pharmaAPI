@@ -10,14 +10,12 @@
             <button class="btn btn1" data-modal="ph_meter_modal" wire:click="$dispatch('show-modal-ph-meter')">Взаимодействовать</button>
             <button class="btn btn2" data-modal="mixer_modal"  wire:click="$dispatch('show-modal-mixer')">Взаимодействовать</button>
             <button class="btn btn3" data-modal="bath_modal"  wire:click="$dispatch('show-modal-bath')">Взаимодействовать</button>
-            <button class="btn btn4" data-modal="filtration_before_modal" wire:click="$dispatch('show-modal-filtration-after')" >Взаимодействовать</button>
-            <button class="btn btn5" data-modal="filtration_after_modal" wire:click="$dispatch('show-modal-filtration-before')" >Взаимодействовать</button>
+            <button class="btn btn5" data-modal="filtration_after_modal" wire:click="$dispatch('show-modal-filtration')" >Взаимодействовать</button>
 
             <livewire:stages.components.modals.modal-p-h-meter-component :session='$session' />
             <livewire:stages.components.modals.modal-mixer-component :session='$session' />
             <livewire:stages.components.modals.modal-bath-component :session='$session' />
-            <livewire:stages.components.modals.modal-filtration-before-component :session='$session' />
-            <livewire:stages.components.modals.modal-filtration-after-component :session='$session' />
+            <livewire:stages.components.modals.modal-filtration-component :session='$session' />
         </div>
 
         <div class="right_data">
@@ -90,6 +88,10 @@
     });
     $wire.on('session-component-moved-to-in-bath-right', () => {
         console.log('cooking::session-component-moved-to-in-bath-right');
+        window.table_cooking_choose_mode = null;
+    });
+    $wire.on('session-component-moved-in-filtration', () => {
+        console.log('cooking::session-component-moved-in-filtration');
         window.table_cooking_choose_mode = null;
     });
     $wire.on('session-component-moved-to-cooking-table', () => {
