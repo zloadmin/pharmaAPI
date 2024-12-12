@@ -18,9 +18,13 @@ class Scales extends Component
     public ?SessionComponent $leftBoxComponent = null;
     public ?SessionComponent $rightBoxComponent = null;
     public ?SessionComponent $bottomBoxComponent = null;
-    public $weight = 0;
+
     public bool $isShowRange = false;
-    public float $value = 0;
+
+    public float $scalesRangeValue = 0.0;
+    public float $scalesWeightCalibration = 0.0;
+    public float $scalesWeightOfComponents = 0.0;
+    public float $scalesWeight = 0;
 
     public function mount(string $session)
     {
@@ -33,8 +37,13 @@ class Scales extends Component
         $this->setLeftBoxComponent();
         $this->setRightBoxComponent();
         $this->setBottomBoxComponent();
-        $this->setValue();
+        // scales value
+        $this->setScalesWeightCalibration();
+        $this->setScalesWeightOfComponents();
+        $this->setScalesRangeValue();
         $this->setScalesWeight();
+
+
         $this->setIsShowRange();
         $this->disableTableChooseMode();
         $this->dispatch('scales-init');
@@ -42,11 +51,12 @@ class Scales extends Component
 
     public function weigh()
     {
-        if ($this->isShowRange && $this->value > 0) {
+//        dd($this->scalesWeightOfComponents, $this->scalesRangeValue, $this->scalesWeightCalibration);
+        if ($this->isShowRange && $this->getScalesWeight() > 0) {
             // 1 save session component as weighed
             $this->leftBoxComponent->update([
                 'is_weighed'                  => true,
-                'weighed_value'               => $this->value,
+                'weighed_value'               => $this->getScalesWeight(),
                 'weighed_left_component_id'   => $this->leftBoxComponent->id,
                 'weighed_right_component_id'  => $this->rightBoxComponent->id,
                 'weighed_bottom_component_id' => $this->bottomBoxComponent->id,
@@ -55,6 +65,7 @@ class Scales extends Component
         $this->cleanScales();
 
     }
+
     public function cleanScales(): void
     {
         // 2 move all to table
@@ -116,7 +127,11 @@ class Scales extends Component
 
     private function setScalesWeight(): void
     {
-        $this->weight = $this->getWeightOfComponents() - $this->sessionModel->scales_weight_calibration;
+        $this->scalesWeight = $this->scalesWeightOfComponents - $this->scalesWeightCalibration + $this->scalesRangeValue;
+    }
+    private function getScalesWeight(): float
+    {
+        return $this->scalesWeightOfComponents + $this->scalesRangeValue - $this->scalesWeightCalibration;
     }
 
     public function moveToTable(SessionComponentPlace $place)
@@ -132,7 +147,7 @@ class Scales extends Component
     public function calibration(): void
     {
 
-        $this->setSessionScalesWeightCalibration($this->getWeightOfComponents());
+        $this->setSessionScalesWeightCalibration($this->getScalesWeight());
         $this->init($this->session);
     }
 
@@ -163,9 +178,19 @@ class Scales extends Component
 
     }
 
-    private function setValue(): void
+    private function setScalesRangeValue(): void
     {
-        $this->value = $this->leftBoxComponent && $this->leftBoxComponent->isHasWeighedValue() ? $this->leftBoxComponent->weighed_value : 0;
+        $this->scalesRangeValue = $this->leftBoxComponent && $this->leftBoxComponent->isHasWeighedValue() ? $this->leftBoxComponent->weighed_value : 0;
+    }
+
+    private function setScalesWeightCalibration(): void
+    {
+        $this->scalesWeightCalibration = $this->sessionModel->scales_weight_calibration;
+    }
+
+    private function setScalesWeightOfComponents(): void
+    {
+        $this->scalesWeightOfComponents = $this->getWeightOfComponents();
     }
 
 

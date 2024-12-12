@@ -1,19 +1,43 @@
+function initRangeVariables() {
+    initScalesWeightCalibration();
+    initScalesWeightOfComponents();
+    intiScalesRangeValue();
+    initScalesWeight();
+}
+
+function initScalesWeightCalibration() {
+    window.scalesWeightCalibration = Livewire.getByName('stages.weighting-stage.scales')[0].get('scalesWeightCalibration');
+    console.log('initScalesWeightCalibration', window.scalesWeightCalibration);
+}
+
+function initScalesWeightOfComponents() {
+    window.scalesWeightOfComponents = Livewire.getByName('stages.weighting-stage.scales')[0].get('scalesWeightOfComponents');
+    console.log('initScalesWeightOfComponents', window.scalesWeightOfComponents);
+}
+
+function intiScalesRangeValue() {
+    window.scalesRangeValue = Livewire.getByName('stages.weighting-stage.scales')[0].get('scalesRangeValue');
+    console.log('intiScalesRangeValue', window.scalesRangeValue);
+}
+
+function initScalesWeight() {
+    window.scalesWeight = Livewire.getByName('stages.weighting-stage.scales')[0].get('scalesWeight');
+    console.log('initScalesWeight', window.scalesWeight);
+}
+
 function initRange() {
+    initRangeVariables();
+
     if (window.range) {
         console.log('initRange exists', window.range);
         window.range.destroy();
     }
 
-    if ($('#range1').val()) {
-        window.range_from = parseFloat($('#range1').val());
-    } else {
-        window.range_from = 0.001;
-    }
+    window.range_from = window.scalesRangeValue;
+    window.range_current = window.scalesRangeValue;
     window.range_step = 0.001;
     window.range_min = 0.000;
     window.range_max = 0.01;
-    window.range_current = window.range_from;
-
 
     window.range = $('.interaction_data #range1').ionRangeSlider({
         min: window.range_min,
@@ -23,28 +47,23 @@ function initRange() {
         grid: true,
         postfix: ' г',
         onStart: data => {
-            rangeValueUpdated();
+            // updateScalesRangeValue(data.from);
+            updateScalesWeight();
         },
         onChange: data => {
-            // console.log('onChange', data.from);
-            $('.interaction_data .range1 input.from').val(data.from.toFixed(4))
-            window.range_current = data.from;
-            rangeValueUpdated();
+            // updateScalesRangeValue(data.from);
+            updateScalesWeight();
         },
         onUpdate: data => {
-            // console.log('onUpdate', data.from);
-            $('.interaction_data .range1 input.from').val(data.from.toFixed(4))
-            window.range_current = data.from;
-            rangeValueUpdated();
+            // updateScalesRangeValue(data.from);
+            updateScalesWeight();
         },
         onFinish: data => {
-            window.range_current = data.from;
-            $('.interaction_data .range1 input.from').val(data.from.toFixed(4))
-            window.range_current = data.from;
-            rangeValueUpdated();
+            updateScalesRangeValue(data.from);
+            updateScalesWeight();
         }
     }).data("ionRangeSlider");
-    // updateScalesValue();
+    updateScalesWeight();
     $('.rangeBlock').show();
 }
 
@@ -115,42 +134,37 @@ function initBathTimeRange() {
 }
 
 function rangeMinus() {
-    let nextValue = window.range_current - window.range_step;
-    let value = nextValue >= window.range_min ? nextValue : window.range_min;
-    rangeSetValue(value.toFixed(4));
+    let nextValue = window.scalesRangeValue - window.range_step;
+    window.scalesRangeValue = nextValue >= window.range_min ? nextValue : window.range_min;
+    updateScalesRangeValue(window.scalesRangeValue);
+    rangeSetValue(window.scalesRangeValue.toFixed(4));
 }
 
 function rangePlus() {
-
-
-    let nextValue = window.range_step + window.range_current;
-    let value = nextValue >= window.range_max ? window.range_max : nextValue;
-    rangeSetValue(value.toFixed(4));
+    let nextValue = window.scalesRangeValue + window.range_step;
+    window.scalesRangeValue = nextValue >= window.range_max ? window.range_max : nextValue;
+    updateScalesRangeValue(window.scalesRangeValue);
+    rangeSetValue(window.scalesRangeValue.toFixed(4));
 }
 
 function rangeSetValue(value) {
     window.range.update({
         from: parseFloat(value)
-    })
-    window.range_current = parseFloat(value);
-    rangeValueUpdated();
+    });
+
+}
+function updateScalesRangeValue(value) {
+    console.log('updateScalesRangeValue', value);
+    window.scalesRangeValue = value;
+    Livewire.getByName('stages.weighting-stage.scales')[0].set('scalesRangeValue', value, false)
 }
 
-function rangeValueUpdated() {
-    updateScalesValue();
+function updateScalesWeight() {
+    window.scalesWeight = window.scalesWeightOfComponents + window.scalesRangeValue - window.scalesWeightCalibration;
+    $('#scales-value').text(window.scalesWeight.toFixed(4));
+    $('.interaction_data .range1 input.from').val(window.scalesWeight.toFixed(3));
 }
 
-function updateScalesValue() {
-    let current = $('#scales-value').data('current-value');
-    let nextValue = parseFloat(current) + parseFloat(window.range_current);
-    setScalesValue(nextValue.toFixed(4));
-}
-
-function setScalesValue(value) {
-
-    $('#scales-value').text(addLeadingZeros(value, 8));
-    Livewire.getByName('stages.weighting-stage.scales')[0].set('value', value, false)
-}
 
 function addLeadingZeros(num, targetLength) {
 

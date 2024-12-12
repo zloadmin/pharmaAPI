@@ -1,8 +1,5 @@
 <div>
     <div class="interaction_data">
-        {{--        <button class="close_btn">--}}
-        {{--            <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_close"></use></svg>--}}
-        {{--        </button>--}}
 
         <div class="data">
             <div class="head">
@@ -10,10 +7,6 @@
             </div>
 
             <div class="objects">
-                {{--                <button class="move_btn">--}}
-                {{--                    <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_move"></use></svg>--}}
-                {{--                </button>--}}
-
                 @if($leftBoxComponent)
                     @include('livewire.stages.weighting-stage.scales-component', ['sessionComponent' => $leftBoxComponent])
                 @else
@@ -80,7 +73,6 @@
 <script>
     $wire.on('scales-init', () => {
         console.log('scales::scales-init');
-        // initRange();
         setTimeout(initRange, 100);
     });
     $wire.on('session-component-moved-to-scales', () => {

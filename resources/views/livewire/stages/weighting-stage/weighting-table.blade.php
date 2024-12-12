@@ -23,7 +23,7 @@
                 <div class="thumb">
                     <img src="{{ $sessionComponent->component->image_url }}" alt="" loading="lazy">
                 </div>
-                <div class="name">{{ $sessionComponent->component->name }}</div>
+                <div class="name">{{ $sessionComponent->name }}</div>
             </div>
         @endforeach
 

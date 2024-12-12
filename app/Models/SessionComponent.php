@@ -18,6 +18,8 @@ class SessionComponent extends Model
     ];
     protected $guarded = [];
 
+//    protected $with = ['component', 'weighedLeftComponent', 'weighedRightComponent', 'weighedBottomComponent'];
+
     public function component(): HasOne
     {
         return $this->hasOne(Component::class, 'id', 'component_id');
@@ -36,6 +38,21 @@ class SessionComponent extends Model
     public function weighedBottomComponent(): HasOne
     {
         return $this->hasOne(self::class, 'id', 'weighed_bottom_component_id');
+    }
+
+    public function getNameAttribute()
+    {
+        if ($this->isFiled()) {
+            return sprintf('%s с %s', $this->component->name, $this->weighedRightComponent->name);
+        }
+        return $this->component->name;
+    }
+
+    private function isFiled(): bool
+    {
+        return
+            $this->weighedRightComponent && $this->weighedLeftComponent
+            && $this->weighed_left_component_id == $this->id;
     }
 
     /**

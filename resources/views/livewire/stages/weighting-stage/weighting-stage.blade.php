@@ -9,23 +9,6 @@
 
         <livewire:stages.weighting-stage.scales :session='$session'/>
 
-
-
-{{--        <div class="total_data">--}}
-{{--            <div class="status">Статус = <span>Дефолт</span></div>--}}
-
-{{--            <div class="val">--}}
-{{--                <span>000.0000</span> <small>г</small>--}}
-{{--            </div>--}}
-
-{{--            <div class="btns">--}}
-{{--                <button class="btn border">Тарировать</button>--}}
-
-{{--                <button class="btn">Взвесить</button>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-
         <img src="/web/images/tmp/weight_img.jpg" alt="" loading="lazy" class="bg">
 
         {{-- Modals --}}

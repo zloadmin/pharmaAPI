@@ -25,11 +25,13 @@ trait HasSession
     {
         return $this->sessionModel->scales_weight_calibration;
     }
+
     public function setSessionScalesWeightCalibration(float $value): void
     {
 
         $this->sessionModel->update([
-            'scales_weight_calibration' => $value
+            'scales_weight_calibration' =>
+                $this->sessionModel->scales_weight_calibration ? $this->sessionModel->scales_weight_calibration + $value : $value
         ]);
     }
 

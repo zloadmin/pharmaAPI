@@ -16,7 +16,7 @@
                         <button class="remove_btn" type="button" wire:click="moveToCookingTable('{{ $leftBoxSessionComponent->place }}')">
                             <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_remove"></use></svg>
                         </button>
-                        <div class="name">{{ $leftBoxSessionComponent->component->name }}</div>
+                        <div class="name">{{ $leftBoxSessionComponent->name }}</div>
 
                         <div class="overflow">
                             <div class="thumb">
@@ -49,7 +49,7 @@
                             <button class="remove_btn" type="button" wire:click="moveToCookingTable('{{ $rightBoxSessionComponent->place }}')">
                                 <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_remove"></use></svg>
                             </button>
-                            <div class="name">Мерная колба</div>
+                            <div class="name">{{ $rightBoxSessionComponent->name }}</div>
                             <div class="overflow">
                                 <div class="thumb">
                                     <img src="{{ $rightBoxSessionComponent->component->image_url }}" alt="" loading="lazy">

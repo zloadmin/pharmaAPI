@@ -6,7 +6,7 @@
             </svg>
         </button>
 
-        <div class="name">{{ $sessionComponent->component->name }}</div>
+        <div class="name">{{ $sessionComponent->name }}</div>
 
         <div class="overflow">
             <div class="thumb">
