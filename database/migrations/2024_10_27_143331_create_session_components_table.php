@@ -32,7 +32,10 @@ return new class extends Migration {
             $table->foreign('weighed_bottom_component_id')->references('id')->on('session_components')->onDelete('cascade');
 
             // mixer
-            $table->unsignedBigInteger('mixer_seconds')->default(0);
+            $table->unsignedBigInteger('mixer_seconds')->nullable();
+            // bath
+            $table->unsignedSmallInteger('bath_temperature')->nullable();
+            $table->unsignedSmallInteger('bath_seconds')->nullable();
 
             $table->timestamps();
         });

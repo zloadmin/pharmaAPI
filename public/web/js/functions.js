@@ -1,10 +1,10 @@
 function initRange() {
-    if(window.range) {
+    if (window.range) {
         console.log('initRange exists', window.range);
         window.range.destroy();
     }
 
-    if($('#range1').val()) {
+    if ($('#range1').val()) {
         window.range_from = parseFloat($('#range1').val());
     } else {
         window.range_from = 0.001;
@@ -13,7 +13,6 @@ function initRange() {
     window.range_min = 0.000;
     window.range_max = 0.01;
     window.range_current = window.range_from;
-
 
 
     window.range = $('.interaction_data #range1').ionRangeSlider({
@@ -48,9 +47,9 @@ function initRange() {
     // updateScalesValue();
     $('.rangeBlock').show();
 }
-function initTimeRange()
-{
-    if(window.timeRange) {
+
+function initTimeRange() {
+    if (window.timeRange) {
         console.log('initRange exists', window.timeRange);
         window.timeRange.destroy();
     }
@@ -69,8 +68,54 @@ function initTimeRange()
     }).data('ionRangeSlider');
 }
 
+function initBathRanges() {
+    initBathTemperatureRange();
+    initBathTimeRange();
+}
+
+function initBathTemperatureRange() {
+
+    if (window.bathTemperatureRange) {
+        console.log('initBathRanges exists bathTemperatureRange', window.bathTemperatureRange);
+        window.bathTemperatureRange.destroy();
+    }
+
+    window.bathTemperatureRange = $('#bath_temperature').ionRangeSlider({
+        min: 0,
+        max: 100,
+        from: 0,
+        step: 1,
+        grid: true,
+        grid_num: 10,
+        onFinish: data => {
+            console.log('bathTemperatureRange ', data.from);
+            Livewire.getByName('stages.components.modals.modal-bath-component')[0].set('temperature', data.from, false)
+        },
+    }).data('ionRangeSlider');
+
+}
+
+function initBathTimeRange() {
+    if (window.bathTimeRange) {
+        console.log('initBathRanges exists bathTimeRange', window.bathTimeRange);
+        window.bathTimeRange.destroy();
+    }
+    window.bathTimeRange = $('#bath_time').ionRangeSlider({
+        min: 10,
+        max: 120,
+        from: 10,
+        step: 1,
+        grid: true,
+        grid_num: 11,
+        onFinish: data => {
+            console.log('bathTimeRange ', data.from);
+            Livewire.getByName('stages.components.modals.modal-bath-component')[0].set('seconds', data.from, false)
+        },
+    }).data('ionRangeSlider');
+}
+
 function rangeMinus() {
-    let nextValue = window.range_current  - window.range_step ;
+    let nextValue = window.range_current - window.range_step;
     let value = nextValue >= window.range_min ? nextValue : window.range_min;
     rangeSetValue(value.toFixed(4));
 }
@@ -90,22 +135,23 @@ function rangeSetValue(value) {
     window.range_current = parseFloat(value);
     rangeValueUpdated();
 }
-function rangeValueUpdated()
-{
+
+function rangeValueUpdated() {
     updateScalesValue();
 }
-function updateScalesValue()
-{
+
+function updateScalesValue() {
     let current = $('#scales-value').data('current-value');
     let nextValue = parseFloat(current) + parseFloat(window.range_current);
     setScalesValue(nextValue.toFixed(4));
 }
-function setScalesValue(value)
-{
+
+function setScalesValue(value) {
 
     $('#scales-value').text(addLeadingZeros(value, 8));
     Livewire.getByName('stages.weighting-stage.scales')[0].set('value', value, false)
 }
+
 function addLeadingZeros(num, targetLength) {
 
     let numStr = num.toString();
@@ -116,14 +162,13 @@ function addLeadingZeros(num, targetLength) {
     return numStr;
 }
 
-function showCurrentTask()
-{
+function showCurrentTask() {
     let parent = $('.current_task');
     $('.spoler_btn').toggleClass('active')
     parent.find('.dropdown').slideToggle(300)
 }
-function showModal(modal)
-{
+
+function showModal(modal) {
 
     Fancybox.defaults.autoFocus = false
     Fancybox.defaults.trapFocus = false
@@ -153,8 +198,7 @@ function showModal(modal)
     }])
 }
 
-function initCartSlider()
-{
+function initCartSlider() {
 
     const bottomPanelSliders = [],
         bottomPanelSlider = document.querySelectorAll('.bottom_panel .swiper')
@@ -190,6 +234,7 @@ function initCartSlider()
         bottomPanelSliders.push(new Swiper('.bottom_panel_s' + i, options))
     })
 }
+
 const setHeight = items => {
     let maxheight = 0
 

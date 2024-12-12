@@ -106,6 +106,28 @@ class SessionComponent extends Model
     }
 
     /**
+     * Scope a query to only include in bath left box
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeInBathLeftBox(Builder $query): Builder
+    {
+        return $query->where('place', SessionComponentPlace::inBathLeftBox);
+    }
+
+    /**
+     * Scope a query to only include in bath right box
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeInBathRightBox(Builder $query): Builder
+    {
+        return $query->where('place', SessionComponentPlace::inBathRightBox);
+    }
+
+    /**
      * Scope a query to only include in mixer
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -209,7 +231,15 @@ class SessionComponent extends Model
     public function addMixerSeconds(int $seconds): void
     {
         $this->update([
-            'mixer_seconds' => $this->mixer_seconds + $seconds
+            'mixer_seconds' => $this->mixer_seconds ? $this->mixer_seconds + $seconds : $seconds
+        ]);
+    }
+
+    public function addBathData(int $seconds, int $temperature): void
+    {
+        $this->update([
+            'bath_seconds'     => $seconds,
+            'bath_temperature' => $temperature
         ]);
     }
 }

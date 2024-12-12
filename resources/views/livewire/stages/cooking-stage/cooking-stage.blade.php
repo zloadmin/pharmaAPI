@@ -70,14 +70,26 @@
         console.log('mixer::show-modal-mixer');
         setTimeout(initTimeRange, 300);
     });
+    $wire.on('show-modal-bath', () => {
+        console.log('bath::show-modal-bath');
+        setTimeout(initBathRanges, 300);
+    });
 
    // TODO: add another events
     $wire.on('session-component-moved-to-mixer', () => {
         console.log('cooking::session-component-moved-to-mixer');
         window.table_cooking_choose_mode = null;
     });
-    $wire.on('session-component-moved-to-cooking-table', () => {
-        console.log('cooking::session-component-moved-to-cooking-table');
+    $wire.on('session-component-moved-to-ph-meter', () => {
+        console.log('cooking::session-component-moved-to-ph-meter');
+        window.table_cooking_choose_mode = null;
+    });
+    $wire.on('session-component-moved-to-in-bath-left', () => {
+        console.log('cooking::session-component-moved-to-in-bath-left');
+        window.table_cooking_choose_mode = null;
+    });
+    $wire.on('session-component-moved-to-in-bath-right', () => {
+        console.log('cooking::session-component-moved-to-in-bath-right');
         window.table_cooking_choose_mode = null;
     });
     $wire.on('session-component-moved-to-cooking-table', () => {

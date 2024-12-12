@@ -23,10 +23,30 @@ class ModalBathComponent extends ModalBase
     public ?SessionComponent $rightBoxSessionComponent = null;
     public bool $isShow = false;
 
+    public int $temperature = 0;
+    public int $seconds = 0;
+
 
     public function mount(string $session): void
     {
+        $this->init($session);
+    }
+
+    public function init(string $session): void
+    {
         $this->setSession($session);
+        $this->setLeftBoxSessionComponent();
+        $this->setRightBoxSessionComponent();
+        $this->disableCookingTableChooseMode();
+        $this->dispatch('bath-init');
+    }
+
+    #[On('session-component-moved-to-in-bath-left')]
+    #[On('session-component-moved-to-in-bath-right')]
+    #[On('session-component-moved-to-cooking-table')]
+    public function updateComponents(): void
+    {
+        $this->init($this->session);
     }
 
 
@@ -35,6 +55,7 @@ class ModalBathComponent extends ModalBase
     {
         $this->isShow = true;
     }
+
     #[On('show-modal-ph-meter')]
     #[On('show-modal-mixer')]
     #[On('show-modal-filtration-before')]
@@ -49,6 +70,7 @@ class ModalBathComponent extends ModalBase
     {
         $this->setCookingTableChooseMode(SessionComponentPlace::inBathLeftBox);
     }
+
     public function setBathRightBoxChooseMode(): void
     {
         $this->setCookingTableChooseMode(SessionComponentPlace::inBathRightBox);
@@ -60,7 +82,33 @@ class ModalBathComponent extends ModalBase
         return view('livewire.stages.components.modals.modal-bath');
     }
 
+    private function setLeftBoxSessionComponent(): void
+    {
 
+        $this->leftBoxSessionComponent = SessionComponent::with('component')->bySession($this->session)->inBathLeftBox()->first();
+    }
+
+    private function setRightBoxSessionComponent(): void
+    {
+        $this->rightBoxSessionComponent = SessionComponent::with('component')->bySession($this->session)->inBathRightBox()->first();
+    }
+
+    public function run(): void
+    {
+
+        if ($this->leftBoxSessionComponent) {
+            $this->leftBoxSessionComponent->addBathData($this->seconds, $this->temperature);
+            $this->leftBoxSessionComponent->moveToCookingTable();
+        }
+        if ($this->rightBoxSessionComponent) {
+            $this->rightBoxSessionComponent->addBathData($this->seconds, $this->temperature);
+            $this->rightBoxSessionComponent->moveToCookingTable();
+        }
+
+        $this->dispatch('hide-modal-bath');
+        $this->dispatch('session-component-moved-to-cooking-table');
+
+    }
 
 
 }

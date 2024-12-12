@@ -34,6 +34,8 @@ class CookingTable extends Component
     #[On('session-component-moved-to-sink')]
     #[On('session-component-moved-to-ph-meter')]
     #[On('session-component-moved-to-mixer')]
+    #[On('session-component-moved-to-in-bath-left')]
+    #[On('session-component-moved-to-in-bath-right')]
     public function updateList(): void
     {
         $this->setSessionComponents($this->session);
