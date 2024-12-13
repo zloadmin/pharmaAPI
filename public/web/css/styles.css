@@ -1768,6 +1768,14 @@ header .select_room_btn .icon
 {
     width: 266px;
     padding: 27px 20px 20px;
+
+}
+.object_modal.video
+{
+    width: 95%;
+    height: 90%;
+    padding: 27px 20px 20px;
+    z-index: 999;
 }
 
 

@@ -60,7 +60,7 @@
         <livewire:stages.components.modals.modal-cooking-table-component :session='$session'/>
         <livewire:stages.components.component-cart :session='$session' click-component-event="show-modal-move-to-cooking-table"/>
     </section>
-
+    <livewire:stages.components.modals.modal-video />
 </div>
 @script
 <script>

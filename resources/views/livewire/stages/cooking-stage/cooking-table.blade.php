@@ -1,6 +1,6 @@
 <div class="section on_table">
     <div class="head">
-        <div class="title">На столе</div>
+        <div class="title" wire:click="$dispatch('show-modal-video', ['http://url'])">На столе</div>
         <button class="get_all_btn" type="button" wire:click="moveAllCartItemsToCookingTable">Взять все</button>
     </div>
 
