@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="/web/css/swiper.css" async>
     <link rel="stylesheet" href="/web/css/fancybox.css" async>
     <link rel="stylesheet" href="/web/css/ion.rangeSlider.css" async>
-    <link rel="stylesheet" href="/web/css/styles.css" async>
+    <link rel="stylesheet" href="/web/css/styles.css?ver=2" async>
 
     <link rel="stylesheet" href="/web/css/response_1899.css" media="print, (max-width: 1899px)" async>
     <link rel="stylesheet" href="/web/css/response_1439.css" media="print, (max-width: 1439px)" async>
