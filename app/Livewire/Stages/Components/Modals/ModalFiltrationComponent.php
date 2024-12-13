@@ -62,6 +62,7 @@ class ModalFiltrationComponent extends ModalBase
     }
     public function run()
     {
+        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
         if ($this->sessionComponent) {
             $this->sessionComponent->markAsFiltered();
             $this->sessionComponent->moveToCookingTable();

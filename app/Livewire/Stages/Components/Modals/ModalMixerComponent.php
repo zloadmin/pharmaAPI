@@ -80,6 +80,7 @@ class ModalMixerComponent extends ModalBase
     public function run()
     {
         if ($this->sessionComponent) {
+            $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
             $this->sessionComponent->addMixerSeconds($this->seconds);
             $this->sessionComponent->moveToCookingTable();
             $this->dispatch('hide-modal-mixer');

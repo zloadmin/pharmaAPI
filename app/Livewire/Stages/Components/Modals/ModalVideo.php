@@ -8,19 +8,19 @@ use Livewire\Component;
 class ModalVideo extends Component
 {
     public bool $isShow = false;
-    public string $url = '';
+    public string $fileName = '';
 
     #[On('hide-modal-video')]
     public function hideModal(): void
     {
         $this->isShow = false;
-        $this->url = '';
+        $this->fileName = '';
     }
     #[On('show-modal-video')]
-    public function showModal($url): void
+    public function showModal($fileName): void
     {
         $this->isShow = true;
-        $this->url = $url;
+        $this->fileName = $fileName;
 
     }
     public function render()

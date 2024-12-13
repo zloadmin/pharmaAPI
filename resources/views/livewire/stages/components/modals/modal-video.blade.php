@@ -6,8 +6,10 @@
             </svg>
         </button>
 
-        <div class="video">
-            video here {{ $url }}
+        <div class="video" style="width: 100%; height: 100%; object-fit: fill">
+            <video controls autoplay style="width: 100%; max-height: 100%">
+                <source src="/storage/videos/{{ $fileName }}" type="video/mp4">
+            </video>
         </div>
 
     @endif

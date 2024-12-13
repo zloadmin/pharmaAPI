@@ -71,6 +71,7 @@ class ModalPHMeterComponent extends ModalBase
     public function setElectrodes(): void
     {
         $this->isSetElectrodes = true;
+        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
     }
 
     private function setIsSetElectrodes(): void
