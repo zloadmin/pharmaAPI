@@ -16,20 +16,20 @@
                         <button class="remove_btn" type="button" wire:click="moveToCookingTable('{{ $leftBoxSessionComponent->place }}')">
                             <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_remove"></use></svg>
                         </button>
-                        <div class="name">{{ $leftBoxSessionComponent->name }}</div>
+                        <div class="name">{{ $leftBoxSessionComponent->getName() }}</div>
 
                         <div class="overflow">
                             <div class="thumb">
-                                <img src="{{ $leftBoxSessionComponent->component->image_url }}" alt="" loading="lazy">
+                                <img src="{{ $leftBoxSessionComponent->getImageUrl() }}" alt="" loading="lazy">
                             </div>
 
-                            <div class="type">Тип: <span>{{ $leftBoxSessionComponent->component->type->label() }}</span></div>
+                            <div class="type">Тип: <span>{{ $leftBoxSessionComponent->getTypeLabel() }}</span></div>
                         </div>
 
                         <div class="status">
                             <div class="label">Статус:</div>
 
-                            <div class="val">???</div>
+                            <div class="val">{!! $leftBoxSessionComponent->getStatus() !!}</div>
                         </div>
                     </div>
                 @else
@@ -49,19 +49,19 @@
                             <button class="remove_btn" type="button" wire:click="moveToCookingTable('{{ $rightBoxSessionComponent->place }}')">
                                 <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_remove"></use></svg>
                             </button>
-                            <div class="name">{{ $rightBoxSessionComponent->name }}</div>
+                            <div class="name">{{ $rightBoxSessionComponent->getName() }}</div>
                             <div class="overflow">
                                 <div class="thumb">
-                                    <img src="{{ $rightBoxSessionComponent->component->image_url }}" alt="" loading="lazy">
+                                    <img src="{{ $rightBoxSessionComponent->getImageUrl() }}" alt="" loading="lazy">
                                 </div>
 
-                                <div class="type">Тип: <span>{{ $rightBoxSessionComponent->component->type->label() }}</span></div>
+                                <div class="type">Тип: <span>{{ $rightBoxSessionComponent->getTypeLabel() }}</span></div>
                             </div>
 
                             <div class="status">
                                 <div class="label">Статус:</div>
 
-                                <div class="val">???</div>
+                                <div class="val">{!! $rightBoxSessionComponent->getStatus() !!}</div>
                             </div>
                         </div>
                 @else

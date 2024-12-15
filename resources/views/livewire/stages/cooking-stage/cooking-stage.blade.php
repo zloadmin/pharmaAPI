@@ -16,6 +16,7 @@
             <livewire:stages.components.modals.modal-mixer-component :session='$session' />
             <livewire:stages.components.modals.modal-bath-component :session='$session' />
             <livewire:stages.components.modals.modal-filtration-component :session='$session' />
+            <livewire:stages.components.modals.modal-mix-component :session='$session' />
         </div>
 
         <div class="right_data">
@@ -41,7 +42,6 @@
 
                 <div class="status">
                     <div class="label">Статус:</div>
-
                     <div class="val">Вода: 25 мл</div>
                 </div>
 
@@ -74,6 +74,19 @@
     });
 
    // TODO: add another events
+    $wire.on('session-component-moved-to-mix-left', () => {
+        console.log('cooking::session-component-moved-to-mixer');
+        window.table_cooking_choose_mode = null;
+    });
+    $wire.on('session-component-moved-to-mix-center', () => {
+        console.log('cooking::session-component-moved-to-mixer');
+        window.table_cooking_choose_mode = null;
+    });
+    $wire.on('session-component-moved-to-mix-right', () => {
+        console.log('cooking::session-component-moved-to-mixer');
+        window.table_cooking_choose_mode = null;
+    });
+
     $wire.on('session-component-moved-to-mixer', () => {
         console.log('cooking::session-component-moved-to-mixer');
         window.table_cooking_choose_mode = null;

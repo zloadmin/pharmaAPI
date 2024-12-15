@@ -1,13 +1,14 @@
 <div class="section on_table">
     <div class="head">
         <div class="title">На столе</div>
+        <button class="get_all_btn get_all_btn_second" type="button" wire:click="moveAllTableItemsToCart">Вернуть все</button>
         <button class="get_all_btn" type="button" wire:click="moveAllCartItemsToTable">Взять все</button>
     </div>
 
     <div class="row">
         @foreach($sessionComponents as $sessionComponent)
             <div
-                 @if($chooseModePlace && $sessionComponent->component->isCanBeChoose($chooseModePlace))
+                 @if($chooseModePlace && $sessionComponent->isCanBeChoose($chooseModePlace))
                      class="item item_force_hover target_component"
                     wire:click="moveToScales({{ $sessionComponent->id }}, '{{ $chooseModePlace->value }}')"
                  @else
@@ -21,7 +22,7 @@
                     @endif
                 </div>
                 <div class="thumb">
-                    <img src="{{ $sessionComponent->component->image_url }}" alt="" loading="lazy">
+                    <img src="{{ $sessionComponent->getImageUrl() }}" alt="" loading="lazy">
                 </div>
                 <div class="name">{{ $sessionComponent->name }}</div>
             </div>

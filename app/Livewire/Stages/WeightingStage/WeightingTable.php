@@ -81,6 +81,15 @@ class WeightingTable extends Component
         $this->dispatch('session-component-moved-to-weighting-table');
     }
 
+    public function moveAllTableItemsToCart(): void
+    {
+        SessionComponent::bySession($this->session)
+            ->byPlace(SessionComponentPlace::onWeightingTable)
+            ->update(['place' => SessionComponentPlace::inCart]);
+
+        $this->dispatch('session-component-moved-to-cart');
+    }
+
     public function moveToScales(int $sessionComponentId, SessionComponentPlace $place): void
     {
         $sessionComponent = $this->getSessionComponent($sessionComponentId);

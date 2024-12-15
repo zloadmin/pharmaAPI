@@ -16,8 +16,8 @@
         </div>
 
         <div class="status">
-                <div class="label">Статус:</div>
-                <div class="val">Наполнено / Закрыто / Тарировано / Взвешено</div>
+{{--        <div class="label">Статус:</div>--}}
+{{--        <div class="val">Наполнено / Закрыто / Тарировано / Взвешено</div>--}}
         </div>
 
         <form wire:submit.prevent="addToCart">

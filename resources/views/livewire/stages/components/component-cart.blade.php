@@ -41,10 +41,10 @@
                                     @endif
                                 </div>
                                 <div class="thumb">
-                                    <img src="{{ $cartItem->component->image_url }}" alt="" loading="lazy">
+                                    <img src="{{ $cartItem->getImageUrl() }}" alt="" loading="lazy">
                                 </div>
 
-                                <div class="name">{{ $cartItem->component->short_name }}</div>
+                                <div class="name">{{ $cartItem->getShortName() }}</div>
                             </div>
                         </div>
                     @endforeach

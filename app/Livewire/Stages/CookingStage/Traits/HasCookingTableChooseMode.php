@@ -18,6 +18,7 @@ trait HasCookingTableChooseMode
     {
         $this->setCookingTableChooseMode(SessionComponentPlace::onPHMeter);
     }
+
     public function setBathLeftBoxChooseMode(): void
     {
         $this->setCookingTableChooseMode(SessionComponentPlace::inBathLeftBox);
@@ -27,10 +28,27 @@ trait HasCookingTableChooseMode
     {
         $this->setCookingTableChooseMode(SessionComponentPlace::inBathRightBox);
     }
+
+    public function setMixLeftBoxChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inMixLeftBox);
+    }
+
+    public function setMixCenterBoxChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inMixCenterBox);
+    }
+
+    public function setMixRightBoxChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inMixRightBox);
+    }
+
     public function setMixerChooseMode(): void
     {
         $this->setCookingTableChooseMode(SessionComponentPlace::inMixer);
     }
+
     public function setFiltrationBoxChooseMode(): void
     {
         $this->setCookingTableChooseMode(SessionComponentPlace::inFiltrationBox);

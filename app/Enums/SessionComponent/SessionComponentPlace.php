@@ -20,6 +20,9 @@ enum SessionComponentPlace: string
     case inBathLeftBox = 'inBathLeftBox';
     case inBathRightBox = 'inBathRightBox';
     case inFiltrationBox = 'inFiltrationBox';
+    case inMixLeftBox = 'inMixLeftBox';
+    case inMixCenterBox = 'inMixCenterBox';
+    case inMixRightBox = 'inMixRightBox';
 
 
     public function label(): string
@@ -89,6 +92,9 @@ enum SessionComponentPlace: string
             self::inBathLeftBox => 'in-bath-left',
             self::inBathRightBox => 'in-bath-right',
             self::inFiltrationBox => 'in-filtration',
+            self::inMixLeftBox => 'mix-left',
+            self::inMixCenterBox => 'mix-center',
+            self::inMixRightBox => 'mix-right',
         };
     }
 }

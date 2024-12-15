@@ -29,6 +29,7 @@ return new class extends Migration {
             $table->boolean('mixer_able')->default(false);
             $table->boolean('bath_able')->default(false);
             $table->boolean('filtration_able')->default(false);
+            $table->boolean('mix_able')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

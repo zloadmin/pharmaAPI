@@ -50,6 +50,7 @@ class ModalPHMeterComponent extends ModalBase
 
     #[On('show-modal-bath')]
     #[On('show-modal-mixer')]
+    #[On('show-modal-mix')]
     #[On('show-modal-filtration')]
     #[On('hide-modal-ph-meter')]
     public function hideModal(): void
@@ -71,6 +72,9 @@ class ModalPHMeterComponent extends ModalBase
     public function setElectrodes(): void
     {
         $this->isSetElectrodes = true;
+        $this->sessionComponent?->update([
+            'ph_meter_value' => $this->sessionComponent->component->ph_meter_value
+        ]);
         $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
     }
 

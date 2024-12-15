@@ -37,6 +37,10 @@ class CookingTable extends Component
     #[On('session-component-moved-to-in-bath-left')]
     #[On('session-component-moved-to-in-bath-right')]
     #[On('session-component-moved-to-in-filtration')]
+    #[On('session-component-moved-to-mix-left')]
+    #[On('session-component-moved-to-mix-center')]
+    #[On('session-component-moved-to-mix-right')]
+    #[On('session-component-moved-to-cooking-table')]
     public function updateList(): void
     {
         $this->setSessionComponents($this->session);
@@ -83,6 +87,15 @@ class CookingTable extends Component
             ->update(['place' => SessionComponentPlace::onCookingTable]);
 
         $this->dispatch('session-component-moved-to-cooking-table');
+    }
+
+    public function moveAllCookingTableItemsToCart(): void
+    {
+        SessionComponent::bySession($this->session)
+            ->byPlace(SessionComponentPlace::onCookingTable)
+            ->update(['place' => SessionComponentPlace::inCart]);
+
+        $this->dispatch('session-component-moved-to-cart');
     }
 
     public function moveToPlace(int $sessionComponentId, SessionComponentPlace $place): void

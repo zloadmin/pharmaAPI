@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SessionComponent extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $casts = [
         'place' => SessionComponentPlace::class
@@ -35,17 +37,97 @@ class SessionComponent extends Model
         return $this->hasOne(self::class, 'id', 'weighed_right_component_id');
     }
 
+    public function mixedLeftComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'mixed_left_component_id')->withTrashed();
+    }
+    public function mixedCenterComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'mixed_center_component_id')->withTrashed();
+    }
+    public function mixedRightComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'mixed_right_component_id')->withTrashed();
+    }
+
     public function weighedBottomComponent(): HasOne
     {
         return $this->hasOne(self::class, 'id', 'weighed_bottom_component_id');
     }
 
-    public function getNameAttribute()
+
+    public function getName()
     {
+        if ($this->is_mixed) {
+            return 'Смешанный';
+        }
         if ($this->isFiled()) {
             return sprintf('%s с %s', $this->component->name, $this->weighedRightComponent->name);
         }
         return $this->component->name;
+    }
+    public function getShortName()
+    {
+        if ($this->is_mixed) {
+            return 'Смешанный';
+        }
+        return $this->component->name;
+    }
+
+    public function getImageUrl(): string
+    {
+        if ($this->is_mixed) {
+            return '/web/images/mix.png';
+        }
+        return $this->component->image_url;
+    }
+
+    public function getTypeLabel(): string
+    {
+        if ($this->is_mixed) {
+            return 'Смешеный';
+        }
+        return $this->component->type->label();
+    }
+
+    public function getStatus(): string
+    {
+        return $this->is_mixed ? $this->getMixedStatus() : $this->getSimpleStatus();
+    }
+    public function getSimpleStatus(): string
+    {
+        $result = [];
+        if ($this->ph_meter_value) {
+            $result[] = sprintf('PH: %03.4f', $this->ph_meter_value);
+        }
+        if ($this->mixer_seconds) {
+            $result[] = sprintf('Время в мешалке %d сек', $this->mixer_seconds);
+        }
+        if ($this->bath_temperature) {
+            $result[] = sprintf('УК ванна %d C&deg;', $this->bath_temperature);
+        }
+        if ($this->bath_seconds) {
+            $result[] = sprintf('УК ванна %d сек.', $this->bath_seconds);
+        }
+        if ($this->filtered) {
+            $result[] = 'Прошло фильтрацию';
+        }
+        return implode('<br>', $result);
+    }
+    public function getMixedStatus(): string
+    {
+        $result = ['Состав'];
+        if ($this->mixedLeftComponent) {
+            $result[] = $this->mixedLeftComponent->getName();
+        }
+        if ($this->mixedCenterComponent) {
+            $result[] = $this->mixedCenterComponent->getName();
+        }
+        if ($this->mixedRightComponent) {
+            $result[] = $this->mixedRightComponent->getName();
+        }
+
+        return implode('<br>', $result);
     }
 
     private function isFiled(): bool
@@ -142,6 +224,39 @@ class SessionComponent extends Model
     public function scopeInBathLeftBox(Builder $query): Builder
     {
         return $query->where('place', SessionComponentPlace::inBathLeftBox);
+    }
+
+    /**
+     * Scope a query to only include in mix left box
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeInMixLeftBox(Builder $query): Builder
+    {
+        return $query->where('place', SessionComponentPlace::inMixLeftBox);
+    }
+
+    /**
+     * Scope a query to only include in mix center box
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeInMixCenterBox(Builder $query): Builder
+    {
+        return $query->where('place', SessionComponentPlace::inMixCenterBox);
+    }
+
+    /**
+     * Scope a query to only include in mix right box
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeInMixRightBox(Builder $query): Builder
+    {
+        return $query->where('place', SessionComponentPlace::inMixRightBox);
     }
 
     /**
@@ -276,5 +391,10 @@ class SessionComponent extends Model
         $this->update([
             'filtered' => true
         ]);
+    }
+
+    public function isCanBeChoose(SessionComponentPlace $place): bool
+    {
+        return $this->component && $this->component->isCanBeChoose($place);
     }
 }

@@ -3695,6 +3695,10 @@ header .select_room_btn .icon
     border-radius: 10px;
     background: #f9f9ff;
 }
+.exhaust .interaction_data .object_tree
+{
+    width: calc(33% - 10px) !important;
+}
 
 
 .exhaust .interaction_data .object.empty
@@ -7731,4 +7735,9 @@ header .select_room_btn .icon
 
     width: 16px;
     height: 11px;
+}
+
+.get_all_btn_second {
+    margin-left: auto;
+    margin-right: 10px;
 }

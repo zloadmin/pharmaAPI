@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->id();
             $table->uuid('session')->index();
             $table->enum('place', SessionComponentPlace::values())->index();
-            $table->unsignedBigInteger('component_id');
+            $table->unsignedBigInteger('component_id')->nullable();
             $table->foreign('component_id')->references('id')->on('components')->onDelete('cascade');
             $table->unsignedBigInteger('valueStuff')->nullable();
             $table->decimal('valueLoose', 7, 5)->nullable();
@@ -31,6 +31,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('weighed_bottom_component_id')->nullable();
             $table->foreign('weighed_bottom_component_id')->references('id')->on('session_components')->onDelete('cascade');
 
+            // ph
+            $table->decimal('ph_meter_value', 7, 4)->nullable();
             // mixer
             $table->unsignedBigInteger('mixer_seconds')->nullable();
             // bath
@@ -38,7 +40,16 @@ return new class extends Migration {
             $table->unsignedSmallInteger('bath_seconds')->nullable();
             // filtration
             $table->boolean('filtered')->default(false);
+            // mixed
+            $table->boolean('is_mixed')->default(false);
+            $table->foreign('mixed_left_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->unsignedBigInteger('mixed_left_component_id')->nullable();
+            $table->foreign('mixed_center_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->unsignedBigInteger('mixed_center_component_id')->nullable();
+            $table->foreign('mixed_right_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->unsignedBigInteger('mixed_right_component_id')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

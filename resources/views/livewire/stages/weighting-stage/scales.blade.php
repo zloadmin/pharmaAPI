@@ -40,7 +40,7 @@
                                 <use xlink:href="/web/images/sprite.svg#ic_remove"></use>
                             </svg>
                         </button>
-                        <img src="{{ $bottomBoxComponent->component->image_url }}" class="scales_additional_component"
+                        <img src="{{ $bottomBoxComponent->getImageUrl() }}" class="scales_additional_component"
                              alt="">
                     </div>
 
