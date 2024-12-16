@@ -16,7 +16,16 @@ return new class extends Migration {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->uuid();
             $table->json('settings')->nullable();
+            // scales
             $table->decimal('scales_weight_calibration', 4)->default(0);
+            // chromatograph
+            $table->boolean('chromatograph_is_set')->default(false);
+            $table->boolean('chromatograph_is_turn_on')->default(false);
+            $table->boolean('chromatograph_is_open')->default(false);
+            $table->boolean('chromatograph_replaced')->default(false);
+            $table->boolean('chromatograph_pump')->default(false);
+            $table->boolean('chromatograph_injector')->default(false);
+
             $table->timestamps();
         });
     }

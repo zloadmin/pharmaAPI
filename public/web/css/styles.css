@@ -5397,6 +5397,15 @@ header .select_room_btn .icon
     padding: 6px;
 
     transition: .2s linear;
+    text-align: center;
+    color: #f0f0f6;
+    text-decoration: none;
+
+}
+.software .top_panel .btn.disabled {
+    pointer-events: none;
+    opacity: .3;
+    color: #f0f0f6;
 }
 
 
@@ -5450,7 +5459,7 @@ header .select_room_btn .icon
 {
     font-size: 16px;
     font-weight: 700;
-    line-height: 24px;
+    /*line-height: 24px;*/
 
     align-self: center;
 
@@ -5459,8 +5468,10 @@ header .select_room_btn .icon
     padding: 0 16px;
 
     letter-spacing: 1px;
-
     background: #008376;
+    line-height: 5em;
+    color: #fff;
+    text-decoration: none;
 }
 
 

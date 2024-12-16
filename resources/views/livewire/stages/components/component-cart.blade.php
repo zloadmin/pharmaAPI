@@ -33,7 +33,7 @@
                         >
                             <div class="item">
                                 <button class="remove_btn" type="button" wire:click="removeItem({{ $cartItem->id }})">
-                                    <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_remove"></use></svg>
+                                    <svg class="icon" style="height: 16px;"><use xlink:href="/web/images/sprite.svg#ic_remove"></use></svg>
                                 </button>
                                 <div class="icons column">
                                     @if($cartItem->is_weighed)

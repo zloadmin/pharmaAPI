@@ -8,6 +8,10 @@ use App\Livewire\Admin\Pages\StorageComponent\StorageComponentCreatePage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentEditPage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentsPage;
 use App\Livewire\Stages\ChromatographStage\ChromatographStage;
+use App\Livewire\Stages\ChromatographStage\SoftwarePages\ChromatographMethodPage;
+use App\Livewire\Stages\ChromatographStage\SoftwarePages\ChromatographResultPage;
+use App\Livewire\Stages\ChromatographStage\SoftwarePages\ChromatographSingleSamplePage;
+use App\Livewire\Stages\ChromatographStage\SoftwarePages\ChromatographStatusPage;
 use App\Livewire\Stages\CookingStage\CookingStage;
 use App\Livewire\Stages\IndexStage;
 use App\Livewire\Stages\StorageStage\StorageStage;
@@ -30,8 +34,15 @@ Route::get('/', function () {
 Route::get('/stage/index/{session}', IndexStage::class)->name('index-stage');
 Route::get('/stage/storage/{session}', StorageStage::class)->name('storage-stage');
 Route::get('/stage/weighting/{session}', WeightingStage::class)->name('weighting-stage');
-Route::get('/stage/chromatograph/{session}', ChromatographStage::class)->name('chromatograph-stage');
 Route::get('/stage/cooking/{session}', CookingStage::class)->name('cooking-stage');
+Route::get('/stage/chromatograph/{session}', ChromatographStage::class)->name('chromatograph-stage');
+
+Route::get('/stage/chromatograph/{session}/software/status', ChromatographStatusPage::class)->name('chromatograph-status-page');
+Route::get('/stage/chromatograph/{session}/software/method', ChromatographMethodPage::class)->name('chromatograph-method-page');
+Route::get('/stage/chromatograph/{session}/software/single-sample', ChromatographSingleSamplePage::class)->name('chromatograph-single-sample-page');
+Route::get('/stage/chromatograph/{session}/software/result', ChromatographResultPage::class)->name('chromatograph-result-page');
+
+
 
 Route::prefix('admin')->group(function () {
     Route::get('/', DashboardPage::class)->name('admin.dashboard-page');

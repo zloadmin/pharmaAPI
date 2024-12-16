@@ -17,4 +17,5 @@ trait HasRedirects
     {
         $this->redirectRoute('admin.laboratories-page', [], true, true);
     }
+
 }
