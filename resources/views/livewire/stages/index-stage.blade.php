@@ -19,9 +19,6 @@
                 <span>Хроматограф</span>
             </a>
         </div>
-
-
-
         <img src="/web/images/tmp/home_page_img.jpg" alt="" loading="lazy" class="img">
     </section>
 </div>

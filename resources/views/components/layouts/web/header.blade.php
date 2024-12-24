@@ -43,12 +43,12 @@
         </div>
 
         <div class="menu_wrap">
-            <button class="menu_btn">
+            <button class="menu_btn" type="button" x-on:click="isVisibleSubMenu =! isVisibleSubMenu">
                 <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_menu"></use></svg>
                 <span>меню</span>
             </button>
 
-            <div class="menu">
+            <div class="menu" :class="isVisibleSubMenu ? 'show_flex' : ''">
                 <div class="menu_item">
                     <a href="#">
                         <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_menu1"></use></svg>
@@ -66,7 +66,7 @@
                 </div>
 
                 <div class="menu_item">
-                    <button class="btn modal_btn" onclick="showModal('notepad_modal')">
+                    <button class="btn modal_btn" type="button" wire:click="$dispatch('show-modal-notepad')">
                         <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_menu3"></use></svg>
                         <span>Блокнот</span>
                     </button>
@@ -94,3 +94,4 @@
         </button>
     </div>
 </header>
+@include('components.layouts.web.modals')

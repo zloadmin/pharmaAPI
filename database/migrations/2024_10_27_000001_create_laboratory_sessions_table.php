@@ -26,6 +26,8 @@ return new class extends Migration {
             $table->boolean('chromatograph_pump')->default(false);
             $table->boolean('chromatograph_injector')->default(false);
 
+            $table->text('notepad_text')->nullable();
+
             $table->timestamps();
         });
     }

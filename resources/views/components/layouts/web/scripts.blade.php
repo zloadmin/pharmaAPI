@@ -1,4 +1,3 @@
-@include('components.layouts.web.modals')
 @livewireScripts
 <script>
     // Livewire.hook('morph.updated', ({ el, component }) => {

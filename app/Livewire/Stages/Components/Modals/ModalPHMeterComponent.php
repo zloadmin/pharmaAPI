@@ -75,7 +75,7 @@ class ModalPHMeterComponent extends ModalBase
         $this->sessionComponent?->update([
             'ph_meter_value' => $this->sessionComponent->component->ph_meter_value
         ]);
-        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
+        $this->dispatch('show-modal-video', fileName: 'ph-meter.mp4');
     }
 
     private function setIsSetElectrodes(): void

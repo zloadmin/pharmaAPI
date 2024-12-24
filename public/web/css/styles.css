@@ -6840,8 +6840,14 @@ header .select_room_btn .icon
     background: #f3f3f9;
     box-shadow: 6px 6px 14px 0 rgba(1, 33, 69, .15);
 }
-
-
+.modal_static {
+    position: absolute;
+}
+.modal-wrapper {
+    display: none;
+    position: relative;
+    height: auto;
+}
 .modal.object_modal
 {
     width: 230px;
@@ -7751,4 +7757,7 @@ header .select_room_btn .icon
 .get_all_btn_second {
     margin-left: auto;
     margin-right: 10px;
+}
+.show_flex {
+    display: flex !important;
 }

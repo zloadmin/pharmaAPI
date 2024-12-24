@@ -1,4 +1,4 @@
-<section class="select_room_modal" :class="isVisibleMenu ? 'show' : ''" >
+<section class="select_room_modal" :class="isVisibleMenu ? 'show' : ''">
     <button class="close_btn" x-on:click="isVisibleMenu =! isVisibleMenu">
         <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_close"></use></svg>
     </button>

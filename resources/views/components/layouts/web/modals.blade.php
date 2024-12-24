@@ -127,35 +127,7 @@
         </div>
     </div>
 </section>
-<section class="modal" id="notepad_modal">
-    <div class="modal_title">Блокнот</div>
-
-    <div class="modal_desc">Заметки будут здесь храниться только в текущей сесии (до перезагрузки браузера)</div>
-
-    <div class="list">
-        <div class="item">
-            <ul>
-                <li>Н2O – вода.</li>
-                <li>СО2 – углекислый газ.</li>
-                <li>C2H5OH – этиловый спирт (из которого делают водку).</li>
-                <li>NaCl – поваренная соль.</li>
-                <li>С – алмаз (и графит вместе с ним)</li>
-            </ul>
-
-            <p>AgBrбромид серебра(I)7785-23-1</p>
-
-            <p>AgIO3иодат серебра7783-97-3</p>
-        </div>
-    </div>
-
-    <form action="" class="form">
-        <div class="line">
-            <div class="field">
-                <input type="text" name="" value="" class="input" placeholder="Начните вводить ваш текст">
-            </div>
-        </div>
-    </form>
-</section>
+<livewire:stages.modals.notepad-modal :session='$session' />
 <section class="modal" id="pay_slip_modal">
     <div class="status_wrap">
         <div class="status">

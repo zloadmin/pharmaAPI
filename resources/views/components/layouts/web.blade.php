@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include('components.layouts.web.head')
-<body x-data="{ isVisibleMenu: false }">
+<body x-data="{ isVisibleMenu: false, isVisibleSubMenu: false }">
 <div class="wrap">
     {{ $slot }}
 </div>
