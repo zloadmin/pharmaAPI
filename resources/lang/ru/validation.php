@@ -189,7 +189,8 @@ return [
         'description'           => 'описание',
         'padding_top'           => 'отступ сверху',
         'padding_right'         => 'отступ  справа',
-        'short_name'            => 'короткое название'
+        'short_name'            => 'короткое название',
+        'file'                  => 'файл',
     ],
 
 ];

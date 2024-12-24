@@ -4,6 +4,9 @@ use App\Livewire\Admin\Pages\DashboardPage;
 use App\Livewire\Admin\Pages\Laboratory\LaboratoryCreatePage;
 use App\Livewire\Admin\Pages\Laboratory\LaboratoryEditPage;
 use App\Livewire\Admin\Pages\Laboratory\LaboratoriesPage;
+use App\Livewire\Admin\Pages\PharmacologicalArticle\PharmacologicalArticleCreatePage;
+use App\Livewire\Admin\Pages\PharmacologicalArticle\PharmacologicalArticleEditPage;
+use App\Livewire\Admin\Pages\PharmacologicalArticle\PharmacologicalArticlesPage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentCreatePage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentEditPage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentsPage;
@@ -56,6 +59,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/', LaboratoriesPage::class)->name('admin.laboratories-page');
         Route::get('/create', LaboratoryCreatePage::class)->name('admin.laboratory-create-page');
         Route::get('/edit/{laboratory}', LaboratoryEditPage::class)->name('admin.laboratory-edit-page');
+    });
+    Route::prefix('pharmacological-articles')->group(function () {
+        Route::get('/', PharmacologicalArticlesPage::class)->name('admin.pharmacological-articles-page');
+        Route::get('/create', PharmacologicalArticleCreatePage::class)->name('admin.pharmacological-article-create-page');
+        Route::get('/edit/{pharmacologicalArticle}', PharmacologicalArticleEditPage::class)->name('admin.pharmacological-article-edit-page');
     });
 
 

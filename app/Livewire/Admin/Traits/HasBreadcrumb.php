@@ -7,6 +7,7 @@ namespace App\Livewire\Admin\Traits;
 
 use App\Models\Laboratory;
 use App\Models\Component;
+use App\Models\PharmacologicalArticle;
 
 trait HasBreadcrumb
 {
@@ -19,9 +20,15 @@ trait HasBreadcrumb
     {
         return [route('admin.components-page') => 'Компоненты'];
     }
+
     private function getLaboratoryItem(): array
     {
         return [route('admin.laboratories-page') => 'Лабораторные работы'];
+    }
+
+    private function getPharmacologicalArticleItem(): array
+    {
+        return [route('admin.pharmacological-articles-page') => 'Фармакологические статьи'];
     }
 
 
@@ -34,19 +41,36 @@ trait HasBreadcrumb
     {
         return [route('admin.component-edit-page', $storageComponent) => 'Редактировать'];
     }
+
     private function getLaboratoryEditItem(Laboratory $laboratory): array
     {
         return [route('admin.laboratory-edit-page', $laboratory) => 'Редактировать'];
     }
+    private function getPharmacologicalArticleEditItem(PharmacologicalArticle $article): array
+    {
+        return [route('admin.pharmacological-article-edit-page', $article) => 'Редактировать'];
+    }
+
     private function getLaboratoryCreateItem(): array
     {
         return [route('admin.laboratory-create-page') => 'Создать'];
+    }
+
+    private function getPharmacologicalArticleCreateItem(): array
+    {
+        return [route('admin.pharmacological-article-create-page') => 'Создать'];
     }
 
     private function getLaboratoryPageBreadcrumb(): array
     {
         return $this->getLaboratoryItem();
     }
+
+    private function getPharmacologicalArticlesPageBreadcrumb(): array
+    {
+        return $this->getPharmacologicalArticleItem();
+    }
+
     private function getStorageComponentsPageBreadcrumb(): array
     {
         return $this->getStorageComponentsItem();
@@ -61,12 +85,24 @@ trait HasBreadcrumb
     {
         return $this->getStorageComponentsItem() + $this->getStorageComponentEditItem($storageComponent);
     }
+
     private function getLaboratoryEditPageBreadcrumb(Laboratory $laboratory): array
     {
         return $this->getLaboratoryItem() + $this->getLaboratoryEditItem($laboratory);
     }
+
+    private function getPharmacologicalArticleEditPageBreadcrumb(PharmacologicalArticle $article): array
+    {
+        return $this->getPharmacologicalArticleItem() + $this->getPharmacologicalArticleEditItem($article);
+    }
+
     private function getLaboratoryCreatePageBreadcrumb(): array
     {
         return $this->getLaboratoryItem() + $this->getLaboratoryCreateItem();
+    }
+
+    private function getPharmacologicalArticleCreatePageBreadcrumb(): array
+    {
+        return $this->getPharmacologicalArticleItem() + $this->getPharmacologicalArticleCreateItem();
     }
 }

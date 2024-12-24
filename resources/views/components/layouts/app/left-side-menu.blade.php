@@ -45,6 +45,12 @@
                                         <span>Лабораторные работы</span>
                                     </a>
                                 </li>
+                                <li class="side-nav-item">
+                                    <a href="{{ route('admin.pharmacological-articles-page') }}" class="side-nav-link" wire:navigate>
+                                        <i class="uil-book-reader"></i>
+                                        <span>Фарм. статьи</span>
+                                    </a>
+                                </li>
                                 {{--                                <li class="side-nav-item">--}}
                                 {{--                                    <a href="{{ route('quizzes-page') }}" class="side-nav-link" wire:navigate>--}}
                                 {{--                                        <i class="uil-science"></i>--}}

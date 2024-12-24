@@ -17,5 +17,9 @@ trait HasRedirects
     {
         $this->redirectRoute('admin.laboratories-page', [], true, true);
     }
+    public function redirectToPharmacologicalArticlesPage(): void
+    {
+        $this->redirectRoute('admin.pharmacological-articles-page', [], true, true);
+    }
 
 }
