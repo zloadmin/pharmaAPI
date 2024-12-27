@@ -13,7 +13,19 @@ class Laboratory extends Model
 {
     use HasFactory;
 
+
     protected $guarded = [];
+    protected $casts = [
+        'check_values' => 'json'
+    ];
+    static array $checkValues = [
+        ['name' => 'check_value_one', 'title' => 'Значение 1'],
+        ['name' => 'check_value_two', 'title' => 'Значение 2'],
+    ];
+    static array $checkValueTypes = [
+        ['name' => 'from', 'title' => 'от'],
+        ['name' => 'to', 'title' => 'до'],
+    ];
 
     public function components(): BelongsToMany
     {

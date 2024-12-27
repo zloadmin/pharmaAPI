@@ -22,6 +22,7 @@ class LaboratorySession extends Model
         'chromatograph_replaced'   => 'bool',
         'chromatograph_pump'       => 'bool',
         'chromatograph_injector'   => 'bool',
+        'check_values'             => 'json'
     ];
 
     public function laboratory(): BelongsTo

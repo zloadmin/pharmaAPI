@@ -128,120 +128,13 @@
     </div>
 </section>
 <livewire:stages.modals.notepad-modal :session='$session' />
-<section class="modal" id="pay_slip_modal">
-    <div class="status_wrap">
-        <div class="status">
-            <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_video_play"></use></svg>
-            <span>В процессе</span>
-        </div>
-    </div>
-
-    <div class="modal_title">Расчетный лист</div>
-
-    <div class="modal_desc">Вам необходимо внести молекулярную массу компонентов: Для этого восползуйтесь таблицей «Менделеева» и калькулятором.</div>
-
-    <div class="list">
-        <div class="item">
-            <div class="thumb">
-                <img src="/web/images/tmp/pay_slip_modal_thumb.png" alt="" loading="lazy">
-            </div>
-
-            <div>
-                <div class="indicator grey"></div>
-
-                <div class="name">Компонент - реанет химический №1, для  хим раствора сериала «Во все тяжкие»</div>
-
-                <div class="value">
-                    <input type="number" inputmode="numeric" name="" value="" class="input" placeholder="0.000">
-
-                    <div class="unit">
-                        <span>(мл)</span>
-                        <svg class="arr"><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
-                    </div>
-                </div>
-
-                <button class="add_btn">Внести</button>
-            </div>
-        </div>
-
-        <div class="item">
-            <div class="thumb">
-                <img src="/web/images/tmp/pay_slip_modal_thumb.png" alt="" loading="lazy">
-            </div>
-
-            <div>
-                <div class="indicator red"></div>
-
-                <div class="name">Компонент - реанет химический №1, для  хим раствора сериала «Во все тяжкие»</div>
-
-                <div class="value">
-                    <input type="number" inputmode="numeric" name="" value="" class="input" placeholder="0.000">
-
-                    <div class="unit">
-                        <span>(мл)</span>
-                        <svg class="arr"><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
-                    </div>
-                </div>
-
-                <button class="add_btn">Внести</button>
-            </div>
-        </div>
-
-        <div class="item">
-            <div class="thumb">
-                <img src="/web/images/tmp/pay_slip_modal_thumb.png" alt="" loading="lazy">
-            </div>
-
-            <div>
-                <div class="indicator green"></div>
-
-                <div class="name">Компонент - реанет химический №1, для  хим раствора сериала «Во все тяжкие»</div>
-
-                <div class="value">
-                    <input type="number" inputmode="numeric" name="" value="" class="input" placeholder="0.000">
-
-                    <div class="unit">
-                        <span>(мл)</span>
-                        <svg class="arr"><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
-                    </div>
-                </div>
-
-                <button class="add_btn">Внести</button>
-            </div>
-        </div>
-
-        <div class="item">
-            <div class="thumb">
-                <img src="/web/images/tmp/pay_slip_modal_thumb.png" alt="" loading="lazy">
-            </div>
-
-            <div>
-                <div class="indicator green"></div>
-
-                <div class="name">Компонент - реанет химический №1, для  хим раствора сериала «Во все тяжкие»</div>
-
-                <div class="value">
-                    <input type="number" inputmode="numeric" name="" value="" class="input" placeholder="0.000">
-
-                    <div class="unit">
-                        <span>(мл)</span>
-                        <svg class="arr"><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
-                    </div>
-                </div>
-
-                <button class="add_btn">Внести</button>
-            </div>
-        </div>
-    </div>
-
-    <button class="check_btn">Проверить</button>
-</section>
+<livewire:stages.modals.check-list-modal :session='$session' />
 <section class="modal" id="periodic_table_modal">
     <div class="modal_title">Таблица<br> Менделеева</div>
     <img src="/web/images/tmp/periodic_table_img.png" alt="" loading="lazy">
 </section>
 @if ($pharmacologicalArticle)
-<section class="modal" id="pharmacological_article_modal" style="width: 90%">
-    <embed src="{{ $pharmacologicalArticle->file_url }}" width="100%" height="100%" alt="pdf" pluginspage="https://www.adobe.com/products/acrobat/readstep2.html">
+<section class="modal" id="pharmacological_article_modal" style="width: 938px">
+    <embed src="{{ $pharmacologicalArticle->file_url }}#toolbar=0&navpanes=0&scrollbar=0" width="100%" height="100%" alt="pdf" pluginspage="https://www.adobe.com/products/acrobat/readstep2.html">
 </section>
 @endif

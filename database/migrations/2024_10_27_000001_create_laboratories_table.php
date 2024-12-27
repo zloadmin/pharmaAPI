@@ -16,6 +16,9 @@ return new class extends Migration {
             $table->text('description');
             $table->unsignedBigInteger('pharmacological_article_id')->nullable();
             $table->foreign('pharmacological_article_id')->references('id')->on('pharmacological_articles')->onDelete('cascade');
+            // check list
+            $table->json('check_values')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

@@ -18,6 +18,11 @@ return new class extends Migration {
             $table->foreign('laboratory_id')->references('id')->on('laboratories')->onDelete('cascade');
             $table->uuid();
             $table->json('settings')->nullable();
+            // check list
+            $table->json('check_values')->nullable();
+//            $table->decimal('check_value_one', 9, 4)->nullable();
+//            $table->decimal('check_value_two', 9, 4)->nullable();
+
             // scales
             $table->decimal('scales_weight_calibration', 4)->default(0);
             // chromatograph

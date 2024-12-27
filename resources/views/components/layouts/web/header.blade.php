@@ -75,7 +75,8 @@
                 </div>
 
                 <div class="menu_item">
-                    <button class="btn modal_btn" onclick="showModal('pay_slip_modal')">
+                    <button class="btn modal_btn" type="button" wire:click="$dispatch('show-modal-check-list')">
+{{--                    <button class="btn modal_btn" onclick="showModal('pay_slip_modal')">--}}
                         <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_menu4"></use></svg>
                         <span>Расчетный лист</span>
                     </button>

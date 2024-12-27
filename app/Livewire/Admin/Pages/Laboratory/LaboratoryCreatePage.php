@@ -24,6 +24,7 @@ class LaboratoryCreatePage extends LivewireComponent
     {
         $this->components = Component::getDropdownArray();
         $this->pharmacologicalArticles = PharmacologicalArticle::getDropdownArray();
+        $this->initCheckValues();
     }
 
     public function save()
@@ -40,6 +41,7 @@ class LaboratoryCreatePage extends LivewireComponent
             'name'                       => $this->name,
             'description'                => $this->description,
             'pharmacological_article_id' => $this->pharmacological_article_id,
+            'check_values'               => $this->check_values,
         ]);
     }
 
