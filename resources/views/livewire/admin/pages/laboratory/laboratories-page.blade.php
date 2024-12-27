@@ -28,6 +28,9 @@
                 <td>{{ $laboratory->components_count }}</td>
                 <td>{{ $laboratory->created_at->diffForHumans() }}</td>
                 <td class="table-action text-right">
+                    <a href="{{ route('admin.laboratory-steps-page', $laboratory) }}" class="action-icon" wire:navigate>
+                        <i class="mdi mdi-view-list"></i>
+                    </a>
                     <a href="{{ route('admin.laboratory-edit-page', $laboratory) }}" class="action-icon" wire:navigate>
                         <i class="mdi mdi-square-edit-outline"></i>
                     </a>

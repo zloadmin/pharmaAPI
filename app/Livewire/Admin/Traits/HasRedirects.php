@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Traits;
 
 
+use App\Models\Laboratory;
+
 trait HasRedirects
 {
     abstract public function redirectRoute($name, $parameters = [], $absolute = true, $navigate = false);
@@ -13,13 +15,20 @@ trait HasRedirects
     {
         $this->redirectRoute('admin.components-page', [], true, true);
     }
+
     public function redirectToLaboratoriesPage(): void
     {
         $this->redirectRoute('admin.laboratories-page', [], true, true);
     }
+
     public function redirectToPharmacologicalArticlesPage(): void
     {
         $this->redirectRoute('admin.pharmacological-articles-page', [], true, true);
+    }
+
+    public function redirectToLaboratoryStepsPage(Laboratory $laboratory): void
+    {
+        $this->redirectRoute('admin.laboratory-steps-page', [$laboratory], true, true);
     }
 
 }

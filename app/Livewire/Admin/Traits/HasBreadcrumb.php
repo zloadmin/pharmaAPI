@@ -7,6 +7,7 @@ namespace App\Livewire\Admin\Traits;
 
 use App\Models\Laboratory;
 use App\Models\Component;
+use App\Models\LaboratoryStep;
 use App\Models\PharmacologicalArticle;
 
 trait HasBreadcrumb
@@ -44,7 +45,19 @@ trait HasBreadcrumb
 
     private function getLaboratoryEditItem(Laboratory $laboratory): array
     {
-        return [route('admin.laboratory-edit-page', $laboratory) => 'Редактировать'];
+        return [route('admin.laboratory-edit-page', $laboratory) => 'Редактировать ' . $laboratory->name];
+    }
+    private function getLaboratoryStepsItem(Laboratory $laboratory): array
+    {
+        return [route('admin.laboratory-steps-page', $laboratory) => 'Задачи'];
+    }
+    private function getLaboratoryStepCreateItem(Laboratory $laboratory): array
+    {
+        return [route('admin.laboratory-step-create-page', $laboratory) => 'Создать'];
+    }
+    private function getLaboratoryStepEditItem(Laboratory $laboratory, LaboratoryStep $laboratoryStep): array
+    {
+        return [route('admin.laboratory-step-edit-page', [$laboratory, $laboratoryStep]) => 'Редактировать'];
     }
     private function getPharmacologicalArticleEditItem(PharmacologicalArticle $article): array
     {
@@ -89,6 +102,24 @@ trait HasBreadcrumb
     private function getLaboratoryEditPageBreadcrumb(Laboratory $laboratory): array
     {
         return $this->getLaboratoryItem() + $this->getLaboratoryEditItem($laboratory);
+    }
+    private function getLaboratoryStepsPageBreadcrumb(Laboratory $laboratory): array
+    {
+        return $this->getLaboratoryItem() + $this->getLaboratoryEditItem($laboratory) + $this->getLaboratoryStepsItem($laboratory);
+    }
+    private function getLaboratoryStepCreatePageBreadcrumb(Laboratory $laboratory): array
+    {
+        return $this->getLaboratoryItem() +
+            $this->getLaboratoryEditItem($laboratory) +
+            $this->getLaboratoryStepsItem($laboratory) +
+            $this->getLaboratoryStepCreateItem($laboratory);
+    }
+    private function getLaboratoryStepEditPageBreadcrumb(Laboratory $laboratory, LaboratoryStep $laboratoryStep): array
+    {
+        return $this->getLaboratoryItem() +
+            $this->getLaboratoryEditItem($laboratory) +
+            $this->getLaboratoryStepsItem($laboratory) +
+            $this->getLaboratoryStepEditItem($laboratory, $laboratoryStep);
     }
 
     private function getPharmacologicalArticleEditPageBreadcrumb(PharmacologicalArticle $article): array

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
 class LaboratorySession extends Model
@@ -22,11 +24,17 @@ class LaboratorySession extends Model
         'chromatograph_injector'   => 'bool',
     ];
 
+    public function laboratory(): BelongsTo
+    {
+        return $this->belongsTo(Laboratory::class);
+    }
+
     static function start(): string
     {
         return self::create([
-            'user_id' => 1, // TODO: After auth
-            'uuid'    => Str::uuid()
+            'user_id'       => 1, // TODO: After auth
+            'uuid'          => Str::uuid(),
+            'laboratory_id' => Laboratory::find(1)->id
         ])->uuid;
     }
 }

@@ -238,6 +238,10 @@
 </section>
 <section class="modal" id="periodic_table_modal">
     <div class="modal_title">Таблица<br> Менделеева</div>
-
     <img src="/web/images/tmp/periodic_table_img.png" alt="" loading="lazy">
 </section>
+@if ($pharmacologicalArticle)
+<section class="modal" id="pharmacological_article_modal" style="width: 90%">
+    <embed src="{{ $pharmacologicalArticle->file_url }}" width="100%" height="100%" alt="pdf" pluginspage="https://www.adobe.com/products/acrobat/readstep2.html">
+</section>
+@endif

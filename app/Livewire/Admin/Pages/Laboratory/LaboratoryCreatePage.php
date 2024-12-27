@@ -7,6 +7,7 @@ use App\Livewire\Admin\Traits\HasBreadcrumb;
 use App\Livewire\Admin\Traits\HasRedirects;
 use App\Models\Laboratory;
 use App\Models\Component;
+use App\Models\PharmacologicalArticle;
 use Livewire\Attributes\Title;
 use Livewire\Component as LivewireComponent;
 
@@ -17,10 +18,12 @@ class LaboratoryCreatePage extends LivewireComponent
     use HasRedirects;
 
     public array $components;
+    public array $pharmacologicalArticles;
 
     public function mount()
     {
         $this->components = Component::getDropdownArray();
+        $this->pharmacologicalArticles = PharmacologicalArticle::getDropdownArray();
     }
 
     public function save()
@@ -34,8 +37,9 @@ class LaboratoryCreatePage extends LivewireComponent
     public function createLaboratory(): Laboratory
     {
         return Laboratory::create([
-            'name'        => $this->name,
-            'description' => $this->description,
+            'name'                       => $this->name,
+            'description'                => $this->description,
+            'pharmacological_article_id' => $this->pharmacological_article_id,
         ]);
     }
 

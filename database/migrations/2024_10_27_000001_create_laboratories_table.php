@@ -10,10 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('pharmacological_articles', function (Blueprint $table) {
+        Schema::create('laboratories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('path');
+            $table->text('description');
+            $table->unsignedBigInteger('pharmacological_article_id')->nullable();
+            $table->foreign('pharmacological_article_id')->references('id')->on('pharmacological_articles')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -23,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('pharmacological_articles');
+        Schema::dropIfExists('laboratories');
     }
 };

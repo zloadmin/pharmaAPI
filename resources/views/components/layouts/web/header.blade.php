@@ -49,14 +49,16 @@
             </button>
 
             <div class="menu" :class="isVisibleSubMenu ? 'show_flex' : ''">
-                <div class="menu_item">
-                    <a href="#">
-                        <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_menu1"></use></svg>
-                        <span><b>ФС</b></span>
-                    </a>
-                </div>
+                @if ($pharmacologicalArticle)
+                    <div class="menu_item">
+                        <button class="btn modal_btn" onclick="showModal('pharmacological_article_modal')">
+                            <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_menu1"></use></svg>
+                            <span><b>ФС</b></span>
+                        </button>
+                    </div>
+                    <div class="divider"></div>
+                @endif
 
-                <div class="divider"></div>
 
                 <div class="menu_item">
                     <button class="btn modal_btn" onclick="showModal('tasks_modal')">

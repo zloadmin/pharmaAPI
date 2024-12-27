@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Livewire\Traits;
 
 
+use App\Models\Laboratory;
 use App\Models\LaboratorySession;
+use App\Models\PharmacologicalArticle;
 use Illuminate\Support\Facades\Route;
 
 trait HasSession
@@ -14,11 +16,15 @@ trait HasSession
 
     public string $session;
     public LaboratorySession $sessionModel;
+    public Laboratory $laboratory;
+    public ?PharmacologicalArticle $pharmacologicalArticle;
 
     public function setSession(string $session): void
     {
         $this->session = $session;
         $this->sessionModel = $this->getSession();
+        $this->laboratory = $this->sessionModel->laboratory;
+        $this->pharmacologicalArticle = $this->sessionModel->laboratory->pharmacologicalArticle;
     }
 
     public function getSessionScalesWeightCalibration(): float
@@ -67,7 +73,9 @@ trait HasSession
 
     public function getSession(): LaboratorySession
     {
-        return LaboratorySession::where('uuid', $this->session)->firstOrFail();
+        return LaboratorySession::where('uuid', $this->session)
+            ->with(['laboratory', 'laboratory.pharmacologicalArticle'])
+            ->firstOrFail();
     }
 
     public function getSessionSettings(): array

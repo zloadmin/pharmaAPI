@@ -4,6 +4,9 @@ use App\Livewire\Admin\Pages\DashboardPage;
 use App\Livewire\Admin\Pages\Laboratory\LaboratoryCreatePage;
 use App\Livewire\Admin\Pages\Laboratory\LaboratoryEditPage;
 use App\Livewire\Admin\Pages\Laboratory\LaboratoriesPage;
+use App\Livewire\Admin\Pages\Laboratory\LaboratoryStepCreatePage;
+use App\Livewire\Admin\Pages\Laboratory\LaboratoryStepEditPage;
+use App\Livewire\Admin\Pages\Laboratory\LaboratoryStepsPage;
 use App\Livewire\Admin\Pages\PharmacologicalArticle\PharmacologicalArticleCreatePage;
 use App\Livewire\Admin\Pages\PharmacologicalArticle\PharmacologicalArticleEditPage;
 use App\Livewire\Admin\Pages\PharmacologicalArticle\PharmacologicalArticlesPage;
@@ -59,6 +62,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/', LaboratoriesPage::class)->name('admin.laboratories-page');
         Route::get('/create', LaboratoryCreatePage::class)->name('admin.laboratory-create-page');
         Route::get('/edit/{laboratory}', LaboratoryEditPage::class)->name('admin.laboratory-edit-page');
+        Route::get('/edit/{laboratory}/steps', LaboratoryStepsPage::class)->name('admin.laboratory-steps-page');
+        Route::get('/edit/{laboratory}/steps/create', LaboratoryStepCreatePage::class)->name('admin.laboratory-step-create-page');
+        Route::get('/edit/{laboratory}/steps/edit/{laboratoryStep}', LaboratoryStepEditPage::class)->name('admin.laboratory-step-edit-page');
     });
     Route::prefix('pharmacological-articles')->group(function () {
         Route::get('/', PharmacologicalArticlesPage::class)->name('admin.pharmacological-articles-page');

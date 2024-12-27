@@ -7,6 +7,7 @@ use App\Livewire\Admin\Traits\HasBreadcrumb;
 use App\Livewire\Admin\Traits\HasRedirects;
 use App\Models\Laboratory;
 use App\Models\Component;
+use App\Models\PharmacologicalArticle;
 use Livewire\Attributes\Title;
 use Livewire\Component as LivewireComponent;
 
@@ -18,11 +19,13 @@ class LaboratoryEditPage extends LivewireComponent
 
     public Laboratory $laboratory;
     public array $components;
+    public array $pharmacologicalArticles;
 
     public function mount(Laboratory $laboratory)
     {
         $this->laboratory = $laboratory;
         $this->components = Component::getDropdownArray();
+        $this->pharmacologicalArticles = PharmacologicalArticle::getDropdownArray();
         $this->loadFormFields($laboratory);
     }
 
@@ -37,8 +40,9 @@ class LaboratoryEditPage extends LivewireComponent
     public function updateLaboratory(): void
     {
         $this->laboratory->update([
-            'name'        => $this->name,
-            'description' => $this->description,
+            'name'                       => $this->name,
+            'description'                => $this->description,
+            'pharmacological_article_id' => $this->pharmacological_article_id,
         ]);
     }
 
