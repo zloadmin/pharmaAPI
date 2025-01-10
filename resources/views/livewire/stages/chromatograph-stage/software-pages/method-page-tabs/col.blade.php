@@ -22,7 +22,8 @@
 
                                 <div class="field">
                                     <label class="radio">
-                                        <input type="radio" name="group1">
+
+                                        <input type="radio"  wire:model="isColPath">
                                         <div class="check"></div>
                                     </label>
 
@@ -31,7 +32,7 @@
                                             <svg><use xlink:href="images/sprite.svg#ic_arr_ver"></use></svg>
                                         </button>
 
-                                        <input type="text" value="20.00" class="input" data-minimum="1" data-maximum="50" data-step="0.1" data-unit="" maxlength="5">
+                                        <input type="text"  class="input" wire:model="colPathValue">
 
                                         <button type="button" class="btn plus">
                                             <svg><use xlink:href="images/sprite.svg#ic_arr_ver"></use></svg>

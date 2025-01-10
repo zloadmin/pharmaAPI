@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Stages\ChromatographStage\SoftwarePages;
 
+
 use App\Livewire\Traits\HasSession;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -9,6 +10,9 @@ use Livewire\Component;
 class ChromatographMethodPage extends Component
 {
     use HasSession;
+    use ChromatographForm;
+
+    public $activeTab = 'chromatograph-method-page';
 
     public array $tabs = [
         'pump' => [
@@ -32,6 +36,7 @@ class ChromatographMethodPage extends Component
 
     public function showTab(string $key): void
     {
+        $this->save();
         $this->hideAllTabs();
         $this->showSingleTab($key);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Stages\ChromatographStage\SoftwarePages;
 
+
 use App\Livewire\Traits\HasSession;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -9,6 +10,8 @@ use Livewire\Component;
 class ChromatographSingleSamplePage extends Component
 {
     use HasSession;
+    use ChromatographForm;
+
     public $activeTab = 'chromatograph-single-sample-page';
 
 

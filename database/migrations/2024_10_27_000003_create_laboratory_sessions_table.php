@@ -20,6 +20,8 @@ return new class extends Migration {
             $table->json('settings')->nullable();
             // check list
             $table->json('check_values')->nullable();
+            // Chromatograph
+            $table->json('chromatograph_values')->nullable();
 //            $table->decimal('check_value_one', 9, 4)->nullable();
 //            $table->decimal('check_value_two', 9, 4)->nullable();
 

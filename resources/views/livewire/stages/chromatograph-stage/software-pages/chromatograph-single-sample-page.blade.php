@@ -1,4 +1,5 @@
 <div>
+    @include('livewire.stages.chromatograph-stage.software-pages.top-panel')
     <div class="data">
         <div class="left_panel">
             <img src="/web/images/tmp/software/left_panel_img.svg" alt="">

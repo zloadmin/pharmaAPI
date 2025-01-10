@@ -25,6 +25,7 @@ trait HasRedirects
     {
         $this->redirectRoute('admin.pharmacological-articles-page', [], true, true);
     }
+
     public function redirectToVideosPage(): void
     {
         $this->redirectRoute('admin.videos-page', [], true, true);
@@ -34,5 +35,7 @@ trait HasRedirects
     {
         $this->redirectRoute('admin.laboratory-steps-page', [$laboratory], true, true);
     }
+
+
 
 }

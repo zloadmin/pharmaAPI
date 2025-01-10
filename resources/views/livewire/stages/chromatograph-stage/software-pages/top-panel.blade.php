@@ -9,21 +9,30 @@
 
     <div class="section">
         <div class="btns">
-            <a class="btn @if(isset($activeTab) && $activeTab == 'chromatograph-method-page') active @endif" href="{{ route('chromatograph-method-page', $session) }}" wire:navigate>
+            <a class="btn @if(isset($activeTab) && $activeTab == 'chromatograph-method-page') active @endif"
+{{--               href="{{ route('chromatograph-method-page', $session) }}" wire:navigate--}}
+               wire:click="saveAndRedirect('chromatograph-method-page', , '{{ $session }}')" href="{{ route('chromatograph-method-page', $session) }}"
+            >
                 <div class="icon">
                     <img src="/web/images/tmp/software/ic_head1.svg" alt="">
                 </div>
                 <span>Метод</span>
             </a>
 
-            <a class="btn @if(isset($activeTab) && $activeTab == 'chromatograph-status-page') active @endif" href="{{ route('chromatograph-status-page', $session) }}" wire:navigate>
+            <a class="btn @if(isset($activeTab) && $activeTab == 'chromatograph-status-page') active @endif"
+{{--               href="{{ route('chromatograph-status-page', $session) }}" wire:navigate--}}
+               wire:click="saveAndRedirect('chromatograph-status-page', '{{ $session }}')"
+            >
                 <div class="icon">
                     <img src="/web/images/tmp/software/ic_head2.svg" alt="">
                 </div>
                 <span>Статус</span>
             </a>
 
-            <a class="btn @if(isset($activeTab) && $activeTab == 'chromatograph-single-sample-page') active @endif" href="{{ route('chromatograph-single-sample-page', $session) }}" wire:navigate>
+            <a class="btn @if(isset($activeTab) && $activeTab == 'chromatograph-single-sample-page') active @endif"
+{{--               href="{{ route('chromatograph-single-sample-page', $session) }}" wire:navigate--}}
+               wire:click="saveAndRedirect('chromatograph-single-sample-page', '{{ $session }}')" href="{{ route('chromatograph-single-sample-page', $session) }}"
+            >
                 <div class="icon">
                     <img src="/web/images/tmp/software/ic_head2.svg" alt="">
                 </div>
@@ -38,7 +47,10 @@
                 <span>Последовательность</span>
             </button>
 
-            <a class="btn @if(isset($activeTab) && $activeTab == 'chromatograph-result-page') active @endif" href="{{ route('chromatograph-result-page', $session) }}" wire:navigate>
+            <a class="btn @if(isset($activeTab) && $activeTab == 'chromatograph-result-page') active @endif"
+{{--               href="{{ route('chromatograph-result-page', $session) }}" wire:navigate--}}
+               wire:click="saveAndRedirect('chromatograph-result-page', '{{ $session }}')" href="{{ route('chromatograph-result-page', $session) }}"
+            >
                 <div class="icon">
                     <img src="/web/images/tmp/software/ic_head2.svg" alt="">
                 </div>
@@ -56,5 +68,8 @@
         <img src="/web/images/tmp/software/head_img3.svg" alt="">
     </div>
 
-    <a class="check_btn"  href="{{ route('chromatograph-stage', $session) }}" wire:navigate>Проверить</a>
+    <a class="check_btn"
+{{--       href="{{ route('chromatograph-stage', $session) }}" wire:navigate--}}
+       wire:click="saveAndRedirect('chromatograph-stage', '{{ $session }}')" href="{{ route('chromatograph-stage', $session) }}"
+    >Проверить</a>
 </div>

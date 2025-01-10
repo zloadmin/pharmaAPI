@@ -34,7 +34,7 @@
 
                             <td class="pad_left">
                                 <label class="checkbox">
-                                    <input type="checkbox" name="group" checked="">
+                                    <input type="checkbox" wire:model="isBinaryPump">
 
                                     <div class="check">
                                         <svg><use xlink:href="images/sprite.svg#ic_check"></use></svg>
@@ -46,7 +46,7 @@
                                         <svg><use xlink:href="images/sprite.svg#ic_arr_ver"></use></svg>
                                     </button>
 
-                                    <input type="text" value="250" class="input" data-minimum="1" data-maximum="99999" data-step="1" data-unit="" maxlength="5">
+                                    <input type="text" class="input" wire:model="binaryPumpValue">
 
                                     <button type="button" class="btn plus">
                                         <svg><use xlink:href="images/sprite.svg#ic_arr_ver"></use></svg>

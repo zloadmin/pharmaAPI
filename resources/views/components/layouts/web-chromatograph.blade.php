@@ -5,7 +5,6 @@
 <div class="wrap">
     <div class="main">
         <section class="software">
-            @include('livewire.stages.chromatograph-stage.software-pages.top-panel')
             {{ $slot }}
         </section>
     </div>

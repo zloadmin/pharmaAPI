@@ -1,4 +1,6 @@
 <div>
+    @include('livewire.stages.chromatograph-stage.software-pages.top-panel')
+
     <div class="data">
         <div class="col_left">
             <div class="title">Обработка данных</div>

@@ -22,13 +22,27 @@ class LaboratorySession extends Model
         'chromatograph_replaced'   => 'bool',
         'chromatograph_pump'       => 'bool',
         'chromatograph_injector'   => 'bool',
-        'check_values'             => 'json'
+        'check_values'             => 'json',
+        'chromatograph_values'     => 'json',
+
     ];
 
     public function laboratory(): BelongsTo
     {
         return $this->belongsTo(Laboratory::class);
     }
+
+    public function getChromatographValue(string $key): mixed
+    {
+        return $this->chromatograph_values[$key] ?? null;
+    }
+    public function saveChromatographValues(array $values) : void
+    {
+        $this->update([
+            'chromatograph_values' => $values
+        ]);
+    }
+
 
     static function start(): string
     {

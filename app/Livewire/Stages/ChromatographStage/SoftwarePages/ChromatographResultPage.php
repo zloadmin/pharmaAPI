@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Stages\ChromatographStage\SoftwarePages;
 
+
 use App\Livewire\Traits\HasSession;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -9,6 +10,9 @@ use Livewire\Component;
 class ChromatographResultPage extends Component
 {
     use HasSession;
+    use ChromatographForm;
+
+    public $activeTab = 'chromatograph-result-page';
 
     public function mount($session)
     {
