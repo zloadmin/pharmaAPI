@@ -13,6 +13,9 @@ use App\Livewire\Admin\Pages\PharmacologicalArticle\PharmacologicalArticlesPage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentCreatePage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentEditPage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentsPage;
+use App\Livewire\Admin\Pages\Video\VideoCreatePage;
+use App\Livewire\Admin\Pages\Video\VideoEditPage;
+use App\Livewire\Admin\Pages\Video\VideosPage;
 use App\Livewire\Stages\ChromatographStage\ChromatographStage;
 use App\Livewire\Stages\ChromatographStage\SoftwarePages\ChromatographMethodPage;
 use App\Livewire\Stages\ChromatographStage\SoftwarePages\ChromatographResultPage;
@@ -70,6 +73,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/', PharmacologicalArticlesPage::class)->name('admin.pharmacological-articles-page');
         Route::get('/create', PharmacologicalArticleCreatePage::class)->name('admin.pharmacological-article-create-page');
         Route::get('/edit/{pharmacologicalArticle}', PharmacologicalArticleEditPage::class)->name('admin.pharmacological-article-edit-page');
+    });
+    Route::prefix('videos')->group(function () {
+        Route::get('/', VideosPage::class)->name('admin.videos-page');
+        Route::get('/create', VideoCreatePage::class)->name('admin.video-create-page');
+        Route::get('/edit/{video}', VideoEditPage::class)->name('admin.video-edit-page');
     });
 
 

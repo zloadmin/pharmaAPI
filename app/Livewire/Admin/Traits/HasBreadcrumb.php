@@ -9,6 +9,7 @@ use App\Models\Laboratory;
 use App\Models\Component;
 use App\Models\LaboratoryStep;
 use App\Models\PharmacologicalArticle;
+use App\Models\Video;
 
 trait HasBreadcrumb
 {
@@ -30,6 +31,10 @@ trait HasBreadcrumb
     private function getPharmacologicalArticleItem(): array
     {
         return [route('admin.pharmacological-articles-page') => 'Фармакологические статьи'];
+    }
+    private function getVideoItem(): array
+    {
+        return [route('admin.videos-page') => 'Видео'];
     }
 
 
@@ -63,6 +68,10 @@ trait HasBreadcrumb
     {
         return [route('admin.pharmacological-article-edit-page', $article) => 'Редактировать'];
     }
+    private function getVideoEditItem(Video $video): array
+    {
+        return [route('admin.video-edit-page', $video) => 'Редактировать'];
+    }
 
     private function getLaboratoryCreateItem(): array
     {
@@ -73,6 +82,10 @@ trait HasBreadcrumb
     {
         return [route('admin.pharmacological-article-create-page') => 'Создать'];
     }
+    private function getVideoCreateItem(): array
+    {
+        return [route('admin.video-create-page') => 'Создать'];
+    }
 
     private function getLaboratoryPageBreadcrumb(): array
     {
@@ -82,6 +95,10 @@ trait HasBreadcrumb
     private function getPharmacologicalArticlesPageBreadcrumb(): array
     {
         return $this->getPharmacologicalArticleItem();
+    }
+    private function getVideosPageBreadcrumb(): array
+    {
+        return $this->getVideoItem();
     }
 
     private function getStorageComponentsPageBreadcrumb(): array
@@ -126,6 +143,10 @@ trait HasBreadcrumb
     {
         return $this->getPharmacologicalArticleItem() + $this->getPharmacologicalArticleEditItem($article);
     }
+    private function getVideoEditPageBreadcrumb(Video $video): array
+    {
+        return $this->getVideoItem() + $this->getVideoEditItem($video);
+    }
 
     private function getLaboratoryCreatePageBreadcrumb(): array
     {
@@ -135,5 +156,9 @@ trait HasBreadcrumb
     private function getPharmacologicalArticleCreatePageBreadcrumb(): array
     {
         return $this->getPharmacologicalArticleItem() + $this->getPharmacologicalArticleCreateItem();
+    }
+    private function getVideoCreatePageBreadcrumb(): array
+    {
+        return $this->getVideoItem() + $this->getVideoCreateItem();
     }
 }
