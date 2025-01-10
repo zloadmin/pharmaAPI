@@ -13,7 +13,13 @@ class Laboratory extends Model
 {
     use HasFactory;
 
-
+    const VIDEOS = [
+        ['key' => 'before_storage_video_id', 'name' => 'Видео перед складом'],
+        ['key' => 'before_weighting_video_id', 'name' => 'Видео перед весовой'],
+        ['key' => 'before_cooking_video_id', 'name' => 'Видео перед вытяжной'],
+        ['key' => 'before_chromatograph_page_video_id', 'name' => 'Видео перед Хроматограф (оборудование)'],
+        ['key' => 'before_chromatograph_app_video_id', 'name' => 'Видео перед Хроматограф (программа)'],
+    ];
     protected $guarded = [];
     protected $casts = [
         'check_values' => 'json'

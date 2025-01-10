@@ -8,6 +8,7 @@ use App\Livewire\Admin\Traits\HasRedirects;
 use App\Models\Laboratory;
 use App\Models\Component;
 use App\Models\PharmacologicalArticle;
+use App\Models\Video;
 use Livewire\Attributes\Title;
 use Livewire\Component as LivewireComponent;
 
@@ -19,11 +20,13 @@ class LaboratoryCreatePage extends LivewireComponent
 
     public array $components;
     public array $pharmacologicalArticles;
+    public array $videoList;
 
     public function mount()
     {
         $this->components = Component::getDropdownArray();
         $this->pharmacologicalArticles = PharmacologicalArticle::getDropdownArray();
+        $this->videoList = Video::getDropdownArray();
         $this->initCheckValues();
     }
 
@@ -35,14 +38,10 @@ class LaboratoryCreatePage extends LivewireComponent
         $this->redirectToLaboratoriesPage();
     }
 
+
     public function createLaboratory(): Laboratory
     {
-        return Laboratory::create([
-            'name'                       => $this->name,
-            'description'                => $this->description,
-            'pharmacological_article_id' => $this->pharmacological_article_id,
-            'check_values'               => $this->check_values,
-        ]);
+        return Laboratory::create($this->getLaboratoryMainFields() + $this->getLaboratoryVideoFields());
     }
 
     private function createLaboratoryStorageComponents(Laboratory $laboratory): void

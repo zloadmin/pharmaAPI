@@ -15,5 +15,11 @@ class Video extends Model
     {
         return Storage::url($this->path);
     }
+    public static function getDropdownArray(): array
+    {
+        return self::query()->pluck('name', 'id')->toArray();
+    }
 
 }
+
+

@@ -15,6 +15,7 @@ trait HasLaboratoryForm
         'index'                   => 'Описание',
         'storage'                 => 'Склад',
         'pharmacological-article' => 'ФС',
+        'videos'                  => 'Обучающее видео',
         'check-list'              => 'Расчетный лист',
         //        'weighing' => 'Весовая'
     ];
@@ -27,6 +28,8 @@ trait HasLaboratoryForm
     public ?int $pharmacological_article_id = null;
     // check-list
     public ?array $check_values = [];
+    // videos
+    public ?array $videos = [];
 
 
     public function showTab($tabKey): void
@@ -41,6 +44,11 @@ trait HasLaboratoryForm
         $this->component_ids = $laboratory->components()->pluck('id')->toArray();
         $this->pharmacological_article_id = $laboratory->pharmacological_article_id;
         $this->check_values = $laboratory->check_values;
+        // load videos
+        foreach (Laboratory::VIDEOS as $video) {
+            $this->videos[$video['key']] = $laboratory->{$video['key']};
+        }
+
     }
 
     public function initCheckValues(Laboratory $laboratory = null)
@@ -57,14 +65,18 @@ trait HasLaboratoryForm
         }
     }
 
-    public function rules(): array
+    private function mainRules(): array
     {
-        $mainFields = [
+        return [
             'name'                       => ['required', 'string', 'max:250'],
             'description'                => ['required'],
             'pharmacological_article_id' => ['required', Rule::exists('pharmacological_articles', 'id')],
             'check_values'               => ['required', 'array']
         ];
+    }
+
+    private function checkValueRules(): array
+    {
         $checkValueFields = [];
         foreach (Laboratory::$checkValues as $checkValue) {
             foreach (Laboratory::$checkValueTypes as $checkValueType) {
@@ -77,8 +89,43 @@ trait HasLaboratoryForm
 //                }
             }
         }
+        return $checkValueFields;
+    }
 
-        return $mainFields + $checkValueFields;
+    private function videoRules(): array
+    {
+        $result = [];
+        foreach (Laboratory::VIDEOS as $video) {
+            $result['videos.' . $video['key']] = [
+                'required',
+                'integer',
+                Rule::exists('videos', 'id'),
+            ];
+        }
+        return $result;
+    }
 
+    private function getLaboratoryMainFields(): array
+    {
+        return [
+            'name'                       => $this->name,
+            'description'                => $this->description,
+            'pharmacological_article_id' => $this->pharmacological_article_id,
+            'check_values'               => $this->check_values,
+        ];
+    }
+
+    private function getLaboratoryVideoFields(): array
+    {
+        $result = [];
+        foreach (Laboratory::VIDEOS as $video) {
+            $result[$video['key']] = $this->videos[$video['key']];
+        }
+        return $result;
+    }
+
+    public function rules(): array
+    {
+        return $this->mainRules() + $this->checkValueRules() + $this->videoRules();
     }
 }

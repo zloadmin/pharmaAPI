@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Laboratory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +17,14 @@ return new class extends Migration {
             $table->text('description');
             $table->unsignedBigInteger('pharmacological_article_id')->nullable();
             $table->foreign('pharmacological_article_id')->references('id')->on('pharmacological_articles')->onDelete('cascade');
+
             // check list
             $table->json('check_values')->nullable();
+            // videos
+            foreach (Laboratory::VIDEOS as $video) {
+                $table->unsignedBigInteger($video['key'])->nullable()->comment($video['name']);
+                $table->foreign($video['key'])->references('id')->on('videos')->onDelete('cascade');
+            }
 
             $table->softDeletes();
             $table->timestamps();
