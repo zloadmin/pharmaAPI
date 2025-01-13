@@ -7,6 +7,7 @@ use App\Livewire\Admin\Traits\HasBreadcrumb;
 use App\Livewire\Admin\Traits\HasRedirects;
 use App\Models\Laboratory;
 use App\Models\Component;
+use App\Models\LaboratoryWeightingComponent;
 use App\Models\PharmacologicalArticle;
 use App\Models\Video;
 use Livewire\Attributes\Title;
@@ -35,10 +36,10 @@ class LaboratoryEditPage extends LivewireComponent
 
     public function save()
     {
-
         $this->validate();
         $this->updateLaboratory();
         $this->updateLaboratoryStorageComponents();
+        $this->updateLaboratoryWeightingComponents();
         $this->redirectToLaboratoriesPage();
     }
 
@@ -59,6 +60,12 @@ class LaboratoryEditPage extends LivewireComponent
     private function updateLaboratoryStorageComponents(): void
     {
         $this->laboratory->components()->sync($this->component_ids);
+    }
+
+    private function updateLaboratoryWeightingComponents(): void
+    {
+        $this->laboratory->weightingComponents()->delete();
+        $this->laboratory->weightingComponents()->saveMany($this->getWeightingComponentModels());
     }
 
     #[Title('Редактировать')]

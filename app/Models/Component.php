@@ -7,6 +7,7 @@ use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Livewire\Stages\StorageStage\StorageComponents\ComponentLiquid;
 use App\Livewire\Stages\StorageStage\StorageComponents\ComponentLoose;
 use App\Livewire\Stages\StorageStage\StorageComponents\ComponentStuff;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -27,6 +28,17 @@ class Component extends Model
         'ph_meter_value'  => 'decimal:4'
     ];
 
+    /**
+     * Scope a query to only include by scales place.
+     *
+     * @param Builder $query
+     * @param SessionComponentPlace $place
+     * @return Builder
+     */
+    public function scopeByScalesPlace(Builder $query, SessionComponentPlace $place): \Illuminate\Database\Eloquent\Builder
+    {
+        return $query->where('on_scales_place', $place);
+    }
 
     public static function getDropdownArray(): array
     {
@@ -107,5 +119,15 @@ class Component extends Model
                 return $this->on_scales_place === $place;
         }
 
+    }
+
+    static function getStuffComponentsDropdownArray(): array
+    {
+        return self::query()->byScalesPlace(SessionComponentPlace::onScalesLeftBox)->pluck('name', 'id')->toArray();
+    }
+
+    static function getFilledComponentsDropdownArray(): array
+    {
+        return self::query()->byScalesPlace(SessionComponentPlace::onScalesRightBox)->pluck('name', 'id')->toArray();
     }
 }

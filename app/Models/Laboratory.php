@@ -47,4 +47,9 @@ class Laboratory extends Model
     {
         return $this->belongsTo(PharmacologicalArticle::class);
     }
+
+    public function weightingComponents(): HasMany
+    {
+        return $this->hasMany(LaboratoryWeightingComponent::class);
+    }
 }

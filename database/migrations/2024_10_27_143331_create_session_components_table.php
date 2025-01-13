@@ -21,6 +21,12 @@ return new class extends Migration {
             $table->decimal('valueLoose', 7, 5)->nullable();
             $table->decimal('valueLiquid', 7, 5)->nullable();
 
+            // lock rooms
+            $table->boolean('is_lock_stage')->default(true);
+            $table->boolean('is_lock_weighting')->default(true);
+            $table->boolean('is_lock_cooking')->default(true);
+            $table->boolean('is_lock_chromatograph')->default(true);
+
             // scales
             $table->boolean('is_weighed')->default(false);
             $table->boolean('is_dirty')->default(false);

@@ -35,6 +35,7 @@ class LaboratoryCreatePage extends LivewireComponent
         $this->validate();
         $laboratory = $this->createLaboratory();
         $this->createLaboratoryStorageComponents($laboratory);
+        $this->createLaboratoryWeightingComponents($laboratory);
         $this->redirectToLaboratoriesPage();
     }
 
@@ -47,6 +48,11 @@ class LaboratoryCreatePage extends LivewireComponent
     private function createLaboratoryStorageComponents(Laboratory $laboratory): void
     {
         $laboratory->components()->sync($this->component_ids);
+    }
+
+    private function createLaboratoryWeightingComponents(Laboratory $laboratory): void
+    {
+        $laboratory->weightingComponents()->saveMany($this->getWeightingComponentModels());
     }
 
     #[Title('Создать')]
