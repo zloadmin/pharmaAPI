@@ -69,6 +69,7 @@ class Scales extends Component
         // 2 move all to table
         $this->leftBoxComponent?->moveToWeightingTable();
         $this->rightBoxComponent?->moveToWeightingTable();
+        $this->bottomBoxComponent?->markAsDirty();
         $this->bottomBoxComponent?->moveToWeightingTable();
         // 3 dispatch events
         $this->dispatch('session-component-moved-to-weighting-table');

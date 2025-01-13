@@ -41,10 +41,12 @@ class SessionComponent extends Model
     {
         return $this->hasOne(self::class, 'id', 'mixed_left_component_id')->withTrashed();
     }
+
     public function mixedCenterComponent(): HasOne
     {
         return $this->hasOne(self::class, 'id', 'mixed_center_component_id')->withTrashed();
     }
+
     public function mixedRightComponent(): HasOne
     {
         return $this->hasOne(self::class, 'id', 'mixed_right_component_id')->withTrashed();
@@ -66,6 +68,7 @@ class SessionComponent extends Model
         }
         return $this->component->name;
     }
+
     public function getShortName()
     {
         if ($this->is_mixed) {
@@ -94,9 +97,13 @@ class SessionComponent extends Model
     {
         return $this->is_mixed ? $this->getMixedStatus() : $this->getSimpleStatus();
     }
+
     public function getSimpleStatus(): string
     {
         $result = [];
+        if ($this->is_dirty) {
+            $result[] = 'Грязный';
+        }
         if ($this->ph_meter_value) {
             $result[] = sprintf('PH: %03.4f', $this->ph_meter_value);
         }
@@ -114,6 +121,7 @@ class SessionComponent extends Model
         }
         return implode('<br>', $result);
     }
+
     public function getMixedStatus(): string
     {
         $result = ['Состав'];
@@ -126,7 +134,6 @@ class SessionComponent extends Model
         if ($this->mixedRightComponent) {
             $result[] = $this->mixedRightComponent->getName();
         }
-
         return implode('<br>', $result);
     }
 
@@ -311,6 +318,13 @@ class SessionComponent extends Model
         $this->changePlace(SessionComponentPlace::onWeightingTable);
     }
 
+    public function markAsDirty(): void
+    {
+        $this->update([
+            'is_dirty' => true
+        ]);
+    }
+
     public function moveToCookingTable(): void
     {
         $this->changePlace(SessionComponentPlace::onCookingTable);
@@ -395,6 +409,8 @@ class SessionComponent extends Model
 
     public function isCanBeChoose(SessionComponentPlace $place): bool
     {
-        return $this->component && $this->component->isCanBeChoose($place);
+        return $this->component &&
+            !$this->is_dirty &&
+            $this->component->isCanBeChoose($place);
     }
 }

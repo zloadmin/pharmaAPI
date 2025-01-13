@@ -23,6 +23,7 @@ return new class extends Migration {
 
             // scales
             $table->boolean('is_weighed')->default(false);
+            $table->boolean('is_dirty')->default(false);
             $table->decimal('weighed_value', 8, 4)->nullable();
             $table->unsignedBigInteger('weighed_left_component_id')->nullable();
             $table->foreign('weighed_left_component_id')->references('id')->on('session_components')->onDelete('cascade');

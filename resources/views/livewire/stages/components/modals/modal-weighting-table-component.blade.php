@@ -22,9 +22,13 @@
         </div>
 
         <div class="btns">
-            <button wire:click="moveToScales" type="button" class="btn interaction_btn">Взаимодействовать</button>
-            <button wire:click="moveToSink" type="button" class="btn border">Убрать в мойку</button>
-            <button wire:click="moveToCart" type="button" class="btn border">Переместить в инвентарь</button>
+            @if($sessionComponent->is_dirty)
+                <button wire:click="moveToSink" type="button" class="btn border">Убрать в мойку</button>
+            @else
+                <button wire:click="moveToScales" type="button" class="btn interaction_btn">Взаимодействовать</button>
+                <button wire:click="moveToSink" type="button" class="btn border">Убрать в мойку</button>
+                <button wire:click="moveToCart" type="button" class="btn border">Переместить в инвентарь</button>
+            @endif
         </div>
     @endif
 </div>
