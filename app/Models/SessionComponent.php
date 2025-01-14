@@ -159,8 +159,8 @@ class SessionComponent extends Model
     /**
      * Scope a query to only include by place.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeByPlace($query, SessionComponentPlace $place)
     {
@@ -170,8 +170,8 @@ class SessionComponent extends Model
     /**
      * Scope a query to only include in cart.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeInCart($query)
     {
@@ -181,8 +181,8 @@ class SessionComponent extends Model
     /**
      * Scope a query to only include on weighting table.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeOnWeightingTable(Builder $query): Builder
     {
@@ -192,8 +192,8 @@ class SessionComponent extends Model
     /**
      * Scope a query to only include on cooking table.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeOnCookingTable(Builder $query): Builder
     {
@@ -203,8 +203,8 @@ class SessionComponent extends Model
     /**
      * Scope a query to only include on PH meter.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeOnPHMeter(Builder $query): Builder
     {
@@ -214,8 +214,8 @@ class SessionComponent extends Model
     /**
      * Scope a query to only include in filtratikon
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeInFiltration(Builder $query): Builder
     {
@@ -225,8 +225,8 @@ class SessionComponent extends Model
     /**
      * Scope a query to only include in bath left box
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeInBathLeftBox(Builder $query): Builder
     {
@@ -236,8 +236,8 @@ class SessionComponent extends Model
     /**
      * Scope a query to only include in mix left box
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeInMixLeftBox(Builder $query): Builder
     {
@@ -247,8 +247,8 @@ class SessionComponent extends Model
     /**
      * Scope a query to only include in mix center box
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeInMixCenterBox(Builder $query): Builder
     {
@@ -258,8 +258,8 @@ class SessionComponent extends Model
     /**
      * Scope a query to only include in mix right box
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeInMixRightBox(Builder $query): Builder
     {
@@ -269,8 +269,8 @@ class SessionComponent extends Model
     /**
      * Scope a query to only include in bath right box
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeInBathRightBox(Builder $query): Builder
     {
@@ -280,8 +280,8 @@ class SessionComponent extends Model
     /**
      * Scope a query to only include in mixer
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeInMixer(Builder $query): Builder
     {
@@ -413,4 +413,25 @@ class SessionComponent extends Model
             !$this->is_dirty &&
             $this->component->isCanBeChoose($place);
     }
+    
+     /**
+      * Scope a query to only include mixed.
+      *
+      * @param Builder $query
+      * @return Builder
+      */
+     public function scopeMixed(Builder $query) : Builder
+     {
+         return $query->where('is_mixed', true);
+     }
+     /**
+      * Scope a query to only include weighed.
+      *
+      * @param Builder $query
+      * @return Builder
+      */
+     public function scopeWeighed(Builder $query) : Builder
+     {
+         return $query->where('is_weighed', true);
+     }
 }

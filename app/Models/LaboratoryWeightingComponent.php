@@ -19,4 +19,27 @@ class LaboratoryWeightingComponent extends Model
         'value_min' => 'decimal:4',
         'value_max' => 'decimal:4',
     ];
+
+    public function isFitsBySessionComponent(SessionComponent $sessionComponent): bool
+    {
+
+        // if not same stuff
+        if ($this->stuff_component_id != $sessionComponent->component_id) {
+            return false;
+        }
+        // if not same filled
+        if ($this->filled_component_id != $sessionComponent->weighedRightComponent->component_id) {
+            return false;
+        }
+
+        // if weighed value less then minimal
+        if (floatval($this->value_min) > floatval($sessionComponent->weighed_value)) {
+            return false;
+        }
+        // if weighed value more then maximum
+        if (floatval($this->value_max) < floatval($sessionComponent->weighed_value)) {
+            return false;
+        }
+        return true;
+    }
 }

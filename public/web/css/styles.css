@@ -967,7 +967,10 @@ header .select_room_btn .icon
     color: #fff;
     background: rgba(0, 48, 83, .64);
 }
-
+.home_page .rooms a.locked {
+    opacity: 0;
+    cursor: default;
+}
 
 .home_page .rooms a + a
 {
@@ -4532,7 +4535,11 @@ header .select_room_btn .icon
     color: rgba(255,255,255,.7);
     border-bottom: 2px solid rgba(255,255,255,.3);
 }
-
+.select_room_modal .items a.locked
+{
+    opacity: 0;
+    cursor: default;
+}
 
 .select_room_modal .items .number
 {

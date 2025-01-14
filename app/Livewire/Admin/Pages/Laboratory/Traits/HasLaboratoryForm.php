@@ -115,8 +115,8 @@ trait HasLaboratoryForm
             'weightingComponents'                       => ['array'],
             'weightingComponents.*.stuff_component_id'  => ['required', 'integer', Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesLeftBox)],
             'weightingComponents.*.filled_component_id' => ['required', 'integer', Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)],
-            'weightingComponents.*.value_min'           => ['required', 'numeric', 'min:0.0001', 'max:9999.9999'],
-            'weightingComponents.*.value_max'           => ['required', 'numeric', 'min:0.0001', 'max:9999.9999'],
+            'weightingComponents.*.value_min'           => ['required', 'numeric', 'min:0.0000', 'max:9999.9999'],
+            'weightingComponents.*.value_max'           => ['required', 'numeric', 'min:0.0000', 'max:9999.9999'],
         ];
     }
 

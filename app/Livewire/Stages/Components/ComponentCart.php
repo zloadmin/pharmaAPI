@@ -3,6 +3,7 @@
 namespace App\Livewire\Stages\Components;
 
 use App\Livewire\Traits\HasSession;
+use App\Livewire\Traits\HasUnlockStages;
 use App\Models\SessionComponent;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,6 +15,7 @@ use Livewire\Component as LivewireComponent;
 class ComponentCart extends LivewireComponent
 {
     use HasSession;
+    use HasUnlockStages;
 
     public Collection $cartItems;
     public array $filters;
@@ -74,6 +76,7 @@ class ComponentCart extends LivewireComponent
     public function updateList(): void
     {
         $this->setCartStageComponent($this->session);
+        $this->checkCookingRoomLock();
     }
 
     public function removeItem($id): void

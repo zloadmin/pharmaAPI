@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Stages\Stage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,8 +25,17 @@ class LaboratorySession extends Model
         'chromatograph_injector'   => 'bool',
         'check_values'             => 'json',
         'chromatograph_values'     => 'json',
-
+        'is_lock_index'            => 'bool',
+        'is_lock_storage'          => 'bool',
+        'is_lock_weighting'        => 'bool',
+        'is_lock_cooking'          => 'bool',
+        'is_lock_chromatograph'    => 'bool',
     ];
+
+    public function sessionComponents()
+    {
+        return $this->hasMany(SessionComponent::class, 'session', 'uuid');
+    }
 
     public function laboratory(): BelongsTo
     {
@@ -36,7 +46,8 @@ class LaboratorySession extends Model
     {
         return $this->chromatograph_values[$key] ?? null;
     }
-    public function saveChromatographValues(array $values) : void
+
+    public function saveChromatographValues(array $values): void
     {
         $this->update([
             'chromatograph_values' => $values
@@ -51,5 +62,10 @@ class LaboratorySession extends Model
             'uuid'          => Str::uuid(),
             'laboratory_id' => Laboratory::find(1)->id
         ])->uuid;
+    }
+
+    public function isLockStage(Stage $stage): bool
+    {
+        return $this->{'is_lock_' . $stage->value};
     }
 }

@@ -18,6 +18,14 @@ return new class extends Migration {
             $table->foreign('laboratory_id')->references('id')->on('laboratories')->onDelete('cascade');
             $table->uuid();
             $table->json('settings')->nullable();
+            // rooms
+            // lock rooms
+            $table->boolean('is_lock_index')->default(false);
+            $table->boolean('is_lock_storage')->default(false);
+            $table->boolean('is_lock_weighting')->default(true);
+            $table->boolean('is_lock_cooking')->default(true);
+            $table->boolean('is_lock_chromatograph')->default(true);
+
             // check list
             $table->json('check_values')->nullable();
             // Chromatograph
