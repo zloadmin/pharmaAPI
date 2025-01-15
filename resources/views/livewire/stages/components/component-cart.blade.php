@@ -38,6 +38,8 @@
                                 <div class="icons column">
                                     @if($cartItem->is_weighed)
                                         <div class="text">{{ $cartItem->weighed_value }}</div>
+                                    @elseif(isset($cartItem->groupCount) && $cartItem->groupCount > 1)
+                                        <div class="text">{{ $cartItem->groupCount }} шт</div>
                                     @endif
                                 </div>
                                 <div class="thumb">

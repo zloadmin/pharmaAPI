@@ -45,7 +45,22 @@ class ComponentCart extends LivewireComponent
 
     private function setCartStageComponent(): void
     {
-        $this->cartItems = $this->getCartItemBuilder()->latest()->get();
+        $collection = $this->getCartItemBuilder()->latest()->get();
+        $groupedCollection = (new Collection($collection))
+            ->where('is_weighed', false)
+            ->where('is_dirty', false)
+            ->where('is_mixed', false)
+            ->where('filtered', false);
+        $notGroupedCollection = (new Collection($collection))->whereNotIn('id', $groupedCollection->pluck('id'));
+        $counter = $groupedCollection->countBy('component_id');
+        $groupedCollection = $groupedCollection->unique('component_id');
+        $groupedCollection->map(function (SessionComponent $sessionComponent, int $key) use ($counter) {
+            $sessionComponent->groupCount = $counter[$sessionComponent->component_id] ?? 0;
+            return $sessionComponent;
+        });
+
+        $this->cartItems = $groupedCollection->union($notGroupedCollection);;
+
         $this->dispatch('cart-init');
     }
 
