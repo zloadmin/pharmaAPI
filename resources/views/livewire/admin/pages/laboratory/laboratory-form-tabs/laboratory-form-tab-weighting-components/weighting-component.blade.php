@@ -37,7 +37,7 @@
         <!--- Минимальное значение Field --->
         <div class="form-group">
             <label for="weightingComponents.{{ $index }}.value_min">Минимальное значение</label>
-            <input class="form-control @error('weightingComponents.'. $index .'.value_min') is-invalid @enderror" type="number" min="0.0001" max="9999.9999" step="0.0001" placeholder="0.0001" wire:model="weightingComponents.{{ $index }}.value_min" >
+            <input class="form-control @error('weightingComponents.'. $index .'.value_min') is-invalid @enderror" type="number" min="0.0000" max="9999.9999" step="0.0001" placeholder="0.0001" wire:model="weightingComponents.{{ $index }}.value_min" >
             @error('weightingComponents.'. $index .'.value_min')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
