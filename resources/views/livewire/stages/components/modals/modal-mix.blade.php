@@ -7,103 +7,37 @@
         </button>
         <div class="data">
             <div class="head">
-                <div class="title">Смещивание</div>
+                <div class="title">Смешивание</div>
             </div>
 
             <div class="objects">
-                @if($leftBoxSessionComponent)
-                    <div class="object object_tree">
-                        <button class="remove_btn" type="button" wire:click="moveToCookingTable('{{ $leftBoxSessionComponent->place }}')">
-                            <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_remove"></use></svg>
-                        </button>
-                        <div class="name">{{ $leftBoxSessionComponent->getName() }}</div>
-
-                        <div class="overflow">
-                            <div class="thumb">
-                                <img src="{{ $leftBoxSessionComponent->getImageUrl() }}" alt="" loading="lazy">
-                            </div>
-
-                            <div class="type">Тип: <span>{{ $leftBoxSessionComponent->getTypeLabel() }}</span></div>
-                        </div>
-
-                        <div class="status">
-                            <div class="label">Статус:</div>
-
-                            <div class="val">{!! $leftBoxSessionComponent->getStatus() !!}</div>
-                        </div>
-                    </div>
+                @if($mixBoxOneSessionComponent)
+                    @include('livewire.stages.components.modals.modal-mix.mix-component', ['component' => $mixBoxOneSessionComponent])
                 @else
-                    <div class="object object_tree empty">
-                        <button class="add_btn" type="button" wire:click="setMixLeftBoxChooseMode">
-                            <span class="icon">+</span>
-                            <span>Кликните здесь, чтобы добавить объект для взаимодействия</span>
-                        </button>
-                    </div>
+                    @include('livewire.stages.components.modals.modal-mix.mix-empty-component', ['click' => 'setMixBoxOneChooseMode'])
+                @endif
+                @if($mixBoxTwoSessionComponent)
+                    @include('livewire.stages.components.modals.modal-mix.mix-component', ['component' => $mixBoxTwoSessionComponent])
+                @else
+                    @include('livewire.stages.components.modals.modal-mix.mix-empty-component', ['click' => 'setMixBoxTwoChooseMode'])
+                @endif
+                @if($mixBoxThreeSessionComponent)
+                    @include('livewire.stages.components.modals.modal-mix.mix-component', ['component' => $mixBoxThreeSessionComponent])
+                @else
+                    @include('livewire.stages.components.modals.modal-mix.mix-empty-component', ['click' => 'setMixBoxThreeChooseMode'])
+                @endif
+                @if($mixBoxFourSessionComponent)
+                    @include('livewire.stages.components.modals.modal-mix.mix-component', ['component' => $mixBoxFourSessionComponent])
+                @else
+                    @include('livewire.stages.components.modals.modal-mix.mix-empty-component', ['click' => 'setMixBoxFourChooseMode'])
                 @endif
 
-                @if($centerBoxSessionComponent)
-                    <div class="object object_tree">
-                        <button class="remove_btn" type="button" wire:click="moveToCookingTable('{{ $centerBoxSessionComponent->place }}')">
-                            <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_remove"></use></svg>
-                        </button>
-                        <div class="name">{{ $centerBoxSessionComponent->getName() }}</div>
-                        <div class="overflow">
-                            <div class="thumb">
-                                <img src="{{ $centerBoxSessionComponent->getImageUrl() }}" alt="" loading="lazy">
-                            </div>
-
-                            <div class="type">Тип: <span>{{ $centerBoxSessionComponent->getTypeLabel() }}</span></div>
-                        </div>
-
-                        <div class="status">
-                            <div class="label">Статус:</div>
-
-                            <div class="val">{!! $centerBoxSessionComponent->getStatus() !!}</div>
-                        </div>
-                    </div>
-                @else
-                    <div class="object object_tree empty">
-                        <button class="add_btn" type="button" wire:click="setMixCenterBoxChooseMode">
-                            <span class="icon">+</span>
-                            <span>Кликните здесь, чтобы добавить объект для взаимодействия</span>
-                        </button>
-                    </div>
-                @endif
-
-
-                @if($rightBoxSessionComponent)
-                        <div class="object object_tree">
-                            <button class="remove_btn" type="button" wire:click="moveToCookingTable('{{ $rightBoxSessionComponent->place }}')">
-                                <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_remove"></use></svg>
-                            </button>
-                            <div class="name">{{ $rightBoxSessionComponent->getName() }}</div>
-                            <div class="overflow">
-                                <div class="thumb">
-                                    <img src="{{ $rightBoxSessionComponent->getImageUrl() }}" alt="" loading="lazy">
-                                </div>
-
-                                <div class="type">Тип: <span>{{ $rightBoxSessionComponent->getTypeLabel() }}</span></div>
-                            </div>
-
-                            <div class="status">
-                                <div class="label">Статус:</div>
-
-                                <div class="val">{!! $rightBoxSessionComponent->getStatus() !!}</div>
-                            </div>
-                        </div>
-                @else
-                        <div class="object object_tree empty">
-                            <button class="add_btn" type="button" wire:click="setMixRightBoxChooseMode">
-                                <span class="icon">+</span>
-                                <span>Кликните здесь, чтобы добавить объект для взаимодействия</span>
-                            </button>
-                        </div>
-                @endif
             </div>
             @if(
-                ($leftBoxSessionComponent && $centerBoxSessionComponent) ||
-                ($leftBoxSessionComponent && $rightBoxSessionComponent) ||
-                ($centerBoxSessionComponent && $rightBoxSessionComponent)
+                $mixBoxOneSessionComponent &&
+                $mixBoxTwoSessionComponent &&
+                $mixBoxThreeSessionComponent &&
+                $mixBoxFourSessionComponent
             )
                 <button class="action_btn" type="button" wire:click="run">Смешать</button>
             @endif

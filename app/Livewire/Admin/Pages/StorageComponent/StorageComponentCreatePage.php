@@ -46,7 +46,8 @@ class StorageComponentCreatePage extends LivewireComponent
             'weight'          => $this->weight,
             'ph_meter_able'   => $this->ph_meter_able,
             'ph_meter_value'  => $this->ph_meter_value,
-            'mixer_able'      => $this->mixer_able,
+            //            'mixer_able'      => $this->mixer_able,
+            'on_mix_place'    => $this->on_mix_place ?: null,
             'bath_able'       => $this->bath_able,
             'filtration_able' => $this->filtration_able,
         ]);

@@ -20,6 +20,7 @@ class Component extends Model
     protected $casts = [
         'type'            => ComponentType::class,
         'on_scales_place' => SessionComponentPlace::class,
+        'on_mix_place'    => SessionComponentPlace::class,
         'ph_meter_able'   => 'bool',
         'mixer_able'      => 'bool',
         'bath_able'       => 'bool',
@@ -98,7 +99,7 @@ class Component extends Model
         }
     }
 
-    public function isCanBeChoose(SessionComponentPlace $place): bool
+    public function isCanBeChoose(SessionComponentPlace $place, SessionComponent $sessionComponent): bool
     {
 
         switch ($place) {
@@ -111,10 +112,12 @@ class Component extends Model
                 return $this->bath_able;
             case SessionComponentPlace::inFiltrationBox:
                 return $this->filtration_able;
-            case SessionComponentPlace::inMixLeftBox:
-            case SessionComponentPlace::inMixCenterBox:
-            case SessionComponentPlace::inMixRightBox:
-                return $this->mix_able;
+            case SessionComponentPlace::inMixBoxOne:
+            case SessionComponentPlace::inMixBoxTwo:
+            case SessionComponentPlace::inMixBoxThree:
+                return $this->on_mix_place === $place && !$sessionComponent->is_mixed;
+            case SessionComponentPlace::inMixBoxFour:
+                return $sessionComponent->is_weighed || $sessionComponent->is_mixed;
             default:
                 return $this->on_scales_place === $place;
         }

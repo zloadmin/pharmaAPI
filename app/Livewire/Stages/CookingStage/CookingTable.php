@@ -37,9 +37,10 @@ class CookingTable extends Component
     #[On('session-component-moved-to-in-bath-left')]
     #[On('session-component-moved-to-in-bath-right')]
     #[On('session-component-moved-to-in-filtration')]
-    #[On('session-component-moved-to-mix-left')]
-    #[On('session-component-moved-to-mix-center')]
-    #[On('session-component-moved-to-mix-right')]
+    #[On('session-component-moved-to-mix-one')]
+    #[On('session-component-moved-to-mix-two')]
+    #[On('session-component-moved-to-mix-three')]
+    #[On('session-component-moved-to-mix-four')]
     #[On('session-component-moved-to-cooking-table')]
     public function updateList(): void
     {

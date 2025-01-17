@@ -3700,7 +3700,7 @@ header .select_room_btn .icon
 }
 .exhaust .interaction_data .object_tree
 {
-    width: calc(33% - 10px) !important;
+    width: calc(25% - 10px) !important;
 }
 
 

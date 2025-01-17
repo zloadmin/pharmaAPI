@@ -29,19 +29,24 @@ trait HasCookingTableChooseMode
         $this->setCookingTableChooseMode(SessionComponentPlace::inBathRightBox);
     }
 
-    public function setMixLeftBoxChooseMode(): void
+    public function setMixBoxOneChooseMode(): void
     {
-        $this->setCookingTableChooseMode(SessionComponentPlace::inMixLeftBox);
+        $this->setCookingTableChooseMode(SessionComponentPlace::inMixBoxOne);
     }
 
-    public function setMixCenterBoxChooseMode(): void
+    public function setMixBoxTwoChooseMode(): void
     {
-        $this->setCookingTableChooseMode(SessionComponentPlace::inMixCenterBox);
+        $this->setCookingTableChooseMode(SessionComponentPlace::inMixBoxTwo);
     }
 
-    public function setMixRightBoxChooseMode(): void
+    public function setMixBoxThreeChooseMode(): void
     {
-        $this->setCookingTableChooseMode(SessionComponentPlace::inMixRightBox);
+        $this->setCookingTableChooseMode(SessionComponentPlace::inMixBoxThree);
+    }
+
+    public function setMixBoxFourChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inMixBoxFour);
     }
 
     public function setMixerChooseMode(): void

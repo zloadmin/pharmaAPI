@@ -141,16 +141,31 @@
         @enderror
     </div>
     @include('livewire.admin.blocks.form-header', ['title' => 'Мешалка'])
-    <!--- Мешалка Field --->
-    <div class="form-check mb-3">
-        <input class="form-check-input @error('mixer_able') is-invalid @enderror" type="checkbox" wire:model="mixer_able" id="checkbox_mixer_able">
-        <label class="form-check-label" for="checkbox_mixer_able">
-            Мешалка
-        </label>
-        @error('mixer_able')
-            <div class="invalid-feedback">{{ $message }}</div>
+    <!--- Позиция в мешалке Field --->
+    <div class="form-group">
+        <label for="on_mix_place">Позиция в мешалке</label>
+        <select class="form-control @error('on_mix_place') is-invalid @enderror" wire:model="on_mix_place">
+            <option value=""></option>
+            @foreach(\App\Enums\SessionComponent\SessionComponentPlace::getMixStuffPlaces() as $place)
+                <option value="{{ $place->value }}">{{ $place->label() }}</option>
+            @endforeach
+        </select>
+        @error('on_mix_place')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
         @enderror
     </div>
+{{--    <!--- Мешалка Field --->--}}
+{{--    <div class="form-check mb-3">--}}
+{{--        <input class="form-check-input @error('mixer_able') is-invalid @enderror" type="checkbox" wire:model="mixer_able" id="checkbox_mixer_able">--}}
+{{--        <label class="form-check-label" for="checkbox_mixer_able">--}}
+{{--            Мешалка--}}
+{{--        </label>--}}
+{{--        @error('mixer_able')--}}
+{{--            <div class="invalid-feedback">{{ $message }}</div>--}}
+{{--        @enderror--}}
+{{--    </div>--}}
     @include('livewire.admin.blocks.form-header', ['title' => 'УЗ ванна'])
     <!--- УЗ ванна Field --->
     <div class="form-check mb-3">

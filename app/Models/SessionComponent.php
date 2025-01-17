@@ -37,20 +37,30 @@ class SessionComponent extends Model
         return $this->hasOne(self::class, 'id', 'weighed_right_component_id');
     }
 
-    public function mixedLeftComponent(): HasOne
+    public function mixedOneComponent(): HasOne
     {
-        return $this->hasOne(self::class, 'id', 'mixed_left_component_id')->withTrashed();
+        return $this->hasOne(self::class, 'id', 'mixed_one_component_id')->withTrashed();
     }
 
-    public function mixedCenterComponent(): HasOne
+    public function mixedTwoComponent(): HasOne
     {
-        return $this->hasOne(self::class, 'id', 'mixed_center_component_id')->withTrashed();
+        return $this->hasOne(self::class, 'id', 'mixed_two_component_id')->withTrashed();
     }
 
-    public function mixedRightComponent(): HasOne
+    public function mixedThreeComponent(): HasOne
     {
-        return $this->hasOne(self::class, 'id', 'mixed_right_component_id')->withTrashed();
+        return $this->hasOne(self::class, 'id', 'mixed_three_component_id')->withTrashed();
     }
+
+    public function mixedFourComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'mixed_four_component_id')->withTrashed();
+    }
+    public function mixedWeighedComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'mixed_weighed_component_id')->withTrashed();
+    }
+
 
     public function weighedBottomComponent(): HasOne
     {
@@ -61,7 +71,7 @@ class SessionComponent extends Model
     public function getName()
     {
         if ($this->is_mixed) {
-            return 'Смешанный';
+            return sprintf('Раствор «%s»', $this->mixedWeighedComponent->component->name ?? '');
         }
         if ($this->isFiled()) {
             return sprintf('%s с %s', $this->component->name, $this->weighedRightComponent->name);
@@ -79,9 +89,9 @@ class SessionComponent extends Model
 
     public function getImageUrl(): string
     {
-        if ($this->is_mixed) {
-            return '/web/images/mix.png';
-        }
+//        if ($this->is_mixed) {
+//            return '/web/images/mix.png';
+//        }
         return $this->component->image_url;
     }
 
@@ -124,18 +134,22 @@ class SessionComponent extends Model
 
     public function getMixedStatus(): string
     {
-        $result = ['Состав'];
-        if ($this->mixedLeftComponent) {
-            $result[] = $this->mixedLeftComponent->getName();
+        $result = ['Смешивание:'];
+        if ($this->mixedOneComponent) {
+            $result[] = $this->mixedOneComponent->getName();
         }
-        if ($this->mixedCenterComponent) {
-            $result[] = $this->mixedCenterComponent->getName();
+        if ($this->mixedTwoComponent) {
+            $result[] = $this->mixedTwoComponent->getName();
         }
-        if ($this->mixedRightComponent) {
-            $result[] = $this->mixedRightComponent->getName();
+        if ($this->mixedThreeComponent) {
+            $result[] = $this->mixedThreeComponent->getName();
+        }
+        if ($this->mixedFourComponent) {
+            $result[] = $this->mixedFourComponent->getName();
         }
         return implode('<br>', $result);
     }
+
 
     private function isFiled(): bool
     {
@@ -234,37 +248,49 @@ class SessionComponent extends Model
     }
 
     /**
-     * Scope a query to only include in mix left box
+     * Scope a query to only include in mix box one
      *
      * @param Builder $query
      * @return Builder
      */
-    public function scopeInMixLeftBox(Builder $query): Builder
+    public function scopeInMixBoxOne(Builder $query): Builder
     {
-        return $query->where('place', SessionComponentPlace::inMixLeftBox);
+        return $query->where('place', SessionComponentPlace::inMixBoxOne);
     }
 
     /**
-     * Scope a query to only include in mix center box
+     * Scope a query to only include in mix box two
      *
      * @param Builder $query
      * @return Builder
      */
-    public function scopeInMixCenterBox(Builder $query): Builder
+    public function scopeInMixBoxTwo(Builder $query): Builder
     {
-        return $query->where('place', SessionComponentPlace::inMixCenterBox);
+        return $query->where('place', SessionComponentPlace::inMixBoxTwo);
     }
 
     /**
-     * Scope a query to only include in mix right box
+     * Scope a query to only include in mix box three
      *
      * @param Builder $query
      * @return Builder
      */
-    public function scopeInMixRightBox(Builder $query): Builder
+    public function scopeInMixBoxThree(Builder $query): Builder
     {
-        return $query->where('place', SessionComponentPlace::inMixRightBox);
+        return $query->where('place', SessionComponentPlace::inMixBoxThree);
     }
+
+    /**
+     * Scope a query to only include in mix box four
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeInMixBoxFour(Builder $query): Builder
+    {
+        return $query->where('place', SessionComponentPlace::inMixBoxFour);
+    }
+
 
     /**
      * Scope a query to only include in bath right box
@@ -411,27 +437,28 @@ class SessionComponent extends Model
     {
         return $this->component &&
             !$this->is_dirty &&
-            $this->component->isCanBeChoose($place);
+            $this->component->isCanBeChoose($place, $this);
     }
-    
-     /**
-      * Scope a query to only include mixed.
-      *
-      * @param Builder $query
-      * @return Builder
-      */
-     public function scopeMixed(Builder $query) : Builder
-     {
-         return $query->where('is_mixed', true);
-     }
-     /**
-      * Scope a query to only include weighed.
-      *
-      * @param Builder $query
-      * @return Builder
-      */
-     public function scopeWeighed(Builder $query) : Builder
-     {
-         return $query->where('is_weighed', true);
-     }
+
+    /**
+     * Scope a query to only include mixed.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeMixed(Builder $query): Builder
+    {
+        return $query->where('is_mixed', true);
+    }
+
+    /**
+     * Scope a query to only include weighed.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeWeighed(Builder $query): Builder
+    {
+        return $query->where('is_weighed', true);
+    }
 }

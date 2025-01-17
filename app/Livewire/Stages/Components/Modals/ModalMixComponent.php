@@ -19,9 +19,11 @@ class ModalMixComponent extends ModalBase
     use HasCookingTableChooseMode;
 
 
-    public ?SessionComponent $leftBoxSessionComponent = null;
-    public ?SessionComponent $centerBoxSessionComponent = null;
-    public ?SessionComponent $rightBoxSessionComponent = null;
+    public ?SessionComponent $mixBoxOneSessionComponent = null;
+    public ?SessionComponent $mixBoxTwoSessionComponent = null;
+    public ?SessionComponent $mixBoxThreeSessionComponent = null;
+    public ?SessionComponent $mixBoxFourSessionComponent = null;
+
     public bool $isShow = false;
 
     public int $temperature = 0;
@@ -36,15 +38,17 @@ class ModalMixComponent extends ModalBase
     public function init(string $session): void
     {
         $this->setSession($session);
-        $this->setLeftBoxSessionComponent();
-        $this->setCenterBoxSessionComponent();
-        $this->setRightBoxSessionComponent();
+        $this->setMixBoxOneSessionComponent();
+        $this->setMixBoxTwoSessionComponent();
+        $this->setMixBoxThreeSessionComponent();
+        $this->setMixBoxFourSessionComponent();
         $this->disableCookingTableChooseMode();
     }
 
-    #[On('session-component-moved-to-mix-left')]
-    #[On('session-component-moved-to-mix-center')]
-    #[On('session-component-moved-to-mix-right')]
+    #[On('session-component-moved-to-mix-one')]
+    #[On('session-component-moved-to-mix-two')]
+    #[On('session-component-moved-to-mix-three')]
+    #[On('session-component-moved-to-mix-four')]
     #[On('session-component-moved-to-cooking-table')]
     public function updateComponents(): void
     {
@@ -70,36 +74,44 @@ class ModalMixComponent extends ModalBase
 
     public function run(): void
     {
-        if($this->isHasTwoOrMoreComponents()) {
-            $this->createMixSessionComponent();
-            $this->deleteCurrentSessionComponents();
+
+        if ($this->isHasAllComponents()) {
+            $this->createMixedComponent();
+            $this->clearComponents();
         }
         $this->dispatch('hide-modal-mix');
         $this->dispatch('session-component-moved-to-cooking-table');
 
     }
-    private function deleteCurrentSessionComponents(): void
+
+
+    private function isHasAllComponents(): bool
     {
-        $this->leftBoxSessionComponent?->delete();
-        $this->centerBoxSessionComponent?->delete();
-        $this->rightBoxSessionComponent?->delete();
+        return $this->mixBoxOneSessionComponent &&
+            $this->mixBoxTwoSessionComponent &&
+            $this->mixBoxThreeSessionComponent &&
+            $this->mixBoxFourSessionComponent;
     }
-    private function createMixSessionComponent() : void
+
+
+    public function setMixBoxOneSessionComponent(): void
     {
-        SessionComponent::create([
-            'session' => $this->session,
-            'place' => SessionComponentPlace::onCookingTable,
-            'is_mixed' => true,
-            'mixed_left_component_id' => $this->leftBoxSessionComponent?->id,
-            'mixed_center_component_id' => $this->centerBoxSessionComponent?->id,
-            'mixed_right_component_id' => $this->rightBoxSessionComponent?->id,
-        ]);
+        $this->mixBoxOneSessionComponent = SessionComponent::with('component')->bySession($this->session)->inMixBoxOne()->first();
     }
-    private function isHasTwoOrMoreComponents(): bool
+
+    public function setMixBoxTwoSessionComponent(): void
     {
-        return ($this->leftBoxSessionComponent && $this->centerBoxSessionComponent) ||
-            ($this->leftBoxSessionComponent && $this->rightBoxSessionComponent) ||
-            ($this->centerBoxSessionComponent && $this->rightBoxSessionComponent);
+        $this->mixBoxTwoSessionComponent = SessionComponent::with('component')->bySession($this->session)->inMixBoxTwo()->first();;
+    }
+
+    public function setMixBoxThreeSessionComponent(): void
+    {
+        $this->mixBoxThreeSessionComponent = SessionComponent::with('component')->bySession($this->session)->inMixBoxThree()->first();;
+    }
+
+    public function setMixBoxFourSessionComponent(): void
+    {
+        $this->mixBoxFourSessionComponent = SessionComponent::with('component')->bySession($this->session)->inMixBoxFour()->first();;
     }
 
     public function render()
@@ -107,24 +119,28 @@ class ModalMixComponent extends ModalBase
         return view('livewire.stages.components.modals.modal-mix');
     }
 
-    private function setLeftBoxSessionComponent(): void
+    private function createMixedComponent(): void
     {
-
-        $this->leftBoxSessionComponent = SessionComponent::with('component')->bySession($this->session)->inMixLeftBox()->first();
+        SessionComponent::create([
+            'place'                      => SessionComponentPlace::onCookingTable,
+            'session'                    => $this->session,
+            'component_id'               => $this->mixBoxThreeSessionComponent->component_id,
+            'is_mixed'                   => true,
+            'mixed_one_component_id'     => $this->mixBoxOneSessionComponent->id,
+            'mixed_two_component_id'     => $this->mixBoxTwoSessionComponent->id,
+            'mixed_three_component_id'   => $this->mixBoxThreeSessionComponent->id,
+            'mixed_four_component_id'    => $this->mixBoxFourSessionComponent->id,
+            'mixed_weighed_component_id' => $this->mixBoxFourSessionComponent->weighed_right_component_id ?? $this->mixBoxFourSessionComponent->mixed_weighed_component_id,
+        ]);
     }
 
-    private function setCenterBoxSessionComponent(): void
+    private function clearComponents(): void
     {
-
-        $this->centerBoxSessionComponent = SessionComponent::with('component')->bySession($this->session)->inMixCenterBox()->first();
+        $this->mixBoxOneSessionComponent->moveToCookingTable();
+        $this->mixBoxTwoSessionComponent->moveToCookingTable();
+        $this->mixBoxThreeSessionComponent->delete();
+        $this->mixBoxFourSessionComponent->delete();
     }
-
-    private function setRightBoxSessionComponent(): void
-    {
-        $this->rightBoxSessionComponent = SessionComponent::with('component')->bySession($this->session)->inMixRightBox()->first();
-    }
-
-
 
 
 }

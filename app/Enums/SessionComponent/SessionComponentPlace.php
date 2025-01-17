@@ -20,9 +20,11 @@ enum SessionComponentPlace: string
     case inBathLeftBox = 'inBathLeftBox';
     case inBathRightBox = 'inBathRightBox';
     case inFiltrationBox = 'inFiltrationBox';
-    case inMixLeftBox = 'inMixLeftBox';
-    case inMixCenterBox = 'inMixCenterBox';
-    case inMixRightBox = 'inMixRightBox';
+
+    case inMixBoxOne = 'inMixBoxOne';
+    case inMixBoxTwo = 'inMixBoxTwo';
+    case inMixBoxThree = 'inMixBoxThree';
+    case inMixBoxFour = 'inMixBoxFour';
 
 
     public function label(): string
@@ -34,6 +36,11 @@ enum SessionComponentPlace: string
             self::onScalesLeftBox => 'Левый блок (посуда)',
             self::onScalesRightBox => 'Правый блок (вещества)',
             self::onScalesBottomBox => 'Нижний блок (инструменты)',
+            self::inMixBoxOne => 'Миксер ячейка 1',
+            self::inMixBoxTwo => 'Миксер ячейка 2',
+            self::inMixBoxThree => 'Миксер ячейка 3',
+            self::inMixBoxFour => 'Миксер ячейка 4',
+
         };
     }
 
@@ -58,12 +65,30 @@ enum SessionComponentPlace: string
         return $values;
     }
 
+    static function getMixStuffPlaceValues(): array
+    {
+        $values = [];
+        foreach (self::getMixStuffPlaces() as $case) {
+            $values[] = $case->value;
+        }
+        return $values;
+    }
+
     static function getOnScales(): array
     {
         return [
             self::onScalesLeftBox,
             self::onScalesRightBox,
             self::onScalesBottomBox
+        ];
+    }
+
+    static function getMixStuffPlaces(): array
+    {
+        return [
+            self::inMixBoxOne,
+            self::inMixBoxTwo,
+            self::inMixBoxThree,
         ];
     }
 
@@ -92,9 +117,10 @@ enum SessionComponentPlace: string
             self::inBathLeftBox => 'in-bath-left',
             self::inBathRightBox => 'in-bath-right',
             self::inFiltrationBox => 'in-filtration',
-            self::inMixLeftBox => 'mix-left',
-            self::inMixCenterBox => 'mix-center',
-            self::inMixRightBox => 'mix-right',
+            self::inMixBoxOne => 'mix-one',
+            self::inMixBoxTwo => 'mix-two',
+            self::inMixBoxThree => 'mix-three',
+            self::inMixBoxFour => 'mix-four',
         };
     }
 }

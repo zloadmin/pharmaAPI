@@ -36,7 +36,8 @@ class StorageComponentEditPage extends LivewireComponent
             'weight'          => ['numeric', 'min:0', 'max:10'],
             'ph_meter_able'   => ['required', 'boolean'],
             'ph_meter_value'  => ['required', 'numeric', 'min:0', 'max:999.9999'],
-            'mixer_able'      => ['required', 'boolean'],
+//            'mixer_able'      => ['required', 'boolean'],
+            'on_mix_place'      => ['nullable', Rule::in(SessionComponentPlace::getMixStuffPlaceValues())],
             'bath_able'       => ['required', 'boolean'],
             'filtration_able' => ['required', 'boolean'],
         ];
@@ -82,9 +83,11 @@ class StorageComponentEditPage extends LivewireComponent
         $this->storageComponent->weight = $this->weight;
         $this->storageComponent->ph_meter_able = $this->ph_meter_able;
         $this->storageComponent->ph_meter_value = $this->ph_meter_value;
-        $this->storageComponent->mixer_able = $this->mixer_able;
+//        $this->storageComponent->mixer_able = $this->mixer_able;
+        $this->storageComponent->on_mix_place = $this->on_mix_place ?: null;
         $this->storageComponent->bath_able = $this->bath_able;
         $this->storageComponent->filtration_able = $this->filtration_able;
+
         $this->storageComponent->update();
     }
 
@@ -110,7 +113,8 @@ class StorageComponentEditPage extends LivewireComponent
         $this->weight = $storageComponent->weight;
         $this->ph_meter_able = $storageComponent->ph_meter_able;
         $this->ph_meter_value = $storageComponent->ph_meter_value;
-        $this->mixer_able = $storageComponent->mixer_able;
+//        $this->mixer_able = $storageComponent->mixer_able;
+        $this->on_mix_place = $storageComponent->on_mix_place;
         $this->bath_able = $storageComponent->bath_able;
         $this->filtration_able = $storageComponent->filtration_able;
     }

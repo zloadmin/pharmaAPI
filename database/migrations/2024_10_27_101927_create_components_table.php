@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->string('image')->comment('Изображение');
             $table->enum('type', ComponentType::values())->comment('type');
             $table->enum('on_scales_place', SessionComponentPlace::getOnScalesValues());
+            $table->enum('on_mix_place', SessionComponentPlace::getMixStuffPlaceValues())->nullable();
             $table->decimal('weight', 4)->default(0);
             $table->boolean('ph_meter_able')->default(false);
             $table->decimal('ph_meter_value', 7, 4)->default(0);
