@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\IndexPage\HasTestCases;
 use App\Models\Laboratory;
 use App\Models\LaboratorySession;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,7 +11,11 @@ use Livewire\Component;
 
 class IndexPage extends Component
 {
+    use HasTestCases;
     public Collection $laboratories;
+    public $testCases = [
+        ['title' => 'Наполнена корзина', 'method' => 'filledCartTestCase']
+    ];
     public function mount()
     {
         $this->laboratories = Laboratory::query()->orderBy('id')->get();

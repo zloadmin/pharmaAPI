@@ -68,4 +68,8 @@ class LaboratorySession extends Model
     {
         return $this->{'is_lock_' . $stage->value};
     }
+    public function unlockWeighting() : void
+    {
+        $this->update(['is_lock_weighting' => false]);
+    }
 }
