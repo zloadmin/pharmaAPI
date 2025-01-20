@@ -26,6 +26,7 @@ class Component extends Model
         'bath_able'       => 'bool',
         'filtration_able' => 'bool',
         'mix_able'        => 'bool',
+        'is_example'        => 'bool',
         'ph_meter_value'  => 'decimal:4'
     ];
 
@@ -43,7 +44,7 @@ class Component extends Model
 
     public static function getDropdownArray(): array
     {
-        return self::query()->pluck('name', 'id')->toArray();
+        return self::query()->where('is_example', false)->pluck('name', 'id')->toArray();
     }
 
     public function getImageUrlAttribute(): string

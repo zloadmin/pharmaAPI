@@ -18,13 +18,13 @@ class LaboratoryCreatePage extends LivewireComponent
     use HasLaboratoryForm;
     use HasRedirects;
 
-    public array $components;
+
     public array $pharmacologicalArticles;
     public array $videoList;
 
     public function mount()
     {
-        $this->components = Component::getDropdownArray();
+
         $this->pharmacologicalArticles = PharmacologicalArticle::getDropdownArray();
         $this->videoList = Video::getDropdownArray();
         $this->initCheckValues();

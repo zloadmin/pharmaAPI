@@ -50,6 +50,7 @@ class StorageComponentCreatePage extends LivewireComponent
             'on_mix_place'    => $this->on_mix_place ?: null,
             'bath_able'       => $this->bath_able,
             'filtration_able' => $this->filtration_able,
+            'is_example'      => $this->is_example,
         ]);
     }
 

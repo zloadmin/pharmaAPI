@@ -40,12 +40,13 @@ trait HasLaboratoryForm
 
     public array $stuffComponents = [];
     public array $filledComponents = [];
-
+    public array $components = [];
 
     public function mountHasLaboratoryForm(): void
     {
         $this->stuffComponents = Component::getStuffComponentsDropdownArray();
         $this->filledComponents = Component::getFilledComponentsDropdownArray();
+        $this->components = Component::getDropdownArray();
     }
 
     public function showTab($tabKey): void

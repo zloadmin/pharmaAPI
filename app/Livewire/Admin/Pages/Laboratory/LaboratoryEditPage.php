@@ -20,14 +20,12 @@ class LaboratoryEditPage extends LivewireComponent
     use HasRedirects;
 
     public Laboratory $laboratory;
-    public array $components;
     public array $pharmacologicalArticles;
     public array $videoList;
 
     public function mount(Laboratory $laboratory)
     {
         $this->laboratory = $laboratory;
-        $this->components = Component::getDropdownArray();
         $this->pharmacologicalArticles = PharmacologicalArticle::getDropdownArray();
         $this->videoList = Video::getDropdownArray();
         $this->loadFormFields($laboratory);

@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->text('description')->comment('Описание');
             $table->string('image')->comment('Изображение');
             $table->enum('type', ComponentType::values())->comment('type');
-            $table->enum('on_scales_place', SessionComponentPlace::getOnScalesValues());
+            $table->enum('on_scales_place', SessionComponentPlace::getOnScalesValues())->nullable();
             $table->enum('on_mix_place', SessionComponentPlace::getMixStuffPlaceValues())->nullable();
             $table->decimal('weight', 4)->default(0);
             $table->boolean('ph_meter_able')->default(false);
@@ -31,6 +31,7 @@ return new class extends Migration {
             $table->boolean('bath_able')->default(false);
             $table->boolean('filtration_able')->default(false);
             $table->boolean('mix_able')->default(false);
+            $table->boolean('is_example')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

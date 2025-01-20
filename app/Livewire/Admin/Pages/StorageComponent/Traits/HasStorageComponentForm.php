@@ -30,6 +30,7 @@ trait HasStorageComponentForm
     public $on_mix_place = null;
     public $bath_able = false;
     public $filtration_able = false;
+    public $is_example = false;
 
     public function rules(): array
     {
@@ -45,10 +46,11 @@ trait HasStorageComponentForm
             'weight'          => ['numeric', 'min:0', 'max:10'],
             'ph_meter_able'   => ['required', 'boolean'],
             'ph_meter_value'  => ['required', 'numeric', 'min:0', 'max:999.9999'],
-//            'mixer_able'      => ['required', 'boolean'],
-            'on_mix_place'      => ['nullable', Rule::in(SessionComponentPlace::getMixStuffPlaceValues())],
+            //            'mixer_able'      => ['required', 'boolean'],
+            'on_mix_place'    => ['nullable', Rule::in(SessionComponentPlace::getMixStuffPlaceValues())],
             'bath_able'       => ['required', 'boolean'],
             'filtration_able' => ['required', 'boolean'],
+            'is_example'      => ['required', 'boolean'],
         ];
     }
 }

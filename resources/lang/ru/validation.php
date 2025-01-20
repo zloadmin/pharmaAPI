@@ -196,6 +196,7 @@ return [
         'check_value_two_from'       => 'значение 2 от',
         'check_value_two_to'         => 'значение 2 до',
         'pharmacological_article_id' => 'фармакопейная статья',
+        'is_example'                 => 'образец',
     ],
 
 ];

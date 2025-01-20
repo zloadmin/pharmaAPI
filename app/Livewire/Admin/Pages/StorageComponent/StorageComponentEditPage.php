@@ -36,10 +36,11 @@ class StorageComponentEditPage extends LivewireComponent
             'weight'          => ['numeric', 'min:0', 'max:10'],
             'ph_meter_able'   => ['required', 'boolean'],
             'ph_meter_value'  => ['required', 'numeric', 'min:0', 'max:999.9999'],
-//            'mixer_able'      => ['required', 'boolean'],
-            'on_mix_place'      => ['nullable', Rule::in(SessionComponentPlace::getMixStuffPlaceValues())],
+            //            'mixer_able'      => ['required', 'boolean'],
+            'on_mix_place'    => ['nullable', Rule::in(SessionComponentPlace::getMixStuffPlaceValues())],
             'bath_able'       => ['required', 'boolean'],
             'filtration_able' => ['required', 'boolean'],
+            'is_example'      => ['required', 'boolean'],
         ];
     }
 
@@ -87,6 +88,7 @@ class StorageComponentEditPage extends LivewireComponent
         $this->storageComponent->on_mix_place = $this->on_mix_place ?: null;
         $this->storageComponent->bath_able = $this->bath_able;
         $this->storageComponent->filtration_able = $this->filtration_able;
+        $this->storageComponent->is_example = $this->is_example;
 
         $this->storageComponent->update();
     }
@@ -117,6 +119,7 @@ class StorageComponentEditPage extends LivewireComponent
         $this->on_mix_place = $storageComponent->on_mix_place;
         $this->bath_able = $storageComponent->bath_able;
         $this->filtration_able = $storageComponent->filtration_able;
+        $this->is_example = $storageComponent->is_example;
     }
 
 }

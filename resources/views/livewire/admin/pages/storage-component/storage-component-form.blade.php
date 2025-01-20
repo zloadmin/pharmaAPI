@@ -1,5 +1,17 @@
 <form wire:submit.prevent="save">
     @include('livewire.admin.blocks.form-header', ['title' => 'Общее'])
+    <!--- Образец Field --->
+    <div class="form-check mb-3">
+        <input class="form-check-input @error('is_example') is-invalid @enderror" type="checkbox" wire:model="is_example" id="checkbox_is_example">
+        <label class="form-check-label" for="checkbox_is_example">
+            Образец
+        </label>
+        @error('is_example')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
+    @include('livewire.admin.blocks.form-header', ['title' => 'Общее'])
     <!--- Назавние Field --->
     <div class="form-group">
         <label for="name">Назавние</label>
