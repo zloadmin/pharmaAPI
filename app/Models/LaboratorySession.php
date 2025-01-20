@@ -55,12 +55,12 @@ class LaboratorySession extends Model
     }
 
 
-    static function start(): string
+    static function start(Laboratory $laboratory): string
     {
         return self::create([
             'user_id'       => 1, // TODO: After auth
             'uuid'          => Str::uuid(),
-            'laboratory_id' => Laboratory::find(1)->id
+            'laboratory_id' => $laboratory->id
         ])->uuid;
     }
 

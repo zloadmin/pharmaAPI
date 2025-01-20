@@ -31,10 +31,8 @@ class StorageStageComponentPoints extends LivewireComponent
     }
 
 
-
-
     private function setComponents(): void
     {
-        $this->components = Component::where('is_example', false)->select(['id', 'padding_top', 'padding_right', 'short_name'])->get();
+        $this->components = $this->laboratory->components()->select(['id', 'padding_top', 'padding_right', 'short_name'])->where('is_example', false)->get();
     }
 }

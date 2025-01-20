@@ -16,6 +16,7 @@ use App\Livewire\Admin\Pages\StorageComponent\StorageComponentsPage;
 use App\Livewire\Admin\Pages\Video\VideoCreatePage;
 use App\Livewire\Admin\Pages\Video\VideoEditPage;
 use App\Livewire\Admin\Pages\Video\VideosPage;
+use App\Livewire\IndexPage;
 use App\Livewire\Stages\ChromatographStage\ChromatographStage;
 use App\Livewire\Stages\ChromatographStage\SoftwarePages\ChromatographMethodPage;
 use App\Livewire\Stages\ChromatographStage\SoftwarePages\ChromatographResultPage;
@@ -34,12 +35,13 @@ use Illuminate\Support\Facades\Route;
 //    ]);
 //    return view('welcome');
 //});
-Route::get('/', function () {
-    return redirect()->route('index-stage', LaboratorySession::start());
-})->name('start-index-stage');
+//Route::get('/', function () {
+//    return redirect()->route('index-stage', LaboratorySession::start());
+//})->name('start-index-stage');
 
 
 
+Route::get('/', IndexPage::class)->name('index-page');
 Route::get('/stage/index/{session}', IndexStage::class)->name('index-stage');
 Route::get('/stage/storage/{session}', StorageStage::class)->name('storage-stage');
 Route::get('/stage/weighting/{session}', WeightingStage::class)->name('weighting-stage');
