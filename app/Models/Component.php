@@ -132,6 +132,6 @@ class Component extends Model
 
     static function getFilledComponentsDropdownArray(): array
     {
-        return self::query()->byScalesPlace(SessionComponentPlace::onScalesRightBox)->pluck('name', 'id')->toArray();
+        return self::query()->where('is_example', false)->byScalesPlace(SessionComponentPlace::onScalesRightBox)->pluck('name', 'id')->toArray();
     }
 }

@@ -13,9 +13,7 @@ class IndexPage extends Component
 {
     use HasTestCases;
     public Collection $laboratories;
-    public $testCases = [
-        ['title' => 'Наполнена корзина', 'method' => 'filledCartTestCase']
-    ];
+
     public function mount()
     {
         $this->laboratories = Laboratory::query()->orderBy('id')->get();

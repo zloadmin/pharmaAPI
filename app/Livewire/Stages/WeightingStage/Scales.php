@@ -37,6 +37,7 @@ class Scales extends Component
         $this->setLeftBoxComponent();
         $this->setRightBoxComponent();
         $this->setBottomBoxComponent();
+
         // scales value
         $this->setScalesWeightCalibration();
         $this->setScalesWeightOfComponents();
@@ -52,14 +53,7 @@ class Scales extends Component
     public function weigh()
     {
         if ($this->isShowRange && $this->getScalesWeight() > 0) {
-            // 1 save session component as weighed
-            $this->leftBoxComponent->update([
-                'is_weighed'                  => true,
-                'weighed_value'               => $this->getScalesWeight(),
-                'weighed_left_component_id'   => $this->leftBoxComponent->id,
-                'weighed_right_component_id'  => $this->rightBoxComponent->id,
-                'weighed_bottom_component_id' => $this->bottomBoxComponent->id,
-            ]);
+            SessionComponent::weigh($this->leftBoxComponent, $this->rightBoxComponent, $this->bottomBoxComponent, $this->getScalesWeight());
         }
         $this->cleanScales();
     }
@@ -67,10 +61,15 @@ class Scales extends Component
     public function cleanScales(): void
     {
         // 2 move all to table
-        $this->leftBoxComponent?->moveToWeightingTable();
-        $this->rightBoxComponent?->moveToWeightingTable();
-        $this->bottomBoxComponent?->markAsDirty();
-        $this->bottomBoxComponent?->moveToWeightingTable();
+        SessionComponent::cleanScales(
+            $this->leftBoxComponent ?? null,
+            $this->rightBoxComponent ?? null,
+            $this->bottomBoxComponent ?? null
+        );
+//        $this->leftBoxComponent?->moveToWeightingTable();
+//        $this->rightBoxComponent?->moveToWeightingTable();
+//        $this->bottomBoxComponent?->markAsDirty();
+//        $this->bottomBoxComponent?->moveToWeightingTable();
         // 3 dispatch events
         $this->dispatch('session-component-moved-to-weighting-table');
     }
@@ -128,6 +127,7 @@ class Scales extends Component
     {
         $this->scalesWeight = $this->scalesWeightOfComponents - $this->scalesWeightCalibration + $this->scalesRangeValue;
     }
+
     private function getScalesWeight(): float
     {
         return $this->scalesWeightOfComponents + $this->scalesRangeValue - $this->scalesWeightCalibration;

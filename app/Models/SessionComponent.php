@@ -56,6 +56,7 @@ class SessionComponent extends Model
     {
         return $this->hasOne(self::class, 'id', 'mixed_four_component_id')->withTrashed();
     }
+
     public function mixedWeighedComponent(): HasOne
     {
         return $this->hasOne(self::class, 'id', 'mixed_weighed_component_id')->withTrashed();
@@ -74,7 +75,7 @@ class SessionComponent extends Model
             return sprintf('Раствор «%s»', $this->mixedWeighedComponent->component->name ?? '');
         }
         if ($this->isFiled()) {
-            return sprintf('%s с %s', $this->component->name, $this->weighedRightComponent->name);
+            return sprintf('%s с %s', $this->component->name ?? '', $this->weighedRightComponent->component->name ?? '');
         }
         return $this->component->name;
     }
@@ -460,5 +461,24 @@ class SessionComponent extends Model
     public function scopeWeighed(Builder $query): Builder
     {
         return $query->where('is_weighed', true);
+    }
+
+    static function weigh(SessionComponent $leftBoxComponent, SessionComponent $rightBoxComponent, SessionComponent $bottomBoxComponent, $value): void
+    {
+        // 1 save session component as weighed
+        $leftBoxComponent->update([
+            'is_weighed'                  => true,
+            'weighed_value'               => $value,
+            'weighed_left_component_id'   => $leftBoxComponent->id,
+            'weighed_right_component_id'  => $rightBoxComponent->id,
+            'weighed_bottom_component_id' => $bottomBoxComponent->id,
+        ]);
+    }
+    static function cleanScales(SessionComponent|null $leftBoxComponent, SessionComponent|null $rightBoxComponent, SessionComponent|null $bottomBoxComponent): void
+    {
+        $leftBoxComponent?->moveToWeightingTable();
+        $rightBoxComponent?->moveToWeightingTable();
+        $bottomBoxComponent?->markAsDirty();
+        $bottomBoxComponent?->moveToWeightingTable();
     }
 }

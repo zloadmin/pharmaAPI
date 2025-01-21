@@ -66,10 +66,55 @@ class LaboratorySession extends Model
 
     public function isLockStage(Stage $stage): bool
     {
+
         return $this->{'is_lock_' . $stage->value};
     }
-    public function unlockWeighting() : void
+
+    public function unlockWeighting(): void
     {
         $this->update(['is_lock_weighting' => false]);
+    }
+
+    public function isCookingRoomLocked(): bool
+    {
+        return $this->isLockStage(Stage::cooking);
+    }
+
+    public function checkCookingRoomAbleUnlock(): bool
+    {
+        if ($this->sessionComponents()->weighed()->count() < $this->laboratory->weightingComponents()->count()) {
+            return false;
+        }
+
+        $requiredComponents = $this->laboratory->weightingComponents()->get();
+        $sessionComponents = $this->sessionComponents()->weighed()->get();
+        $requiredComponentIds = [];
+        $sessionComponentIds = [];
+        foreach ($requiredComponents as $requiredComponent) {
+            foreach ($sessionComponents as $sessionComponent) {
+                if ($requiredComponent->isFitsBySessionComponent($sessionComponent)) {
+                    if (!isset($requiredComponentIds[$requiredComponent->id]) && !isset($sessionComponentIds[$sessionComponent->id])) {
+                        $requiredComponentIds[$requiredComponent->id] = $sessionComponent->id;
+                        $sessionComponentIds[$sessionComponent->id] = $requiredComponent->id;
+                    }
+                }
+            }
+        }
+
+        return $requiredComponents->count() == count($requiredComponentIds);
+    }
+
+    public function unlockStage(Stage $stage): void
+    {
+        $this->update([
+            $stage->sessionModelField() => false
+        ]);
+    }
+
+    public function checkCookingRoomLock(): void
+    {
+        if ($this->isCookingRoomLocked() && $this->checkCookingRoomAbleUnlock()) {
+            $this->unlockStage(Stage::cooking);
+        }
     }
 }
