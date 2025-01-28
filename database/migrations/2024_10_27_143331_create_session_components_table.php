@@ -11,6 +11,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('session_components', function (Blueprint $table) {
             $table->id();
             $table->uuid('session')->index();
@@ -25,6 +26,9 @@ return new class extends Migration {
             // scales
             $table->boolean('is_weighed')->default(false);
             $table->boolean('is_dirty')->default(false);
+            $table->unsignedBigInteger('mobile_phase_id')->nullable();
+            $table->foreign('mobile_phase_id')->references('id')->on('laboratory_mobile_phases')->onDelete('cascade');
+
             $table->decimal('weighed_value', 8, 4)->nullable();
 
             $table->unsignedBigInteger('weighed_left_component_id')->nullable();
@@ -88,6 +92,7 @@ return new class extends Migration {
             $table->softDeletes();
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
