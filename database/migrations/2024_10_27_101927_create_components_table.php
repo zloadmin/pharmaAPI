@@ -16,6 +16,7 @@ return new class extends Migration {
         Schema::create('components', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('Назавние');
+            $table->decimal('value', 8, 4)->nullable();
             $table->string('short_name')->comment('Короткое название');
             $table->decimal('padding_top', 5, 3)->default(0)->comment('Отступ сверху');
             $table->decimal('padding_right', 5, 3)->default(0)->comment('Отступ справа');

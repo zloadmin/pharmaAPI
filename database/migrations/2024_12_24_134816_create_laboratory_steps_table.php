@@ -14,8 +14,8 @@ return new class extends Migration {
         Schema::create('laboratory_steps', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('laboratory_id');
-            $table->unsignedBigInteger('position')->default(0);
             $table->foreign('laboratory_id')->references('id')->on('laboratories')->onDelete('cascade');
+            $table->unsignedBigInteger('position')->default(0);
             $table->unsignedBigInteger('pharmacological_article_id')->nullable();
             $table->foreign('pharmacological_article_id')->references('id')->on('pharmacological_articles')->onDelete('cascade');
             $table->string('name');
