@@ -11,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 
 /**
  * @method bicalutamideFilledCart()
- * @method moveAllComponentsToTable($laboratorySession)
+ * @method moveAllComponentsToWeightingTable($laboratorySession)
  * @method moveComponentsToWeightFromTable($laboratorySession, array $array)
  * @method calibration(LaboratorySession $laboratorySession)
  * @method weighOnScales(LaboratorySession $laboratorySession, float $FIRST_WEIGH)
@@ -78,7 +78,7 @@ trait HasFirstWeightCase
     private function bicalutamideFirstWeight(): LaboratorySession
     {
         $laboratorySession = $this->bicalutamideFilledCart();
-        $this->moveAllComponentsToTable($laboratorySession);
+        $this->moveAllComponentsToWeightingTable($laboratorySession);
         $this->moveComponentsToWeightFromTable($laboratorySession,
             [
                 26 => SessionComponentPlace::onScalesLeftBox,

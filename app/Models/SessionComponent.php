@@ -29,53 +29,94 @@ class SessionComponent extends Model
 
     public function weighedLeftComponent(): HasOne
     {
-        return $this->hasOne(self::class, 'id', 'weighed_left_component_id');
+        return $this->hasOne(Component::class, 'id', 'weighed_left_component_id');
     }
 
     public function weighedRightComponent(): HasOne
     {
-        return $this->hasOne(self::class, 'id', 'weighed_right_component_id');
+        return $this->hasOne(Component::class, 'id', 'weighed_right_component_id');
     }
+
+    public function weighedBottomComponent(): HasOne
+    {
+        return $this->hasOne(Component::class, 'id', 'weighed_bottom_component_id');
+    }
+
+
+    public function weighedLeftSessionComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'weighed_left_session_component_id');
+    }
+
+    public function weighedRightSessionComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'weighed_right_session_component_id');
+    }
+
+    public function weighedBottomSessionComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'weighed_bottom_session_component_id');
+    }
+
 
     public function mixedOneComponent(): HasOne
     {
-        return $this->hasOne(self::class, 'id', 'mixed_one_component_id')->withTrashed();
+        return $this->hasOne(Component::class, 'id', 'mixed_one_component_id');
     }
 
     public function mixedTwoComponent(): HasOne
     {
-        return $this->hasOne(self::class, 'id', 'mixed_two_component_id')->withTrashed();
+        return $this->hasOne(Component::class, 'id', 'mixed_two_component_id');
     }
 
     public function mixedThreeComponent(): HasOne
     {
-        return $this->hasOne(self::class, 'id', 'mixed_three_component_id')->withTrashed();
+        return $this->hasOne(Component::class, 'id', 'mixed_three_component_id');
     }
 
     public function mixedFourComponent(): HasOne
     {
-        return $this->hasOne(self::class, 'id', 'mixed_four_component_id')->withTrashed();
+        return $this->hasOne(Component::class, 'id', 'mixed_four_component_id');
     }
 
     public function mixedWeighedComponent(): HasOne
     {
-        return $this->hasOne(self::class, 'id', 'mixed_weighed_component_id')->withTrashed();
+        return $this->hasOne(Component::class, 'id', 'mixed_weighed_component_id');
     }
 
-
-    public function weighedBottomComponent(): HasOne
+    public function mixedOneSessionComponent(): HasOne
     {
-        return $this->hasOne(self::class, 'id', 'weighed_bottom_component_id');
+        return $this->hasOne(self::class, 'id', 'mixed_one_session_component_id')->withTrashed();
+    }
+
+    public function mixedTwoSessionComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'mixed_two_session_component_id')->withTrashed();
+    }
+
+    public function mixedThreeSessionComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'mixed_three_session_component_id')->withTrashed();
+    }
+
+    public function mixedFourSessionComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'mixed_four_session_component_id')->withTrashed();
+    }
+
+    public function mixedWeighedSessionComponent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'mixed_weighed_session_component_id')->withTrashed();
     }
 
 
     public function getName()
     {
         if ($this->is_mixed) {
-            return sprintf('Раствор «%s»', $this->mixedWeighedComponent->component->name ?? '');
+            return sprintf('%s с %s и %s', $this->component->name ?? '', $this->mixedWeighedComponent->name ?? '', $this->mixedOneComponent->name ?? '');
         }
         if ($this->isFiled()) {
-            return sprintf('%s с %s', $this->component->name ?? '', $this->weighedRightComponent->component->name ?? '');
+            return sprintf('%s с %s', $this->component->name ?? '', $this->weighedRightComponent->name ?? '');
         }
         return $this->component->name;
     }
@@ -83,7 +124,7 @@ class SessionComponent extends Model
     public function getShortName()
     {
         if ($this->is_mixed) {
-            return 'Смешанный';
+            return $this->getName();
         }
         return $this->component->name;
     }
@@ -93,6 +134,9 @@ class SessionComponent extends Model
 //        if ($this->is_mixed) {
 //            return '/web/images/mix.png';
 //        }
+        if(is_null($this->component)) {
+            dd($this);
+        }
         return $this->component->image_url;
     }
 
@@ -136,27 +180,18 @@ class SessionComponent extends Model
     public function getMixedStatus(): string
     {
         $result = ['Смешивание:'];
-        if ($this->mixedOneComponent) {
-            $result[] = $this->mixedOneComponent->getName();
-        }
-        if ($this->mixedTwoComponent) {
-            $result[] = $this->mixedTwoComponent->getName();
-        }
-        if ($this->mixedThreeComponent) {
-            $result[] = $this->mixedThreeComponent->getName();
-        }
-        if ($this->mixedFourComponent) {
-            $result[] = $this->mixedFourComponent->getName();
-        }
+        $result[] = $this->mixedOneSessionComponent->getName();
+        $result[] = $this->mixedTwoSessionComponent->getName();
+        $result[] = $this->mixedThreeSessionComponent->getName();
+        $result[] = $this->mixedFourSessionComponent->getName();
+
         return implode('<br>', $result);
     }
 
 
     private function isFiled(): bool
     {
-        return
-            $this->weighedRightComponent && $this->weighedLeftComponent
-            && $this->weighed_left_component_id == $this->id;
+        return $this->weighedRightComponent && $this->weighedLeftComponent && $this->weighed_left_component_id == $this->component_id;
     }
 
     /**
@@ -392,9 +427,9 @@ class SessionComponent extends Model
 
     public function moveToScalesWeighedComponents(): void
     {
-        $this->weighedLeftComponent->changePlace(SessionComponentPlace::onScalesLeftBox);
-        $this->weighedRightComponent->changePlace(SessionComponentPlace::onScalesRightBox);
-        $this->weighedBottomComponent->changePlace(SessionComponentPlace::onScalesBottomBox);
+        $this->weighedLeftSessionComponent->changePlace(SessionComponentPlace::onScalesLeftBox);
+        $this->weighedRightSessionComponent->changePlace(SessionComponentPlace::onScalesRightBox);
+        $this->weighedBottomSessionComponent->changePlace(SessionComponentPlace::onScalesBottomBox);
     }
 
     public function isWeighed(): bool
@@ -409,7 +444,7 @@ class SessionComponent extends Model
 
     public function isExistsWeighedComponents(): bool
     {
-        return $this->weighedLeftComponent && $this->weighedRightComponent && $this->weighedBottomComponent;
+        return $this->weighedLeftSessionComponent && $this->weighedRightSessionComponent && $this->weighedBottomSessionComponent;
     }
 
     public function addMixerSeconds(int $seconds): void
@@ -463,22 +498,91 @@ class SessionComponent extends Model
         return $query->where('is_weighed', true);
     }
 
+    static function mix(
+        LaboratorySession $session,
+        SessionComponent  $mixBoxOneSessionComponent,
+        SessionComponent  $mixBoxTwoSessionComponent,
+        SessionComponent  $mixBoxThreeSessionComponent,
+        SessionComponent  $mixBoxFourSessionComponent
+    ): SessionComponent
+    {
+        return self::create([
+            'place'        => SessionComponentPlace::onCookingTable,
+            'session'      => $session->uuid,
+            'component_id' => $mixBoxThreeSessionComponent->component_id,
+            'is_mixed'     => true,
+
+            'mixed_one_component_id'   => $mixBoxOneSessionComponent->component_id,
+            'mixed_two_component_id'   => $mixBoxTwoSessionComponent->component_id,
+            'mixed_three_component_id' => $mixBoxThreeSessionComponent->component_id,
+            'mixed_four_component_id'  => $mixBoxFourSessionComponent->component_id,
+
+            'mixed_one_session_component_id'   => $mixBoxOneSessionComponent->id,
+            'mixed_two_session_component_id'   => $mixBoxTwoSessionComponent->id,
+            'mixed_three_session_component_id' => $mixBoxThreeSessionComponent->id,
+            'mixed_four_session_component_id'  => $mixBoxFourSessionComponent->id,
+
+            'mixed_weighed_session_component_id' => $mixBoxFourSessionComponent->weighedRightSessionComponent ? $mixBoxFourSessionComponent->weighedRightSessionComponent->id : $mixBoxFourSessionComponent->mixed_weighed_session_component_id,
+            'mixed_weighed_component_id'         => $mixBoxFourSessionComponent->weighedRightSessionComponent ? $mixBoxFourSessionComponent->weighedRightSessionComponent->component_id : $mixBoxFourSessionComponent->mixed_weighed_component_id,
+        ]);
+    }
+
+    static function cleanMixer(
+        SessionComponent $mixBoxOneSessionComponent,
+        SessionComponent $mixBoxTwoSessionComponent,
+        SessionComponent $mixBoxThreeSessionComponent,
+        SessionComponent $mixBoxFourSessionComponent,
+    ): void
+    {
+        $mixBoxOneSessionComponent->delete();
+
+        $mixBoxTwoSessionComponent->markAsDirty();
+        $mixBoxTwoSessionComponent->moveToCookingTable();
+
+        $mixBoxThreeSessionComponent->markAsDirty();
+        $mixBoxThreeSessionComponent->moveToCookingTable();
+
+        $mixBoxFourSessionComponent->markAsDirtyWeigh();
+        $mixBoxFourSessionComponent->moveToCookingTable();
+    }
+
     static function weigh(SessionComponent $leftBoxComponent, SessionComponent $rightBoxComponent, SessionComponent $bottomBoxComponent, $value): void
     {
         // 1 save session component as weighed
         $leftBoxComponent->update([
-            'is_weighed'                  => true,
-            'weighed_value'               => $value,
-            'weighed_left_component_id'   => $leftBoxComponent->id,
-            'weighed_right_component_id'  => $rightBoxComponent->id,
-            'weighed_bottom_component_id' => $bottomBoxComponent->id,
+            'is_weighed'    => true,
+            'weighed_value' => $value,
+
+            'weighed_left_session_component_id'   => $leftBoxComponent->id,
+            'weighed_right_session_component_id'  => $rightBoxComponent->id,
+            'weighed_bottom_session_component_id' => $bottomBoxComponent->id,
+
+            'weighed_left_component_id'   => $leftBoxComponent->component_id,
+            'weighed_right_component_id'  => $rightBoxComponent->component_id,
+            'weighed_bottom_component_id' => $bottomBoxComponent->component_id,
         ]);
     }
+
     static function cleanScales(SessionComponent|null $leftBoxComponent, SessionComponent|null $rightBoxComponent, SessionComponent|null $bottomBoxComponent): void
     {
         $leftBoxComponent?->moveToWeightingTable();
         $rightBoxComponent?->moveToWeightingTable();
         $bottomBoxComponent?->markAsDirty();
         $bottomBoxComponent?->moveToWeightingTable();
+    }
+    public function markAsDirtyWeigh(): void
+    {
+        $this->update([
+            'is_weighed' => false,
+            'is_dirty' => true,
+            'component_id' => $this->weighed_left_component_id ?? $this->mixed_three_component_id, // weighed or mixed
+            'weighed_left_component_id' => null,
+            'weighed_right_component_id' => null,
+            'weighed_bottom_component_id' => null,
+            'weighed_left_session_component_id' => null,
+            'weighed_right_session_component_id' => null,
+            'weighed_bottom_session_component_id' => null,
+            'weighed_value' => null,
+        ]);
     }
 }

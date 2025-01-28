@@ -22,17 +22,29 @@ return new class extends Migration {
             $table->decimal('valueLiquid', 7, 5)->nullable();
 
 
-
             // scales
             $table->boolean('is_weighed')->default(false);
             $table->boolean('is_dirty')->default(false);
             $table->decimal('weighed_value', 8, 4)->nullable();
+
             $table->unsignedBigInteger('weighed_left_component_id')->nullable();
-            $table->foreign('weighed_left_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->foreign('weighed_left_component_id')->references('id')->on('components')->onDelete('cascade');
+
             $table->unsignedBigInteger('weighed_right_component_id')->nullable();
-            $table->foreign('weighed_right_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->foreign('weighed_right_component_id')->references('id')->on('components')->onDelete('cascade');
+
             $table->unsignedBigInteger('weighed_bottom_component_id')->nullable();
-            $table->foreign('weighed_bottom_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->foreign('weighed_bottom_component_id')->references('id')->on('components')->onDelete('cascade');
+
+
+            $table->unsignedBigInteger('weighed_left_session_component_id')->nullable();
+            $table->foreign('weighed_left_session_component_id')->references('id')->on('session_components')->onDelete('cascade');
+
+            $table->unsignedBigInteger('weighed_right_session_component_id')->nullable();
+            $table->foreign('weighed_right_session_component_id')->references('id')->on('session_components')->onDelete('cascade');
+
+            $table->unsignedBigInteger('weighed_bottom_session_component_id')->nullable();
+            $table->foreign('weighed_bottom_session_component_id')->references('id')->on('session_components')->onDelete('cascade');
 
             // ph
             $table->decimal('ph_meter_value', 7, 4)->nullable();
@@ -46,16 +58,32 @@ return new class extends Migration {
             // mixed
             $table->boolean('is_mixed')->default(false);
 
+
+
+
             $table->unsignedBigInteger('mixed_weighed_component_id')->nullable();
-            $table->foreign('mixed_weighed_component_id')->references('id')->on('components')->onDelete('cascade');
-            $table->foreign('mixed_one_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->foreign('mixed_weighed_component_id')->references('id')->on('session_components')->onDelete('cascade');
             $table->unsignedBigInteger('mixed_one_component_id')->nullable();
-            $table->foreign('mixed_two_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->foreign('mixed_one_component_id')->references('id')->on('components')->onDelete('cascade');
             $table->unsignedBigInteger('mixed_two_component_id')->nullable();
-            $table->foreign('mixed_three_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->foreign('mixed_two_component_id')->references('id')->on('components')->onDelete('cascade');
             $table->unsignedBigInteger('mixed_three_component_id')->nullable();
-            $table->foreign('mixed_four_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->foreign('mixed_three_component_id')->references('id')->on('components')->onDelete('cascade');
             $table->unsignedBigInteger('mixed_four_component_id')->nullable();
+            $table->foreign('mixed_four_component_id')->references('id')->on('components')->onDelete('cascade');
+
+
+            $table->unsignedBigInteger('mixed_weighed_session_component_id')->nullable();
+            $table->foreign('mixed_weighed_session_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->unsignedBigInteger('mixed_one_session_component_id')->nullable();
+            $table->foreign('mixed_one_session_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->unsignedBigInteger('mixed_two_session_component_id')->nullable();
+            $table->foreign('mixed_two_session_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->unsignedBigInteger('mixed_three_session_component_id')->nullable();
+            $table->foreign('mixed_three_session_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->unsignedBigInteger('mixed_four_session_component_id')->nullable();
+            $table->foreign('mixed_four_session_component_id')->references('id')->on('session_components')->onDelete('cascade');
+
 
             $table->softDeletes();
             $table->timestamps();

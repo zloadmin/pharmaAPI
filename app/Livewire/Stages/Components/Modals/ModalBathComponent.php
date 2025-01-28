@@ -27,9 +27,10 @@ class ModalBathComponent extends ModalBase
     public int $seconds = 0;
 
 
-    public function mount(string $session): void
+    public function mount(string $session, bool $isShow = false): void
     {
         $this->init($session);
+        $this->isShow = $isShow;
     }
 
     public function init(string $session): void

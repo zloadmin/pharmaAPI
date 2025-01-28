@@ -28,7 +28,7 @@ class LaboratoryWeightingComponent extends Model
             return false;
         }
         // if not same filled
-        if ($this->filled_component_id != $sessionComponent->weighedRightComponent->component_id) {
+        if ($this->filled_component_id != $sessionComponent->weighedRightSessionComponent->component_id) {
             return false;
         }
 

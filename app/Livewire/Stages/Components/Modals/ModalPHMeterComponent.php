@@ -22,9 +22,10 @@ class ModalPHMeterComponent extends ModalBase
     public bool $isShow = false;
     public bool $isSetElectrodes = false;
 
-    public function mount(string $session): void
+    public function mount(string $session, bool $isShow = false): void
     {
         $this->init($session);
+        $this->isShow = $isShow;
     }
 
     public function init($session): void

@@ -30,9 +30,10 @@ class ModalMixComponent extends ModalBase
     public int $seconds = 0;
 
 
-    public function mount(string $session): void
+    public function mount(string $session, bool $isShow = false): void
     {
         $this->init($session);
+        $this->isShow = $isShow;
     }
 
     public function init(string $session): void
@@ -121,25 +122,24 @@ class ModalMixComponent extends ModalBase
 
     private function createMixedComponent(): void
     {
-        SessionComponent::create([
-            'place'                      => SessionComponentPlace::onCookingTable,
-            'session'                    => $this->session,
-            'component_id'               => $this->mixBoxThreeSessionComponent->component_id,
-            'is_mixed'                   => true,
-            'mixed_one_component_id'     => $this->mixBoxOneSessionComponent->id,
-            'mixed_two_component_id'     => $this->mixBoxTwoSessionComponent->id,
-            'mixed_three_component_id'   => $this->mixBoxThreeSessionComponent->id,
-            'mixed_four_component_id'    => $this->mixBoxFourSessionComponent->id,
-            'mixed_weighed_component_id' => $this->mixBoxFourSessionComponent->weighed_right_component_id ?? $this->mixBoxFourSessionComponent->mixed_weighed_component_id,
-        ]);
+        SessionComponent::mix(
+            $this->sessionModel,
+            $this->mixBoxOneSessionComponent,
+            $this->mixBoxTwoSessionComponent,
+            $this->mixBoxThreeSessionComponent,
+            $this->mixBoxFourSessionComponent,
+        );
     }
 
     private function clearComponents(): void
     {
-        $this->mixBoxOneSessionComponent->moveToCookingTable();
-        $this->mixBoxTwoSessionComponent->moveToCookingTable();
-        $this->mixBoxThreeSessionComponent->delete();
-        $this->mixBoxFourSessionComponent->delete();
+        SessionComponent::cleanMixer(
+            $this->mixBoxOneSessionComponent,
+            $this->mixBoxTwoSessionComponent,
+            $this->mixBoxThreeSessionComponent,
+            $this->mixBoxFourSessionComponent,
+        );
+
     }
 
 

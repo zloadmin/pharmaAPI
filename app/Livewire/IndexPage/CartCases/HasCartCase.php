@@ -26,7 +26,7 @@ trait HasCartCase
     public function bicalutamideAllOnTableTestCase()
     {
         $laboratorySession = $this->bicalutamideFilledCart();
-        $this->moveAllComponentsToTable($laboratorySession);
+        $this->moveAllComponentsToWeightingTable($laboratorySession);
         return redirect()->route('weighting-stage', $laboratorySession->uuid);
     }
 

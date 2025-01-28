@@ -22,9 +22,10 @@ class ModalFiltrationComponent extends ModalBase
     public bool $isShow = false;
 
 
-    public function mount(string $session): void
+    public function mount(string $session, bool $isShow = false): void
     {
         $this->init($session);
+        $this->isShow = $isShow;
     }
     public function init(string $session): void
     {

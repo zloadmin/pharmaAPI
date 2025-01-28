@@ -67,16 +67,20 @@ trait HasFourthWeightTestCase
      */
     public function bicalutamideFourthWeightDoneCalibratedTestCase()
     {
+        $laboratorySession = $this->bicalutamideFourthWeightDoneCalibrated();
+        return redirect()->route('weighting-stage', $laboratorySession->uuid);
+    }
+
+    private function bicalutamideFourthWeightDoneCalibrated()
+    {
         $laboratorySession = $this->bicalutamideThirdWeightDoneCalibrated();
         $laboratorySession = $this->bicalutamideFourthWeight($laboratorySession);
         $this->calibration($laboratorySession);
         $this->weighOnScales($laboratorySession, self::FOURTH_WEIGH);
         $this->calibration($laboratorySession);
         $laboratorySession->checkCookingRoomLock();
-
-        return redirect()->route('weighting-stage', $laboratorySession->uuid);
+        return $laboratorySession;
     }
-
     private function bicalutamideFourthWeight(LaboratorySession $laboratorySession): LaboratorySession
     {
         $this->moveComponentsToWeightFromTable($laboratorySession,

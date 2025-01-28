@@ -114,6 +114,7 @@ class Component extends Model
             case SessionComponentPlace::inFiltrationBox:
                 return $this->filtration_able;
             case SessionComponentPlace::inMixBoxOne:
+                return $this->on_mix_place === $place || $sessionComponent->is_mixed;
             case SessionComponentPlace::inMixBoxTwo:
             case SessionComponentPlace::inMixBoxThree:
                 return $this->on_mix_place === $place && !$sessionComponent->is_mixed;
