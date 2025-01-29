@@ -545,8 +545,9 @@ class SessionComponent extends Model
             'mixed_three_session_component_id' => $mixBoxThreeSessionComponent->id,
             'mixed_four_session_component_id'  => $mixBoxFourSessionComponent->id,
 
+            // TODO: make for first and last
             'mixed_weighed_session_component_id' => $mixBoxFourSessionComponent->weighedRightSessionComponent ? $mixBoxFourSessionComponent->weighedRightSessionComponent->id : $mixBoxFourSessionComponent->mixed_weighed_session_component_id,
-            'mixed_weighed_component_id'         => $mixBoxFourSessionComponent->weighedRightSessionComponent ? $mixBoxFourSessionComponent->weighedRightSessionComponent->component_id : $mixBoxFourSessionComponent->mixed_weighed_component_id,
+            'mixed_weighed_component_id'         => $mixBoxFourSessionComponent->weighedRightComponent ? $mixBoxFourSessionComponent->weighedRightComponent->id : $mixBoxFourSessionComponent->mixed_weighed_component_id,
         ]);
     }
 
