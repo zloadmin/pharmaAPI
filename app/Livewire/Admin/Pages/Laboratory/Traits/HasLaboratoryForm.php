@@ -8,6 +8,7 @@ namespace App\Livewire\Admin\Pages\Laboratory\Traits;
 use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Models\Component;
 use App\Models\Laboratory;
+use App\Models\LaboratoryMobilePhase;
 use App\Models\LaboratoryWeightingComponent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
@@ -21,7 +22,8 @@ trait HasLaboratoryForm
         'pharmacological-article' => 'ФС',
         'videos'                  => 'Обучающее видео',
         'check-list'              => 'Расчетный лист',
-        'weighting-components'    => 'Компоненты весовой'
+        'weighting-components'    => 'Компоненты весовой',
+        'mobile-phases'           => 'Подвижные фазы',
         //        'weighing' => 'Весовая'
     ];
     // index
@@ -37,6 +39,8 @@ trait HasLaboratoryForm
     public ?array $videos = [];
     // weighting-components
     public array $weightingComponents = [];
+    // mobile-phases
+    public array $mobilePhases = [];
 
     public array $stuffComponents = [];
     public array $filledComponents = [];
@@ -62,6 +66,7 @@ trait HasLaboratoryForm
         $this->pharmacological_article_id = $laboratory->pharmacological_article_id;
         $this->check_values = $laboratory->check_values;
         $this->weightingComponents = $this->getWeightingComponents();
+        $this->mobilePhases = $this->getMobilePhases();
 
         // load videos
         foreach (Laboratory::VIDEOS as $video) {
@@ -75,15 +80,32 @@ trait HasLaboratoryForm
         return $this->laboratory->weightingComponents()->get()->toArray();
     }
 
+    public function getMobilePhases()
+    {
+        return $this->laboratory->mobilePhases()->get()->toArray();
+    }
+
     public function addWeightingComponents(): void
     {
         $this->weightingComponents[] = [];
     }
 
+
     public function deleteWeightingComponent(int $index): void
     {
 
         unset($this->weightingComponents[$index]);
+    }
+
+    public function addMobilePhase(): void
+    {
+        $this->mobilePhases[] = [];
+    }
+
+    public function deleteMobilePhase(int $index): void
+    {
+
+        unset($this->mobilePhases[$index]);
     }
 
     public function initCheckValues(Laboratory $laboratory = null)
@@ -118,6 +140,16 @@ trait HasLaboratoryForm
             'weightingComponents.*.filled_component_id' => ['required', 'integer', Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)],
             'weightingComponents.*.value_min'           => ['required', 'numeric', 'min:0.0000', 'max:9999.9999'],
             'weightingComponents.*.value_max'           => ['required', 'numeric', 'min:0.0000', 'max:9999.9999'],
+        ];
+    }
+
+    private function mobilePhasesRules(): array
+    {
+        return [
+            'mobilePhases'                       => ['array'],
+            'mobilePhases.*.name'                => ['required', 'string', 'max:250'],
+            'mobilePhases.*.first_component_id'  => ['required', 'integer', Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)],
+            'mobilePhases.*.second_component_id' => ['required', 'integer', Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)],
         ];
     }
 
@@ -172,7 +204,7 @@ trait HasLaboratoryForm
 
     public function rules(): array
     {
-        return $this->mainRules() + $this->checkValueRules() + $this->videoRules() + $this->weightingComponentRules();
+        return $this->mainRules() + $this->checkValueRules() + $this->videoRules() + $this->weightingComponentRules() + $this->mobilePhasesRules();
     }
 
     public function getWeightingComponentModels(): array
@@ -180,6 +212,15 @@ trait HasLaboratoryForm
         $result = [];
         foreach ($this->weightingComponents as $weightingComponent) {
             $result[] = new LaboratoryWeightingComponent($weightingComponent);
+        }
+        return $result;
+    }
+
+    public function getMobilePhasesModels(): array
+    {
+        $result = [];
+        foreach ($this->mobilePhases as $mobilePhase) {
+            $result[] = new LaboratoryMobilePhase($mobilePhase);
         }
         return $result;
     }

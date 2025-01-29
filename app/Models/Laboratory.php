@@ -52,4 +52,8 @@ class Laboratory extends Model
     {
         return $this->hasMany(LaboratoryWeightingComponent::class);
     }
+    public function mobilePhases(): HasMany
+    {
+        return $this->hasMany(LaboratoryMobilePhase::class);
+    }
 }

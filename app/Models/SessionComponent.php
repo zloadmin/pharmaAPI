@@ -109,9 +109,21 @@ class SessionComponent extends Model
         return $this->hasOne(self::class, 'id', 'mixed_weighed_session_component_id')->withTrashed();
     }
 
+    public function mobilePhase(): HasOne
+    {
+        return $this->hasOne(LaboratoryMobilePhase::class, 'id', 'mobile_phase_id');
+    }
+
+    public function getWeighedOrMainComponentId()
+    {
+        return $this->weighed_right_component_id ?? $this->component_id;
+    }
 
     public function getName()
     {
+        if ($this->mobilePhase) {
+            return $this->mobilePhase->name;
+        }
         if ($this->is_mixed) {
             return sprintf('%s с %s и %s', $this->component->name ?? '', $this->mixedWeighedComponent->name ?? '', $this->mixedOneComponent->name ?? '');
         }
@@ -123,6 +135,9 @@ class SessionComponent extends Model
 
     public function getShortName()
     {
+        if ($this->mobilePhase) {
+            return $this->mobilePhase->name;
+        }
         if ($this->is_mixed) {
             return $this->getName();
         }
@@ -134,7 +149,7 @@ class SessionComponent extends Model
 //        if ($this->is_mixed) {
 //            return '/web/images/mix.png';
 //        }
-        if(is_null($this->component)) {
+        if (is_null($this->component)) {
             dd($this);
         }
         return $this->component->image_url;
@@ -142,6 +157,10 @@ class SessionComponent extends Model
 
     public function getTypeLabel(): string
     {
+        if ($this->mobilePhase) {
+            return 'Подвижная фаза';
+        }
+
         if ($this->is_mixed) {
             return 'Смешеный';
         }
@@ -506,11 +525,15 @@ class SessionComponent extends Model
         SessionComponent  $mixBoxFourSessionComponent
     ): SessionComponent
     {
+
+        $mobilePhase = LaboratoryMobilePhase::getMobilePhaseOfComponents($session, $mixBoxOneSessionComponent, $mixBoxFourSessionComponent);
+
         return self::create([
-            'place'        => SessionComponentPlace::onCookingTable,
-            'session'      => $session->uuid,
-            'component_id' => $mixBoxThreeSessionComponent->component_id,
-            'is_mixed'     => true,
+            'place'           => SessionComponentPlace::onCookingTable,
+            'session'         => $session->uuid,
+            'component_id'    => $mixBoxThreeSessionComponent->component_id,
+            'is_mixed'        => true,
+            'mobile_phase_id' => $mobilePhase->id ?? null,
 
             'mixed_one_component_id'   => $mixBoxOneSessionComponent->component_id,
             'mixed_two_component_id'   => $mixBoxTwoSessionComponent->component_id,
@@ -534,7 +557,12 @@ class SessionComponent extends Model
         SessionComponent $mixBoxFourSessionComponent,
     ): void
     {
-        $mixBoxOneSessionComponent->delete();
+        if($mixBoxOneSessionComponent->mobilePhase) {
+            $mixBoxOneSessionComponent->moveToCookingTable();
+        } else {
+            $mixBoxOneSessionComponent->delete();
+        }
+
 
         $mixBoxTwoSessionComponent->markAsDirty();
         $mixBoxTwoSessionComponent->moveToCookingTable();
@@ -542,8 +570,15 @@ class SessionComponent extends Model
         $mixBoxThreeSessionComponent->markAsDirty();
         $mixBoxThreeSessionComponent->moveToCookingTable();
 
-        $mixBoxFourSessionComponent->markAsDirtyWeigh();
-        $mixBoxFourSessionComponent->moveToCookingTable();
+        if($mixBoxOneSessionComponent->mobilePhase) {
+            $mixBoxFourSessionComponent->moveToCookingTable();
+        } else {
+            $mixBoxFourSessionComponent->delete();
+        }
+
+
+//        $mixBoxFourSessionComponent->markAsDirtyWeigh();
+//        $mixBoxFourSessionComponent->moveToCookingTable();
     }
 
     static function weigh(SessionComponent $leftBoxComponent, SessionComponent $rightBoxComponent, SessionComponent $bottomBoxComponent, $value): void
@@ -570,19 +605,20 @@ class SessionComponent extends Model
         $bottomBoxComponent?->markAsDirty();
         $bottomBoxComponent?->moveToWeightingTable();
     }
+
     public function markAsDirtyWeigh(): void
     {
         $this->update([
-            'is_weighed' => false,
-            'is_dirty' => true,
-            'component_id' => $this->weighed_left_component_id ?? $this->mixed_three_component_id, // weighed or mixed
-            'weighed_left_component_id' => null,
-            'weighed_right_component_id' => null,
-            'weighed_bottom_component_id' => null,
-            'weighed_left_session_component_id' => null,
-            'weighed_right_session_component_id' => null,
+            'is_weighed'                          => false,
+            'is_dirty'                            => true,
+            'component_id'                        => $this->weighed_left_component_id ?? $this->mixed_three_component_id, // weighed or mixed
+            'weighed_left_component_id'           => null,
+            'weighed_right_component_id'          => null,
+            'weighed_bottom_component_id'         => null,
+            'weighed_left_session_component_id'   => null,
+            'weighed_right_session_component_id'  => null,
             'weighed_bottom_session_component_id' => null,
-            'weighed_value' => null,
+            'weighed_value'                       => null,
         ]);
     }
 }

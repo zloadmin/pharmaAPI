@@ -38,6 +38,7 @@ class LaboratoryEditPage extends LivewireComponent
         $this->updateLaboratory();
         $this->updateLaboratoryStorageComponents();
         $this->updateLaboratoryWeightingComponents();
+        $this->updateLaboratoryMobilePhases();
         $this->redirectToLaboratoriesPage();
     }
 
@@ -64,6 +65,11 @@ class LaboratoryEditPage extends LivewireComponent
     {
         $this->laboratory->weightingComponents()->delete();
         $this->laboratory->weightingComponents()->saveMany($this->getWeightingComponentModels());
+    }
+    private function updateLaboratoryMobilePhases(): void
+    {
+        $this->laboratory->mobilePhases()->delete();
+        $this->laboratory->mobilePhases()->saveMany($this->getMobilePhasesModels());
     }
 
     #[Title('Редактировать')]
