@@ -16,7 +16,6 @@ use Illuminate\Http\RedirectResponse;
 trait HasCookingThirdCase
 {
 
-
     /**
      * 1 приготовление Химический стакан 200 мл с растворителем - перенесено в смешивание
      *
@@ -24,9 +23,7 @@ trait HasCookingThirdCase
      */
     public function bicalutamideCookingMixThirdStageMovedOnMixTestCase()
     {
-        $laboratorySession = $this->bicalutamideCookingMixSecondStageDone();
-        $this->bicalutamideCookingMixThirdStageMoveToMixComponent($laboratorySession);
-
+        $laboratorySession = $this->bicalutamideCookingMixThirdStageMovedOnMix();
 
         return redirect()->route('cooking-stage', [
             'session'      => $laboratorySession->uuid,
@@ -34,14 +31,42 @@ trait HasCookingThirdCase
         ]);
     }
 
-    private function bicalutamideCookingMixThirdStageMoveToMixComponent(LaboratorySession $laboratorySession)
+    /**
+     * 2 приготовление Химический стакан 200 мл с растворителем - смешено, перенесено в инвентарь
+     * @return void
+     */
+    public function bicalutamideCookingMixThirdStageDoneTestCase()
+    {
+        $laboratorySession = $this->bicalutamideCookingMixThirdStageDone();
+
+        return redirect()->route('cooking-stage', [
+            'session'      => $laboratorySession->uuid,
+            'preOpenModal' => 'mix'
+        ]);
+
+    }
+
+    private function bicalutamideCookingMixThirdStageDone() : LaboratorySession
+    {
+        $laboratorySession = $this->bicalutamideCookingMixThirdStageMovedOnMix();
+        for ($i = 0; $i < 4; $i++) {
+            $this->bicalutamideCookingMixThirdStageMoveToMixComponent($laboratorySession);
+            $mixedComponent = $this->mix($laboratorySession);
+            $mixedComponent->moveToCart();
+        }
+        return  $laboratorySession;
+    }
+    private function bicalutamideCookingMixThirdStageMovedOnMix() : LaboratorySession
+    {
+        $laboratorySession = $this->bicalutamideCookingMixSecondStageDone();
+        $this->bicalutamideCookingMixThirdStageMoveToMixComponent($laboratorySession);
+        return $laboratorySession;
+    }
+    private function bicalutamideCookingMixThirdStageMoveToMixComponent(LaboratorySession $laboratorySession): void
     {
         // Подвижная фаза А
         $this->moveToMixComponent($laboratorySession, SessionComponentPlace::inMixBoxOne, [
-            'is_mixed'                   => true,
-            'mixed_weighed_component_id' => 41, // Трифторуксусная кислота
-            'mixed_one_component_id'     => 27, // Дестилированная вода
-            //            'PH_id' => 1123, // TODO: after make PH
+            'mobile_phase_id' => 1,
         ]);
         // Воронка средняя
         $this->moveToMixComponent($laboratorySession, SessionComponentPlace::inMixBoxTwo, [
@@ -58,61 +83,8 @@ trait HasCookingThirdCase
 
         // Подвижная фаза Б
         $this->moveToMixComponent($laboratorySession, SessionComponentPlace::inMixBoxFour, [
-            'is_mixed'                   => true,
-            'mixed_weighed_component_id' => 41, // Трифторуксусная кислота
-            'mixed_one_component_id'     => 42, // Ацетонитрил
-            //            'PH_id' => 1123, // TODO: after make PH
+            'mobile_phase_id' => 2,
         ]);
     }
-
-//    /**
-//     * 2 приготовление Подвижной фазы Б - смешено, перенесено в инвентарь
-//     *
-//     * @return RedirectResponse
-//     */
-//    public function bicalutamideCookingMixSecondStageDoneTestCase()
-//    {
-//
-//
-//        $laboratorySession = $this->bicalutamideCookingMixSecondStageMovedOnMix();
-//        $mixedComponent = $this->mix($laboratorySession);
-//        $mixedComponent->moveToCart();
-//
-//        return redirect()->route('cooking-stage', [
-//            'session'      => $laboratorySession->uuid,
-//            'preOpenModal' => 'mix'
-//        ]);
-//    }
-//
-//    private function bicalutamideCookingMixSecondStageMovedOnMix(): LaboratorySession
-//    {
-//        $laboratorySession = $this->bicalutamideCookingMixFirstStageDone();
-//
-//        $this->moveToMix($laboratorySession,
-//            [
-//                SessionComponentPlace::inMixBoxOne->value   => 42, // Ацетонитрил
-//                SessionComponentPlace::inMixBoxTwo->value   => 2, // Воронка средняя
-//                SessionComponentPlace::inMixBoxThree->value => 4, // Мерная колба
-//                SessionComponentPlace::inMixBoxFour->value  => 41 // стакан с трифторуксусной кислотой
-//            ]
-//        );
-//        return $laboratorySession;
-//    }
-//
-//    private function bicalutamideCookingMixFirstStageMovedOnMix() : LaboratorySession
-//    {
-//        $laboratorySession = $this->bicalutamideFourthWeightDoneCalibrated();
-//        $this->moveAllComponentsToCookingTable($laboratorySession);
-//        $this->moveToMix($laboratorySession,
-//            [
-//                SessionComponentPlace::inMixBoxOne->value   => 27,
-//                SessionComponentPlace::inMixBoxTwo->value   => 2,
-//                SessionComponentPlace::inMixBoxThree->value => 4,
-//                SessionComponentPlace::inMixBoxFour->value  => 41
-//            ]
-//        );
-//        return $laboratorySession;
-//    }
-
 
 }

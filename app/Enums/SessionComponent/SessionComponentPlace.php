@@ -32,7 +32,7 @@ enum SessionComponentPlace: string
         return match ($this) {
             self::inCart => 'inCart',
             self::onWeightingTable => 'onWeightingTable',
-            self::inSink => 'inSink',
+            self::inSink => 'Мойка',
             self::onScalesLeftBox => 'Левый блок (посуда)',
             self::onScalesRightBox => 'Правый блок (вещества)',
             self::onScalesBottomBox => 'Нижний блок (инструменты)',

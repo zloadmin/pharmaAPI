@@ -9,8 +9,13 @@ use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Livewire\Admin\Traits\HasRedirects;
 use App\Livewire\IndexPage\CartCases\HasCartCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingCase;
+use App\Livewire\IndexPage\CookingCases\HasCookingEighthCase;
+use App\Livewire\IndexPage\CookingCases\HasCookingFifthCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingFirstCase;
+use App\Livewire\IndexPage\CookingCases\HasCookingFourthCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingSecondCase;
+use App\Livewire\IndexPage\CookingCases\HasCookingSeventhCase;
+use App\Livewire\IndexPage\CookingCases\HasCookingSixthCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingThirdCase;
 use App\Livewire\IndexPage\WeightCases\HasFirstWeightCase;
 use App\Livewire\IndexPage\WeightCases\HasFourthWeightTestCase;
@@ -33,6 +38,12 @@ trait HasTestCases
     use HasCookingFirstCase;
     use HasCookingSecondCase;
     use HasCookingThirdCase;
+    use HasCookingFourthCase;
+    use HasCookingFifthCase;
+    use HasCookingSixthCase;
+    use HasCookingSeventhCase;
+    use HasCookingEighthCase;
+
 
     public $testCases = [];
 
@@ -71,6 +82,24 @@ trait HasTestCases
             ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление Подвижной фазы Б - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixSecondStageDoneTestCase'],
 
             ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление Химический стакан 200 мл с растворителем - перенесено в смешивание', 'method' => 'bicalutamideCookingMixThirdStageMovedOnMixTestCase'],
+            ['title' => 'ПОВТОР 4 РАЗА [Приготовление растворов]Бикалутамид - легкий - приготовление Химический стакан 200 мл с растворителем - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixThirdStageDoneTestCase'],
+
+            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы 50 мл с промежуточным испытуемым раствором бикалутамида - перенесено в смешивание', 'method' => 'bicalutamideCookingMixFourthMovedOnMixTestCase'],
+            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы 50 мл с промежуточным испытуемым раствором бикалутамида - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixFourthDoneTestCase'],
+
+            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы на 10 мл с готовым испытуемым раствором бикалутамида - перенесено в смешивание', 'method' => 'bicalutamideCookingMixFifthMovedOnMixTestCase'],
+            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы на 10 мл с готовым испытуемым раствором бикалутамида - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixFifthDoneTestCase'],
+
+            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы на 10 мл с промежуточным раствором СО бикалутамида - перенесено в смешивание', 'method' => 'bicalutamideCookingMixSixthMovedOnMixTestCase'],
+            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы на 10 мл с промежуточным раствором СО бикалутамида - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixSixthDoneTestCase'],
+
+            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы на 20 мл с готовым раствором СО бикалутамида - перенесено в смешивание', 'method' => 'bicalutamideCookingMixSeventhMovedOnMixTestCase'],
+            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы на 20 мл с готовым раствором СО бикалутамида - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixSeventhDoneTestCase'],
+
+            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление химического стакана с готовой конечной подвижной фазой - перенесено в смешивание', 'method' => 'bicalutamideCookingMixEighthMovedOnMixTestCase'],
+            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление химического стакана с готовой конечной подвижной фазой - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixEighthDoneTestCase'],
+
+            ['title' => '[Приготовление растворов]Бикалутамид - легкий - ВСЕ РЕЗУЛЬТАТЫ СМЕШЕНИЯ В ИНВЕНТАРЕ, ВСЕ ГРЯЗНОЕ В МОЙКЕ, ОСТАЛЬНОЕ НА СТОЛЕ', 'method' => 'bicalutamideCookingMixAllCleanAndMixedMovedToCartTestCase'],
 
         ];
     }
@@ -104,7 +133,29 @@ trait HasTestCases
                 42, // Ацетонитрил
                 2, // Воронка средняя
                 4, // Мерная колба
-                // cooking stage mix 3
+                // cooking stage mix 3 // 4 times
+                23, // Химический стакан
+                2, // Воронка средняя
+                23, // Химический стакан
+                2, // Воронка средняя
+                23, // Химический стакан
+                2, // Воронка средняя
+                23, // Химический стакан
+                2, // Воронка средняя
+
+                // cooking stage mix 4
+                19, // Мерная колба 0.50
+                2, // Воронка средняя
+                // cooking stage mix 5
+                22, // Мерная колба 0.10
+                2, // Воронка средняя
+                // cooking stage mix 6
+                22, // Мерная колба 0.10
+                2, // Воронка средняя
+                // cooking stage mix 7
+                21, // Мерная колба 0.10
+                2, // Воронка средняя
+                // cooking stage mix 8
                 23, // Химический стакан
                 2, // Воронка средняя
             ]
@@ -214,9 +265,9 @@ trait HasTestCases
             $sessionComponent->where($field, $value);
         }
         $sessionComponent = $sessionComponent->first();
-        if(is_null($sessionComponent)) {
-            dd($place, $wheres);
-        }
+//        if(is_null($sessionComponent)) {
+//            dd($place, $wheres);
+//        }
         $sessionComponent->changePlace($place);
     }
 

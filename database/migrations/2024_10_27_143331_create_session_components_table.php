@@ -66,7 +66,7 @@ return new class extends Migration {
 
 
             $table->unsignedBigInteger('mixed_weighed_component_id')->nullable();
-            $table->foreign('mixed_weighed_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->foreign('mixed_weighed_component_id')->references('id')->on('components')->onDelete('cascade');
             $table->unsignedBigInteger('mixed_one_component_id')->nullable();
             $table->foreign('mixed_one_component_id')->references('id')->on('components')->onDelete('cascade');
             $table->unsignedBigInteger('mixed_two_component_id')->nullable();
