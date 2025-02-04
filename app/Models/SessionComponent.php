@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\SessionComponent\SessionComponentPlace;
+use App\Enums\SessionComponent\SessionComponentType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +17,8 @@ class SessionComponent extends Model
     use SoftDeletes;
 
     protected $casts = [
-        'place' => SessionComponentPlace::class
+        'place' => SessionComponentPlace::class,
+        'type'  => SessionComponentType::class,
     ];
     protected $guarded = [];
 
@@ -119,8 +121,38 @@ class SessionComponent extends Model
         return $this->weighed_right_component_id ?? $this->component_id;
     }
 
+    private function getComponentName(): string
+    {
+        return $this->component->name ?? '';
+    }
+
+    private function getWeighedComponentName(): string
+    {
+        return $this->weighedRightComponent->name ?? '';
+    }
+
+    public function getWeighedValueFloatAttribute()
+    {
+        return floatval($this->weighed_value);
+    }
+
+    private function getWeighedValueInGram(): int
+    {
+        return $this->weighed_value_float ? intval($this->weighed_value_float * 1000) : 0;
+    }
+
+    private function getNameWeighed(): string
+    {
+        return sprintf('%s с %s %d мг', $this->getComponentName(), $this->getWeighedComponentName(), $this->getWeighedValueInGram());
+    }
+
     public function getName()
     {
+        switch ($this->type) {
+            case SessionComponentType::Weighed:
+                return $this->getNameWeighed();
+        }
+
         if ($this->mobilePhase) {
             return $this->mobilePhase->name;
         }
@@ -530,9 +562,10 @@ class SessionComponent extends Model
 
         return self::create([
             'place'           => SessionComponentPlace::onCookingTable,
+            'type'            => $mobilePhase ? SessionComponentType::MobilePhase : SessionComponentType::Mixed,
             'session'         => $session->uuid,
             'component_id'    => $mixBoxThreeSessionComponent->component_id,
-            'is_mixed'        => true,
+            'is_mixed'        => true, // TODO: delete and use type everywhere
             'mobile_phase_id' => $mobilePhase->id ?? null,
 
             'mixed_one_component_id'   => $mixBoxOneSessionComponent->component_id,
@@ -540,10 +573,10 @@ class SessionComponent extends Model
             'mixed_three_component_id' => $mixBoxThreeSessionComponent->component_id,
             'mixed_four_component_id'  => $mixBoxFourSessionComponent->component_id,
 
-            'mixed_one_session_component_id'   => $mixBoxOneSessionComponent->id,
-            'mixed_two_session_component_id'   => $mixBoxTwoSessionComponent->id,
-            'mixed_three_session_component_id' => $mixBoxThreeSessionComponent->id,
-            'mixed_four_session_component_id'  => $mixBoxFourSessionComponent->id,
+            'mixed_one_session_component_id'     => $mixBoxOneSessionComponent->id,
+            'mixed_two_session_component_id'     => $mixBoxTwoSessionComponent->id,
+            'mixed_three_session_component_id'   => $mixBoxThreeSessionComponent->id,
+            'mixed_four_session_component_id'    => $mixBoxFourSessionComponent->id,
 
             // TODO: make for first and last
             'mixed_weighed_session_component_id' => $mixBoxFourSessionComponent->weighedRightSessionComponent ? $mixBoxFourSessionComponent->weighedRightSessionComponent->id : $mixBoxFourSessionComponent->mixed_weighed_session_component_id,
@@ -558,7 +591,7 @@ class SessionComponent extends Model
         SessionComponent $mixBoxFourSessionComponent,
     ): void
     {
-        if($mixBoxOneSessionComponent->mobilePhase) {
+        if ($mixBoxOneSessionComponent->mobilePhase) {
             $mixBoxOneSessionComponent->moveToCookingTable();
         } else {
             $mixBoxOneSessionComponent->delete();
@@ -571,7 +604,7 @@ class SessionComponent extends Model
         $mixBoxThreeSessionComponent->markAsDirty();
         $mixBoxThreeSessionComponent->moveToCookingTable();
 
-        if($mixBoxOneSessionComponent->mobilePhase) {
+        if ($mixBoxOneSessionComponent->mobilePhase) {
             $mixBoxFourSessionComponent->moveToCookingTable();
         } else {
             $mixBoxFourSessionComponent->delete();
@@ -586,7 +619,8 @@ class SessionComponent extends Model
     {
         // 1 save session component as weighed
         $leftBoxComponent->update([
-            'is_weighed'    => true,
+            'type'          => SessionComponentType::Weighed,
+            'is_weighed'    => true, // TODO: delete and use type everywhere
             'weighed_value' => $value,
 
             'weighed_left_session_component_id'   => $leftBoxComponent->id,

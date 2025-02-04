@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\SessionComponent\SessionComponentPlace;
+use App\Enums\SessionComponent\SessionComponentType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,12 +17,12 @@ return new class extends Migration {
             $table->id();
             $table->uuid('session')->index();
             $table->enum('place', SessionComponentPlace::values())->index();
+            $table->enum('type', SessionComponentType::values())->default(SessionComponentType::Simple->value)->index();
             $table->unsignedBigInteger('component_id')->nullable();
             $table->foreign('component_id')->references('id')->on('components')->onDelete('cascade');
             $table->unsignedBigInteger('valueStuff')->nullable();
             $table->decimal('valueLoose', 7, 5)->nullable();
             $table->decimal('valueLiquid', 7, 5)->nullable();
-
 
             // scales
             $table->boolean('is_weighed')->default(false);
@@ -61,8 +62,6 @@ return new class extends Migration {
             $table->boolean('filtered')->default(false);
             // mixed
             $table->boolean('is_mixed')->default(false);
-
-
 
 
             $table->unsignedBigInteger('mixed_weighed_component_id')->nullable();
