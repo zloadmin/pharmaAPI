@@ -82,10 +82,11 @@ class StorageComponentEditPage extends LivewireComponent
         $this->storageComponent->padding_right = $this->padding_right;
         $this->storageComponent->on_scales_place = $this->on_scales_place;
         $this->storageComponent->weight = $this->weight;
+        $this->storageComponent->value = $this->value ?? null;
         $this->storageComponent->ph_meter_able = $this->ph_meter_able;
         $this->storageComponent->ph_meter_value = $this->ph_meter_value;
 //        $this->storageComponent->mixer_able = $this->mixer_able;
-        $this->storageComponent->on_mix_place = $this->on_mix_place ?: null;
+        $this->storageComponent->on_mix_place = $this->on_mix_place ? $this->on_mix_place->value : null;
         $this->storageComponent->bath_able = $this->bath_able;
         $this->storageComponent->filtration_able = $this->filtration_able;
         $this->storageComponent->is_example = $this->is_example;
@@ -113,10 +114,11 @@ class StorageComponentEditPage extends LivewireComponent
         $this->padding_right = $storageComponent->padding_right;
         $this->on_scales_place = $storageComponent->on_scales_place->value;
         $this->weight = $storageComponent->weight;
+        $this->value = $storageComponent->value ?? null;
         $this->ph_meter_able = $storageComponent->ph_meter_able;
         $this->ph_meter_value = $storageComponent->ph_meter_value;
 //        $this->mixer_able = $storageComponent->mixer_able;
-        $this->on_mix_place = $storageComponent->on_mix_place;
+        $this->on_mix_place = $storageComponent->on_mix_plac ? $storageComponent->on_mix_place->value : '';
         $this->bath_able = $storageComponent->bath_able;
         $this->filtration_able = $storageComponent->filtration_able;
         $this->is_example = $storageComponent->is_example;

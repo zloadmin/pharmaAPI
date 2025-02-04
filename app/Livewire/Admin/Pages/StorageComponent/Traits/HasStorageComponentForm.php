@@ -24,6 +24,7 @@ trait HasStorageComponentForm
     public $padding_right = 0.0;
     public $on_scales_place = '';
     public $weight = 0;
+    public $value = null;
     public $ph_meter_able = false;
     public $ph_meter_value = 0.0;
 //    public $mixer_able = false;
@@ -31,6 +32,7 @@ trait HasStorageComponentForm
     public $bath_able = false;
     public $filtration_able = false;
     public $is_example = false;
+
 
     public function rules(): array
     {
@@ -44,6 +46,7 @@ trait HasStorageComponentForm
             'padding_right'   => ['required', 'numeric', 'min:0.001', 'max:100'],
             'on_scales_place' => ['required', Rule::in(SessionComponentPlace::getOnScalesValues())],
             'weight'          => ['numeric', 'min:0', 'max:10'],
+            'value'           => ['nullable', 'numeric', 'min:0', 'max:9999999'],
             'ph_meter_able'   => ['required', 'boolean'],
             'ph_meter_value'  => ['required', 'numeric', 'min:0', 'max:999.9999'],
             //            'mixer_able'      => ['required', 'boolean'],
@@ -51,6 +54,7 @@ trait HasStorageComponentForm
             'bath_able'       => ['required', 'boolean'],
             'filtration_able' => ['required', 'boolean'],
             'is_example'      => ['required', 'boolean'],
+
         ];
     }
 }

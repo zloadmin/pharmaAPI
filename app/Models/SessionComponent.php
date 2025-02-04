@@ -126,6 +126,31 @@ class SessionComponent extends Model
         return $this->component->name ?? '';
     }
 
+    private function getMobilePhaseName(): string
+    {
+        return $this->mobilePhase->name ?? '';
+    }
+
+    private function getMixedStuffValueName(): string
+    {
+        return $this->mixedThreeComponent->value ?? '';
+    }
+
+    private function getMixedStuffName(): string
+    {
+        return $this->mixedThreeComponent->name ?? '';
+    }
+
+    private function getMixedFirstSessionComponentName(): string
+    {
+        return $this->mixedOneSessionComponent->getName();
+    }
+
+    private function getMixedSecondSessionComponentName(): string
+    {
+        return $this->mixedFourSessionComponent->getName();
+    }
+
     private function getWeighedComponentName(): string
     {
         return $this->weighedRightComponent->name ?? '';
@@ -146,11 +171,25 @@ class SessionComponent extends Model
         return sprintf('%s с %s %d мг', $this->getComponentName(), $this->getWeighedComponentName(), $this->getWeighedValueInGram());
     }
 
+    private function getNameMobilePhase(): string
+    {
+        return sprintf('%s %s мг', $this->getMobilePhaseName(), $this->getMixedStuffValueName());
+    }
+
+    private function getNameMixed(): string
+    {
+        return sprintf('%s с %s и %s', $this->getMixedStuffName(), $this->getMixedFirstSessionComponentName(), $this->getMixedSecondSessionComponentName());
+    }
+
     public function getName()
     {
         switch ($this->type) {
             case SessionComponentType::Weighed:
                 return $this->getNameWeighed();
+            case SessionComponentType::MobilePhase:
+                return $this->getNameMobilePhase();
+            case SessionComponentType::Mixed:
+                return $this->getNameMixed();
         }
 
         if ($this->mobilePhase) {
