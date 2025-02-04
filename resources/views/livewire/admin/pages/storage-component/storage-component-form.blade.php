@@ -130,9 +130,9 @@
             </span>
         @enderror
     </div>
-    <!--- Объём МГ Field --->
+    <!--- Объём Field --->
     <div class="form-group">
-        <label for="weight">Объём МГ</label>
+        <label for="weight">Объём</label>
         <input class="form-control @error('value') is-invalid @enderror" type="number" step="1" min="0" max="9999999" wire:model="value">
         @error('value')
             <span class="invalid-feedback" role="alert">
