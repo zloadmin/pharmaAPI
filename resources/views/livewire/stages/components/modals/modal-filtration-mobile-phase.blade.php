@@ -1,6 +1,6 @@
 <div class="exhaust_modal interaction_data" id="filtration_modal_before" style="display: {{ $isShow ? 'block' : 'none' }}">
     @if ($isShow)
-        <button class="close_btn"  type="button" wire:click="$dispatch('hide-modal-filtration')">
+        <button class="close_btn"  type="button" wire:click="$dispatch('hide-modal-filtration-mobile-phase')">
             <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_close"></use></svg>
         </button>
         <div class="data">

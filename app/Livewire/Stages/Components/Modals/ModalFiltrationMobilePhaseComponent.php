@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 
-class ModalFiltrationComponent extends ModalBase
+class ModalFiltrationMobilePhaseComponent extends ModalBase
 {
     use HasSession;
     use HasCookingTableChooseMode;
@@ -47,7 +47,7 @@ class ModalFiltrationComponent extends ModalBase
         $this->init($this->session);
     }
 
-    #[On('show-modal-filtration')]
+    #[On('show-modal-filtration-mobile-phase')]
     public function showModal(): void
     {
         $this->isShow = true;
@@ -57,7 +57,7 @@ class ModalFiltrationComponent extends ModalBase
     #[On('show-modal-mixer')]
     #[On('show-modal-mix')]
     #[On('show-modal-bath')]
-    #[On('hide-modal-filtration')]
+    #[On('hide-modal-filtration-mobile-phase')]
     public function hideModal(): void
     {
         $this->isShow = false;
@@ -69,14 +69,14 @@ class ModalFiltrationComponent extends ModalBase
             $this->sessionComponent->markAsFiltered();
             $this->sessionComponent->moveToCookingTable();
         }
-        $this->dispatch('hide-modal-filtration');
+        $this->dispatch('hide-modal-filtration-mobile-phase');
         $this->dispatch('session-component-moved-to-cooking-table');
     }
 
 
     public function render()
     {
-        return view('livewire.stages.components.modals.modal-filtration');
+        return view('livewire.stages.components.modals.modal-filtration-mobile-phase');
     }
 
 }
