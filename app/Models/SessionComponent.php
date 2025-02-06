@@ -3,8 +3,13 @@
 namespace App\Models;
 
 use App\Enums\SessionComponent\SessionComponentPlace;
-use App\Enums\SessionComponent\SessionComponentType;
+use App\Enums\SessionComponent\SessionComponentType as SessionComponentTypeEnum;
+
 use App\Models\SessionComponent\SessionComponentFiltrationExample;
+use App\Models\SessionComponent\SessionComponentMix;
+use App\Models\SessionComponent\SessionComponentType;
+use App\Models\SessionComponent\SessionComponentWeigh;
+
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,12 +22,15 @@ class SessionComponent extends Model
     use HasFactory;
     use SoftDeletes;
 
-    use \App\Models\SessionComponent\SessionComponentType;
+    use SessionComponentType;
     use SessionComponentFiltrationExample;
+    use SessionComponentMix;
+    use SessionComponentWeigh;
+
 
     protected $casts = [
         'place' => SessionComponentPlace::class,
-        'type'  => SessionComponentType::class,
+        'type'  => SessionComponentTypeEnum::class,
     ];
     protected $guarded = [];
 
@@ -31,88 +39,6 @@ class SessionComponent extends Model
     public function component(): HasOne
     {
         return $this->hasOne(Component::class, 'id', 'component_id');
-    }
-
-    public function weighedLeftComponent(): HasOne
-    {
-        return $this->hasOne(Component::class, 'id', 'weighed_left_component_id');
-    }
-
-    public function weighedRightComponent(): HasOne
-    {
-        return $this->hasOne(Component::class, 'id', 'weighed_right_component_id');
-    }
-
-    public function weighedBottomComponent(): HasOne
-    {
-        return $this->hasOne(Component::class, 'id', 'weighed_bottom_component_id');
-    }
-
-
-    public function weighedLeftSessionComponent(): HasOne
-    {
-        return $this->hasOne(self::class, 'id', 'weighed_left_session_component_id');
-    }
-
-    public function weighedRightSessionComponent(): HasOne
-    {
-        return $this->hasOne(self::class, 'id', 'weighed_right_session_component_id');
-    }
-
-    public function weighedBottomSessionComponent(): HasOne
-    {
-        return $this->hasOne(self::class, 'id', 'weighed_bottom_session_component_id');
-    }
-
-
-    public function mixedOneComponent(): HasOne
-    {
-        return $this->hasOne(Component::class, 'id', 'mixed_one_component_id');
-    }
-
-    public function mixedTwoComponent(): HasOne
-    {
-        return $this->hasOne(Component::class, 'id', 'mixed_two_component_id');
-    }
-
-    public function mixedThreeComponent(): HasOne
-    {
-        return $this->hasOne(Component::class, 'id', 'mixed_three_component_id');
-    }
-
-    public function mixedFourComponent(): HasOne
-    {
-        return $this->hasOne(Component::class, 'id', 'mixed_four_component_id');
-    }
-
-    public function mixedWeighedComponent(): HasOne
-    {
-        return $this->hasOne(Component::class, 'id', 'mixed_weighed_component_id');
-    }
-
-    public function mixedOneSessionComponent(): HasOne
-    {
-        return $this->hasOne(self::class, 'id', 'mixed_one_session_component_id')->withTrashed();
-    }
-
-    public function mixedTwoSessionComponent(): HasOne
-    {
-        return $this->hasOne(self::class, 'id', 'mixed_two_session_component_id')->withTrashed();
-    }
-
-    public function mixedThreeSessionComponent(): HasOne
-    {
-        return $this->hasOne(self::class, 'id', 'mixed_three_session_component_id')->withTrashed();
-    }
-
-    public function mixedFourSessionComponent(): HasOne
-    {
-        return $this->hasOne(self::class, 'id', 'mixed_four_session_component_id')->withTrashed();
-    }
-
-    public function mixedWeighedSessionComponent(): HasOne
-    {
-        return $this->hasOne(self::class, 'id', 'mixed_weighed_session_component_id')->withTrashed();
     }
 
     public function mobilePhase(): HasOne
@@ -140,61 +66,22 @@ class SessionComponent extends Model
         return $this->mixedThreeComponent->value ?? '';
     }
 
-    private function getMixedStuffName(): string
-    {
-        return $this->mixedThreeComponent->name ?? '';
-    }
-
-    private function getMixedFirstSessionComponentName(): string
-    {
-        return $this->mixedOneSessionComponent->getName();
-    }
-
-    private function getMixedSecondSessionComponentName(): string
-    {
-        return $this->mixedFourSessionComponent->getName();
-    }
-
-    private function getWeighedComponentName(): string
-    {
-        return $this->weighedRightComponent->name ?? '';
-    }
-
-    public function getWeighedValueFloatAttribute()
-    {
-        return floatval($this->weighed_value);
-    }
-
-    private function getWeighedValueInGram(): int
-    {
-        return $this->weighed_value_float ? intval($this->weighed_value_float * 1000) : 0;
-    }
-
-    private function getNameWeighed(): string
-    {
-        return sprintf('%s с %s %d мг', $this->getComponentName(), $this->getWeighedComponentName(), $this->getWeighedValueInGram());
-    }
-
     private function getNameMobilePhase(): string
     {
         return sprintf('%s %s мг', $this->getMobilePhaseName(), $this->getMixedStuffValueName());
     }
 
-    private function getNameMixed(): string
-    {
-        return sprintf('%s с %s и %s', $this->getMixedStuffName(), $this->getMixedFirstSessionComponentName(), $this->getMixedSecondSessionComponentName());
-    }
 
     public function getName()
     {
         switch ($this->type) {
-            case SessionComponentType::Weighed:
+            case SessionComponentTypeEnum::Weighed:
                 return $this->getNameWeighed();
-            case SessionComponentType::MobilePhase:
+            case SessionComponentTypeEnum::MobilePhase:
                 return $this->getNameMobilePhase();
-            case SessionComponentType::Mixed:
+            case SessionComponentTypeEnum::Mixed:
                 return $this->getNameMixed();
-            case SessionComponentType::FilteredExample:
+            case SessionComponentTypeEnum::FilteredExample:
                 return $this->getNameFilteredExample();
         }
 
@@ -271,23 +158,6 @@ class SessionComponent extends Model
             $result[] = 'Прошло фильтрацию';
         }
         return implode('<br>', $result);
-    }
-
-    public function getMixedStatus(): string
-    {
-        $result = ['Смешивание:'];
-        $result[] = $this->mixedOneSessionComponent->getName();
-        $result[] = $this->mixedTwoSessionComponent->getName();
-        $result[] = $this->mixedThreeSessionComponent->getName();
-        $result[] = $this->mixedFourSessionComponent->getName();
-
-        return implode('<br>', $result);
-    }
-
-
-    private function isFiled(): bool
-    {
-        return $this->weighedRightComponent && $this->weighedLeftComponent && $this->weighed_left_component_id == $this->component_id;
     }
 
     /**
@@ -380,53 +250,6 @@ class SessionComponent extends Model
     }
 
     /**
-     * Scope a query to only include in mix box one
-     *
-     * @param Builder $query
-     * @return Builder
-     */
-    public function scopeInMixBoxOne(Builder $query): Builder
-    {
-        return $query->where('place', SessionComponentPlace::inMixBoxOne);
-    }
-
-    /**
-     * Scope a query to only include in mix box two
-     *
-     * @param Builder $query
-     * @return Builder
-     */
-    public function scopeInMixBoxTwo(Builder $query): Builder
-    {
-        return $query->where('place', SessionComponentPlace::inMixBoxTwo);
-    }
-
-    /**
-     * Scope a query to only include in mix box three
-     *
-     * @param Builder $query
-     * @return Builder
-     */
-    public function scopeInMixBoxThree(Builder $query): Builder
-    {
-        return $query->where('place', SessionComponentPlace::inMixBoxThree);
-    }
-
-    /**
-     * Scope a query to only include in mix box four
-     *
-     * @param Builder $query
-     * @return Builder
-     */
-    public function scopeInMixBoxFour(Builder $query): Builder
-    {
-        return $query->where('place', SessionComponentPlace::inMixBoxFour);
-    }
-
-
-
-
-    /**
      * Scope a query to only include in bath right box
      *
      * @param Builder $query
@@ -435,17 +258,6 @@ class SessionComponent extends Model
     public function scopeInBathRightBox(Builder $query): Builder
     {
         return $query->where('place', SessionComponentPlace::inBathRightBox);
-    }
-
-    /**
-     * Scope a query to only include in mixer
-     *
-     * @param Builder $query
-     * @return Builder
-     */
-    public function scopeInMixer(Builder $query): Builder
-    {
-        return $query->where('place', SessionComponentPlace::inMixer);
     }
 
     public function getValueTextAttribute(): string
@@ -463,86 +275,11 @@ class SessionComponent extends Model
         return '';
     }
 
-    public function changePlace(SessionComponentPlace $place): void
-    {
-        $this->update(['place' => $place]);
-    }
-
-    public function moveToCart(): void
-    {
-        $this->changePlace(SessionComponentPlace::inCart);
-    }
-
-    public function moveToWeightingTable(): void
-    {
-        $this->changePlace(SessionComponentPlace::onWeightingTable);
-    }
-
     public function markAsDirty(): void
     {
         $this->update([
             'is_dirty' => true
         ]);
-    }
-
-    public function moveToCookingTable(): void
-    {
-        $this->changePlace(SessionComponentPlace::onCookingTable);
-    }
-
-    public function moveToSink(): void
-    {
-        $this->changePlace(SessionComponentPlace::inSink);
-    }
-
-    public function moveToTableIfExistsOnPlace(SessionComponentPlace $place): void
-    {
-        $existsSessionComponent = self::bySession($this->session)->byPlace($place)->first();
-        $existsSessionComponent?->moveToWeightingTable();
-    }
-
-    public function moveToScales(SessionComponentPlace $place): void
-    {
-
-
-        if ($this->isWeighed() && $this->isExistsWeighedComponents()) {
-            $this->moveToTableAllScalesComponents();
-            $this->moveToScalesWeighedComponents();
-        } else {
-            // 1 check if exists already comp and move to table them
-            $this->moveToTableIfExistsOnPlace($place);
-            // 2 change place
-            $this->changePlace($place);
-        }
-    }
-
-    public function moveToTableAllScalesComponents(): void
-    {
-        $this->moveToTableIfExistsOnPlace(SessionComponentPlace::onScalesLeftBox);
-        $this->moveToTableIfExistsOnPlace(SessionComponentPlace::onScalesRightBox);
-        $this->moveToTableIfExistsOnPlace(SessionComponentPlace::onScalesBottomBox);
-    }
-
-    public function moveToScalesWeighedComponents(): void
-    {
-        $this->weighedLeftSessionComponent->changePlace(SessionComponentPlace::onScalesLeftBox);
-        $this->weighedRightSessionComponent->changePlace(SessionComponentPlace::onScalesRightBox);
-        $this->weighedBottomSessionComponent->changePlace(SessionComponentPlace::onScalesBottomBox);
-    }
-
-    public function isWeighed(): bool
-    {
-        return !!$this->is_weighed;
-    }
-
-    public function isHasWeighedValue(): bool
-    {
-        return $this->is_weighed && $this->weighed_value;
-    }
-
-    public function isExistsWeighedComponents(): bool
-    {
-        return $this->weighedLeftSessionComponent && $this->weighedRightSessionComponent && $this->weighedBottomSessionComponent;
     }
 
     public function addMixerSeconds(int $seconds): void
@@ -585,108 +322,6 @@ class SessionComponent extends Model
         return $query->where('is_mixed', true);
     }
 
-    /**
-     * Scope a query to only include weighed.
-     *
-     * @param Builder $query
-     * @return Builder
-     */
-    public function scopeWeighed(Builder $query): Builder
-    {
-        return $query->where('is_weighed', true);
-    }
-
-    static function mix(
-        LaboratorySession $session,
-        SessionComponent  $mixBoxOneSessionComponent,
-        SessionComponent  $mixBoxTwoSessionComponent,
-        SessionComponent  $mixBoxThreeSessionComponent,
-        SessionComponent  $mixBoxFourSessionComponent
-    ): SessionComponent
-    {
-
-        $mobilePhase = LaboratoryMobilePhase::getMobilePhaseOfComponents($session, $mixBoxOneSessionComponent, $mixBoxFourSessionComponent);
-
-        return self::create([
-            'place'           => SessionComponentPlace::onCookingTable,
-            'type'            => $mobilePhase ? SessionComponentType::MobilePhase : SessionComponentType::Mixed,
-            'session'         => $session->uuid,
-            'component_id'    => $mixBoxThreeSessionComponent->component_id,
-            'is_mixed'        => true, // TODO: delete and use type everywhere
-            'mobile_phase_id' => $mobilePhase->id ?? null,
-
-            'mixed_one_component_id'   => $mixBoxOneSessionComponent->component_id,
-            'mixed_two_component_id'   => $mixBoxTwoSessionComponent->component_id,
-            'mixed_three_component_id' => $mixBoxThreeSessionComponent->component_id,
-            'mixed_four_component_id'  => $mixBoxFourSessionComponent->component_id,
-
-            'mixed_one_session_component_id'     => $mixBoxOneSessionComponent->id,
-            'mixed_two_session_component_id'     => $mixBoxTwoSessionComponent->id,
-            'mixed_three_session_component_id'   => $mixBoxThreeSessionComponent->id,
-            'mixed_four_session_component_id'    => $mixBoxFourSessionComponent->id,
-
-            // TODO: make for first and last
-            'mixed_weighed_session_component_id' => $mixBoxFourSessionComponent->weighedRightSessionComponent ? $mixBoxFourSessionComponent->weighedRightSessionComponent->id : $mixBoxFourSessionComponent->mixed_weighed_session_component_id,
-            'mixed_weighed_component_id'         => $mixBoxFourSessionComponent->weighedRightComponent ? $mixBoxFourSessionComponent->weighedRightComponent->id : $mixBoxFourSessionComponent->mixed_weighed_component_id,
-        ]);
-    }
-
-    static function cleanMixer(
-        SessionComponent $mixBoxOneSessionComponent,
-        SessionComponent $mixBoxTwoSessionComponent,
-        SessionComponent $mixBoxThreeSessionComponent,
-        SessionComponent $mixBoxFourSessionComponent,
-    ): void
-    {
-        if ($mixBoxOneSessionComponent->mobilePhase) {
-            $mixBoxOneSessionComponent->moveToCookingTable();
-        } else {
-            $mixBoxOneSessionComponent->delete();
-        }
-
-
-        $mixBoxTwoSessionComponent->markAsDirty();
-        $mixBoxTwoSessionComponent->moveToCookingTable();
-
-        $mixBoxThreeSessionComponent->markAsDirty();
-        $mixBoxThreeSessionComponent->moveToCookingTable();
-
-        if ($mixBoxOneSessionComponent->mobilePhase) {
-            $mixBoxFourSessionComponent->moveToCookingTable();
-        } else {
-            $mixBoxFourSessionComponent->delete();
-        }
-    }
-
-
-
-
-
-    static function weigh(SessionComponent $leftBoxComponent, SessionComponent $rightBoxComponent, SessionComponent $bottomBoxComponent, $value): void
-    {
-        // 1 save session component as weighed
-        $leftBoxComponent->update([
-            'type'          => SessionComponentType::Weighed,
-            'is_weighed'    => true, // TODO: delete and use type everywhere
-            'weighed_value' => $value,
-
-            'weighed_left_session_component_id'   => $leftBoxComponent->id,
-            'weighed_right_session_component_id'  => $rightBoxComponent->id,
-            'weighed_bottom_session_component_id' => $bottomBoxComponent->id,
-
-            'weighed_left_component_id'   => $leftBoxComponent->component_id,
-            'weighed_right_component_id'  => $rightBoxComponent->component_id,
-            'weighed_bottom_component_id' => $bottomBoxComponent->component_id,
-        ]);
-    }
-
-    static function cleanScales(SessionComponent|null $leftBoxComponent, SessionComponent|null $rightBoxComponent, SessionComponent|null $bottomBoxComponent): void
-    {
-        $leftBoxComponent?->moveToWeightingTable();
-        $rightBoxComponent?->moveToWeightingTable();
-        $bottomBoxComponent?->markAsDirty();
-        $bottomBoxComponent?->moveToWeightingTable();
-    }
 
     public function markAsDirtyWeigh(): void
     {
