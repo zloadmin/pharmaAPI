@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Stages\Components;
 
+use App\Enums\SessionComponent\SessionComponentType;
 use App\Livewire\Traits\HasSession;
 use App\Livewire\Traits\HasUnlockStages;
 use App\Models\SessionComponent;
@@ -47,6 +48,7 @@ class ComponentCart extends LivewireComponent
     {
         $collection = $this->getCartItemBuilder()->latest()->get();
         $groupedCollection = (new Collection($collection))
+            ->where('type', SessionComponentType::Simple)
             ->where('is_weighed', false)
             ->where('is_dirty', false)
             ->where('is_mixed', false)

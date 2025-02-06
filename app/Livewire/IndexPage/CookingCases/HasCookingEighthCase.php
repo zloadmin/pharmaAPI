@@ -56,24 +56,24 @@ trait HasCookingEighthCase
     private function bicalutamideCookingMixEighthStageMoveToMixComponent(LaboratorySession $laboratorySession): void
     {
         // Подвижная фаза А
-        $this->moveToMixComponent($laboratorySession, SessionComponentPlace::inMixBoxOne, [
+        $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxOne, [
             'mobile_phase_id' => 1,
         ]);
         // Воронка средняя
-        $this->moveToMixComponent($laboratorySession, SessionComponentPlace::inMixBoxTwo, [
+        $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxTwo, [
             'component_id' => 2,
             'is_mixed'     => false,
             'is_weighed'   => false
         ]);
         // Химический стакан
-        $this->moveToMixComponent($laboratorySession, SessionComponentPlace::inMixBoxThree, [
+        $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxThree, [
             'component_id' => 23,
             'is_mixed'     => false,
             'is_weighed'   => false
         ]);
 
         // Подвижная фаза Б
-        $this->moveToMixComponent($laboratorySession, SessionComponentPlace::inMixBoxFour, [
+        $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxFour, [
             'mobile_phase_id' => 2,
         ]);
     }

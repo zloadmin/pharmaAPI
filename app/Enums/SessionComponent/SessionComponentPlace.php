@@ -19,12 +19,17 @@ enum SessionComponentPlace: string
     case inMixer = 'inMixer';
     case inBathLeftBox = 'inBathLeftBox';
     case inBathRightBox = 'inBathRightBox';
-    case inFiltrationBox = 'inFiltrationBox';
+    case inFiltrationMobilePhaseBox = 'inFiltrationMobilePhaseBox';
 
     case inMixBoxOne = 'inMixBoxOne';
     case inMixBoxTwo = 'inMixBoxTwo';
     case inMixBoxThree = 'inMixBoxThree';
     case inMixBoxFour = 'inMixBoxFour';
+
+    case inFiltrationExampleBoxOne = 'inFiltrationExampleBoxOne';
+    case inFiltrationExampleBoxTwo = 'inFiltrationExampleBoxTwo';
+    case inFiltrationExampleBoxThree = 'inFiltrationExampleBoxThree';
+    case inFiltrationExampleBoxFour = 'inFiltrationExampleBoxFour';
 
 
     public function label(): string
@@ -40,6 +45,10 @@ enum SessionComponentPlace: string
             self::inMixBoxTwo => 'Миксер ячейка 2',
             self::inMixBoxThree => 'Миксер ячейка 3',
             self::inMixBoxFour => 'Миксер ячейка 4',
+            self::inFiltrationExampleBoxOne => 'Фильтрация ячейка 1',
+            self::inFiltrationExampleBoxTwo => 'Фильтрация ячейка 2',
+            self::inFiltrationExampleBoxThree => 'Фильтрация ячейка 3',
+            self::inFiltrationExampleBoxFour => 'Фильтрация ячейка 4',
 
         };
     }
@@ -73,6 +82,14 @@ enum SessionComponentPlace: string
         }
         return $values;
     }
+    static function getFiltrationExamplesPlaceValues(): array
+    {
+        $values = [];
+        foreach (self::getFiltrationExamplesPlaces() as $case) {
+            $values[] = $case->value;
+        }
+        return $values;
+    }
 
     static function getOnScales(): array
     {
@@ -89,6 +106,15 @@ enum SessionComponentPlace: string
             self::inMixBoxOne,
             self::inMixBoxTwo,
             self::inMixBoxThree,
+        ];
+    }
+    static function getFiltrationExamplesPlaces(): array
+    {
+        return [
+            self::inFiltrationExampleBoxOne,
+            self::inFiltrationExampleBoxTwo,
+            self::inFiltrationExampleBoxThree,
+            self::inFiltrationExampleBoxFour,
         ];
     }
 
@@ -116,11 +142,15 @@ enum SessionComponentPlace: string
             self::inMixer => 'mixer',
             self::inBathLeftBox => 'in-bath-left',
             self::inBathRightBox => 'in-bath-right',
-            self::inFiltrationBox => 'in-filtration',
+            self::inFiltrationMobilePhaseBox => 'in-filtration',
             self::inMixBoxOne => 'mix-one',
             self::inMixBoxTwo => 'mix-two',
             self::inMixBoxThree => 'mix-three',
             self::inMixBoxFour => 'mix-four',
+            self::inFiltrationExampleBoxOne => 'filtration-example-one',
+            self::inFiltrationExampleBoxTwo => 'filtration-example-two',
+            self::inFiltrationExampleBoxThree => 'filtration-example-three',
+            self::inFiltrationExampleBoxFour => 'filtration-example-four',
         };
     }
 }

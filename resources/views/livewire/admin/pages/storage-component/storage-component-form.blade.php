@@ -179,6 +179,21 @@
             </span>
         @enderror
     </div>
+    <!--- Позиция в фильтрации испытуемых образцов  Field --->
+    <div class="form-group">
+        <label for="on_mix_place">Позиция в фильтрации испытуемых образцов</label>
+        <select class="form-control @error('on_filtration_examples_place') is-invalid @enderror" wire:model="on_filtration_examples_place">
+            <option value=""></option>
+            @foreach(\App\Enums\SessionComponent\SessionComponentPlace::getFiltrationExamplesPlaces() as $place)
+                <option value="{{ $place->value }}">{{ $place->label() }}</option>
+            @endforeach
+        </select>
+        @error('on_filtration_examples_place')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
 {{--    <!--- Мешалка Field --->--}}
 {{--    <div class="form-check mb-3">--}}
 {{--        <input class="form-check-input @error('mixer_able') is-invalid @enderror" type="checkbox" wire:model="mixer_able" id="checkbox_mixer_able">--}}

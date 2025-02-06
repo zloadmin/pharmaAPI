@@ -1,7 +1,7 @@
 <div class="section on_table" style="min-height: 153px;">
     <div class="head">
         <div class="title">На столе</div>
-        <button class="get_all_btn get_all_btn_second" style="margin-left: 10px;" type="button" wire:click="$dispatch('show-modal-mix')">Смешать</button>
+        <button class="get_all_btn get_all_btn_second" style="margin-left: 10px;" type="button" wire:click="$dispatch('show-component')">Смешать</button>
         <button class="get_all_btn get_all_btn_second" type="button" wire:click="moveAllCookingTableItemsToCart">Вернуть все</button>
         <button class="get_all_btn" type="button" wire:click="moveAllCartItemsToCookingTable">Взять все</button>
     </div>

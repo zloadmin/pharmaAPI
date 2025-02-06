@@ -20,11 +20,12 @@ class CookingStage extends Component
     #[Url]
     public $preOpenModal = '';
     public $isPreOpenModals = [
-        'ph-meter'   => false,
-        'mixer'      => false,
-        'bath'       => false,
-        'filtration' => false,
-        'mix'        => false,
+        'ph-meter'                => false,
+        'mixer'                   => false,
+        'bath'                    => false,
+        'filtration-mobile-phase' => false,
+        'filtration-examples'     => false,
+        'mix'                     => false,
     ];
 
     public function mount($session)

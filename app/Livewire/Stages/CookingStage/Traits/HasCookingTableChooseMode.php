@@ -49,6 +49,24 @@ trait HasCookingTableChooseMode
         $this->setCookingTableChooseMode(SessionComponentPlace::inMixBoxFour);
     }
 
+    public function setFiltrationExampleBoxOneChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inFiltrationExampleBoxOne);
+    }
+    public function setFiltrationExampleBoxTwoChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inFiltrationExampleBoxTwo);
+    }
+    public function setFiltrationExampleBoxThreeChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inFiltrationExampleBoxThree);
+    }
+    public function setFiltrationExampleBoxFourChooseMode(): void
+    {
+        $this->setCookingTableChooseMode(SessionComponentPlace::inFiltrationExampleBoxFour);
+    }
+
+
     public function setMixerChooseMode(): void
     {
         $this->setCookingTableChooseMode(SessionComponentPlace::inMixer);
@@ -56,7 +74,7 @@ trait HasCookingTableChooseMode
 
     public function setFiltrationBoxChooseMode(): void
     {
-        $this->setCookingTableChooseMode(SessionComponentPlace::inFiltrationBox);
+        $this->setCookingTableChooseMode(SessionComponentPlace::inFiltrationMobilePhaseBox);
     }
 
     public function disableCookingTableChooseMode(): void

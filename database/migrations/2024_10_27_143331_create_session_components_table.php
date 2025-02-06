@@ -87,6 +87,25 @@ return new class extends Migration {
             $table->unsignedBigInteger('mixed_four_session_component_id')->nullable();
             $table->foreign('mixed_four_session_component_id')->references('id')->on('session_components')->onDelete('cascade');
 
+            // filtering example components
+            $table->unsignedBigInteger('filtered_example_one_component_id')->nullable();
+            $table->foreign('filtered_example_one_component_id')->references('id')->on('components')->onDelete('cascade');
+            $table->unsignedBigInteger('filtered_example_two_component_id')->nullable();
+            $table->foreign('filtered_example_two_component_id')->references('id')->on('components')->onDelete('cascade');
+            $table->unsignedBigInteger('filtered_example_three_component_id')->nullable();
+            $table->foreign('filtered_example_three_component_id')->references('id')->on('components')->onDelete('cascade');
+            $table->unsignedBigInteger('filtered_example_four_component_id')->nullable();
+            $table->foreign('filtered_example_four_component_id')->references('id')->on('components')->onDelete('cascade');
+            // filtering example session components
+            $table->unsignedBigInteger('filtered_example_one_session_cmp_id')->nullable(); // session_components_filtered_example_one_session_component_id_foreign to long
+            $table->foreign('filtered_example_one_session_cmp_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->unsignedBigInteger('filtered_example_two_session_cmp_id')->nullable();
+            $table->foreign('filtered_example_two_session_cmp_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->unsignedBigInteger('filtered_example_three_session_cmp_id')->nullable();
+            $table->foreign('filtered_example_three_session_cmp_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->unsignedBigInteger('filtered_example_four_session_cmp_id')->nullable();
+            $table->foreign('filtered_example_four_session_cmp_id')->references('id')->on('session_components')->onDelete('cascade');
+
 
             $table->softDeletes();
             $table->timestamps();

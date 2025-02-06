@@ -10,12 +10,14 @@
             <button class="btn btn1" data-modal="ph_meter_modal" wire:click="$dispatch('show-modal-ph-meter')">Взаимодействовать</button>
             <button class="btn btn2" data-modal="mixer_modal"  wire:click="$dispatch('show-modal-mixer')">Взаимодействовать</button>
             <button class="btn btn3" data-modal="bath_modal"  wire:click="$dispatch('show-modal-bath')">Взаимодействовать</button>
+            <button class="btn btn4" data-modal="filtration_before_modal" wire:click="$dispatch('show-modal-filtration-examples')" >Взаимодействовать</button>
             <button class="btn btn5" data-modal="filtration_after_modal" wire:click="$dispatch('show-modal-filtration-mobile-phase')" >Взаимодействовать</button>
 
             <livewire:stages.components.modals.modal-p-h-meter-component :session='$session' :is-show='$isPreOpenModals["ph-meter"]' />
             <livewire:stages.components.modals.modal-mixer-component :session='$session' :is-show='$isPreOpenModals["mixer"]' />
             <livewire:stages.components.modals.modal-bath-component :session='$session' :is-show='$isPreOpenModals["bath"]' />
-            <livewire:stages.components.modals.modal-filtration-mobile-phase-component :session='$session' :is-show='$isPreOpenModals["filtration"]' />
+            <livewire:stages.components.modals.modal-filtration-mobile-phase-component :session='$session' :is-show='$isPreOpenModals["filtration-mobile-phase"]' />
+            <livewire:stages.components.modals.modal-filtration-examples-component :session='$session' :is-show='$isPreOpenModals["filtration-examples"]' />
             <livewire:stages.components.modals.modal-mix-component :session='$session' :is-show='$isPreOpenModals["mix"]' />
         </div>
 

@@ -29,6 +29,7 @@ trait HasStorageComponentForm
     public $ph_meter_value = 0.0;
 //    public $mixer_able = false;
     public $on_mix_place = null;
+    public $on_filtration_examples_place = null;
     public $bath_able = false;
     public $filtration_able = false;
     public $is_example = false;
@@ -37,23 +38,24 @@ trait HasStorageComponentForm
     public function rules(): array
     {
         return [
-            'name'            => ['required', 'string', 'max:250'],
-            'short_name'      => ['required', 'string', 'max:15'],
-            'description'     => ['required', 'string'],
-            'type'            => ['required', Rule::in(ComponentType::values())],
-            'image'           => ['required', 'image'],
-            'padding_top'     => ['required', 'numeric', 'min:0.001', 'max:100'],
-            'padding_right'   => ['required', 'numeric', 'min:0.001', 'max:100'],
-            'on_scales_place' => ['required', Rule::in(SessionComponentPlace::getOnScalesValues())],
-            'weight'          => ['numeric', 'min:0', 'max:10'],
-            'value'           => ['nullable', 'numeric', 'min:0', 'max:9999999'],
-            'ph_meter_able'   => ['required', 'boolean'],
-            'ph_meter_value'  => ['required', 'numeric', 'min:0', 'max:999.9999'],
+            'name'                         => ['required', 'string', 'max:250'],
+            'short_name'                   => ['required', 'string', 'max:15'],
+            'description'                  => ['required', 'string'],
+            'type'                         => ['required', Rule::in(ComponentType::values())],
+            'image'                        => ['required', 'image'],
+            'padding_top'                  => ['required', 'numeric', 'min:0.001', 'max:100'],
+            'padding_right'                => ['required', 'numeric', 'min:0.001', 'max:100'],
+            'on_scales_place'              => ['required', Rule::in(SessionComponentPlace::getOnScalesValues())],
+            'weight'                       => ['numeric', 'min:0', 'max:10'],
+            'value'                        => ['nullable', 'numeric', 'min:0', 'max:9999999'],
+            'ph_meter_able'                => ['required', 'boolean'],
+            'ph_meter_value'               => ['required', 'numeric', 'min:0', 'max:999.9999'],
             //            'mixer_able'      => ['required', 'boolean'],
-            'on_mix_place'    => ['nullable', Rule::in(SessionComponentPlace::getMixStuffPlaceValues())],
-            'bath_able'       => ['required', 'boolean'],
-            'filtration_able' => ['required', 'boolean'],
-            'is_example'      => ['required', 'boolean'],
+            'on_mix_place'                 => ['nullable', Rule::in(SessionComponentPlace::getMixStuffPlaceValues())],
+            'on_filtration_examples_place' => ['nullable', Rule::in(SessionComponentPlace::getFiltrationExamplesPlaceValues())],
+            'bath_able'                    => ['required', 'boolean'],
+            'filtration_able'              => ['required', 'boolean'],
+            'is_example'                   => ['required', 'boolean'],
 
         ];
     }

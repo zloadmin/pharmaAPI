@@ -55,7 +55,7 @@ class ModalFiltrationMobilePhaseComponent extends ModalBase
 
     #[On('show-modal-ph-meter')]
     #[On('show-modal-mixer')]
-    #[On('show-modal-mix')]
+    #[On('show-component')]
     #[On('show-modal-bath')]
     #[On('hide-modal-filtration-mobile-phase')]
     public function hideModal(): void

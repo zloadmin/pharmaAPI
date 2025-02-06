@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Enums\SessionComponent\SessionComponentType;
+use App\Models\SessionComponent\SessionComponentFiltrationExample;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,9 @@ class SessionComponent extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    use \App\Models\SessionComponent\SessionComponentType;
+    use SessionComponentFiltrationExample;
 
     protected $casts = [
         'place' => SessionComponentPlace::class,
@@ -190,6 +194,8 @@ class SessionComponent extends Model
                 return $this->getNameMobilePhase();
             case SessionComponentType::Mixed:
                 return $this->getNameMixed();
+            case SessionComponentType::FilteredExample:
+                return $this->getNameFilteredExample();
         }
 
         if ($this->mobilePhase) {
@@ -359,7 +365,7 @@ class SessionComponent extends Model
      */
     public function scopeInFiltration(Builder $query): Builder
     {
-        return $query->where('place', SessionComponentPlace::inFiltrationBox);
+        return $query->where('place', SessionComponentPlace::inFiltrationMobilePhaseBox);
     }
 
     /**
@@ -416,6 +422,8 @@ class SessionComponent extends Model
     {
         return $query->where('place', SessionComponentPlace::inMixBoxFour);
     }
+
+
 
 
     /**
@@ -648,11 +656,11 @@ class SessionComponent extends Model
         } else {
             $mixBoxFourSessionComponent->delete();
         }
-
-
-//        $mixBoxFourSessionComponent->markAsDirtyWeigh();
-//        $mixBoxFourSessionComponent->moveToCookingTable();
     }
+
+
+
+
 
     static function weigh(SessionComponent $leftBoxComponent, SessionComponent $rightBoxComponent, SessionComponent $bottomBoxComponent, $value): void
     {

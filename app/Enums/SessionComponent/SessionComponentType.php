@@ -12,4 +12,7 @@ enum SessionComponentType : string
     case Weighed = 'weighed';
     case Mixed = 'mixed';
     case MobilePhase = 'mobilePhase';
+    case FilteredExample = 'filteredExample';
+    case FilteredMobilePhase = 'filteredMobilePhase';
+
 }

@@ -1,6 +1,7 @@
-<div class="exhaust_modal interaction_data interaction_data_tree" id="bath_modal" style="width: 710px; display: {{ $isShow ? 'block' : 'none' }}">
+<div class="exhaust_modal interaction_data interaction_data_tree" id="bath_modal"
+     style="width: 710px; display: {{ $isShow ? 'block' : 'none' }}">
     @if ($isShow)
-        <button class="close_btn" type="button" wire:click="$dispatch('hide-modal-mix')">
+        <button class="close_btn" type="button" wire:click="$dispatch('hide-component')">
             <svg class="icon">
                 <use xlink:href="/web/images/sprite.svg#ic_close"></use>
             </svg>
@@ -12,24 +13,24 @@
 
             <div class="objects">
                 @if($mixBoxOneSessionComponent)
-                    @include('livewire.stages.components.modals.modal-mix.mix-component', ['component' => $mixBoxOneSessionComponent])
+                    @include('livewire.stages.components.modals.component.component', ['component' => $mixBoxOneSessionComponent])
                 @else
-                    @include('livewire.stages.components.modals.modal-mix.mix-empty-component', ['click' => 'setMixBoxOneChooseMode'])
+                    @include('livewire.stages.components.modals.component.empty-component', ['click' => 'setMixBoxOneChooseMode'])
                 @endif
                 @if($mixBoxTwoSessionComponent)
-                    @include('livewire.stages.components.modals.modal-mix.mix-component', ['component' => $mixBoxTwoSessionComponent])
+                    @include('livewire.stages.components.modals.component.component', ['component' => $mixBoxTwoSessionComponent])
                 @else
-                    @include('livewire.stages.components.modals.modal-mix.mix-empty-component', ['click' => 'setMixBoxTwoChooseMode'])
+                    @include('livewire.stages.components.modals.component.empty-component', ['click' => 'setMixBoxTwoChooseMode'])
                 @endif
                 @if($mixBoxThreeSessionComponent)
-                    @include('livewire.stages.components.modals.modal-mix.mix-component', ['component' => $mixBoxThreeSessionComponent])
+                    @include('livewire.stages.components.modals.component.component', ['component' => $mixBoxThreeSessionComponent])
                 @else
-                    @include('livewire.stages.components.modals.modal-mix.mix-empty-component', ['click' => 'setMixBoxThreeChooseMode'])
+                    @include('livewire.stages.components.modals.component.empty-component', ['click' => 'setMixBoxThreeChooseMode'])
                 @endif
                 @if($mixBoxFourSessionComponent)
-                    @include('livewire.stages.components.modals.modal-mix.mix-component', ['component' => $mixBoxFourSessionComponent])
+                    @include('livewire.stages.components.modals.component.component', ['component' => $mixBoxFourSessionComponent])
                 @else
-                    @include('livewire.stages.components.modals.modal-mix.mix-empty-component', ['click' => 'setMixBoxFourChooseMode'])
+                    @include('livewire.stages.components.modals.component.empty-component', ['click' => 'setMixBoxFourChooseMode'])
                 @endif
 
             </div>

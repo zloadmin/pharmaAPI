@@ -60,7 +60,8 @@ class ModalMixerComponent extends ModalBase
     #[On('show-modal-ph-meter')]
     #[On('show-modal-bath')]
     #[On('show-modal-filtration-mobile-phase')]
-    #[On('show-modal-mix')]
+    #[On('show-modal-filtration-examples')]
+    #[On('show-component')]
     #[On('hide-modal-mixer')]
     public function hideModal(): void
     {

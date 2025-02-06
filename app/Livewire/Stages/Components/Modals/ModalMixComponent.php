@@ -57,7 +57,7 @@ class ModalMixComponent extends ModalBase
     }
 
 
-    #[On('show-modal-mix')]
+    #[On('show-component')]
     public function showModal(): void
     {
         $this->isShow = true;
@@ -66,8 +66,9 @@ class ModalMixComponent extends ModalBase
     #[On('show-modal-ph-meter')]
     #[On('show-modal-mixer')]
     #[On('show-modal-filtration-mobile-phase')]
+    #[On('show-modal-filtration-examples')]
     #[On('show-modal-bath')]
-    #[On('hide-modal-mix')]
+    #[On('hide-component')]
     public function hideModal(): void
     {
         $this->isShow = false;
@@ -80,7 +81,7 @@ class ModalMixComponent extends ModalBase
             $this->createMixedComponent();
             $this->clearComponents();
         }
-        $this->dispatch('hide-modal-mix');
+        $this->dispatch('hide-component');
         $this->dispatch('session-component-moved-to-cooking-table');
 
     }

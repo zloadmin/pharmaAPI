@@ -59,8 +59,9 @@ class ModalBathComponent extends ModalBase
 
     #[On('show-modal-ph-meter')]
     #[On('show-modal-mixer')]
-    #[On('show-modal-mix')]
+    #[On('show-component')]
     #[On('show-modal-filtration-mobile-phase')]
+    #[On('show-modal-filtration-examples')]
     #[On('hide-modal-bath')]
     public function hideModal(): void
     {

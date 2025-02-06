@@ -6,6 +6,7 @@ namespace App\Livewire\IndexPage\CookingCases;
 
 
 use App\Enums\SessionComponent\SessionComponentPlace;
+use App\Models\LaboratorySession;
 
 trait HasCookingCase
 {
@@ -18,6 +19,11 @@ trait HasCookingCase
     }
     public function bicalutamideCookingMixAllCleanAndMixedMovedToCartTestCase()
     {
+        $laboratorySession = $this->bicalutamideCookingMixAllCleanAndMixedMovedToCart();
+        return redirect()->route('cooking-stage', $laboratorySession->uuid);
+    }
+    private function bicalutamideCookingMixAllCleanAndMixedMovedToCart() : LaboratorySession
+    {
         $laboratorySession = $this->bicalutamideCookingMixEighthDone();
         $laboratorySession->sessionComponents()->where('is_dirty', true)->update([
             'place' => SessionComponentPlace::inSink
@@ -25,7 +31,6 @@ trait HasCookingCase
         $laboratorySession->sessionComponents()->where('is_mixed', true)->update([
             'place' => SessionComponentPlace::inCart
         ]);
-        return redirect()->route('cooking-stage', $laboratorySession->uuid);
-
+        return  $laboratorySession;
     }
 }

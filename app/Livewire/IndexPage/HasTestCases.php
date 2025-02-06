@@ -13,10 +13,13 @@ use App\Livewire\IndexPage\CookingCases\HasCookingEighthCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingFifthCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingFirstCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingFourthCase;
+use App\Livewire\IndexPage\CookingCases\HasCookingNinthCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingSecondCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingSeventhCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingSixthCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingThirdCase;
+use App\Livewire\IndexPage\FiltrationExamplesCases\HasFiltrationExampleFirstCase;
+use App\Livewire\IndexPage\FiltrationExamplesCases\HasFiltrationExampleSecondCase;
 use App\Livewire\IndexPage\WeightCases\HasFirstWeightCase;
 use App\Livewire\IndexPage\WeightCases\HasFourthWeightTestCase;
 use App\Livewire\IndexPage\WeightCases\HasSecondWeightCase;
@@ -30,10 +33,13 @@ trait HasTestCases
 {
 
     use HasCartCase;
+    // Weight
     use HasFirstWeightCase;
     use HasSecondWeightCase;
     use HasThirdWeightTestCase;
     use HasFourthWeightTestCase;
+
+    // Mixing
     use HasCookingCase;
     use HasCookingFirstCase;
     use HasCookingSecondCase;
@@ -43,6 +49,10 @@ trait HasTestCases
     use HasCookingSixthCase;
     use HasCookingSeventhCase;
     use HasCookingEighthCase;
+
+    // Filtration Examples
+    use HasFiltrationExampleFirstCase;
+    use HasFiltrationExampleSecondCase;
 
 
     public $testCases = [];
@@ -101,6 +111,11 @@ trait HasTestCases
 
             ['title' => '[Приготовление растворов]Бикалутамид - легкий - ВСЕ РЕЗУЛЬТАТЫ СМЕШЕНИЯ В ИНВЕНТАРЕ, ВСЕ ГРЯЗНОЕ В МОЙКЕ, ОСТАЛЬНОЕ НА СТОЛЕ', 'method' => 'bicalutamideCookingMixAllCleanAndMixedMovedToCartTestCase'],
 
+            ['title' => '[Фильтрация испытуемых образцов]Бикалутамид - легкий - приготовление шприца для ввода (СО бикалутамида) - перенесено в фильтр', 'method' => 'bicalutamideFiltrationExampleFirstMovedOnFilterExampleTestCase'],
+            ['title' => '[Фильтрация испытуемых образцов]Бикалутамид - легкий - приготовление шприца для ввода (СО бикалутамида) - отфильтровано, перенесено в инвентарь', 'method' => 'bicalutamideFiltrationExampleFirstFilteredExampleTestCase'],
+
+            ['title' => '[Фильтрация испытуемых образцов]Бикалутамид - легкий - приготовление шприца для ввода (испыт р-р бикалутамида) - перенесено в фильтр', 'method' => 'bicalutamideFiltrationExampleSecondMovedOnFilterExampleTestCase'],
+            ['title' => '[Фильтрация испытуемых образцов]Бикалутамид - легкий - приготовление шприца для ввода (испыт р-р бикалутамида) - отфильтровано, перенесено в инвентарь', 'method' => 'bicalutamideFiltrationExampleSecondFilteredExampleTestCase'],
         ];
     }
 
@@ -158,6 +173,14 @@ trait HasTestCases
                 // cooking stage mix 8
                 23, // Химический стакан
                 2, // Воронка средняя
+                // filtration example 1
+                30, // Шприц для фильтрации
+                29, // Шприц для ввода
+                25, // Химический стакан 50 мл
+                // filtration example 2
+                30, // Шприц для фильтрации
+                29, // Шприц для ввода
+                25, // Химический стакан 50 мл
             ]
         );
         return $laboratorySession;
@@ -211,6 +234,16 @@ trait HasTestCases
         SessionComponent::cleanMixer($one, $two, $three, $four);
         return $mixedComponent;
     }
+    private function filtrationExample(LaboratorySession $session): SessionComponent
+    {
+        $one = $session->sessionComponents()->where('place', SessionComponentPlace::inFiltrationExampleBoxOne)->first();
+        $two = $session->sessionComponents()->where('place', SessionComponentPlace::inFiltrationExampleBoxTwo)->first();
+        $three = $session->sessionComponents()->where('place', SessionComponentPlace::inFiltrationExampleBoxThree)->first();
+        $four = $session->sessionComponents()->where('place', SessionComponentPlace::inFiltrationExampleBoxFour)->first();
+        $mixedComponent = SessionComponent::filterExample($session, $one, $two, $three, $four);
+        SessionComponent::clearFilterExampleComponents($one, $two, $three, $four);
+        return $mixedComponent;
+    }
 
     private function fillCart(Laboratory $laboratory, LaboratorySession $laboratorySession, array $ids): void
     {
@@ -253,7 +286,7 @@ trait HasTestCases
         ]);
     }
 
-    private function moveToMixComponent(
+    private function moveToPlaceComponent(
         LaboratorySession     $session,
         SessionComponentPlace $place,
         array                 $wheres
@@ -270,6 +303,7 @@ trait HasTestCases
 //        }
         $sessionComponent->changePlace($place);
     }
+
 
     private function moveToMix(LaboratorySession $session, array $components)
     {
@@ -291,4 +325,5 @@ trait HasTestCases
             }
         }
     }
+
 }

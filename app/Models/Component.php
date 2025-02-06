@@ -10,6 +10,7 @@ use App\Livewire\Stages\StorageStage\StorageComponents\ComponentStuff;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class Component extends Model
@@ -18,16 +19,17 @@ class Component extends Model
 
     protected $guarded = [];
     protected $casts = [
-        'type'            => ComponentType::class,
-        'on_scales_place' => SessionComponentPlace::class,
-        'on_mix_place'    => SessionComponentPlace::class,
-        'ph_meter_able'   => 'bool',
-        'mixer_able'      => 'bool',
-        'bath_able'       => 'bool',
-        'filtration_able' => 'bool',
-        'mix_able'        => 'bool',
-        'is_example'        => 'bool',
-        'ph_meter_value'  => 'decimal:4'
+        'type'                         => ComponentType::class,
+        'on_scales_place'              => SessionComponentPlace::class,
+        'on_mix_place'                 => SessionComponentPlace::class,
+        'on_filtration_examples_place' => SessionComponentPlace::class,
+        'ph_meter_able'                => 'bool',
+        'mixer_able'                   => 'bool',
+        'bath_able'                    => 'bool',
+        'filtration_able'              => 'bool',
+        'mix_able'                     => 'bool',
+        'is_example'                   => 'bool',
+        'ph_meter_value'               => 'decimal:4'
     ];
 
     /**
@@ -111,7 +113,7 @@ class Component extends Model
             case SessionComponentPlace::inBathLeftBox:
             case SessionComponentPlace::inBathRightBox:
                 return $this->bath_able;
-            case SessionComponentPlace::inFiltrationBox:
+            case SessionComponentPlace::inFiltrationMobilePhaseBox:
                 return $this->filtration_able;
             case SessionComponentPlace::inMixBoxOne:
                 return $this->on_mix_place === $place || $sessionComponent->is_mixed;
@@ -120,6 +122,12 @@ class Component extends Model
                 return $this->on_mix_place === $place && !$sessionComponent->is_mixed;
             case SessionComponentPlace::inMixBoxFour:
                 return $sessionComponent->is_weighed || $sessionComponent->is_mixed;
+            case SessionComponentPlace::inFiltrationExampleBoxOne:
+                return $sessionComponent->isTypeMixed() && $this->on_filtration_examples_place == $place;
+            case SessionComponentPlace::inFiltrationExampleBoxTwo:
+            case SessionComponentPlace::inFiltrationExampleBoxThree:
+            case SessionComponentPlace::inFiltrationExampleBoxFour:
+                return $sessionComponent->isTypeSimple() && $this->on_filtration_examples_place === $place;
             default:
                 return $this->on_scales_place === $place;
         }

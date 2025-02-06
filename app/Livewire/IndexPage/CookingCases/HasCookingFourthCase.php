@@ -66,25 +66,25 @@ trait HasCookingFourthCase
     private function bicalutamideCookingMixFourthMovedOnMixComponents(LaboratorySession $laboratorySession): void
     {
         // Бикалутамид, субстанция
-        $this->moveToMixComponent($laboratorySession, SessionComponentPlace::inMixBoxOne, [
+        $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxOne, [
             'weighed_right_component_id' => 37,
         ]);
 
         // Воронка средняя
-        $this->moveToMixComponent($laboratorySession, SessionComponentPlace::inMixBoxTwo, [
+        $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxTwo, [
             'component_id' => 2,
             'is_mixed'     => false,
             'is_weighed'   => false
         ]);
         // Мерная колба 0.50
-        $this->moveToMixComponent($laboratorySession, SessionComponentPlace::inMixBoxThree, [
+        $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxThree, [
             'component_id' => 19,
             'is_mixed'     => false,
             'is_weighed'   => false
         ]);
 
         // Result of mix number 3 - Растворитель в химическом стакане 200 мл
-        $this->moveToMixComponent($laboratorySession, SessionComponentPlace::inMixBoxFour, [
+        $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxFour, [
             'is_mixed'                 => true,
             'place'                    => 'inCart',
             'mixed_weighed_component_id' => 41, // Трифторуксусная кислота
