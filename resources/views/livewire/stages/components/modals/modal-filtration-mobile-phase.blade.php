@@ -56,7 +56,9 @@
                 @endif
             </div>
 
-            <button class="action_btn" type="button" wire:click="run">Профильтровать</button>
+            @if($sessionComponent)
+                <button class="action_btn" type="button" wire:click="run">Профильтровать</button>
+            @endif
         </div>
         <div class="exp">
             <div class="icon">

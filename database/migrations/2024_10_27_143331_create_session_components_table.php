@@ -106,6 +106,11 @@ return new class extends Migration {
             $table->unsignedBigInteger('filtered_example_four_session_cmp_id')->nullable();
             $table->foreign('filtered_example_four_session_cmp_id')->references('id')->on('session_components')->onDelete('cascade');
 
+            // filtering mobile phase
+            $table->unsignedBigInteger('filtered_mobile_phase_component_id')->nullable();
+            $table->foreign('filtered_mobile_phase_component_id')->references('id')->on('components')->onDelete('cascade');
+            $table->unsignedBigInteger('filtered_mobile_phase_session_cmp_id')->nullable();
+            $table->foreign('filtered_mobile_phase_session_cmp_id')->references('id')->on('session_components')->onDelete('cascade');
 
             $table->softDeletes();
             $table->timestamps();

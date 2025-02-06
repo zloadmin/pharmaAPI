@@ -19,15 +19,23 @@ trait HasFiltrationExampleSecondCase
             'preOpenModal' => 'filtration-examples'
         ]);
     }
+
     public function bicalutamideFiltrationExampleSecondFilteredExampleTestCase()
     {
-        $laboratorySession = $this->bicalutamideFiltrationExampleSecondMovedOnFilterExample();
-        $mixedComponent = $this->filtrationExample($laboratorySession);
-        $mixedComponent->moveToCart();
+
+        $laboratorySession = $this->bicalutamideFiltrationExampleSecondFilteredExample();
         return redirect()->route('cooking-stage', [
             'session'      => $laboratorySession->uuid,
             'preOpenModal' => 'filtration-examples'
         ]);
+    }
+
+    private function bicalutamideFiltrationExampleSecondFilteredExample(): LaboratorySession
+    {
+        $laboratorySession = $this->bicalutamideFiltrationExampleSecondMovedOnFilterExample();
+        $mixedComponent = $this->filtrationExample($laboratorySession);
+        $mixedComponent->moveToCart();
+        return $laboratorySession;
     }
 
     private function bicalutamideFiltrationExampleSecondMovedOnFilterExample(): LaboratorySession

@@ -6,7 +6,9 @@ use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Enums\SessionComponent\SessionComponentType as SessionComponentTypeEnum;
 
 use App\Models\SessionComponent\SessionComponentFiltrationExample;
+use App\Models\SessionComponent\SessionComponentFiltrationMobilePhase;
 use App\Models\SessionComponent\SessionComponentMix;
+use App\Models\SessionComponent\SessionComponentMove;
 use App\Models\SessionComponent\SessionComponentType;
 use App\Models\SessionComponent\SessionComponentWeigh;
 
@@ -26,6 +28,8 @@ class SessionComponent extends Model
     use SessionComponentFiltrationExample;
     use SessionComponentMix;
     use SessionComponentWeigh;
+    use SessionComponentMove;
+    use SessionComponentFiltrationMobilePhase;
 
 
     protected $casts = [
@@ -83,6 +87,8 @@ class SessionComponent extends Model
                 return $this->getNameMixed();
             case SessionComponentTypeEnum::FilteredExample:
                 return $this->getNameFilteredExample();
+            case SessionComponentTypeEnum::FilteredMobilePhase:
+                return $this->getNameFilteredMobilePhase();
         }
 
         if ($this->mobilePhase) {
@@ -99,13 +105,7 @@ class SessionComponent extends Model
 
     public function getShortName()
     {
-        if ($this->mobilePhase) {
-            return $this->mobilePhase->name;
-        }
-        if ($this->is_mixed) {
-            return $this->getName();
-        }
-        return $this->component->name;
+        return $this->component->short_name;
     }
 
     public function getImageUrl(): string

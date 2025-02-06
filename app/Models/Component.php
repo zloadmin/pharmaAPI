@@ -114,7 +114,7 @@ class Component extends Model
             case SessionComponentPlace::inBathRightBox:
                 return $this->bath_able;
             case SessionComponentPlace::inFiltrationMobilePhaseBox:
-                return $this->filtration_able;
+                return $this->filtration_able && $sessionComponent->isTypeMixed();
             case SessionComponentPlace::inMixBoxOne:
                 return $this->on_mix_place === $place || $sessionComponent->is_mixed;
             case SessionComponentPlace::inMixBoxTwo:
