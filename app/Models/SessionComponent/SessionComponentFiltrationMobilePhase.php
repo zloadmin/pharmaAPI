@@ -23,7 +23,7 @@ trait SessionComponentFiltrationMobilePhase
             'place'                                => SessionComponentPlace::onCookingTable,
             'type'                                 => SessionComponentType::FilteredMobilePhase,
             'session'                              => $session->uuid,
-            'component_id'                         => $sessionComponent->component_id,
+            'component_id'                         => 99,
             'filtered_mobile_phase_component_id'   => $sessionComponent->component_id,
             'filtered_mobile_phase_session_cmp_id' => $sessionComponent->id,
         ]);
