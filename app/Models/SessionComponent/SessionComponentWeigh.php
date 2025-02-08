@@ -79,14 +79,11 @@ trait SessionComponentWeigh
         return floatval($this->weighed_value);
     }
 
-    private function getWeighedValueInGram(): int
-    {
-        return $this->weighed_value_float ? intval($this->weighed_value_float * 1000) : 0;
-    }
+
 
     private function getNameWeighed(): string
     {
-        return sprintf('%s с %s %d мг', $this->getComponentName(), $this->getWeighedComponentName(), $this->getWeighedValueInGram());
+        return sprintf('%s с %s %.04f г', $this->getComponentName(), $this->getWeighedComponentName(), $this->weighed_value_float);
     }
 
     public function isWeighed(): bool

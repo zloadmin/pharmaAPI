@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreign('laboratory_id')->references('id')->on('laboratories')->onDelete('cascade');
             $table->string('name');
             $table->unsignedBigInteger('first_component_id');
-            $table->foreign('first_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->foreign('first_component_id')->references('id')->on('components')->onDelete('cascade');
             $table->unsignedBigInteger('second_component_id');
-            $table->foreign('second_component_id')->references('id')->on('session_components')->onDelete('cascade');
+            $table->foreign('second_component_id')->references('id')->on('components')->onDelete('cascade');
             $table->timestamps();
         });
     }

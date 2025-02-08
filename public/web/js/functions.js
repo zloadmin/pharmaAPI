@@ -37,7 +37,7 @@ function initRange() {
     window.range_current = window.scalesRangeValue;
     window.range_step = 0.005;
     window.range_min = 0.000;
-    window.range_max = 2.000;
+    window.range_max = 25.000;
 
     window.range = $('.interaction_data #range1').ionRangeSlider({
         min: window.range_min,
