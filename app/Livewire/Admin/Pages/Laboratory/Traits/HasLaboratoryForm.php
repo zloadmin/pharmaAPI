@@ -8,6 +8,7 @@ namespace App\Livewire\Admin\Pages\Laboratory\Traits;
 use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Models\Component;
 use App\Models\Laboratory;
+use App\Models\LaboratoryCookingComponent;
 use App\Models\LaboratoryMobilePhase;
 use App\Models\LaboratoryWeightingComponent;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,6 +24,7 @@ trait HasLaboratoryForm
         'videos'                  => 'Обучающее видео',
         'check-list'              => 'Расчетный лист',
         'weighting-components'    => 'Компоненты весовой',
+        'cooking-components'      => 'Компоненты приготовления растворов',
         'mobile-phases'           => 'Подвижные фазы',
         //        'weighing' => 'Весовая'
     ];
@@ -39,6 +41,8 @@ trait HasLaboratoryForm
     public ?array $videos = [];
     // weighting-components
     public array $weightingComponents = [];
+    // cooking-components
+    public array $cookingComponents = [];
     // mobile-phases
     public array $mobilePhases = [];
 
@@ -46,11 +50,13 @@ trait HasLaboratoryForm
     public array $filledComponents = [];
     public array $components = [];
 
+
     public function mountHasLaboratoryForm(): void
     {
         $this->stuffComponents = Component::getStuffComponentsDropdownArray();
         $this->filledComponents = Component::getFilledComponentsDropdownArray();
         $this->components = Component::getDropdownArray();
+
     }
 
     public function showTab($tabKey): void
@@ -66,6 +72,7 @@ trait HasLaboratoryForm
         $this->pharmacological_article_id = $laboratory->pharmacological_article_id;
         $this->check_values = $laboratory->check_values;
         $this->weightingComponents = $this->getWeightingComponents();
+        $this->cookingComponents = $this->getCookingComponents();
         $this->mobilePhases = $this->getMobilePhases();
 
         // load videos
@@ -79,6 +86,10 @@ trait HasLaboratoryForm
     {
         return $this->laboratory->weightingComponents()->get()->toArray();
     }
+    public function getCookingComponents()
+    {
+        return $this->laboratory->cookingComponents()->get()->toArray();
+    }
 
     public function getMobilePhases()
     {
@@ -89,12 +100,21 @@ trait HasLaboratoryForm
     {
         $this->weightingComponents[] = [];
     }
+    public function addCookingComponents(): void
+    {
+        $this->cookingComponents[] = [];
+    }
 
 
     public function deleteWeightingComponent(int $index): void
     {
 
         unset($this->weightingComponents[$index]);
+    }
+    public function deleteCookingComponent(int $index): void
+    {
+
+        unset($this->cookingComponents[$index]);
     }
 
     public function addMobilePhase(): void
@@ -212,6 +232,14 @@ trait HasLaboratoryForm
         $result = [];
         foreach ($this->weightingComponents as $weightingComponent) {
             $result[] = new LaboratoryWeightingComponent($weightingComponent);
+        }
+        return $result;
+    }
+    public function getCookingComponentModels(): array
+    {
+        $result = [];
+        foreach ($this->cookingComponents as $cookingComponent) {
+            $result[] = new LaboratoryCookingComponent($cookingComponent);
         }
         return $result;
     }

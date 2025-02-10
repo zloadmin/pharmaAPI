@@ -48,6 +48,10 @@ class Component extends Model
     {
         return self::query()->where('is_example', false)->pluck('name', 'id')->toArray();
     }
+    public static function getAnyDropdownArray(): array
+    {
+        return self::query()->pluck('name', 'id')->toArray();
+    }
 
     public function getImageUrlAttribute(): string
     {

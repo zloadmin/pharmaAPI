@@ -23,7 +23,7 @@ class StorageStage extends LivewireComponent
     public function mount(string $session): void
     {
         $this->setSession($session);
-        $this->unlockStage(Stage::weighting);
+        $this->unlockStageWeighting();
     }
 
     #[Layout('components.layouts.web')]

@@ -27,6 +27,7 @@ class ModalFiltrationMobilePhaseComponent extends ModalBase
         $this->init($session);
         $this->isShow = $isShow;
     }
+
     public function init(string $session): void
     {
         $this->setSession($session);
@@ -63,15 +64,26 @@ class ModalFiltrationMobilePhaseComponent extends ModalBase
     {
         $this->isShow = false;
     }
+
     public function run()
     {
-        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
         if ($this->sessionComponent) {
-            $this->sessionComponent->markAsFiltered();
-            $this->sessionComponent->moveToCookingTable();
+            $this->createFilteredMobilePhaseComponent();
+            $this->clearComponent();
         }
+        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
         $this->dispatch('hide-modal-filtration-mobile-phase');
         $this->dispatch('session-component-moved-to-cooking-table');
+    }
+
+    private function createFilteredMobilePhaseComponent(): void
+    {
+        SessionComponent::filterMobilePhase($this->sessionModel, $this->sessionComponent);
+    }
+
+    private function clearComponent(): void
+    {
+        SessionComponent::clearFilterMobilePhaseComponent($this->sessionComponent);
     }
 
 

@@ -24,6 +24,7 @@ trait HasFiltrationMobilePhaseFirstCase
         $laboratorySession = $this->bicalutamideFiltrationMobilePhaseFirstMovedOnFilterMobilePhase();
         $sessionComponent = $this->filtrationMobilePhase($laboratorySession);
         $sessionComponent->moveToCart();
+        $laboratorySession->checkChromatographRoomLock();
 
         return redirect()->route('cooking-stage', [
             'session'      => $laboratorySession->uuid,

@@ -32,7 +32,6 @@ class CookingStage extends Component
     {
 
         $this->setSession($session);
-        $this->unlockStage(Stage::chromatograph);
         $this->initIsPreOpenModals();
     }
 

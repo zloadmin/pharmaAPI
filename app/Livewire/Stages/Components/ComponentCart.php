@@ -94,6 +94,7 @@ class ComponentCart extends LivewireComponent
     {
         $this->setCartStageComponent($this->session);
         $this->checkCookingRoomLock();
+        $this->checkChromatographRoomLock();
     }
 
     public function removeItem($id): void

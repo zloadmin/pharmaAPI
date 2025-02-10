@@ -12,12 +12,20 @@ trait HasUnlockStages
 {
     use HasSession;
 
-    public function unlockStage(Stage $stage): void
+    private function unlockStage(Stage $stage): void
     {
         if ($this->isSessionModelLockedStage($stage)) {
             $this->sessionModel->unlockStage($stage);
             $this->dispatchUnlockedEvent($stage);
         }
+    }
+    public function unlockStageWeighting(): void
+    {
+        $this->unlockStage(Stage::weighting);
+    }
+    public function unlockStageChromatograph(): void
+    {
+        $this->unlockStage(Stage::chromatograph);
     }
 
     private function isSessionModelLockedStage(Stage $stage)
@@ -35,6 +43,17 @@ trait HasUnlockStages
         if ($this->sessionModel->isCookingRoomLocked() && $this->sessionModel->checkCookingRoomAbleUnlock()) {
             $this->sessionModel->unlockStage(Stage::cooking);
             $this->dispatchUnlockedEvent(Stage::cooking);
+        }
+    }
+    public function checkChromatographRoomLock(): void
+    {
+        if (
+            $this->sessionModel->isCookingRoomUnlocked() &&
+            $this->sessionModel->isChromatographRoomLocked() &&
+            $this->sessionModel->checkChromatographRoomAbleUnlock()
+        ) {
+            $this->sessionModel->unlockStage(Stage::chromatograph);
+            $this->dispatchUnlockedEvent(Stage::chromatograph);
         }
     }
 

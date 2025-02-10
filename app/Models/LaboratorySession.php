@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\SessionComponent\SessionComponentType;
 use App\Enums\Stages\Stage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -80,6 +81,16 @@ class LaboratorySession extends Model
         return $this->isLockStage(Stage::cooking);
     }
 
+    public function isCookingRoomUnlocked(): bool
+    {
+        return !$this->isCookingRoomLocked();
+    }
+
+    public function isChromatographRoomLocked(): bool
+    {
+        return $this->isLockStage(Stage::chromatograph);
+    }
+
     public function checkCookingRoomAbleUnlock(): bool
     {
         if ($this->sessionComponents()->weighed()->count() < $this->laboratory->weightingComponents()->count()) {
@@ -100,8 +111,25 @@ class LaboratorySession extends Model
                 }
             }
         }
-
         return $requiredComponents->count() == count($requiredComponentIds);
+    }
+
+    public function checkChromatographRoomAbleUnlock(): bool
+    {
+        $cookingComponentIds = $this->laboratory->cookingComponents()->pluck('component_id', 'id')->toArray();
+        $sessionComponentIds = $this->sessionComponents()
+            ->where('type', '!=', SessionComponentType::Simple)
+            ->whereIn('component_id', $cookingComponentIds)
+            ->pluck('component_id', 'id')->toArray();
+        foreach ($sessionComponentIds as $sessionComponentId) {
+            foreach ($cookingComponentIds as $cookingComponentKey => $cookingComponentId) {
+                if ($sessionComponentId == $cookingComponentId) {
+                    unset($cookingComponentIds[$cookingComponentKey]);
+                }
+            }
+        }
+
+        return count($cookingComponentIds) == 0;
     }
 
     public function unlockStage(Stage $stage): void
@@ -115,6 +143,17 @@ class LaboratorySession extends Model
     {
         if ($this->isCookingRoomLocked() && $this->checkCookingRoomAbleUnlock()) {
             $this->unlockStage(Stage::cooking);
+        }
+    }
+
+    public function checkChromatographRoomLock(): void
+    {
+        if (
+            $this->isCookingRoomUnlocked() &&
+            $this->isChromatographRoomLocked() &&
+            $this->checkChromatographRoomAbleUnlock()
+        ) {
+            $this->unlockStage(Stage::chromatograph);
         }
     }
 }

@@ -315,9 +315,9 @@ trait HasTestCases
             $sessionComponent->where($field, $value);
         }
         $sessionComponent = $sessionComponent->first();
-//        if(is_null($sessionComponent)) {
-//            dd($place, $wheres);
-//        }
+        if(is_null($sessionComponent)) {
+            dd($place, $wheres);
+        }
         $sessionComponent->changePlace($place);
     }
 
