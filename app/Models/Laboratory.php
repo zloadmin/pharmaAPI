@@ -22,7 +22,11 @@ class Laboratory extends Model
     ];
     protected $guarded = [];
     protected $casts = [
-        'check_values' => 'json'
+        'check_values'              => 'json',
+        'chromatograph_column_temp' => 'float',
+        'chromatograph_flow_speed'  => 'float',
+        'chromatograph_detector'    => 'integer',
+        'chromatograph_value'       => 'integer',
     ];
     static array $checkValues = [
         ['name' => 'check_value_one', 'title' => 'Значение 1'],
@@ -52,10 +56,12 @@ class Laboratory extends Model
     {
         return $this->hasMany(LaboratoryWeightingComponent::class);
     }
+
     public function cookingComponents(): HasMany
     {
         return $this->hasMany(LaboratoryCookingComponent::class);
     }
+
     public function mobilePhases(): HasMany
     {
         return $this->hasMany(LaboratoryMobilePhase::class);

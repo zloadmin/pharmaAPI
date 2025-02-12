@@ -27,8 +27,8 @@ return new class extends Migration {
             }
 
             // Chromatograph values
-            $table->decimal('chromatograph_column_temp', 5, 1)->nullable();
-            $table->decimal('chromatograph_flow_speed', 5, 3)->nullable();
+            $table->decimal('chromatograph_column_temp', 9, 1)->nullable();
+            $table->decimal('chromatograph_flow_speed', 9, 3)->nullable();
             $table->unsignedBigInteger('chromatograph_detector')->nullable();
             $table->unsignedBigInteger('chromatograph_value')->nullable();
 

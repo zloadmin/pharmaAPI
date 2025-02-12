@@ -26,7 +26,7 @@ trait HasLaboratoryForm
         'weighting-components'    => 'Компоненты весовой',
         'cooking-components'      => 'Компоненты приготовления растворов',
         'mobile-phases'           => 'Подвижные фазы',
-        //        'weighing' => 'Весовая'
+        'chromatograph'           => 'Хроматограф'
     ];
     // index
     public $name = '';
@@ -49,6 +49,11 @@ trait HasLaboratoryForm
     public array $stuffComponents = [];
     public array $filledComponents = [];
     public array $components = [];
+    // chromatograph
+    public ?float $chromatographColumnTemp;
+    public ?float $chromatographFlowSpeed;
+    public ?int $chromatographDetector;
+    public ?int $chromatographValue;
 
 
     public function mountHasLaboratoryForm(): void
@@ -56,7 +61,6 @@ trait HasLaboratoryForm
         $this->stuffComponents = Component::getStuffComponentsDropdownArray();
         $this->filledComponents = Component::getFilledComponentsDropdownArray();
         $this->components = Component::getDropdownArray();
-
     }
 
     public function showTab($tabKey): void
@@ -75,6 +79,12 @@ trait HasLaboratoryForm
         $this->cookingComponents = $this->getCookingComponents();
         $this->mobilePhases = $this->getMobilePhases();
 
+
+        $this->chromatographColumnTemp = $laboratory->chromatograph_column_temp;
+        $this->chromatographFlowSpeed = $laboratory->chromatograph_flow_speed;
+        $this->chromatographDetector = $laboratory->chromatograph_detector;
+        $this->chromatographValue = $laboratory->chromatograph_value;
+
         // load videos
         foreach (Laboratory::VIDEOS as $video) {
             $this->videos[$video['key']] = $laboratory->{$video['key']};
@@ -86,6 +96,7 @@ trait HasLaboratoryForm
     {
         return $this->laboratory->weightingComponents()->get()->toArray();
     }
+
     public function getCookingComponents()
     {
         return $this->laboratory->cookingComponents()->get()->toArray();
@@ -100,6 +111,7 @@ trait HasLaboratoryForm
     {
         $this->weightingComponents[] = [];
     }
+
     public function addCookingComponents(): void
     {
         $this->cookingComponents[] = [];
@@ -111,6 +123,7 @@ trait HasLaboratoryForm
 
         unset($this->weightingComponents[$index]);
     }
+
     public function deleteCookingComponent(int $index): void
     {
 
@@ -148,7 +161,11 @@ trait HasLaboratoryForm
             'name'                       => ['required', 'string', 'max:250'],
             'description'                => ['required'],
             'pharmacological_article_id' => ['required', Rule::exists('pharmacological_articles', 'id')],
-            'check_values'               => ['required', 'array']
+            'check_values'               => ['required', 'array'],
+            'chromatographColumnTemp'    => ['required', 'numeric', 'between:0.1,999.9'],
+            'chromatographFlowSpeed'     => ['required', 'numeric', 'between:0.001,999.999'],
+            'chromatographDetector'      => ['required', 'numeric', 'between:1,9999999'],
+            'chromatographValue'         => ['required', 'numeric', 'between:1,9999999'],
         ];
     }
 
@@ -210,6 +227,10 @@ trait HasLaboratoryForm
             'description'                => $this->description,
             'pharmacological_article_id' => $this->pharmacological_article_id,
             'check_values'               => $this->check_values,
+            'chromatograph_column_temp'  => $this->chromatographColumnTemp,
+            'chromatograph_flow_speed'   => $this->chromatographFlowSpeed,
+            'chromatograph_detector'     => $this->chromatographDetector,
+            'chromatograph_value'        => $this->chromatographValue,
         ];
     }
 
@@ -235,6 +256,7 @@ trait HasLaboratoryForm
         }
         return $result;
     }
+
     public function getCookingComponentModels(): array
     {
         $result = [];
