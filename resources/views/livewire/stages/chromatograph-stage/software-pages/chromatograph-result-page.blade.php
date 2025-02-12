@@ -12,25 +12,25 @@
                         <img src="/web/images/tmp/software/ic_arr_ver.svg" alt="">
                     </a></div>
 
-                <div><a href="/">
+                <div><a >
                         <span>Кофеин 2</span>
 
                         <img src="/web/images/tmp/software/ic_arr_ver.svg" alt="">
                     </a></div>
 
-                <div><a href="/">
+                <div><a >
                         <span>Кофеин 3</span>
 
                         <img src="/web/images/tmp/software/ic_arr_ver.svg" alt="">
                     </a></div>
 
-                <div><a href="/">
+                <div><a >
                         <span>Кофеин 4</span>
 
                         <img src="/web/images/tmp/software/ic_arr_ver.svg" alt="">
                     </a></div>
 
-                <div><a href="/">
+                <div><a >
                         <span>Кофеин 5</span>
 
                         <img src="/web/images/tmp/software/ic_arr_ver.svg" alt="">

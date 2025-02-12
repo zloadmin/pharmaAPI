@@ -8,6 +8,7 @@ namespace App\Livewire\IndexPage;
 use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Livewire\Admin\Traits\HasRedirects;
 use App\Livewire\IndexPage\CartCases\HasCartCase;
+use App\Livewire\IndexPage\ChromatographCases\ChromatographCases;
 use App\Livewire\IndexPage\CookingCases\HasCookingCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingEighthCase;
 use App\Livewire\IndexPage\CookingCases\HasCookingFifthCase;
@@ -59,6 +60,8 @@ trait HasTestCases
     // Filtration Mobile Phase
     use HasFiltrationMobilePhaseFirstCase;
 
+    // Chromatograph
+    use ChromatographCases;
 
     public $testCases = [];
 
@@ -124,6 +127,20 @@ trait HasTestCases
 
             ['title' => '[Фильтрация подвижной фазы]Бикалутамид - легкий - приготовление бутыля с ПФ - перенесено в фильтр', 'method' => 'bicalutamideFiltrationMobilePhaseFirstMovedOnFilterMobilePhaseTestCase'],
             ['title' => '[Фильтрация подвижной фазы]Бикалутамид - легкий - приготовление бутыля с ПФ - отфильтровано, перенесено в инвентарь', 'method' => 'bicalutamideFiltrationMobilePhaseFirstFilteredMobilePhaseTestCase'],
+
+            ['title' => '[Хроматограф]Все готово для работы на хроматографе', 'method' => 'bicalutamideChromatographInitCaseTestCase'],
+            ['title' => '[Хроматограф]Все готово для запуска ПО
+            Выполненные действия
+            1 - Включить
+            2 - Установить ПФ
+            3 - Открыть вентиль промывки капилляров
+            4 - Включить насос
+            5 - Выключить насос
+            6 - Закрыть вентиль промывки капилляров
+            7 - установить колонку
+            8 - Включить насос
+            9 - Выключить насос
+            ', 'method' => 'bicalutamideChromatographReadyForSoftWareCaseTestCase'],
         ];
     }
 

@@ -1,5 +1,5 @@
 <button class="btn no {{ $disabled ? 'disabled' : '' }}" type="button"
-        @if (!$is_on)
+        @if ($on_click && !$disabled)
             wire:click="{{ $on_click }}"
         @endif
 >
@@ -18,7 +18,10 @@
 
     <div>
         <div class="name">{{ $title }}</div>
-
         <div class="desc">{{ $desc }}</div>
+{{--        <div class="desc">{{ $enum->value }}</div>--}}
+{{--        @if ($on_click && !$disabled)--}}
+{{--            <div class="desc">{{ $on_click }}</div>--}}
+{{--        @endif--}}
     </div>
 </button>

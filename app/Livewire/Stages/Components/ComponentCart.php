@@ -87,6 +87,7 @@ class ComponentCart extends LivewireComponent
     }
 
     #[On('storage-component-added-in-cart')]
+    #[On('storage-component-deleted-in-cart')]
     #[On('session-component-moved-to-weighting-table')]
     #[On('session-component-moved-to-cooking-table')]
     #[On('session-component-moved-to-cart')]

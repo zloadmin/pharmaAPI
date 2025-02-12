@@ -17,6 +17,7 @@ class Component extends Model
 {
     use HasFactory;
 
+    const int FILTERED_MOBILE_PHASE_ID = 99;
     protected $guarded = [];
     protected $casts = [
         'type'                         => ComponentType::class,

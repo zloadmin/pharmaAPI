@@ -2,8 +2,16 @@
 
 namespace App\Models;
 
+use App\Enums\Chromatograph\ChromatographStatusColumns;
+use App\Enums\Chromatograph\ChromatographStatusFlushValve;
+use App\Enums\Chromatograph\ChromatographStatusInstalledJars;
+use App\Enums\Chromatograph\ChromatographStatusIntroduceSample;
+use App\Enums\Chromatograph\ChromatographStatusPump;
+use App\Enums\Chromatograph\ChromatographStatusSoftWare;
+use App\Enums\Chromatograph\ChromatographStatusTurnOn;
 use App\Enums\SessionComponent\SessionComponentType;
 use App\Enums\Stages\Stage;
+use App\Models\LaboratorySession\LaboratorySessionChromatograph;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,25 +21,36 @@ use Illuminate\Support\Str;
 class LaboratorySession extends Model
 {
     use HasFactory;
+    use LaboratorySessionChromatograph;
+
 
     protected $guarded = [];
 
     protected $casts = [
-        'settings'                 => 'json',
-        'chromatograph_is_set'     => 'bool',
-        'chromatograph_is_turn_on' => 'bool',
-        'chromatograph_is_open'    => 'bool',
-        'chromatograph_replaced'   => 'bool',
-        'chromatograph_pump'       => 'bool',
-        'chromatograph_injector'   => 'bool',
-        'check_values'             => 'json',
-        'chromatograph_values'     => 'json',
-        'is_lock_index'            => 'bool',
-        'is_lock_storage'          => 'bool',
-        'is_lock_weighting'        => 'bool',
-        'is_lock_cooking'          => 'bool',
-        'is_lock_chromatograph'    => 'bool',
+        'settings'              => 'json',
+        //        'chromatograph_is_set'     => 'bool',
+        //        'chromatograph_is_turn_on' => 'bool',
+        //        'chromatograph_is_open'    => 'bool',
+        //        'chromatograph_replaced'   => 'bool',
+        //        'chromatograph_pump'       => 'bool',
+        //        'chromatograph_injector'   => 'bool',
+        'check_values'          => 'json',
+        'chromatograph_values'  => 'json',
+        'is_lock_index'         => 'bool',
+        'is_lock_storage'       => 'bool',
+        'is_lock_weighting'     => 'bool',
+        'is_lock_cooking'       => 'bool',
+        'is_lock_chromatograph' => 'bool',
+
+        'chromatograph_status_installed_jars'   => ChromatographStatusInstalledJars::class,
+        'chromatograph_status_turn_on'          => ChromatographStatusTurnOn::class,
+        'chromatograph_status_flush_valve'      => ChromatographStatusFlushValve::class,
+        'chromatograph_status_pump'             => ChromatographStatusPump::class,
+        'chromatograph_status_columns'          => ChromatographStatusColumns::class,
+        'chromatograph_status_soft_ware'        => ChromatographStatusSoftWare::class,
+        'chromatograph_status_introduce_sample' => ChromatographStatusIntroduceSample::class,
     ];
+
 
     public function sessionComponents()
     {

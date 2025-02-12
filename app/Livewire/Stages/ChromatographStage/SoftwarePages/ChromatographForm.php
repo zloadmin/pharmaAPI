@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Stages\ChromatographStage\SoftwarePages;
 
 
+use App\Enums\Chromatograph\ChromatographStatusIntroduceSample;
 use App\Livewire\Admin\Traits\HasRedirects;
 use Illuminate\Support\Facades\Log;
 
@@ -49,6 +50,9 @@ trait ChromatographForm
     public function saveAndRedirect($name, $parameters = []): void
     {
         $this->save();
+        $this->sessionModel->update([
+            'chromatograph_status_introduce_sample' => ChromatographStatusIntroduceSample::Introduce
+        ]);
         $this->redirectRoute($name, $parameters, true, true);
     }
 

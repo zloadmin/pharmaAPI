@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Livewire\Traits;
 
 
+use App\Enums\Chromatograph\ChromatographStatusInstalledJars;
+use App\Enums\Chromatograph\ChromatographStatusTurnOn;
 use App\Models\Laboratory;
 use App\Models\LaboratorySession;
 use App\Models\PharmacologicalArticle;
@@ -41,35 +43,36 @@ trait HasSession
         ]);
     }
 
-    public function setSessionChromatographIsSet(bool $is_set): void
-    {
-        $this->sessionModel->update(['chromatograph_is_set' => $is_set]);
-    }
+//    public function setSessionChromatographIsSet(bool $is_set): void
+//    {
+//        $this->sessionModel->update(['chromatograph_is_set' => $is_set]);
+//    }
+//
+//    public function setSessionChromatographIsTurnOn(bool $is_set): void
+//    {
+//        $this->sessionModel->update(['chromatograph_is_turn_on' => $is_set]);
+//    }
+//
+//    public function setSessionChromatographIsOpenOn(bool $is_set): void
+//    {
+//        $this->sessionModel->update(['chromatograph_is_open' => $is_set]);
+//    }
+//
+//    public function setSessionChromatographReplacedOn(bool $is_set): void
+//    {
+//        $this->sessionModel->update(['chromatograph_replaced' => $is_set]);
+//    }
+//
+//    public function setSessionChromatographPumpOn(bool $is_set): void
+//    {
+//        $this->sessionModel->update(['chromatograph_pump' => $is_set]);
+//    }
+//
+//    public function setSessionChromatographInjectorOn(bool $is_set): void
+//    {
+//        $this->sessionModel->update(['chromatograph_injector' => $is_set]);
+//    }
 
-    public function setSessionChromatographIsTurnOn(bool $is_set): void
-    {
-        $this->sessionModel->update(['chromatograph_is_turn_on' => $is_set]);
-    }
-
-    public function setSessionChromatographIsOpenOn(bool $is_set): void
-    {
-        $this->sessionModel->update(['chromatograph_is_open' => $is_set]);
-    }
-
-    public function setSessionChromatographReplacedOn(bool $is_set): void
-    {
-        $this->sessionModel->update(['chromatograph_replaced' => $is_set]);
-    }
-
-    public function setSessionChromatographPumpOn(bool $is_set): void
-    {
-        $this->sessionModel->update(['chromatograph_pump' => $is_set]);
-    }
-
-    public function setSessionChromatographInjectorOn(bool $is_set): void
-    {
-        $this->sessionModel->update(['chromatograph_injector' => $is_set]);
-    }
 
     public function getSession(): LaboratorySession
     {

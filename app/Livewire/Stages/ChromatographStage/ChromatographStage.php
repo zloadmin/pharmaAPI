@@ -2,20 +2,27 @@
 
 namespace App\Livewire\Stages\ChromatographStage;
 
+use App\Enums\Chromatograph\ChromatographStatusColumns;
+use App\Enums\Chromatograph\ChromatographStatusFlushValve;
+use App\Enums\Chromatograph\ChromatographStatusInstalledJars;
+use App\Enums\Chromatograph\ChromatographStatusIntroduceSample;
+use App\Enums\Chromatograph\ChromatographStatusPump;
+use App\Enums\Chromatograph\ChromatographStatusSoftWare;
+use App\Enums\Chromatograph\ChromatographStatusTurnOn;
+use App\Enums\SessionComponent\SessionComponentType;
+use App\Livewire\Stages\ChromatographStage\ChromatographStage\HasChromatographStatuses;
 use App\Livewire\Traits\HasSession;
+use App\Models\SessionComponent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 class ChromatographStage extends Component
 {
     use HasSession;
-
-    public bool $is_set = false;
-    public bool $is_turn_on = false;
-    public bool $is_open = false;
-    public bool $replaced = false;
-    public bool $pump = false;
-    public bool $injector = false;
+    use HasChromatographStatuses;
 
     public function mount($session)
     {
@@ -25,12 +32,13 @@ class ChromatographStage extends Component
     public function init($session): void
     {
         $this->setSession($session);
-        $this->setIsSet();
-        $this->setIsTurnOn();
-        $this->setIsOpen();
-        $this->setReplaced();
-        $this->setPump();
-        $this->setInjector();
+        $this->setChromatographStatusInstalledJars();
+        $this->setChromatographStatusTurnOn();
+        $this->setChromatographStatusFlushValve();
+        $this->setChromatographStatusPump();
+        $this->setChromatographStatusColumns();
+        $this->setChromatographStatusSoftWare();
+        $this->setChromatographStatusIntroduceSample();
     }
 
     #[Layout('components.layouts.web')]
@@ -39,80 +47,93 @@ class ChromatographStage extends Component
         return view('livewire.stages.chromatograph-stage.chromatograph-stage');
     }
 
-    public function setIsSet(): void
+
+    /**
+     * Установка банок хромотографа
+     *
+     * @return void
+     */
+    public function turnOnStatusInstalledJars(): void
     {
-        $this->is_set = $this->sessionModel->chromatograph_is_set;
+        $this->sessionModel->setChromatographStatusInstalledJars();
+        $this->init($this->session);
+        $this->dispatch('storage-component-deleted-in-cart');
     }
 
-    public function setIsTurnOn(): void
+    /**
+     * Включение хромотографа
+     *
+     * @return void
+     */
+    public function turnOnChromatograph(): void
     {
-        $this->is_turn_on = $this->sessionModel->chromatograph_is_turn_on;
+        $this->sessionModel->setChromatographStatusTurnOn();
+        $this->init($this->session);
     }
 
-    public function setIsOpen(): void
+    /**
+     * Открытие вентиля промывки капилляров
+     *
+     * @return void
+     */
+    public function openChromatographFlushValve(): void
     {
-        $this->is_open = $this->sessionModel->chromatograph_is_open;
+        $this->sessionModel->setChromatographStatusFlushValveOpen();
+        $this->init($this->session);
     }
 
-    public function setReplaced(): void
+    /**
+     * Закрытие вентиля промывки капилляров
+     *
+     * @return void
+     */
+    public function closeChromatographFlushValve(): void
     {
-        $this->replaced = $this->sessionModel->chromatograph_replaced;
+        $this->sessionModel->setChromatographStatusFlushValveClose();
+        $this->init($this->session);
     }
 
-    public function setPump(): void
+    /**
+     * Включить насос
+     *
+     * @return void
+     */
+    public function turnOnPump(): void
     {
-        $this->pump = $this->sessionModel->chromatograph_pump;
+        $this->sessionModel->setChromatographPumpReadyOff();
+        $this->init($this->session);
     }
 
-    public function setInjector(): void
+    /**
+     * Выключить насос
+     *
+     * @return void
+     */
+    public function turnOffPump(): void
     {
-        $this->injector = $this->sessionModel->chromatograph_injector;
+        $this->sessionModel->setChromatographPumpOff();
+        $this->init($this->session);
     }
 
-    public function isSetOn(): void
+    /**
+     * Заменить колонки
+     *
+     * @return void
+     */
+    public function replaceColumns(): void
     {
-        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
-        $this->setSessionChromatographIsSet(true);
-        $this->is_set = true;
+        $this->sessionModel->setColumnsReplaced();
+        $this->init($this->session);
     }
 
-    public function isTurnOnOn(): void
-    {
-        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
-        $this->setSessionChromatographIsTurnOn(true);
-        $this->is_turn_on = true;
-    }
-
-    public function isOpenOn(): void
-    {
-        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
-        $this->setSessionChromatographIsOpenOn(true);
-        $this->is_open = true;
-    }
-
-    public function replacedOn(): void
-    {
-        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
-        $this->setSessionChromatographReplacedOn(true);
-        $this->replaced = true;
-    }
-
-    public function pumpOn(): void
-    {
-        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
-        $this->setSessionChromatographPumpOn(true);
-        $this->pump = true;
-    }
-
-    public function injectorOn(): void
-    {
-        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
-        $this->setSessionChromatographInjectorOn(true);
-        $this->injector = true;
-    }
-
-    public function run(): void
+    /**
+     * Запуск ПО
+     * @return void
+     */
+    public function runSoftWare(): void
     {
         $this->redirectRoute('chromatograph-status-page', [$this->session], true, true);
     }
+
+
 }

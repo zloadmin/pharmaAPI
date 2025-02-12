@@ -35,7 +35,9 @@
       @foreach($testCases as $step =>  $testCase)
           <tr>
               <th scope="row">{{ $step + 1 }}</th>
-              <td>{{ $testCase['title'] }}</td>
+              <td>
+                  {!! str_replace("\n", "<br>", $testCase['title']) !!}
+              </td>
               <td>
                   <a wire:click="{{ $testCase['method'] }}()" class="btn btn-success">
                       Начать
