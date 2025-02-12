@@ -10,71 +10,197 @@
 
         <div class="row">
             <div class="col1">
-                <div class="section">
-                    <div class="title">Сигналы</div>
+                <div class="row">
+                    <div class="section big">
+                        <div class="title">Поток</div>
 
-                    <table>
-                        <thead>
-                        <tr>
-                            <th class="alignleft">Сбор данных</th>
+                        <div class="field">
+                            <div class="amount">
+                                <button type="button" class="btn minus">
+                                    <svg><use xlink:href="images/sprite.svg#ic_arr_ver"></use></svg>
+                                </button>
 
-                            <th class="pad_left">Длина<br> волны</th>
+                                <input type="number" min="0.001" max="999.999" step="0.001" wire:model="chromatograph_flow_speed" class="input" >
 
-                            <th>Ширина<br> полосы</th>
+                                <button type="button" class="btn plus">
+                                    <svg><use xlink:href="images/sprite.svg#ic_arr_ver"></use></svg>
+                                </button>
+                            </div>
 
-                            <th class="pad_left">ДВ<br> сравнения</th>
+                            <div class="unit">мл/мин</div>
+                        </div>
+                    </div>
 
-                            <th class="pad_right">Ширина<br> сравнения</th>
-                        </tr>
-                        </thead>
+                    <div class="section big">
+                        <div class="title">Параметры давления</div>
 
-                        <tbody>
-                        <tr>
-                            <td>Сигнал А</td>
+                        <div class="row">
+                            <div class="field">
+                                <img src="/web/images/tmp/software/software3_img1.svg" alt="">
+                            </div>
 
-                            <td class="pad_left">
-                                <label class="checkbox">
-                                    <input type="checkbox" wire:model="isBinaryPump">
-
-                                    <div class="check">
-                                        <svg><use xlink:href="images/sprite.svg#ic_check"></use></svg>
-                                    </div>
-                                </label>
+                            <div class="field">
+                                <div class="label">Макс:</div>
 
                                 <div class="amount">
                                     <button type="button" class="btn minus">
-                                        <svg><use xlink:href="images/sprite.svg#ic_arr_ver"></use></svg>
+                                        <svg><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
                                     </button>
 
-                                    <input type="text" class="input" wire:model="binaryPumpValue">
+                                    <input type="text" value="0.00" class="input blue" data-minimum="0" data-maximum="50" data-step="0.1" data-unit="" maxlength="5">
 
                                     <button type="button" class="btn plus">
-                                        <svg><use xlink:href="images/sprite.svg#ic_arr_ver"></use></svg>
+                                        <svg><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
                                     </button>
                                 </div>
-                            </td>
 
-                            <td>
-                                <img src="/web/images/tmp/software/software2_img4.svg" alt="">
-                            </td>
+                                <div class="unit">бар</div>
+                            </div>
+                        </div>
+                    </div>
 
-                            <td>
-                                <img src="/web/images/tmp/software/software2_img5.svg" alt="">
-                            </td>
+                    <div class="section">
+                        <div class="title">Время остановки</div>
 
-                            <td>
-                                <img src="/web/images/tmp/software/software2_img6.svg" alt="">
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        <div class="field">
+                            <img src="/web/images/tmp/software/software3_img2.svg" alt="">
+                        </div>
 
-                    <img src="/web/images/tmp/software/software2_img7.svg" alt="">
+                        <div class="field">
+                            <label class="radio">
+                                <input type="radio" name="group1">
+                                <div class="check"></div>
+                            </label>
+
+                            <div class="amount">
+                                <button type="button" class="btn minus">
+                                    <svg><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
+                                </button>
+
+                                <input type="text" value="1.00" class="input blue" data-minimum="0" data-maximum="50" data-step="0.1" data-unit="" maxlength="5">
+
+                                <button type="button" class="btn plus">
+                                    <svg><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
+                                </button>
+                            </div>
+
+                            <div class="unit">мин</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <img src="/web/images/tmp/software/software3_img3.svg" alt="">
+                    </div>
                 </div>
             </div>
 
             <div class="col2">
-                <img src="/web/images/tmp/software/software2_img3.svg" alt="">
+                <img src="/web/images/tmp/software/software3_img4.svg" alt="">
+
+                <div class="accordion">
+                    <div class="accordion_item active">
+                        <div class="head">
+                            <img src="/web/images/tmp/software/ic_arr_ver.svg" alt="">
+
+                            <div class="title"><b>Расписание</b> (пусто)</div>
+                        </div>
+
+                        <div class="data" style="display: block;">
+                            <div class="warning">
+                                <span>Для программистов: инфа к табличке: Общее значение А и Б равно 100%;  Если А 70% то = Б 30%</span>
+
+                                <img src="/web/images/tmp/software/software3_img5.svg" alt="">
+                            </div>
+
+                            <div class="schedule_table_wrap">
+                                <table class="schedule_table">
+                                    <thead>
+                                    <tr>
+                                        <th>Время (мин)</th>
+                                        <th>A(%)</th>
+                                        <th>B(%)</th>
+                                        <th>Поток<br> (мл/мин)</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td>0.00</td>
+                                        <td>100.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>0.00</td>
+                                        <td>100.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>0.00</td>
+                                        <td>100.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>0.00</td>
+                                        <td>100.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>0.00</td>
+                                        <td>100.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>0.00</td>
+                                        <td>100.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>0.00</td>
+                                        <td>100.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>0.00</td>
+                                        <td>100.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>0.00</td>
+                                        <td>100.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>0.00</td>
+                                        <td>100.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <img src="/web/images/tmp/software/software3_img6.svg" alt="">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -49,6 +49,11 @@ class LaboratorySession extends Model
         'chromatograph_status_columns'          => ChromatographStatusColumns::class,
         'chromatograph_status_soft_ware'        => ChromatographStatusSoftWare::class,
         'chromatograph_status_introduce_sample' => ChromatographStatusIntroduceSample::class,
+
+        'chromatograph_column_temp' => 'float',
+        'chromatograph_flow_speed'  => 'float',
+        'chromatograph_detector'    => 'int',
+        'chromatograph_value'       => 'int',
     ];
 
 
@@ -62,17 +67,17 @@ class LaboratorySession extends Model
         return $this->belongsTo(Laboratory::class);
     }
 
-    public function getChromatographValue(string $key): mixed
-    {
-        return $this->chromatograph_values[$key] ?? null;
-    }
+//    public function getChromatographValue(string $key): mixed
+//    {
+//        return $this->chromatograph_values[$key] ?? null;
+//    }
 
-    public function saveChromatographValues(array $values): void
-    {
-        $this->update([
-            'chromatograph_values' => $values
-        ]);
-    }
+//    public function saveChromatographValues(array $values): void
+//    {
+//        $this->update([
+//            'chromatograph_values' => $values
+//        ]);
+//    }
 
 
     static function start(Laboratory $laboratory): string
@@ -174,5 +179,21 @@ class LaboratorySession extends Model
         ) {
             $this->unlockStage(Stage::chromatograph);
         }
+    }
+
+    public function checkChromatographValues(): void
+    {
+        if ($this->isChromatographValuesRight()) {
+            $this->setChromatographStatusIntroduceSampleIntroduce();
+        }
+    }
+
+    public function isChromatographValuesRight(): bool
+    {
+
+        return $this->chromatograph_column_temp == $this->laboratory->chromatograph_column_temp &&
+            $this->chromatograph_flow_speed == $this->laboratory->chromatograph_flow_speed &&
+            $this->chromatograph_detector == $this->laboratory->chromatograph_detector &&
+            $this->chromatograph_value == $this->laboratory->chromatograph_value;
     }
 }

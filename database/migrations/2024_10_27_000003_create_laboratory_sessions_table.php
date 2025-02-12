@@ -73,6 +73,12 @@ return new class extends Migration {
                 ->default(ChromatographStatusIntroduceSample::getDefaultStatusValue())->comment('Статус запуска ввода пробы хроматографа');
 
 
+            // Chromatograph values
+            $table->decimal('chromatograph_column_temp', 9, 1)->nullable();
+            $table->decimal('chromatograph_flow_speed', 9, 3)->nullable();
+            $table->unsignedBigInteger('chromatograph_detector')->nullable();
+            $table->unsignedBigInteger('chromatograph_value')->nullable();
+
 //            $table->boolean('chromatograph_status_is_turn_on')->default(false);
 //            $table->boolean('chromatograph_status_is_open')->default(false);
 //            $table->boolean('chromatograph_status_replaced')->default(false);

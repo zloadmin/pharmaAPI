@@ -131,16 +131,18 @@ trait HasTestCases
             ['title' => '[Хроматограф]Все готово для работы на хроматографе', 'method' => 'bicalutamideChromatographInitCaseTestCase'],
             ['title' => '[Хроматограф]Все готово для запуска ПО
             Выполненные действия
-            1 - Включить
-            2 - Установить ПФ
+            1 - Установить ПФ
+            2 - Включить
             3 - Открыть вентиль промывки капилляров
             4 - Включить насос
             5 - Выключить насос
             6 - Закрыть вентиль промывки капилляров
-            7 - установить колонку
+            7 - Установить колонку
             8 - Включить насос
             9 - Выключить насос
             ', 'method' => 'bicalutamideChromatographReadyForSoftWareCaseTestCase'],
+            ['title' => '[Хроматограф]ПО - ДАННЫЕ ЗАПОЛНЕНЫ ВЕРНО', 'method' => 'bicalutamideChromatographFilledSoftWareCaseTestCase'],
+            ['title' => '[Хроматограф]ПО - ДАННЫЕ ПРОВЕРЕНЫ', 'method' => 'bicalutamideChromatographCheckedSoftWateCaseTestCase'],
         ];
     }
 
@@ -332,7 +334,7 @@ trait HasTestCases
             $sessionComponent->where($field, $value);
         }
         $sessionComponent = $sessionComponent->first();
-        if(is_null($sessionComponent)) {
+        if (is_null($sessionComponent)) {
             dd($place, $wheres);
         }
         $sessionComponent->changePlace($place);

@@ -24,7 +24,7 @@
                                         <option value="3">Метод сбора данных 3</option>
                                         <option value="4">Метод сбора данных 4</option>
                                         <option value="5">Метод сбора данных 5</option>
-                                    </select><div class="nice-select   " tabindex="0"><span class="current">Заполняем название метода (Выпадашка из пяти строчек)</span><div class="nice-select-dropdown"><ul class="list"><li data-value="1" class="option null">Метод сбора данных 1</li><li data-value="2" class="option null">Метод сбора данных 2</li><li data-value="3" class="option null">Метод сбора данных 3</li><li data-value="4" class="option null">Метод сбора данных 4</li><li data-value="5" class="option null">Метод сбора данных 5</li></ul></div></div>
+                                    </select><div class="nice-select" tabindex="0"><span class="current">Заполняем название метода (Выпадашка из пяти строчек)</span><div class="nice-select-dropdown"><ul class="list"><li data-value="1" class="option null">Метод сбора данных 1</li><li data-value="2" class="option null">Метод сбора данных 2</li><li data-value="3" class="option null">Метод сбора данных 3</li><li data-value="4" class="option null">Метод сбора данных 4</li><li data-value="5" class="option null">Метод сбора данных 5</li></ul></div></div>
 
                                     <img src="/web/images/tmp/software/ic_arr_ver.svg" alt="" class="arr">
                                 </div>
@@ -42,7 +42,7 @@
                                 <div class="label">Вводимый объем</div>
 
                                 <div class="field">
-                                    <input type="text" name="" value="" class="input" placeholder="Проверяемые цифры">
+                                    <input type="number" min="1" max="9999999" step="1" wire:model="chromatograph_value" class="input" >
                                 </div>
                             </div>
 

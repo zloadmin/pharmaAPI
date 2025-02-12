@@ -37,19 +37,19 @@
                                     <input type="checkbox" name="group" checked="">
 
                                     <div class="check">
-                                        <svg><use xlink:href="images/sprite.svg#ic_check"></use></svg>
+                                        <svg><use xlink:href="/web/images/sprite.svg#ic_check"></use></svg>
                                     </div>
                                 </label>
 
                                 <div class="amount">
                                     <button type="button" class="btn minus">
-                                        <svg><use xlink:href="images/sprite.svg#ic_arr_ver"></use></svg>
+                                        <svg><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
                                     </button>
 
-                                    <input type="text" value="250" class="input" data-minimum="1" data-maximum="99999" data-step="1" data-unit="" maxlength="5">
+                                    <input type="number" min="1" max="9999999" step="1" wire:model="chromatograph_detector"  class="input" >
 
                                     <button type="button" class="btn plus">
-                                        <svg><use xlink:href="images/sprite.svg#ic_arr_ver"></use></svg>
+                                        <svg><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
                                     </button>
                                 </div>
                             </td>

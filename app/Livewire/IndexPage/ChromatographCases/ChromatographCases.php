@@ -27,11 +27,52 @@ trait ChromatographCases
 
     public function bicalutamideChromatographReadyForSoftWareCaseTestCase()
     {
+        $laboratorySession = $this->bicalutamideChromatographReadyForSoftWareCase();
+
+
+        return redirect()->route('chromatograph-stage', [
+            'session' => $laboratorySession->uuid
+        ]);
+    }
+
+    public function bicalutamideChromatographFilledSoftWareCaseTestCase()
+    {
+
+        $laboratorySession = $this->bicalutamideChromatographFilledSoftWareCase();
+        return redirect()->route('chromatograph-method-page', [
+            'session' => $laboratorySession->uuid
+        ]);
+    }
+
+    public function bicalutamideChromatographCheckedSoftWateCaseTestCase()
+    {
+        $laboratorySession = $this->bicalutamideChromatographFilledSoftWareCase();
+        $laboratorySession->checkChromatographValues();
+
+        return redirect()->route('chromatograph-stage', [
+            'session' => $laboratorySession->uuid
+        ]);
+    }
+
+    private function bicalutamideChromatographFilledSoftWareCase(): LaboratorySession
+    {
+        $laboratorySession = $this->bicalutamideChromatographReadyForSoftWareCase();
+        $laboratorySession->update([
+            'chromatograph_column_temp' => $laboratorySession->laboratory->chromatograph_column_temp,
+            'chromatograph_flow_speed'  => $laboratorySession->laboratory->chromatograph_flow_speed,
+            'chromatograph_detector'    => $laboratorySession->laboratory->chromatograph_detector,
+            'chromatograph_value'       => $laboratorySession->laboratory->chromatograph_value,
+        ]);
+        return $laboratorySession;
+    }
+
+    private function bicalutamideChromatographReadyForSoftWareCase(): LaboratorySession
+    {
         $laboratorySession = $this->bicalutamideFiltrationMobilePhaseFirstFilteredMobilePhase();
-        // 1 - Включить
-        $laboratorySession->setChromatographStatusTurnOn();
-        // 2 - Установить ПФ
+        // 1 - Установить ПФ
         $laboratorySession->setChromatographStatusInstalledJars();
+        // 2 - Включить
+        $laboratorySession->setChromatographStatusTurnOn();
         // 3 - Открыть вентиль промывки капилляров
         $laboratorySession->setChromatographStatusFlushValveOpen();
         // 4 - Включить насос
@@ -47,10 +88,7 @@ trait ChromatographCases
         // 9 - Выключить насос
         $laboratorySession->setChromatographPumpOff();
 
-
-        return redirect()->route('chromatograph-stage', [
-            'session' => $laboratorySession->uuid
-        ]);
+        return $laboratorySession;
     }
 
 }

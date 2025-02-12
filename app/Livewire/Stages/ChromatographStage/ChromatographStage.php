@@ -132,7 +132,7 @@ class ChromatographStage extends Component
      */
     public function runSoftWare(): void
     {
-        $this->redirectRoute('chromatograph-status-page', [$this->session], true, true);
+        $this->redirectRoute('chromatograph-method-page', [$this->session], true, true);
     }
 
 

@@ -8,7 +8,7 @@
 
         <div class="full_panel">
             <div class="head">
-                <div class="title">Метод сбора данных — Аминосалициловая кислота <span>(название формируется из хим вещества в билете)</span></div>
+                <div class="title">Метод сбора данных — {{ $laboratory->name }}</div>
 
                 <img src="/web/images/tmp/software/software2_img1.svg" alt="">
             </div>
@@ -22,7 +22,7 @@
                             <a
 {{--                                    href="{{ route('chromatograph-method-page', $session) }}" class="sub_link active" wire:navigate--}}
                                     wire:click="saveAndRedirect('chromatograph-method-page', '{{ $session }}')"
-                                    href="{{ route('chromatograph-method-page', $session) }}" class="sub_link active" wire:navigate
+                                    class="sub_link active" wire:navigate
                             >
                                 <img src="/web/images/tmp/software/ic_arr_ver.svg" alt="" class="arr">
                                 <span>Параметры прибора</span>

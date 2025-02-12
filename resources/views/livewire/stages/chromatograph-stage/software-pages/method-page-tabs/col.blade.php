@@ -23,19 +23,19 @@
                                 <div class="field">
                                     <label class="radio">
 
-                                        <input type="radio"  wire:model="isColPath">
+                                        <input type="radio" checked>
                                         <div class="check"></div>
                                     </label>
 
                                     <div class="amount">
                                         <button type="button" class="btn minus">
-                                            <svg><use xlink:href="images/sprite.svg#ic_arr_ver"></use></svg>
+                                            <svg><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
                                         </button>
 
-                                        <input type="text"  class="input" wire:model="colPathValue">
+                                        <input type="number" min="0.1" max="999.9" step="0.1" class="input" wire:model="chromatograph_column_temp">
 
                                         <button type="button" class="btn plus">
-                                            <svg><use xlink:href="images/sprite.svg#ic_arr_ver"></use></svg>
+                                            <svg><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>
                                         </button>
                                     </div>
 

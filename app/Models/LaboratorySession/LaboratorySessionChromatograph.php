@@ -8,6 +8,7 @@ namespace App\Models\LaboratorySession;
 use App\Enums\Chromatograph\ChromatographStatusColumns;
 use App\Enums\Chromatograph\ChromatographStatusFlushValve;
 use App\Enums\Chromatograph\ChromatographStatusInstalledJars;
+use App\Enums\Chromatograph\ChromatographStatusIntroduceSample;
 use App\Enums\Chromatograph\ChromatographStatusPump;
 use App\Enums\Chromatograph\ChromatographStatusSoftWare;
 use App\Enums\Chromatograph\ChromatographStatusTurnOn;
@@ -78,6 +79,14 @@ trait LaboratorySessionChromatograph
             'chromatograph_status_turn_on'        => ChromatographStatusTurnOn::Off
         ]);
         $this->getMobilePhasesSessionComponentsBuilder()->delete();
+    }
+
+    public function setChromatographStatusIntroduceSampleIntroduce(): void
+    {
+        $this->update([
+            'chromatograph_status_introduce_sample' => ChromatographStatusIntroduceSample::Introduce
+        ]);
+
     }
 
     private function getNewStatusOfChromatographStatusInstalledJars(): ChromatographStatusInstalledJars

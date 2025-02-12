@@ -70,6 +70,6 @@
 
     <a class="check_btn"
 {{--       href="{{ route('chromatograph-stage', $session) }}" wire:navigate--}}
-       wire:click="saveAndRedirect('chromatograph-stage', '{{ $session }}')" href="#"
+       wire:click="saveAndCheck" href="#"
     >Проверить</a>
 </div>
