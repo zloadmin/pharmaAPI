@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Chromatograph\ChromatographStatusColumns;
+use App\Enums\Chromatograph\ChromatographStatusEntries;
 use App\Enums\Chromatograph\ChromatographStatusFlushValve;
 use App\Enums\Chromatograph\ChromatographStatusInstalledJars;
 use App\Enums\Chromatograph\ChromatographStatusIntroduceSample;
@@ -66,11 +67,14 @@ return new class extends Migration {
             $table->enum('chromatograph_status_columns', ChromatographStatusColumns::values())
                 ->default(ChromatographStatusColumns::getDefaultStatusValue())->comment('Статус колонок хроматографа');
 
+            $table->enum('chromatograph_status_introduce_sample', ChromatographStatusIntroduceSample::values())
+                ->default(ChromatographStatusIntroduceSample::getDefaultStatusValue())->comment('Статус запуска ввода пробы хроматографа');
+
             $table->enum('chromatograph_status_soft_ware', ChromatographStatusSoftWare::values())
                 ->default(ChromatographStatusSoftWare::getDefaultStatusValue())->comment('Статус запуска ПО хроматографа');
 
-            $table->enum('chromatograph_status_introduce_sample', ChromatographStatusIntroduceSample::values())
-                ->default(ChromatographStatusIntroduceSample::getDefaultStatusValue())->comment('Статус запуска ввода пробы хроматографа');
+            $table->enum('chromatograph_status_entries', ChromatographStatusEntries::values())
+                ->default(ChromatographStatusEntries::getDefaultStatusValue())->comment('Статус внесения записей хроматографа');
 
 
             // Chromatograph values

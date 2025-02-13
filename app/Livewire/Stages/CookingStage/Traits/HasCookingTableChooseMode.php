@@ -67,6 +67,7 @@ trait HasCookingTableChooseMode
     }
 
 
+
     public function setMixerChooseMode(): void
     {
         $this->setCookingTableChooseMode(SessionComponentPlace::inMixer);

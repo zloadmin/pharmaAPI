@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ChromatographStage extends Component
@@ -39,6 +40,13 @@ class ChromatographStage extends Component
         $this->setChromatographStatusColumns();
         $this->setChromatographStatusSoftWare();
         $this->setChromatographStatusIntroduceSample();
+        $this->setChromatographStatusEntries();
+    }
+
+    #[On('modal-chromatograph-examples-updated')]
+    public function updatePage()
+    {
+        $this->init($this->session);
     }
 
     #[Layout('components.layouts.web')]
@@ -128,6 +136,7 @@ class ChromatographStage extends Component
 
     /**
      * Запуск ПО
+     *
      * @return void
      */
     public function runSoftWare(): void

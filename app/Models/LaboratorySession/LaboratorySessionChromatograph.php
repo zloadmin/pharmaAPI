@@ -6,6 +6,7 @@ namespace App\Models\LaboratorySession;
 
 
 use App\Enums\Chromatograph\ChromatographStatusColumns;
+use App\Enums\Chromatograph\ChromatographStatusEntries;
 use App\Enums\Chromatograph\ChromatographStatusFlushValve;
 use App\Enums\Chromatograph\ChromatographStatusInstalledJars;
 use App\Enums\Chromatograph\ChromatographStatusIntroduceSample;
@@ -86,7 +87,14 @@ trait LaboratorySessionChromatograph
         $this->update([
             'chromatograph_status_introduce_sample' => ChromatographStatusIntroduceSample::Introduce
         ]);
+    }
 
+    public function setChromatographStatusIntroduceSampleDone(): void
+    {
+        $this->update([
+            'chromatograph_status_introduce_sample' => ChromatographStatusIntroduceSample::Done,
+            'chromatograph_status_entries'          => ChromatographStatusEntries::Enable
+        ]);
     }
 
     private function getNewStatusOfChromatographStatusInstalledJars(): ChromatographStatusInstalledJars

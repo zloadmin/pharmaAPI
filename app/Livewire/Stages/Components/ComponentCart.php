@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Stages\Components;
 
+use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Enums\SessionComponent\SessionComponentType;
+use App\Livewire\Traits\HasCartChooseMode;
 use App\Livewire\Traits\HasSession;
 use App\Livewire\Traits\HasUnlockStages;
 use App\Models\SessionComponent;
@@ -17,13 +19,50 @@ class ComponentCart extends LivewireComponent
 {
     use HasSession;
     use HasUnlockStages;
+//    use HasCartChooseMode;
 
     public Collection $cartItems;
     public array $filters;
     public string $clickComponentEvent = '';
+
+
     const SETTING_FILTERS_KEY = 'cart_filters';
 
+    // TODO: move to trait
+    public ?SessionComponentPlace $cartChooseModePlace = null;
+
+    #[On('set-cart-choose-mode')]
+    public function setCartChooseMode(?SessionComponentPlace $place): void
+    {
+        Log::info('ComponentCart::setCartChooseMode');
+        $this->cartChooseModePlace = $place;
+        $this->updateList();
+    }
+    #[On('unset-cart-choose-mode')]
+    public function unsetCartChooseMode(): void
+    {
+        Log::info('ComponentCart::unsetCartChooseMode');
+        $this->cartChooseModePlace = null;
+        $this->updateList();
+    }
+    public function moveToExampleBox($sessionComponentID, SessionComponentPlace $place): void
+    {
+        $sessionComponent = SessionComponent::find($sessionComponentID);
+        if($sessionComponent) {
+
+            $sessionComponent->changePlace($place);
+            $this->cartChooseModePlace = null;
+            $this->dispatch('session-component-moved-to-chromatograph-example');
+        }
+        // TODO: add dispatch event
+    }
+
+
     public function mount(string $session, string $clickComponentEvent = ''): void
+    {
+        $this->init($session, $clickComponentEvent);
+    }
+    public function init(string $session, string $clickComponentEvent = ''): void
     {
         $this->setSession($session);
         $this->setClickComponentEvent($clickComponentEvent);
@@ -31,6 +70,8 @@ class ComponentCart extends LivewireComponent
         $this->setCartStageComponent();
         $this->dispatch('cart-init');
     }
+
+
 
     public function changeFilters()
     {
@@ -91,6 +132,7 @@ class ComponentCart extends LivewireComponent
     #[On('session-component-moved-to-weighting-table')]
     #[On('session-component-moved-to-cooking-table')]
     #[On('session-component-moved-to-cart')]
+    #[On('session-component-moved-to-chromatograph-example')]
     public function updateList(): void
     {
         $this->setCartStageComponent($this->session);

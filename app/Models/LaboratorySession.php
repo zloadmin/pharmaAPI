@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Chromatograph\ChromatographStatusColumns;
+use App\Enums\Chromatograph\ChromatographStatusEntries;
 use App\Enums\Chromatograph\ChromatographStatusFlushValve;
 use App\Enums\Chromatograph\ChromatographStatusInstalledJars;
 use App\Enums\Chromatograph\ChromatographStatusIntroduceSample;
@@ -49,6 +50,7 @@ class LaboratorySession extends Model
         'chromatograph_status_columns'          => ChromatographStatusColumns::class,
         'chromatograph_status_soft_ware'        => ChromatographStatusSoftWare::class,
         'chromatograph_status_introduce_sample' => ChromatographStatusIntroduceSample::class,
+        'chromatograph_status_entries'          => ChromatographStatusEntries::class,
 
         'chromatograph_column_temp' => 'float',
         'chromatograph_flow_speed'  => 'float',

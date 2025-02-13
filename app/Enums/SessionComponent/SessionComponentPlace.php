@@ -31,6 +31,9 @@ enum SessionComponentPlace: string
     case inFiltrationExampleBoxThree = 'inFiltrationExampleBoxThree';
     case inFiltrationExampleBoxFour = 'inFiltrationExampleBoxFour';
 
+    case inChromatographExampleLeftBox = 'inChromatographExampleLeftBox';
+    case inChromatographExampleRightBox = 'inChromatographExampleRightBox';
+
 
     public function label(): string
     {
@@ -82,6 +85,7 @@ enum SessionComponentPlace: string
         }
         return $values;
     }
+
     static function getFiltrationExamplesPlaceValues(): array
     {
         $values = [];
@@ -108,6 +112,7 @@ enum SessionComponentPlace: string
             self::inMixBoxThree,
         ];
     }
+
     static function getFiltrationExamplesPlaces(): array
     {
         return [

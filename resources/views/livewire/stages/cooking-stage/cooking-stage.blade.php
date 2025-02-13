@@ -109,6 +109,15 @@
         console.log('cooking::session-component-moved-in-filtration');
         window.table_cooking_choose_mode = null;
     });
+    $wire.on('session-component-moved-in-filtration-mobile-phase', () => {
+        console.log('cooking::session-component-moved-in-filtration-mobile-phase');
+        window.table_cooking_choose_mode = null;
+    });
+    $wire.on('session-component-moved-in-filtration-examples', () => {
+        console.log('cooking::session-component-moved-in-filtration-examples');
+        window.table_cooking_choose_mode = null;
+    });
+
     $wire.on('session-component-moved-to-cooking-table', () => {
         console.log('cooking::session-component-moved-to-cooking-table');
         window.table_cooking_choose_mode = null;

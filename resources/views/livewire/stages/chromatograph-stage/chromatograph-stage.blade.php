@@ -10,8 +10,6 @@
                     <div class="title">Хроматограф</div>
 
                     <div class="row">
-
-                        {{--                        @include('livewire.stages.chromatograph-stage.button', ['status' => $chromatographStatusInstalledJars])--}}
                         @include('livewire.stages.chromatograph-stage.button', [
                             'title' => $chromatographStatusInstalledJars->getTitle(),
                             'desc' => $chromatographStatusInstalledJars->getDescription(),
@@ -49,39 +47,6 @@
                             'enum' => $chromatographStatusPump,
                         ])
 
-
-                        {{--                        @include('livewire.stages.chromatograph-stage.button', [--}}
-                        {{--                            'title' => 'Установить',--}}
-                        {{--                            'desc' => 'Поставить банки на хроматограф',--}}
-                        {{--                            'disabled' => false,--}}
-                        {{--                            'icon_href' => '/web/images/sprite.svg#ic_chromatograph1',--}}
-                        {{--                            'is_on' => $is_set,--}}
-                        {{--                            'on_click' => 'isSetOn'--}}
-                        {{--                        ])--}}
-                        {{--                        @include('livewire.stages.chromatograph-stage.button', [--}}
-                        {{--                            'title' => 'Включить',--}}
-                        {{--                            'desc' => 'Включает весь хроматограф',--}}
-                        {{--                            'disabled' => !$is_set,--}}
-                        {{--                            'icon_href' => '/web/images/sprite.svg#ic_chromatograph1',--}}
-                        {{--                            'is_on' => $is_turn_on,--}}
-                        {{--                            'on_click' => 'isTurnOnOn'--}}
-                        {{--                        ])--}}
-                        {{--                        @include('livewire.stages.chromatograph-stage.button', [--}}
-                        {{--                            'title' => 'Открыть',--}}
-                        {{--                            'desc' => 'Вентель промыки каппиляров',--}}
-                        {{--                            'disabled' => !$is_turn_on,--}}
-                        {{--                            'icon_href' => '/web/images/sprite.svg#ic_chromatograph2',--}}
-                        {{--                            'is_on' => $is_open,--}}
-                        {{--                            'on_click' => 'isOpenOn'--}}
-                        {{--                        ])--}}
-                        {{--                        @include('livewire.stages.chromatograph-stage.button', [--}}
-                        {{--                            'title' => 'Заменить колонки',--}}
-                        {{--                            'desc' => 'Замена колонки в хроматографе',--}}
-                        {{--                            'disabled' => !$is_open,--}}
-                        {{--                            'icon_href' => '/web/images/sprite.svg#ic_chromatograph3',--}}
-                        {{--                            'is_on' => $replaced,--}}
-                        {{--                            'on_click' => 'replacedOn'--}}
-                        {{--                        ])--}}
                     </div>
                 </div>
 
@@ -96,14 +61,6 @@
                             'on_click' => 'replaceColumns',
                             'enum' => $chromatographStatusColumns,
                         ])
-                    {{--                    @include('livewire.stages.chromatograph-stage.button', [--}}
-                    {{--                            'title' => 'Включить',--}}
-                    {{--                            'desc' => 'Управление насосом хроматографа',--}}
-                    {{--                            'disabled' => !$replaced,--}}
-                    {{--                            'icon_href' => '/web/images/sprite.svg#ic_chromatograph4',--}}
-                    {{--                            'is_on' => $pump,--}}
-                    {{--                            'on_click' => 'pumpOn'--}}
-                    {{--                        ])--}}
                 </div>
 
                 <div class="section">
@@ -114,18 +71,10 @@
                             'disabled' => $chromatographStatusIntroduceSample->isDisabled(),
                             'icon_href' => $chromatographStatusIntroduceSample->getIconHref(),
                             'is_on' => $chromatographStatusIntroduceSample->isOn(),
-                            'on_click' => 'on',
+                            'on_click' => $chromatographStatusIntroduceSample->onClick(),
                             'enum' => $chromatographStatusIntroduceSample,
                         ])
 
-                    {{--                    @include('livewire.stages.chromatograph-stage.button', [--}}
-                    {{--                            'title' => 'Подсоеденить',--}}
-                    {{--                            'desc' => 'Ввод шприцов в кран хроматографа',--}}
-                    {{--                            'disabled' => !$pump,--}}
-                    {{--                            'icon_href' => '/web/images/sprite.svg#ic_chromatograph5',--}}
-                    {{--                            'is_on' => $injector,--}}
-                    {{--                            'on_click' => 'injectorOn'--}}
-                    {{--                        ])--}}
                 </div>
 
                 <div class="section">
@@ -139,26 +88,18 @@
                            'on_click' => 'runSoftWare',
                            'enum' => $chromatographStatusSoftWare,
                        ])
-
-                    {{--                    <button--}}
-                    {{--                            class="default_btn modal_btn {{ !$injector ? 'disabled' : '' }}"--}}
-                    {{--                            data-modal="chromatograph_error_modal"--}}
-                    {{--                            type="button"--}}
-                    {{--                            @if ($injector)--}}
-                    {{--                                wire:click="run"--}}
-                    {{--                            @endif--}}
-                    {{--                    >--}}
-                    {{--                        <svg><use xlink:href="/web/images/sprite.svg#ic_chromatograph6"></use></svg>--}}
-                    {{--                        <span>Запустить ПО</span>--}}
-                    {{--                    </button>--}}
                 </div>
 
                 <div class="section">
-                    {{--                    <div class="title">Записи</div>--}}
-                    {{--                    <a href="/task_modal4.html" data-type="ajax" class="default_btn disabled">--}}
-                    {{--                        <svg><use xlink:href="/web/images/sprite.svg#ic_chromatograph7"></use></svg>--}}
-                    {{--                        <span>Внести записи</span>--}}
-                    {{--                    </a>--}}
+                    <div class="title">Записи</div>
+                    @include('livewire.stages.chromatograph-stage.small-button', [
+                          'title' => $chromatographStatusEntries->getTitle(),
+                          'disabled' => $chromatographStatusEntries->isDisabled(),
+                          'icon_href' => $chromatographStatusEntries->getIconHref(),
+                          'is_on' => $chromatographStatusEntries->isOn(),
+                          'on_click' => '',
+                          'enum' => $chromatographStatusEntries,
+                      ])
                 </div>
             </div>
         </div>
@@ -168,7 +109,40 @@
         <livewire:stages.components.modals.modal-cart-component :session='$session'/>
         <livewire:stages.components.component-cart :session='$session'
                                                    click-component-event="show-cart-component-modal"/>
+        <div class="exhaust">
+            <livewire:stages.components.modals.modal-chromatograph-examples :session='$session'/>
+        </div>
     </section>
     <livewire:stages.components.modals.modal-video/>
-
 </div>
+@script
+<script>
+
+
+    $wire.on('unset-cart-choose-mode', () => {
+        console.log('chromatograph::unset-cart-choose-mode');
+        window.cart_choose_mode = null;
+    });
+    $wire.on('set-cart-choose-mode', (place) => {
+        console.log('chromatograph::unset-cart-choose-mode', place);
+        window.cart_choose_mode = place;
+    });
+    // const components = document.querySelector('.target_component');
+
+
+    document.addEventListener('click', (event) => {
+        const components = Array.prototype.slice.call(document.querySelectorAll('.target_component'));
+        let hasTarget = false;
+        for (let i = 0; i < components.length; i++) {
+            if (event.composedPath().includes(components[i])) {
+                hasTarget = true;
+            }
+        }
+        if (!hasTarget && window.cart_choose_mode) {
+            console.log('cooking::DISPATCH unset-cooking-table-choose-mode')
+            $wire.dispatch('unset-cart-choose-mode');
+        }
+
+    })
+</script>
+@endscript

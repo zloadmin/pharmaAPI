@@ -1734,6 +1734,10 @@ header .select_room_btn .icon
 {
     box-shadow: 0 0 10px #69bfff;
 }
+/*.bottom_panel .item_force_hover*/
+/*{*/
+/*    box-shadow: 0 0 10px #69bfff;*/
+/*}*/
 
 
 .bottom_panel .item:hover .name

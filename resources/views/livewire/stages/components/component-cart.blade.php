@@ -24,12 +24,15 @@
             <div class="swiper" id="swiper">
                 <div class="swiper-wrapper">
                     @foreach($cartItems as $cartItem)
-                        <div class="swiper-slide visible swiper-slide-fully-visible active" style="margin-right: 16px;"
-{{--                             @if($isShowModalMoveToTableComponent)--}}
-                                 wire:click="$dispatch('{{ $clickComponentEvent }}', { id: {{ $cartItem->id }} })"
-{{--                            @else--}}
-{{--                                 wire:click="$dispatch('show-cart-component-modal', { id: {{ $cartItem->id }} })"--}}
-{{--                            @endif--}}
+                        <div  style="margin-right: 16px;"
+                             @if($cartChooseModePlace && $cartItem->isCanBeChoose($cartChooseModePlace))
+                                 class="swiper-slide visible swiper-slide-fully-visible active target_component item_force_hover"
+                                wire:click="moveToExampleBox({{ $cartItem->id }}, '{{ $cartChooseModePlace->value }}')"
+                             @else
+                                  class="swiper-slide visible swiper-slide-fully-visible active"
+                                wire:click="$dispatch('{{ $clickComponentEvent }}', { id: {{ $cartItem->id }} })"
+                             @endif
+
                         >
                             <div class="item">
                                 <button class="remove_btn" type="button" wire:click="removeItem({{ $cartItem->id }})">

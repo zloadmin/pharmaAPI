@@ -43,4 +43,8 @@ enum ChromatographStatusIntroduceSample: string
     {
         return 'Ввод шприцов в кран хроматографа';
     }
+    public function onClick() : string
+    {
+        return $this == self::Introduce ? '$dispatch("show-modal-chromatograph-examples")'  : '';
+    }
 }

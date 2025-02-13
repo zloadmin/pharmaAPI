@@ -49,6 +49,7 @@ class Component extends Model
     {
         return self::query()->where('is_example', false)->pluck('name', 'id')->toArray();
     }
+
     public static function getAnyDropdownArray(): array
     {
         return self::query()->pluck('name', 'id')->toArray();
@@ -110,6 +111,7 @@ class Component extends Model
     public function isCanBeChoose(SessionComponentPlace $place, SessionComponent $sessionComponent): bool
     {
 
+
         switch ($place) {
             case SessionComponentPlace::onPHMeter:
                 return $this->ph_meter_able;
@@ -133,6 +135,9 @@ class Component extends Model
             case SessionComponentPlace::inFiltrationExampleBoxThree:
             case SessionComponentPlace::inFiltrationExampleBoxFour:
                 return $sessionComponent->isTypeSimple() && $this->on_filtration_examples_place === $place;
+            case SessionComponentPlace::inChromatographExampleLeftBox:
+            case SessionComponentPlace::inChromatographExampleRightBox:
+                return $sessionComponent->isTypeFilteredExample();
             default:
                 return $this->on_scales_place === $place;
         }

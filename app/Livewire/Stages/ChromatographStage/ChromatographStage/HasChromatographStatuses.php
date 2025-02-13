@@ -6,6 +6,7 @@ namespace App\Livewire\Stages\ChromatographStage\ChromatographStage;
 
 
 use App\Enums\Chromatograph\ChromatographStatusColumns;
+use App\Enums\Chromatograph\ChromatographStatusEntries;
 use App\Enums\Chromatograph\ChromatographStatusFlushValve;
 use App\Enums\Chromatograph\ChromatographStatusInstalledJars;
 use App\Enums\Chromatograph\ChromatographStatusIntroduceSample;
@@ -22,6 +23,7 @@ trait HasChromatographStatuses
     public ChromatographStatusColumns $chromatographStatusColumns;
     public ChromatographStatusSoftWare $chromatographStatusSoftWare;
     public ChromatographStatusIntroduceSample $chromatographStatusIntroduceSample;
+    public ChromatographStatusEntries $chromatographStatusEntries;
 
     private function setChromatographStatusInstalledJars(): void
     {
@@ -56,6 +58,11 @@ trait HasChromatographStatuses
     private function setChromatographStatusIntroduceSample(): void
     {
         $this->chromatographStatusIntroduceSample = $this->sessionModel->chromatograph_status_introduce_sample;
+    }
+
+    private function setChromatographStatusEntries(): void
+    {
+        $this->chromatographStatusEntries = $this->sessionModel->chromatograph_status_entries;
     }
 
 }

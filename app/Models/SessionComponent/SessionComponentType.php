@@ -19,4 +19,8 @@ trait SessionComponentType
     {
         return  $this->type === SessionComponentTypeEnum::Simple;
     }
+    public function isTypeFilteredExample(): bool
+    {
+        return  $this->type === SessionComponentTypeEnum::FilteredExample;
+    }
 }

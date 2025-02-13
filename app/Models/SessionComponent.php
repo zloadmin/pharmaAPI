@@ -260,6 +260,27 @@ class SessionComponent extends Model
         return $query->where('place', SessionComponentPlace::inBathRightBox);
     }
 
+    /**
+     * Scope a query to only include in chromatograph example left box
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeInChromatographExampleLeftBox(Builder $query): Builder
+    {
+        return $query->where('place', SessionComponentPlace::inChromatographExampleLeftBox);
+    }
+    /**
+     * Scope a query to only include in chromatograph example right box
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeInChromatographExampleRightBox(Builder $query): Builder
+    {
+        return $query->where('place', SessionComponentPlace::inChromatographExampleRightBox);
+    }
+
     public function getValueTextAttribute(): string
     {
         if ($this->valueStuff) {

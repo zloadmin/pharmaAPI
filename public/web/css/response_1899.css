@@ -242,6 +242,11 @@
         top: 155px;
         left: 24px;
     }
+    .chromatograph #modal_chromatograph_examples
+    {
+        top: 155px !important;
+        left: 444px !important;
+    }
 
 
 
