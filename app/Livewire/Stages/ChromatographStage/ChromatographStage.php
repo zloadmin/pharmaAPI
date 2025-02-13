@@ -18,12 +18,16 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class ChromatographStage extends Component
 {
     use HasSession;
     use HasChromatographStatuses;
+
+    #[Url]
+    public bool $preOpenModalExamples = false;
 
     public function mount($session)
     {

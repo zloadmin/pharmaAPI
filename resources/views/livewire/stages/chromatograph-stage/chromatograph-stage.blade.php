@@ -110,7 +110,7 @@
         <livewire:stages.components.component-cart :session='$session'
                                                    click-component-event="show-cart-component-modal"/>
         <div class="exhaust">
-            <livewire:stages.components.modals.modal-chromatograph-examples :session='$session'/>
+            <livewire:stages.components.modals.modal-chromatograph-examples :session='$session' :is-show='$preOpenModalExamples'/>
         </div>
     </section>
     <livewire:stages.components.modals.modal-video/>

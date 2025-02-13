@@ -128,7 +128,7 @@ trait HasTestCases
             ['title' => '[Фильтрация подвижной фазы]Бикалутамид - легкий - приготовление бутыля с ПФ - перенесено в фильтр', 'method' => 'bicalutamideFiltrationMobilePhaseFirstMovedOnFilterMobilePhaseTestCase'],
             ['title' => '[Фильтрация подвижной фазы]Бикалутамид - легкий - приготовление бутыля с ПФ - отфильтровано, перенесено в инвентарь', 'method' => 'bicalutamideFiltrationMobilePhaseFirstFilteredMobilePhaseTestCase'],
 
-            ['title' => '[Хроматограф]Все готово для работы на хроматографе', 'method' => 'bicalutamideChromatographInitCaseTestCase'],
+            ['title' => '[Хроматограф]Все готово для работы на хроматографе', 'method' => 'bicalutamideChromatographInitTestCase'],
             ['title' => '[Хроматограф]Все готово для запуска ПО
             Выполненные действия
             1 - Установить ПФ
@@ -140,9 +140,11 @@ trait HasTestCases
             7 - Установить колонку
             8 - Включить насос
             9 - Выключить насос
-            ', 'method' => 'bicalutamideChromatographReadyForSoftWareCaseTestCase'],
-            ['title' => '[Хроматограф]ПО - ДАННЫЕ ЗАПОЛНЕНЫ ВЕРНО', 'method' => 'bicalutamideChromatographFilledSoftWareCaseTestCase'],
-            ['title' => '[Хроматограф]ПО - ДАННЫЕ ПРОВЕРЕНЫ', 'method' => 'bicalutamideChromatographCheckedSoftWateCaseTestCase'],
+            ', 'method' => 'bicalutamideChromatographReadyForSoftWareTestCase'],
+            ['title' => '[Хроматограф]ПО - ДАННЫЕ ЗАПОЛНЕНЫ ВЕРНО', 'method' => 'bicalutamideChromatographFilledSoftWareTestCase'],
+            ['title' => '[Хроматограф]ПО - ДАННЫЕ ПРОВЕРЕНЫ', 'method' => 'bicalutamideChromatographCheckedSoftWareTestCase'],
+            ['title' => '[Хроматограф]Ввод пробы - перенесено но не введено', 'method' => 'bicalutamideExamplesOnModalExamplesTestCase'],
+            ['title' => '[Хроматограф]Ввод пробы - внесено', 'method' => 'bicalutamideExamplesDoneTestCase'],
         ];
     }
 

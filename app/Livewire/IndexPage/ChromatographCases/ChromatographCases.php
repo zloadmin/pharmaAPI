@@ -16,7 +16,7 @@ use App\Models\LaboratorySession;
 
 trait ChromatographCases
 {
-    public function bicalutamideChromatographInitCaseTestCase()
+    public function bicalutamideChromatographInitTestCase()
     {
         $laboratorySession = $this->bicalutamideFiltrationMobilePhaseFirstFilteredMobilePhase();
 
@@ -25,7 +25,7 @@ trait ChromatographCases
         ]);
     }
 
-    public function bicalutamideChromatographReadyForSoftWareCaseTestCase()
+    public function bicalutamideChromatographReadyForSoftWareTestCase()
     {
         $laboratorySession = $this->bicalutamideChromatographReadyForSoftWareCase();
 
@@ -35,7 +35,7 @@ trait ChromatographCases
         ]);
     }
 
-    public function bicalutamideChromatographFilledSoftWareCaseTestCase()
+    public function bicalutamideChromatographFilledSoftWareTestCase()
     {
 
         $laboratorySession = $this->bicalutamideChromatographFilledSoftWareCase();
@@ -44,14 +44,50 @@ trait ChromatographCases
         ]);
     }
 
-    public function bicalutamideChromatographCheckedSoftWateCaseTestCase()
+    public function bicalutamideChromatographCheckedSoftWareTestCase()
     {
-        $laboratorySession = $this->bicalutamideChromatographFilledSoftWareCase();
-        $laboratorySession->checkChromatographValues();
+
+        $laboratorySession = $this->bicalutamideChromatographCheckedSoftWare();
+        return redirect()->route('chromatograph-stage', [
+            'session' => $laboratorySession->uuid
+        ]);
+    }
+
+    public function bicalutamideExamplesOnModalExamplesTestCase()
+    {
+        $laboratorySession = $this->bicalutamideExamplesOnModalExamples();
+
+        return redirect()->route('chromatograph-stage', [
+            'session'              => $laboratorySession->uuid,
+            'preOpenModalExamples' => true
+        ]);
+    }
+
+    public function bicalutamideExamplesDoneTestCase()
+    {
+        $laboratorySession = $this->bicalutamideExamplesOnModalExamples();
+        $laboratorySession->setChromatographStatusIntroduceSampleDone();
 
         return redirect()->route('chromatograph-stage', [
             'session' => $laboratorySession->uuid
         ]);
+    }
+
+    private function bicalutamideExamplesOnModalExamples(): LaboratorySession
+    {
+        $laboratorySession = $this->bicalutamideChromatographCheckedSoftWare();
+        $firstComponent = $laboratorySession->sessionComponents()->filteredExampleType()->skip(0)->take(1)->first();
+        $firstComponent?->moveToChromatographExampleLeftBox();
+        $secondComponent = $laboratorySession->sessionComponents()->filteredExampleType()->skip(1)->take(1)->first();
+        $secondComponent?->moveToChromatographExampleRightBox();
+        return $laboratorySession;
+    }
+
+    private function bicalutamideChromatographCheckedSoftWare(): LaboratorySession
+    {
+        $laboratorySession = $this->bicalutamideChromatographFilledSoftWareCase();
+        $laboratorySession->checkChromatographValues();
+        return $laboratorySession;
     }
 
     private function bicalutamideChromatographFilledSoftWareCase(): LaboratorySession

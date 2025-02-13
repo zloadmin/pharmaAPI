@@ -31,6 +31,14 @@ trait SessionComponentMove
     {
         $this->changePlace(SessionComponentPlace::onCookingTable);
     }
+    public function moveToChromatographExampleLeftBox(): void
+    {
+        $this->changePlace(SessionComponentPlace::inChromatographExampleLeftBox);
+    }
+    public function moveToChromatographExampleRightBox(): void
+    {
+        $this->changePlace(SessionComponentPlace::inChromatographExampleRightBox);
+    }
 
     public function moveToSink(): void
     {

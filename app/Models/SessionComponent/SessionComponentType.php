@@ -23,4 +23,14 @@ trait SessionComponentType
     {
         return  $this->type === SessionComponentTypeEnum::FilteredExample;
     }
+     /**
+      * Scope a query to only include filtered example type.
+      *
+      * @param  \Illuminate\Database\Eloquent\Builder  $query
+      * @return \Illuminate\Database\Eloquent\Builder
+      */
+     public function scopeFilteredExampleType($query)
+     {
+         return $query->where('type', SessionComponentTypeEnum::FilteredExample);
+     }
 }
