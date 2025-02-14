@@ -1784,6 +1784,13 @@ header .select_room_btn .icon
     padding: 27px 20px 20px;
     z-index: 999;
 }
+.object_modal.result
+{
+    width: 95%;
+    height: auto;
+    padding: 27px 20px 20px;
+    z-index: 999;
+}
 
 
 .object_modal .close_btn

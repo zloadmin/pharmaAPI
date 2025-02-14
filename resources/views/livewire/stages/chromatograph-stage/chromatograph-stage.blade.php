@@ -97,7 +97,7 @@
                           'disabled' => $chromatographStatusEntries->isDisabled(),
                           'icon_href' => $chromatographStatusEntries->getIconHref(),
                           'is_on' => $chromatographStatusEntries->isOn(),
-                          'on_click' => '',
+                          'on_click' => '$dispatch("show-modal-result")',
                           'enum' => $chromatographStatusEntries,
                       ])
                 </div>
@@ -109,6 +109,7 @@
         <livewire:stages.components.modals.modal-cart-component :session='$session'/>
         <livewire:stages.components.component-cart :session='$session'
                                                    click-component-event="show-cart-component-modal"/>
+        <livewire:stages.components.modals.modal-result :session='$session'/>
         <div class="exhaust">
             <livewire:stages.components.modals.modal-chromatograph-examples :session='$session' :is-show='$preOpenModalExamples'/>
         </div>
