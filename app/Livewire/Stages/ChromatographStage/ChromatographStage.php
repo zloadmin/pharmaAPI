@@ -70,6 +70,7 @@ class ChromatographStage extends Component
         $this->sessionModel->setChromatographStatusInstalledJars();
         $this->init($this->session);
         $this->dispatch('storage-component-deleted-in-cart');
+        $this->dispatch('show-modal-video', fileName: 'install_jars.mov');
     }
 
     /**
@@ -81,6 +82,7 @@ class ChromatographStage extends Component
     {
         $this->sessionModel->setChromatographStatusTurnOn();
         $this->init($this->session);
+        $this->dispatch('show-modal-video', fileName: 'turn_on.mp4');
     }
 
     /**
@@ -92,6 +94,7 @@ class ChromatographStage extends Component
     {
         $this->sessionModel->setChromatographStatusFlushValveOpen();
         $this->init($this->session);
+        //$this->dispatch('show-modal-video', fileName: 'flush_valve.mp4');
     }
 
     /**
@@ -114,6 +117,7 @@ class ChromatographStage extends Component
     {
         $this->sessionModel->setChromatographPumpReadyOff();
         $this->init($this->session);
+        $this->dispatch('show-modal-video', fileName: 'pump_on.mp4');
     }
 
     /**
@@ -125,6 +129,7 @@ class ChromatographStage extends Component
     {
         $this->sessionModel->setChromatographPumpOff();
         $this->init($this->session);
+
     }
 
     /**
@@ -136,6 +141,7 @@ class ChromatographStage extends Component
     {
         $this->sessionModel->setColumnsReplaced();
         $this->init($this->session);
+        $this->dispatch('show-modal-video', fileName: 'install_columns.mp4');
     }
 
     /**

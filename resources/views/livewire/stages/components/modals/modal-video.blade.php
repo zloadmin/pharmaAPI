@@ -7,6 +7,7 @@
         </button>
 
         <div class="video" style="width: 100%; height: 100%; object-fit: fill">
+{{--            <h5>{{ $fileName }}</h5>--}}
             <video controls autoplay style="width: 100%; max-height: 100%">
                 <source src="/storage/videos/{{ $fileName }}" type="video/mp4">
             </video>
