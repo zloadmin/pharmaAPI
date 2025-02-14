@@ -6,6 +6,7 @@ namespace App\Livewire\IndexPage\CookingCases;
 
 
 use App\Enums\SessionComponent\SessionComponentPlace;
+use App\Enums\SessionComponent\SessionComponentType;
 use App\Models\LaboratorySession;
 use App\Models\SessionComponent;
 use Illuminate\Http\RedirectResponse;
@@ -66,7 +67,10 @@ trait HasCookingThirdCase
     {
         // Подвижная фаза А
         $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxOne, [
-            'mobile_phase_id' => 1,
+//            'mobile_phase_id' => 1,
+            'type' => SessionComponentType::MobilePhase,
+            'mixed_one_component_id' => 27, // Дестилированная вода
+            'mixed_weighed_component_id' => 41, // Трифторуксусная кислота
         ]);
         // Воронка средняя
         $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxTwo, [
@@ -83,7 +87,10 @@ trait HasCookingThirdCase
 
         // Подвижная фаза Б
         $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxFour, [
-            'mobile_phase_id' => 2,
+//            'mobile_phase_id' => 2,
+            'type' => SessionComponentType::MobilePhase,
+            'mixed_one_component_id' => 42, // Ацетонитрил
+            'mixed_weighed_component_id' => 41, // Трифторуксусная кислота
         ]);
     }
 

@@ -6,6 +6,7 @@ namespace App\Livewire\IndexPage\CookingCases;
 
 
 use App\Enums\SessionComponent\SessionComponentPlace;
+use App\Enums\SessionComponent\SessionComponentType;
 use App\Models\LaboratorySession;
 use App\Models\SessionComponent;
 use Illuminate\Http\RedirectResponse;
@@ -16,6 +17,10 @@ use Illuminate\Http\RedirectResponse;
 trait HasCookingEighthCase
 {
 
+    /**
+     * 1 приготовление химического стакана с готовой конечной подвижной фазой - перенесено в смешивание
+     * @return RedirectResponse
+     */
     public function bicalutamideCookingMixEighthMovedOnMixTestCase()
     {
 
@@ -27,6 +32,10 @@ trait HasCookingEighthCase
         ]);
     }
 
+    /**
+     * 2 приготовление химического стакана с готовой конечной подвижной фазой - смешено, перенесено в инвентарь
+     * @return RedirectResponse
+     */
     public function bicalutamideCookingMixEighthDoneTestCase()
     {
         $laboratorySession = $this->bicalutamideCookingMixEighthDone();
@@ -57,7 +66,10 @@ trait HasCookingEighthCase
     {
         // Подвижная фаза А
         $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxOne, [
-            'mobile_phase_id' => 1,
+//            'mobile_phase_id' => 1,
+                'type' => SessionComponentType::MobilePhase,
+                'mixed_one_component_id' => 27, // Дестилированная вода
+                'mixed_weighed_component_id' => 41, // Трифторуксусная кислота
         ]);
         // Воронка средняя
         $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxTwo, [
@@ -74,7 +86,10 @@ trait HasCookingEighthCase
 
         // Подвижная фаза Б
         $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxFour, [
-            'mobile_phase_id' => 2,
+//            'mobile_phase_id' => 2,
+            'type'                       => SessionComponentType::MobilePhase,
+            'mixed_one_component_id'     => 42, // Ацетонитрил
+            'mixed_weighed_component_id' => 41, // Трифторуксусная кислота
         ]);
     }
 
