@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models\SessionComponent;
 
 
+use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Enums\SessionComponent\SessionComponentType;
 use App\Models\Component;
 use App\Models\SessionComponent;
@@ -15,11 +16,27 @@ trait SessionComponentWeigh
 {
     static function weigh(SessionComponent $leftBoxComponent, SessionComponent $rightBoxComponent, SessionComponent $bottomBoxComponent, $value): void
     {
-        // 1 save session component as weighed
-        $leftBoxComponent->update([
+//        // 1 save session component as weighed
+//        $leftBoxComponent->update([
+//            'type'          => SessionComponentType::Weighed,
+//            'is_weighed'    => true, // TODO: delete and use type everywhere
+//            'weighed_value' => $value,
+//
+//            'weighed_left_session_component_id'   => $leftBoxComponent->id,
+//            'weighed_right_session_component_id'  => $rightBoxComponent->id,
+//            'weighed_bottom_session_component_id' => $bottomBoxComponent->id,
+//
+//            'weighed_left_component_id'   => $leftBoxComponent->component_id,
+//            'weighed_right_component_id'  => $rightBoxComponent->component_id,
+//            'weighed_bottom_component_id' => $bottomBoxComponent->component_id,
+//        ]);
+        SessionComponent::create([
             'type'          => SessionComponentType::Weighed,
+            'place'         => SessionComponentPlace::onWeightingTable,
             'is_weighed'    => true, // TODO: delete and use type everywhere
             'weighed_value' => $value,
+            'component_id'  => $leftBoxComponent->component_id,
+            'session'       => $leftBoxComponent->session,
 
             'weighed_left_session_component_id'   => $leftBoxComponent->id,
             'weighed_right_session_component_id'  => $rightBoxComponent->id,
@@ -33,7 +50,7 @@ trait SessionComponentWeigh
 
     static function cleanScales(SessionComponent|null $leftBoxComponent, SessionComponent|null $rightBoxComponent, SessionComponent|null $bottomBoxComponent): void
     {
-        $leftBoxComponent?->moveToWeightingTable();
+        $leftBoxComponent?->delete();
         $rightBoxComponent?->moveToWeightingTable();
         $bottomBoxComponent?->markAsDirty();
         $bottomBoxComponent?->moveToWeightingTable();
@@ -59,14 +76,29 @@ trait SessionComponentWeigh
         return $this->hasOne(self::class, 'id', 'weighed_left_session_component_id');
     }
 
+    public function weighedLeftSessionComponentWithTrashed(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'weighed_left_session_component_id')->withTrashed();
+    }
+
     public function weighedRightSessionComponent(): HasOne
     {
         return $this->hasOne(self::class, 'id', 'weighed_right_session_component_id');
     }
 
+    public function weighedRightSessionComponentWithTrashed(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'weighed_right_session_component_id')->withTrashed();
+    }
+
     public function weighedBottomSessionComponent(): HasOne
     {
         return $this->hasOne(self::class, 'id', 'weighed_bottom_session_component_id');
+    }
+
+    public function weighedBottomSessionComponentWithTrashed(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'weighed_bottom_session_component_id')->withTrashed();
     }
 
     private function getWeighedComponentName(): string
@@ -78,7 +110,6 @@ trait SessionComponentWeigh
     {
         return floatval($this->weighed_value);
     }
-
 
 
     private function getNameWeighed(): string
@@ -98,7 +129,7 @@ trait SessionComponentWeigh
 
     public function isExistsWeighedComponents(): bool
     {
-        return $this->weighedLeftSessionComponent && $this->weighedRightSessionComponent && $this->weighedBottomSessionComponent;
+        return $this->weighedLeftSessionComponentWithTrashed && $this->weighedRightSessionComponentWithTrashed && $this->weighedBottomSessionComponentWithTrashed;
     }
 
     /**
@@ -111,6 +142,7 @@ trait SessionComponentWeigh
     {
         return $query->where('is_weighed', true);
     }
+
     private function isFiled(): bool
     {
         return $this->weighedRightComponent && $this->weighedLeftComponent && $this->weighed_left_component_id == $this->component_id;

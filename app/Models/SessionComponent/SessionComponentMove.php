@@ -27,14 +27,17 @@ trait SessionComponentMove
     {
         $this->changePlace(SessionComponentPlace::onWeightingTable);
     }
+
     public function moveToCookingTable(): void
     {
         $this->changePlace(SessionComponentPlace::onCookingTable);
     }
+
     public function moveToChromatographExampleLeftBox(): void
     {
         $this->changePlace(SessionComponentPlace::inChromatographExampleLeftBox);
     }
+
     public function moveToChromatographExampleRightBox(): void
     {
         $this->changePlace(SessionComponentPlace::inChromatographExampleRightBox);
@@ -44,23 +47,38 @@ trait SessionComponentMove
     {
         $this->changePlace(SessionComponentPlace::inSink);
     }
+
     public function moveToTableIfExistsOnPlace(SessionComponentPlace $place): void
     {
         $existsSessionComponent = self::bySession($this->session)->byPlace($place)->first();
         $existsSessionComponent?->moveToWeightingTable();
     }
+
     public function moveToScales(SessionComponentPlace $place): void
     {
-        if ($this->isWeighed() && $this->isExistsWeighedComponents()) {
-            $this->moveToTableAllScalesComponents();
-            $this->moveToScalesWeighedComponents();
+        if ($this->isTypeWeighed()) {
+            $this->moveToScalesTypeWeighed();
         } else {
-            // 1 check if exists already comp and move to table them
-            $this->moveToTableIfExistsOnPlace($place);
-            // 2 change place
-            $this->changePlace($place);
+            $this->moveToScalesTypeSimple($place);
         }
     }
+
+    public function moveToScalesTypeWeighed(): void
+    {
+        if($this->isExistsWeighedComponents()) {
+            $this->moveToTableAllScalesComponents();
+            $this->moveToScalesWeighedComponents();
+        }
+    }
+
+    public function moveToScalesTypeSimple(SessionComponentPlace $place): void
+    {
+        // 1 check if exists already comp and move to table them
+        $this->moveToTableIfExistsOnPlace($place);
+        // 2 change place
+        $this->changePlace($place);
+    }
+
     public function moveToTableAllScalesComponents(): void
     {
         $this->moveToTableIfExistsOnPlace(SessionComponentPlace::onScalesLeftBox);
@@ -70,9 +88,24 @@ trait SessionComponentMove
 
     public function moveToScalesWeighedComponents(): void
     {
-        $this->weighedLeftSessionComponent->changePlace(SessionComponentPlace::onScalesLeftBox);
-        $this->weighedRightSessionComponent->changePlace(SessionComponentPlace::onScalesRightBox);
-        $this->weighedBottomSessionComponent->changePlace(SessionComponentPlace::onScalesBottomBox);
+        $this->forceDelete();
+
+        $this->weighedLeftSessionComponentWithTrashed->update([
+            'place' => SessionComponentPlace::onScalesLeftBox,
+            'deleted_at' => null,
+            'is_dirty' => false
+        ]);
+        $this->weighedRightSessionComponentWithTrashed->update([
+            'place' => SessionComponentPlace::onScalesRightBox,
+            'deleted_at' => null,
+            'is_dirty' => false
+        ]);
+        $this->weighedBottomSessionComponentWithTrashed->update([
+            'place' => SessionComponentPlace::onScalesBottomBox,
+            'deleted_at' => null,
+            'is_dirty' => false
+        ]);
+
     }
 
 }

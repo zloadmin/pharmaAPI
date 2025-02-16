@@ -7,6 +7,7 @@ namespace App\Models\SessionComponent;
 
 
 
+
 use App\Enums\SessionComponent\SessionComponentType as SessionComponentTypeEnum;
 trait SessionComponentType
 {
@@ -22,6 +23,10 @@ trait SessionComponentType
     public function isTypeFilteredExample(): bool
     {
         return  $this->type === SessionComponentTypeEnum::FilteredExample;
+    }
+    public function isTypeWeighed(): bool
+    {
+        return  $this->type === SessionComponentTypeEnum::Weighed;
     }
      /**
       * Scope a query to only include filtered example type.
