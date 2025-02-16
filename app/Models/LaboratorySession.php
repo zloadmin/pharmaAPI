@@ -198,4 +198,19 @@ class LaboratorySession extends Model
             $this->chromatograph_detector == $this->laboratory->chromatograph_detector &&
             $this->chromatograph_value == $this->laboratory->chromatograph_value;
     }
+
+    public function getChromatographBackground(): string
+    {
+//        if ($this->isFlushValueOpenBackground()) {
+//            return 'chromatograph_flush_valve_open.jpg';
+//        }
+//        if ($this->isInstalledOneJarsBackground()) {
+//            return 'chromatograph_installed_one.jpg';
+//        }
+//        if ($this->isInstalledTwoJarsBackground()) {
+//            return 'chromatograph_installed_one.jpg';
+//        }
+
+        return 'chromatograph_default.jpg';
+    }
 }

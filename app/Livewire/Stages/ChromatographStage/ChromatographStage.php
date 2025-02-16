@@ -10,6 +10,7 @@ use App\Enums\Chromatograph\ChromatographStatusPump;
 use App\Enums\Chromatograph\ChromatographStatusSoftWare;
 use App\Enums\Chromatograph\ChromatographStatusTurnOn;
 use App\Enums\SessionComponent\SessionComponentType;
+use App\Livewire\Stages\ChromatographStage\ChromatographStage\HasChromatographBackground;
 use App\Livewire\Stages\ChromatographStage\ChromatographStage\HasChromatographStatuses;
 use App\Livewire\Traits\HasSession;
 use App\Models\SessionComponent;
@@ -26,8 +27,12 @@ class ChromatographStage extends Component
     use HasSession;
     use HasChromatographStatuses;
 
+//    use HasChromatographBackground;
+
     #[Url]
     public bool $preOpenModalExamples = false;
+
+    public string $background;
 
     public function mount($session)
     {
@@ -45,7 +50,9 @@ class ChromatographStage extends Component
         $this->setChromatographStatusSoftWare();
         $this->setChromatographStatusIntroduceSample();
         $this->setChromatographStatusEntries();
+        $this->setBackground();
     }
+
 
     #[On('modal-chromatograph-examples-updated')]
     public function updatePage()
@@ -152,6 +159,11 @@ class ChromatographStage extends Component
     public function runSoftWare(): void
     {
         $this->redirectRoute('chromatograph-method-page', [$this->session], true, true);
+    }
+
+    public function setBackground(): void
+    {
+        $this->background = $this->sessionModel->getChromatographBackground();
     }
 
 

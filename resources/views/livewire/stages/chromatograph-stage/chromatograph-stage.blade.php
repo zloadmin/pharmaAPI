@@ -7,7 +7,7 @@
         <div class="main_data">
             <div class="row">
                 <div class="section big">
-                    <div class="title">Хроматограф</div>
+                    <div class="title">Хроматограф {{ $background }}</div>
 
                     <div class="row">
                         @include('livewire.stages.chromatograph-stage.button', [
@@ -104,7 +104,7 @@
             </div>
         </div>
 
-        <img src="/web/images/tmp/chromatograph_img.jpg" alt="" loading="lazy" class="bg">
+        <img src="/web/images/chromatograph-backgrounds/{{ $background }}" alt="" loading="lazy" class="bg">
 
         <livewire:stages.components.modals.modal-cart-component :session='$session'/>
         <livewire:stages.components.component-cart :session='$session'

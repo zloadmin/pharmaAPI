@@ -107,4 +107,23 @@ trait LaboratorySessionChromatograph
         return SessionComponent::bySession($this->uuid)->where('type', SessionComponentType::FilteredMobilePhase);
     }
 
+    public function isInstalledTwoJarsBackground(): bool
+    {
+        return
+            $this->chromatograph_status_installed_jars == ChromatographStatusInstalledJars::InstalledTwo
+            &&
+            $this->chromatograph_status_pump == ChromatographStatusPump::Disabled;
+    }
+    public function isInstalledOneJarsBackground(): bool
+    {
+        return
+            $this->chromatograph_status_installed_jars == ChromatographStatusInstalledJars::InstalledOne
+            &&
+            $this->chromatograph_status_pump == ChromatographStatusPump::Disabled;
+    }
+
+    public function isFlushValueOpenBackground()
+    {
+        return $this->chromatograph_status_flush_valve == ChromatographStatusFlushValve::Open;
+    }
 }
