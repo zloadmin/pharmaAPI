@@ -23,15 +23,18 @@ class LaboratoryWeightingComponent extends Model
     public function isFitsBySessionComponent(SessionComponent $sessionComponent): bool
     {
 
+        if(!$sessionComponent->isTypeWeighed()) {
+            return false;
+        }
+
         // if not same stuff
-        if ($this->stuff_component_id != $sessionComponent->component_id) {
+        if ($this->stuff_component_id != $sessionComponent->weighed_left_component_id) {
             return false;
         }
-        if(!$sessionComponent->weighedRightSessionComponent) {
-            return false;
-        }
+
+
         // if not same filled
-        if ($this->filled_component_id != $sessionComponent->weighedRightSessionComponent->component_id) {
+        if ($this->filled_component_id != $sessionComponent->weighed_right_component_id) {
             return false;
         }
 

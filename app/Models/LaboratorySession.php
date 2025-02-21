@@ -130,6 +130,7 @@ class LaboratorySession extends Model
         foreach ($requiredComponents as $requiredComponent) {
             foreach ($sessionComponents as $sessionComponent) {
                 if ($requiredComponent->isFitsBySessionComponent($sessionComponent)) {
+
                     if (!isset($requiredComponentIds[$requiredComponent->id]) && !isset($sessionComponentIds[$sessionComponent->id])) {
                         $requiredComponentIds[$requiredComponent->id] = $sessionComponent->id;
                         $sessionComponentIds[$sessionComponent->id] = $requiredComponent->id;
@@ -137,6 +138,7 @@ class LaboratorySession extends Model
                 }
             }
         }
+
         return $requiredComponents->count() == count($requiredComponentIds);
     }
 

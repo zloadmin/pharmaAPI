@@ -70,7 +70,7 @@ trait HasThirdWeightTestCase
     {
         $this->moveComponentsToWeightFromTable($laboratorySession,
             [
-                23 => SessionComponentPlace::onScalesLeftBox,
+                25 => SessionComponentPlace::onScalesLeftBox,
                 41 => SessionComponentPlace::onScalesRightBox,
                 45  => SessionComponentPlace::onScalesBottomBox,
             ]);
