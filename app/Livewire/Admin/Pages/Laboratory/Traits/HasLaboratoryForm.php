@@ -37,11 +37,11 @@ trait HasLaboratoryForm
             'fields' => ['checkValues.*'],
         ],
         'weighting-components'    => [
-            'title'  => 'Компоненты весовой',
+            'title'  => 'Весовая',
             'fields' => ['weightingComponents.*'],
         ],
         'cooking-components'      => [
-            'title'  => 'Компоненты приготовления растворов',
+            'title'  => 'Растворы',
             'fields' => ['cookingComponents.*'],
         ],
         'mobile-phases'           => [
