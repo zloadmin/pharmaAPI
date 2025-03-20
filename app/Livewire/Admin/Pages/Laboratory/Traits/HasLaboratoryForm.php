@@ -15,9 +15,12 @@ use App\Models\LaboratoryWeightingComponent;
 use App\Models\PharmacologicalArticle;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
+use Livewire\WithFileUploads;
 
 trait HasLaboratoryForm
 {
+    use WithFileUploads;
+
     public string $currentTab = 'index';
     public array $tabs = [
         'index'                   => [
@@ -29,7 +32,7 @@ trait HasLaboratoryForm
             'fields' => ['component_ids']
         ],
         'pharmacological-article' => [
-            'title'  => 'ФС',
+            'title'  => 'Фарм. статья',
             'fields' => ['pharmacological_article_id']
         ],
         'check-values'            => [
@@ -45,12 +48,16 @@ trait HasLaboratoryForm
             'fields' => ['cookingComponents.*'],
         ],
         'mobile-phases'           => [
-            'title'  => 'ПФ',
+            'title'  => 'Подвижные Фазы',
             'fields' => ['mobilePhases.*'],
         ],
         'chromatograph'           => [
             'title'  => 'Хроматограф',
             'fields' => ['chromatographColumnTemp', 'chromatographFlowSpeed', 'chromatographFlowDirection', 'chromatographValue']
+        ],
+        'chart'                   => [
+            'title'  => 'График',
+            'fields' => ['chart_image']
         ],
     ];
     // index
@@ -81,6 +88,8 @@ trait HasLaboratoryForm
     public ?int $chromatographDetector;
     public ?int $chromatographValue;
 
+    public $chart_image = null;
+    public $exists_chart_image = null;
 
     public function mountHasLaboratoryForm(): void
     {
@@ -106,12 +115,14 @@ trait HasLaboratoryForm
         $this->cookingComponents = $this->getCookingComponents();
         $this->mobilePhases = $this->getMobilePhases();
         $this->checkValues = $this->getCheckValues();
-
-
         $this->chromatographColumnTemp = $laboratory->chromatograph_column_temp;
         $this->chromatographFlowSpeed = $laboratory->chromatograph_flow_speed;
         $this->chromatographDetector = $laboratory->chromatograph_detector;
         $this->chromatographValue = $laboratory->chromatograph_value;
+
+        if ($laboratory->hasChartImage()) {
+            $this->exists_chart_image = $laboratory->getChartImageUrl();
+        }
 
     }
 
@@ -189,6 +200,7 @@ trait HasLaboratoryForm
             'chromatographFlowSpeed'     => ['required', 'numeric', 'between:0.001,999.999'],
             'chromatographDetector'      => ['required', 'numeric', 'between:1,9999999'],
             'chromatographValue'         => ['required', 'numeric', 'between:1,9999999'],
+            'chart_image'                => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
         ];
     }
 
@@ -232,8 +244,14 @@ trait HasLaboratoryForm
     }
 
 
-    private function getLaboratoryMainFields(): array
+    private function getLaboratoryMainFields(Laboratory $laboratory = null): array
     {
+        if ($this->chart_image) {
+            $chart_image_path = $this->chart_image->store('chart_images');
+        } else {
+            $chart_image_path = $laboratory?->chart_image_path;
+        }
+
         return [
             'name'                       => $this->name,
             'description'                => $this->description,
@@ -242,6 +260,7 @@ trait HasLaboratoryForm
             'chromatograph_flow_speed'   => $this->chromatographFlowSpeed,
             'chromatograph_detector'     => $this->chromatographDetector,
             'chromatograph_value'        => $this->chromatographValue,
+            'chart_image_path'           => $chart_image_path
         ];
     }
 

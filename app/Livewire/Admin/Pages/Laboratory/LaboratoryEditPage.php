@@ -44,7 +44,7 @@ class LaboratoryEditPage extends LivewireComponent
 
     public function updateLaboratory(): void
     {
-        $this->laboratory->update($this->getLaboratoryMainFields());
+        $this->laboratory->update($this->getLaboratoryMainFields($this->laboratory));
     }
 
     private function updateLaboratoryStorageComponents(): void

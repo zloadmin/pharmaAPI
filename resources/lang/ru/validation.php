@@ -212,6 +212,7 @@ return [
         'mobilePhases.*.first_component_id'         => 'первый компонент',
         'mobilePhases.*.second_component_id'        => 'второй компонент',
         'cookingComponents.*.component_id'          => 'компонент',
+        'chart_image'                               => 'изображение графика'
     ],
 
 ];

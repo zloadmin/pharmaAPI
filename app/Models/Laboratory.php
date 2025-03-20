@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class Laboratory extends Model
 {
@@ -56,6 +58,7 @@ class Laboratory extends Model
     {
         return $this->hasMany(LaboratoryWeightingComponent::class);
     }
+
     public function checkValues(): HasMany
     {
         return $this->hasMany(LaboratoryCheckValue::class);
@@ -69,5 +72,22 @@ class Laboratory extends Model
     public function mobilePhases(): HasMany
     {
         return $this->hasMany(LaboratoryMobilePhase::class);
+    }
+
+    public function hasChartImage(): bool
+    {
+
+        return $this->chart_image_path && File::exists($this->getChartImageRealPath());
+    }
+
+    public function getChartImageUrl(): string
+    {
+        return Storage::url($this->chart_image_path);
+    }
+
+    public function getChartImageRealPath(): string
+    {
+//        dd(Storage::path($this->chart_image_path));
+        return Storage::path($this->chart_image_path);
     }
 }

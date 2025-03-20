@@ -25,7 +25,7 @@
             </div>
         </div> <!-- end col-->
 
-        <div class="col-sm-9">
+        <div class="col-sm-10">
             <div class="tab-content" id="v-pills-tabContent">
                 @foreach($tabs as $key => $title)
                     <div class="tab-pane {{ $key == $currentTab ? 'active show' : '' }}" id="tab-{{ $key }}" role="tabpanel" aria-labelledby="{{ $key }}">

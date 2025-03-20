@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('pharmacological_article_id')->nullable();
             $table->foreign('pharmacological_article_id')->references('id')->on('pharmacological_articles')->onDelete('cascade');
 
+            $table->string('chart_image_path')->nullable();
             // check list
             $table->json('check_values')->nullable();
             // videos
