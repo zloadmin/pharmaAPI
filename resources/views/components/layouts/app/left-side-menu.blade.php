@@ -51,12 +51,12 @@
                                         <span>Фарм. статьи</span>
                                     </a>
                                 </li>
-                                <li class="side-nav-item">
-                                    <a href="{{ route('admin.videos-page') }}" class="side-nav-link" wire:navigate>
-                                        <i class="uil-video"></i>
-                                        <span>Видео</span>
-                                    </a>
-                                </li>
+{{--                                <li class="side-nav-item">--}}
+{{--                                    <a href="{{ route('admin.videos-page') }}" class="side-nav-link" wire:navigate>--}}
+{{--                                        <i class="uil-video"></i>--}}
+{{--                                        <span>Видео</span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
                                 {{--                                <li class="side-nav-item">--}}
                                 {{--                                    <a href="{{ route('quizzes-page') }}" class="side-nav-link" wire:navigate>--}}
                                 {{--                                        <i class="uil-science"></i>--}}

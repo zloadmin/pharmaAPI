@@ -8,6 +8,7 @@ namespace App\Livewire\Admin\Pages\Laboratory\Traits;
 use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Models\Component;
 use App\Models\Laboratory;
+use App\Models\LaboratoryCheckValue;
 use App\Models\LaboratoryCookingComponent;
 use App\Models\LaboratoryMobilePhase;
 use App\Models\LaboratoryWeightingComponent;
@@ -21,11 +22,11 @@ trait HasLaboratoryForm
         'index'                   => 'Описание',
         'storage'                 => 'Склад',
         'pharmacological-article' => 'ФС',
-        'videos'                  => 'Обучающее видео',
-        'check-list'              => 'Расчетный лист',
+        //        'videos'                  => 'Обучающее видео',
+        'check-values'            => 'Расчетный лист',
         'weighting-components'    => 'Компоненты весовой',
         'cooking-components'      => 'Компоненты приготовления растворов',
-        'mobile-phases'           => 'Подвижные фазы',
+        'mobile-phases'           => 'ПФ',
         'chromatograph'           => 'Хроматограф'
     ];
     // index
@@ -36,15 +37,16 @@ trait HasLaboratoryForm
     // pharmacological-article
     public ?int $pharmacological_article_id = null;
     // check-list
-    public ?array $check_values = [];
+    public array $checkValues = [];
     // videos
-    public ?array $videos = [];
+    // public ?array $videos = [];
     // weighting-components
     public array $weightingComponents = [];
     // cooking-components
     public array $cookingComponents = [];
     // mobile-phases
     public array $mobilePhases = [];
+
 
     public array $stuffComponents = [];
     public array $filledComponents = [];
@@ -58,6 +60,7 @@ trait HasLaboratoryForm
 
     public function mountHasLaboratoryForm(): void
     {
+        //  mount dropdown values
         $this->stuffComponents = Component::getStuffComponentsDropdownArray();
         $this->filledComponents = Component::getFilledComponentsDropdownArray();
         $this->components = Component::getDropdownArray();
@@ -74,10 +77,10 @@ trait HasLaboratoryForm
         $this->description = $laboratory->description;
         $this->component_ids = $laboratory->components()->pluck('id')->toArray();
         $this->pharmacological_article_id = $laboratory->pharmacological_article_id;
-        $this->check_values = $laboratory->check_values;
         $this->weightingComponents = $this->getWeightingComponents();
         $this->cookingComponents = $this->getCookingComponents();
         $this->mobilePhases = $this->getMobilePhases();
+        $this->checkValues = $this->getCheckValues();
 
 
         $this->chromatographColumnTemp = $laboratory->chromatograph_column_temp;
@@ -85,10 +88,10 @@ trait HasLaboratoryForm
         $this->chromatographDetector = $laboratory->chromatograph_detector;
         $this->chromatographValue = $laboratory->chromatograph_value;
 
-        // load videos
-        foreach (Laboratory::VIDEOS as $video) {
-            $this->videos[$video['key']] = $laboratory->{$video['key']};
-        }
+//        // load videos
+//        foreach (Laboratory::VIDEOS as $video) {
+//            $this->videos[$video['key']] = $laboratory->{$video['key']};
+//        }
 
     }
 
@@ -107,6 +110,11 @@ trait HasLaboratoryForm
         return $this->laboratory->mobilePhases()->get()->toArray();
     }
 
+    public function getCheckValues()
+    {
+        return $this->laboratory->checkValues()->get()->toArray();
+    }
+
     public function addWeightingComponents(): void
     {
         $this->weightingComponents[] = [];
@@ -120,8 +128,12 @@ trait HasLaboratoryForm
 
     public function deleteWeightingComponent(int $index): void
     {
-
         unset($this->weightingComponents[$index]);
+    }
+
+    public function deleteCheckValue(int $index): void
+    {
+        unset($this->checkValues[$index]);
     }
 
     public function deleteCookingComponent(int $index): void
@@ -135,25 +147,17 @@ trait HasLaboratoryForm
         $this->mobilePhases[] = [];
     }
 
+    public function addCheckValue(): void
+    {
+        $this->checkValues[] = [];
+    }
+
     public function deleteMobilePhase(int $index): void
     {
 
         unset($this->mobilePhases[$index]);
     }
 
-    public function initCheckValues(Laboratory $laboratory = null)
-    {
-        foreach (Laboratory::$checkValues as $checkValue) {
-            foreach (Laboratory::$checkValueTypes as $checkValueType) {
-                $fieldName = $checkValue['name'] . '_' . $checkValueType['name'];
-                if ($laboratory) {
-                    $this->check_values[$fieldName] = $laboratory->check_values[$fieldName] ?? null;
-                } else {
-                    $this->check_values[$fieldName] = null;
-                }
-            }
-        }
-    }
 
     private function mainRules(): array
     {
@@ -161,7 +165,6 @@ trait HasLaboratoryForm
             'name'                       => ['required', 'string', 'max:250'],
             'description'                => ['required'],
             'pharmacological_article_id' => ['required', Rule::exists('pharmacological_articles', 'id')],
-            'check_values'               => ['required', 'array'],
             'chromatographColumnTemp'    => ['required', 'numeric', 'between:0.1,999.9'],
             'chromatographFlowSpeed'     => ['required', 'numeric', 'between:0.001,999.999'],
             'chromatographDetector'      => ['required', 'numeric', 'between:1,9999999'],
@@ -192,33 +195,15 @@ trait HasLaboratoryForm
 
     private function checkValueRules(): array
     {
-        $checkValueFields = [];
-        foreach (Laboratory::$checkValues as $checkValue) {
-            foreach (Laboratory::$checkValueTypes as $checkValueType) {
-                $fieldName = 'check_values.' . $checkValue['name'] . '_' . $checkValueType['name'];
-                $checkValueFields[$fieldName] = ['required', 'numeric', 'min:0.0001', 'max:999.9999'];
-//                if ($checkValueType['name'] == 'from') {
-//                    $checkValueFields[$fieldName][] = 'lte:' . $checkValue['name'] . '_to';
-//                } else {
-//                    $checkValueFields[$fieldName][] = 'gte:' . $checkValue['name'] . '_from';
-//                }
-            }
-        }
-        return $checkValueFields;
+        return [
+            'checkValues'             => ['array'],
+            'checkValues.*.name'      => ['required', 'string', 'max:250'],
+            'checkValues.*.value_min' => ['required', 'numeric', 'min:0.0000', 'max:9999.9999'],
+            'checkValues.*.value_max' => ['required', 'numeric', 'min:0.0000', 'max:9999.9999'],
+        ];
     }
 
-    private function videoRules(): array
-    {
-        $result = [];
-        foreach (Laboratory::VIDEOS as $video) {
-            $result['videos.' . $video['key']] = [
-                'required',
-                'integer',
-                Rule::exists('videos', 'id'),
-            ];
-        }
-        return $result;
-    }
+
 
     private function getLaboratoryMainFields(): array
     {
@@ -226,7 +211,6 @@ trait HasLaboratoryForm
             'name'                       => $this->name,
             'description'                => $this->description,
             'pharmacological_article_id' => $this->pharmacological_article_id,
-            'check_values'               => $this->check_values,
             'chromatograph_column_temp'  => $this->chromatographColumnTemp,
             'chromatograph_flow_speed'   => $this->chromatographFlowSpeed,
             'chromatograph_detector'     => $this->chromatographDetector,
@@ -234,18 +218,12 @@ trait HasLaboratoryForm
         ];
     }
 
-    private function getLaboratoryVideoFields(): array
-    {
-        $result = [];
-        foreach (Laboratory::VIDEOS as $video) {
-            $result[$video['key']] = $this->videos[$video['key']];
-        }
-        return $result;
-    }
+
 
     public function rules(): array
     {
-        return $this->mainRules() + $this->checkValueRules() + $this->videoRules() + $this->weightingComponentRules() + $this->mobilePhasesRules();
+
+        return $this->mainRules() + $this->checkValueRules() + $this->weightingComponentRules() + $this->mobilePhasesRules();
     }
 
     public function getWeightingComponentModels(): array
@@ -271,6 +249,14 @@ trait HasLaboratoryForm
         $result = [];
         foreach ($this->mobilePhases as $mobilePhase) {
             $result[] = new LaboratoryMobilePhase($mobilePhase);
+        }
+        return $result;
+    }
+    public function getCheckValuesModels(): array
+    {
+        $result = [];
+        foreach ($this->checkValues as $checkValue) {
+            $result[] = new LaboratoryCheckValue($checkValue);
         }
         return $result;
     }

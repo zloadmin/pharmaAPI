@@ -37,13 +37,14 @@ class LaboratoryCreatePage extends LivewireComponent
         $this->createLaboratoryStorageComponents($laboratory);
         $this->createLaboratoryWeightingComponents($laboratory);
         $this->createLaboratoryCookingComponents($laboratory);
+        $this->createLaboratoryCheckValues($laboratory);
         $this->redirectToLaboratoriesPage();
     }
 
 
     public function createLaboratory(): Laboratory
     {
-        return Laboratory::create($this->getLaboratoryMainFields() + $this->getLaboratoryVideoFields());
+        return Laboratory::create($this->getLaboratoryMainFields());
     }
 
     private function createLaboratoryStorageComponents(Laboratory $laboratory): void
@@ -55,9 +56,15 @@ class LaboratoryCreatePage extends LivewireComponent
     {
         $laboratory->weightingComponents()->saveMany($this->getWeightingComponentModels());
     }
+
     private function createLaboratoryCookingComponents(Laboratory $laboratory): void
     {
         $laboratory->weightingComponents()->saveMany($this->getCookingComponentModels());
+    }
+
+    private function createLaboratoryCheckValues(Laboratory $laboratory): void
+    {
+        $laboratory->checkValues()->saveMany($this->getCheckValuesModels());
     }
 
     #[Title('Создать')]

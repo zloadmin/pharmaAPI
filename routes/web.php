@@ -76,11 +76,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/create', PharmacologicalArticleCreatePage::class)->name('admin.pharmacological-article-create-page');
         Route::get('/edit/{pharmacologicalArticle}', PharmacologicalArticleEditPage::class)->name('admin.pharmacological-article-edit-page');
     });
-    Route::prefix('videos')->group(function () {
-        Route::get('/', VideosPage::class)->name('admin.videos-page');
-        Route::get('/create', VideoCreatePage::class)->name('admin.video-create-page');
-        Route::get('/edit/{video}', VideoEditPage::class)->name('admin.video-edit-page');
-    });
+//    Route::prefix('videos')->group(function () {
+//        Route::get('/', VideosPage::class)->name('admin.videos-page');
+//        Route::get('/create', VideoCreatePage::class)->name('admin.video-create-page');
+//        Route::get('/edit/{video}', VideoEditPage::class)->name('admin.video-edit-page');
+//    });
 
 
 });

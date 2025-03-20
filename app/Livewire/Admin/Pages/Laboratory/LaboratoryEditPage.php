@@ -27,9 +27,7 @@ class LaboratoryEditPage extends LivewireComponent
     {
         $this->laboratory = $laboratory;
         $this->pharmacologicalArticles = PharmacologicalArticle::getDropdownArray();
-        $this->videoList = Video::getDropdownArray();
         $this->loadFormFields($laboratory);
-        $this->initCheckValues($laboratory);
     }
 
     public function save()
@@ -40,21 +38,14 @@ class LaboratoryEditPage extends LivewireComponent
         $this->updateLaboratoryWeightingComponents();
         $this->updateLaboratoryCookingComponents();
         $this->updateLaboratoryMobilePhases();
+        $this->updateLaboratoryCheckValues();
         $this->redirectToLaboratoriesPage();
-    }
-
-    private function setLaboratoryMainFields(): void
-    {
-        $this->laboratory->name = $this->name;
-        $this->laboratory->description = $this->description;
-        $this->laboratory->pharmacological_article_id = $this->pharmacological_article_id;
-        $this->laboratory->check_values = $this->check_values;
     }
 
 
     public function updateLaboratory(): void
     {
-        $this->laboratory->update($this->getLaboratoryMainFields() + $this->getLaboratoryVideoFields());
+        $this->laboratory->update($this->getLaboratoryMainFields());
     }
 
     private function updateLaboratoryStorageComponents(): void
@@ -67,15 +58,22 @@ class LaboratoryEditPage extends LivewireComponent
         $this->laboratory->weightingComponents()->delete();
         $this->laboratory->weightingComponents()->saveMany($this->getWeightingComponentModels());
     }
+
     private function updateLaboratoryCookingComponents(): void
     {
         $this->laboratory->cookingComponents()->delete();
         $this->laboratory->cookingComponents()->saveMany($this->getCookingComponentModels());
     }
+
     private function updateLaboratoryMobilePhases(): void
     {
         $this->laboratory->mobilePhases()->delete();
         $this->laboratory->mobilePhases()->saveMany($this->getMobilePhasesModels());
+    }
+    private function updateLaboratoryCheckValues(): void
+    {
+        $this->laboratory->checkValues()->delete();
+        $this->laboratory->checkValues()->saveMany($this->getCheckValuesModels());
     }
 
     #[Title('Редактировать')]
