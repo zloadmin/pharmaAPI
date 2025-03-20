@@ -25,9 +25,6 @@ class LaboratoryCreatePage extends LivewireComponent
     public function mount()
     {
 
-        $this->pharmacologicalArticles = PharmacologicalArticle::getDropdownArray();
-        $this->videoList = Video::getDropdownArray();
-        $this->initCheckValues();
     }
 
     public function save()

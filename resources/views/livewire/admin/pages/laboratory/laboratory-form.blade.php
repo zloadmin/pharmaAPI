@@ -1,11 +1,19 @@
 <div>
     <form wire:submit.prevent="save">
         <ul class="nav nav-tabs nav-bordered mb-3">
-            @foreach($tabs as $key => $title)
+            @foreach($tabs as $key => $data)
                 <li class="nav-item">
-                    <a href="#tab-{{ $key }}" data-toggle="tab" aria-expanded="false" class="nav-link {{ $key == $currentTab ? 'active' : '' }}" wire:click="showTab('{{ $key }}')">
+                    <a href="#tab-{{ $key }}" data-toggle="tab" aria-expanded="false"
+                       class="nav-link {{ $key == $currentTab ? 'active' : '' }}
+                            @foreach($data['fields'] as $field)
+                                @error($field)
+                                    has-error
+                                @enderror
+                            @endforeach
+                       "
+                       wire:click="showTab('{{ $key }}')">
                         <i class="mdi mdi-home-variant d-md-none d-block"></i>
-                        <span class="d-none d-md-block">{{ $title }}</span>
+                        <span class="d-none d-md-block">{{ $data['title'] }}</span>
                     </a>
                 </li>
             @endforeach

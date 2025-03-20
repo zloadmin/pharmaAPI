@@ -12,6 +12,7 @@ use App\Models\LaboratoryCheckValue;
 use App\Models\LaboratoryCookingComponent;
 use App\Models\LaboratoryMobilePhase;
 use App\Models\LaboratoryWeightingComponent;
+use App\Models\PharmacologicalArticle;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 
@@ -19,15 +20,38 @@ trait HasLaboratoryForm
 {
     public string $currentTab = 'index';
     public array $tabs = [
-        'index'                   => 'Описание',
-        'storage'                 => 'Склад',
-        'pharmacological-article' => 'ФС',
-        //        'videos'                  => 'Обучающее видео',
-        'check-values'            => 'Расчетный лист',
-        'weighting-components'    => 'Компоненты весовой',
-        'cooking-components'      => 'Компоненты приготовления растворов',
-        'mobile-phases'           => 'ПФ',
-        'chromatograph'           => 'Хроматограф'
+        'index'                   => [
+            'title'  => 'Описание',
+            'fields' => ['name', 'description']
+        ],
+        'storage'                 => [
+            'title'  => 'Склад',
+            'fields' => ['component_ids']
+        ],
+        'pharmacological-article' => [
+            'title'  => 'ФС',
+            'fields' => ['pharmacological_article_id']
+        ],
+        'check-values'            => [
+            'title'  => 'Расчетный лист',
+            'fields' => ['checkValues.*'],
+        ],
+        'weighting-components'    => [
+            'title'  => 'Компоненты весовой',
+            'fields' => ['weightingComponents.*'],
+        ],
+        'cooking-components'      => [
+            'title'  => 'Компоненты приготовления растворов',
+            'fields' => ['cookingComponents.*'],
+        ],
+        'mobile-phases'           => [
+            'title'  => 'ПФ',
+            'fields' => ['mobilePhases.*'],
+        ],
+        'chromatograph'           => [
+            'title'  => 'Хроматограф',
+            'fields' => ['chromatographColumnTemp', 'chromatographFlowSpeed', 'chromatographFlowDirection', 'chromatographValue']
+        ],
     ];
     // index
     public $name = '';
@@ -64,6 +88,7 @@ trait HasLaboratoryForm
         $this->stuffComponents = Component::getStuffComponentsDropdownArray();
         $this->filledComponents = Component::getFilledComponentsDropdownArray();
         $this->components = Component::getDropdownArray();
+        $this->pharmacologicalArticles = PharmacologicalArticle::getDropdownArray();
     }
 
     public function showTab($tabKey): void
@@ -87,11 +112,6 @@ trait HasLaboratoryForm
         $this->chromatographFlowSpeed = $laboratory->chromatograph_flow_speed;
         $this->chromatographDetector = $laboratory->chromatograph_detector;
         $this->chromatographValue = $laboratory->chromatograph_value;
-
-//        // load videos
-//        foreach (Laboratory::VIDEOS as $video) {
-//            $this->videos[$video['key']] = $laboratory->{$video['key']};
-//        }
 
     }
 
@@ -163,7 +183,7 @@ trait HasLaboratoryForm
     {
         return [
             'name'                       => ['required', 'string', 'max:250'],
-            'description'                => ['required'],
+            'description'                => ['nullable'],
             'pharmacological_article_id' => ['required', Rule::exists('pharmacological_articles', 'id')],
             'chromatographColumnTemp'    => ['required', 'numeric', 'between:0.1,999.9'],
             'chromatographFlowSpeed'     => ['required', 'numeric', 'between:0.001,999.999'],
@@ -193,6 +213,14 @@ trait HasLaboratoryForm
         ];
     }
 
+    private function cookingComponentsRules(): array
+    {
+        return [
+            'cookingComponents'                => ['array'],
+            'cookingComponents.*.component_id' => ['required', 'integer', Rule::exists('components', 'id')],
+        ];
+    }
+
     private function checkValueRules(): array
     {
         return [
@@ -202,7 +230,6 @@ trait HasLaboratoryForm
             'checkValues.*.value_max' => ['required', 'numeric', 'min:0.0000', 'max:9999.9999'],
         ];
     }
-
 
 
     private function getLaboratoryMainFields(): array
@@ -219,11 +246,16 @@ trait HasLaboratoryForm
     }
 
 
-
     public function rules(): array
     {
 
-        return $this->mainRules() + $this->checkValueRules() + $this->weightingComponentRules() + $this->mobilePhasesRules();
+        return array_merge(
+            $this->mainRules(), // Описание, ФС, Хроматограф
+            $this->checkValueRules(), // Расчетный лист
+            $this->weightingComponentRules(), // Компоненты весовой
+            $this->mobilePhasesRules(), // ПФ
+            $this->cookingComponentsRules(), // Компоненты приготовления растворов
+        );
     }
 
     public function getWeightingComponentModels(): array
@@ -252,6 +284,7 @@ trait HasLaboratoryForm
         }
         return $result;
     }
+
     public function getCheckValuesModels(): array
     {
         $result = [];

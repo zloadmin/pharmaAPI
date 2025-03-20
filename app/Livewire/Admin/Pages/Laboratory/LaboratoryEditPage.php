@@ -26,7 +26,6 @@ class LaboratoryEditPage extends LivewireComponent
     public function mount(Laboratory $laboratory)
     {
         $this->laboratory = $laboratory;
-        $this->pharmacologicalArticles = PharmacologicalArticle::getDropdownArray();
         $this->loadFormFields($laboratory);
     }
 
