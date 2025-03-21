@@ -4,6 +4,8 @@ namespace App\Livewire\Stages\Modals;
 
 use App\Livewire\Traits\HasSession;
 use App\Models\Laboratory;
+use App\Models\LaboratoryCheckValue;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -15,6 +17,7 @@ class CheckListModal extends Component
     public $isShow = false;
     public array $check_values = [];
     public array $check_value_statuses = [];
+    public Collection $checkValuesCollection;
 
     public function mount($session)
     {
@@ -24,6 +27,7 @@ class CheckListModal extends Component
     public function init($session): void
     {
         $this->setSession($session);
+        $this->setCheckValuesCollection();
         $this->setCheckValues();
         $this->setCheckValueStatuses();
     }
@@ -64,27 +68,25 @@ class CheckListModal extends Component
     private function setCheckValues(): void
     {
 
-        foreach (Laboratory::$checkValues as $checkValue) {
-            $this->check_values[$checkValue['name']] = $this->sessionModel->check_values[$checkValue['name']] ?? null;
+        foreach ($this->checkValuesCollection as $checkValue) {
+            $this->check_values[$checkValue->id] = $this->sessionModel->check_values[$checkValue->id] ?? null;
         }
     }
 
     private function setCheckValueStatuses(): void
     {
-        foreach (Laboratory::$checkValues as $checkValue) {
-            $this->check_value_statuses[$checkValue['name']] = $this->getCheckValueStatus($checkValue['name']);
+        foreach ($this->checkValuesCollection as $checkValue) {
+            $this->check_value_statuses[$checkValue->id] = $this->getCheckValueStatus($checkValue);
         }
 
     }
 
-    public function getCheckValueStatus(string $valueName): string
+    public function getCheckValueStatus(LaboratoryCheckValue $checkValue): string
     {
 
-        if (isset($this->sessionModel->check_values[$valueName]) && $this->sessionModel->check_values[$valueName]) {
-            $floatVal = floatval($this->sessionModel->check_values[$valueName]);
-            $floatFrom = floatval($this->laboratory->check_values[$valueName . '_from'] ?? 0);
-            $floatTo = floatval($this->laboratory->check_values[$valueName . '_to'] ?? 0);
-            return $floatVal >= $floatFrom && $floatVal <= $floatTo ? 'green' : 'red';
+        if (isset($this->sessionModel->check_values[$checkValue->id]) && $this->sessionModel->check_values[$checkValue->id]) {
+            $value = floatval($this->sessionModel->check_values[$checkValue->id]);
+            return $value >= $checkValue->value_min && $value <= $checkValue->value_max ? 'green' : 'red';
         }
         return 'grey';
     }
@@ -94,9 +96,14 @@ class CheckListModal extends Component
     {
 
         $rules = [];
-        foreach (Laboratory::$checkValues as $checkValue) {
-            $rules['check_values.' . $checkValue['name']] = ['nullable', 'numeric', 'min:0.0001', 'max:999.9999'];
+        foreach ($this->checkValuesCollection as $checkValue) {
+            $rules['check_values.' . $checkValue->id] = ['nullable', 'numeric', 'min:0.0001', 'max:999.9999'];
         }
         return $rules;
+    }
+
+    private function setCheckValuesCollection(): void
+    {
+        $this->checkValuesCollection = $this->laboratory->checkValues()->get();
     }
 }

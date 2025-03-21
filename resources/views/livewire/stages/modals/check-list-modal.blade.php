@@ -14,24 +14,23 @@
         <form wire:submit.prevent="check">
 
             <div class="list">
-                @foreach(\App\Models\Laboratory::$checkValues as $checkValue)
+                @foreach($checkValuesCollection as $checkValue)
                     <div class="item">
                         <div class="thumb">
                             <img src="/web/images/tmp/pay_slip_modal_thumb.png" alt="" loading="lazy">
                         </div>
                         <div>
-                            <div class="indicator {{ $check_value_statuses[$checkValue['name']] }}"></div>
-                            <div class="name">{{ $checkValue['title'] }}</div>
-                            @error('check_values.' . $checkValue['name'])
+                            <div class="indicator {{ $check_value_statuses[$checkValue->id] }}"></div>
+                            <div class="name">{{ $checkValue->name }}</div>
+                            @error('check_values.' . $checkValue->id)
                                 <div class="name" style="color: red;">
                                     {{ $message }}
                                 </div>
                             @enderror
                             <div class="value">
-                                <input type="number" step="0.0001" min="0.0001" max="999.9999" wire:model="check_values.{{ $checkValue['name'] }}" class="input" placeholder="000.0000">
+                                <input type="number" step="0.0001" min="0.0001" max="999.9999" wire:model="check_values.{{ $checkValue->id }}" class="input" placeholder="000.0000">
                                 <div class="unit">
-                                                                            <span>(мл)</span>
-{{--                                    <svg class="arr"><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>--}}
+                                        <span>(мл)</span>
                                 </div>
                             </div>
 {{--                            <button class="add_btn">Внести</button>--}}
