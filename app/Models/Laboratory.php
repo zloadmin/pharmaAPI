@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,7 +25,7 @@ class Laboratory extends Model
     ];
     protected $guarded = [];
     protected $casts = [
-        'check_values'              => 'json',
+        'chromatograph_table_items' => 'json',
         'chromatograph_column_temp' => 'float',
         'chromatograph_flow_speed'  => 'float',
         'chromatograph_detector'    => 'integer',
@@ -37,6 +38,12 @@ class Laboratory extends Model
     static array $checkValueTypes = [
         ['name' => 'from', 'title' => 'от'],
         ['name' => 'to', 'title' => 'до'],
+    ];
+    static array $chromatographTableItemTypes = [
+        'time'   => ['title' => 'Время (мин)'],
+        'a'      => ['title' => 'A(%)'],
+        'b'      => ['title' => 'B(%)'],
+        'stream' => ['title' => 'Поток(мл/мин)'],
     ];
 
     public function components(): BelongsToMany

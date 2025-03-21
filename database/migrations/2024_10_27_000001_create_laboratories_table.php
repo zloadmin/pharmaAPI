@@ -20,7 +20,8 @@ return new class extends Migration {
 
             $table->string('chart_image_path')->nullable();
             // check list
-            $table->json('check_values')->nullable();
+//            $table->json('check_values')->nullable();
+            $table->json('chromatograph_table_items')->nullable();
             // videos
             foreach (Laboratory::VIDEOS as $video) {
                 $table->unsignedBigInteger($video['key'])->nullable()->comment($video['name']);

@@ -52,8 +52,12 @@ trait HasLaboratoryForm
             'fields' => ['mobilePhases.*'],
         ],
         'chromatograph'           => [
-            'title'  => 'Хроматограф',
+            'title'  => 'Хроматограф Данные',
             'fields' => ['chromatographColumnTemp', 'chromatographFlowSpeed', 'chromatographFlowDirection', 'chromatographValue']
+        ],
+        'chromatograph_table'     => [
+            'title'  => 'Хроматограф Таблица',
+            'fields' => ['chromatographTableItems.*']
         ],
         'chart'                   => [
             'title'  => 'График',
@@ -77,6 +81,8 @@ trait HasLaboratoryForm
     public array $cookingComponents = [];
     // mobile-phases
     public array $mobilePhases = [];
+
+    public array $chromatographTableItems = [];
 
 
     public array $stuffComponents = [];
@@ -115,6 +121,8 @@ trait HasLaboratoryForm
         $this->cookingComponents = $this->getCookingComponents();
         $this->mobilePhases = $this->getMobilePhases();
         $this->checkValues = $this->getCheckValues();
+        $this->chromatographTableItems = $this->getChromatographTableItems();
+
         $this->chromatographColumnTemp = $laboratory->chromatograph_column_temp;
         $this->chromatographFlowSpeed = $laboratory->chromatograph_flow_speed;
         $this->chromatographDetector = $laboratory->chromatograph_detector;
@@ -146,9 +154,19 @@ trait HasLaboratoryForm
         return $this->laboratory->checkValues()->get()->toArray();
     }
 
+    public function getChromatographTableItems(): array
+    {
+        return $this->laboratory->chromatograph_table_items ?? [];
+    }
+
     public function addWeightingComponents(): void
     {
         $this->weightingComponents[] = [];
+    }
+
+    public function addChromatographTableItem(): void
+    {
+        $this->chromatographTableItems[] = [];
     }
 
     public function addCookingComponents(): void
@@ -165,6 +183,11 @@ trait HasLaboratoryForm
     public function deleteCheckValue(int $index): void
     {
         unset($this->checkValues[$index]);
+    }
+
+    public function deleteChromatographTableItem(int $index): void
+    {
+        unset($this->chromatographTableItems[$index]);
     }
 
     public function deleteCookingComponent(int $index): void
@@ -233,6 +256,16 @@ trait HasLaboratoryForm
         ];
     }
 
+    private function chromatographTableItemsRules(): array
+    {
+        $rules = [];
+        $rules['chromatographTableItems'] = ['array'];
+        foreach (Laboratory::$chromatographTableItemTypes as $name => $data) {
+            $rules['chromatographTableItems.*.' . $name] = ['required', 'numeric', 'min:0.00'];
+        }
+        return $rules;
+    }
+
     private function checkValueRules(): array
     {
         return [
@@ -260,6 +293,7 @@ trait HasLaboratoryForm
             'chromatograph_flow_speed'   => $this->chromatographFlowSpeed,
             'chromatograph_detector'     => $this->chromatographDetector,
             'chromatograph_value'        => $this->chromatographValue,
+            'chromatograph_table_items'  => $this->chromatographTableItems,
             'chart_image_path'           => $chart_image_path
         ];
     }
@@ -274,6 +308,7 @@ trait HasLaboratoryForm
             $this->weightingComponentRules(), // Компоненты весовой
             $this->mobilePhasesRules(), // ПФ
             $this->cookingComponentsRules(), // Компоненты приготовления растворов
+            $this->chromatographTableItemsRules(), // Хроматограф Таблица
         );
     }
 
