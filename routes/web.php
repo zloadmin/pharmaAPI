@@ -55,7 +55,7 @@ Route::get('/stage/chromatograph/{session}/software/result', ChromatographResult
 
 
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth.very_basic')->group(function () {
     Route::get('/', DashboardPage::class)->name('admin.dashboard-page');
 
     Route::prefix('components')->group(function () {
