@@ -78,6 +78,14 @@ class SessionComponent extends Model
 
     public function getName()
     {
+        $postfix = $this->bath_temperature ? ' после УЗ' : '';
+        $postfix .= $this->ph_meter_value ? ' рН ' . $this->ph_meter_value : '';
+        return $this->getNameWithoutPostfix() . $postfix;
+    }
+
+    public function getNameWithoutPostfix()
+    {
+
         switch ($this->type) {
             case SessionComponentTypeEnum::Weighed:
                 return $this->getNameWeighed();
@@ -102,6 +110,7 @@ class SessionComponent extends Model
         }
         return $this->component->name;
     }
+
 
     public function getShortName()
     {
@@ -270,6 +279,7 @@ class SessionComponent extends Model
     {
         return $query->where('place', SessionComponentPlace::inChromatographExampleLeftBox);
     }
+
     /**
      * Scope a query to only include in chromatograph example right box
      *
