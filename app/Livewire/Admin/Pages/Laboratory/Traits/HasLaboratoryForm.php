@@ -218,11 +218,11 @@ trait HasLaboratoryForm
         return [
             'name'                       => ['required', 'string', 'max:250'],
             'description'                => ['nullable'],
-            'pharmacological_article_id' => ['required', Rule::exists('pharmacological_articles', 'id')],
-            'chromatographColumnTemp'    => ['required', 'numeric', 'between:0.1,999.9'],
-            'chromatographFlowSpeed'     => ['required', 'numeric', 'between:0.001,999.999'],
-            'chromatographDetector'      => ['required', 'numeric', 'between:1,9999999'],
-            'chromatographValue'         => ['required', 'numeric', 'between:1,9999999'],
+            'pharmacological_article_id' => ['nullable', Rule::exists('pharmacological_articles', 'id')],
+            'chromatographColumnTemp'    => ['nullable', 'numeric', 'between:0.1,999.9'],
+            'chromatographFlowSpeed'     => ['nullable', 'numeric', 'between:0.001,999.999'],
+            'chromatographDetector'      => ['nullable', 'numeric', 'between:1,9999999'],
+            'chromatographValue'         => ['nullable', 'numeric', 'between:1,9999999'],
             'chart_image'                => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
         ];
     }
@@ -288,12 +288,12 @@ trait HasLaboratoryForm
         return [
             'name'                       => $this->name,
             'description'                => $this->description,
-            'pharmacological_article_id' => $this->pharmacological_article_id,
-            'chromatograph_column_temp'  => $this->chromatographColumnTemp,
-            'chromatograph_flow_speed'   => $this->chromatographFlowSpeed,
-            'chromatograph_detector'     => $this->chromatographDetector,
-            'chromatograph_value'        => $this->chromatographValue,
-            'chromatograph_table_items'  => $this->chromatographTableItems,
+            'pharmacological_article_id' => $this->pharmacological_article_id ?? null,
+            'chromatograph_column_temp'  => $this->chromatographColumnTemp ?? null,
+            'chromatograph_flow_speed'   => $this->chromatographFlowSpeed ?? null,
+            'chromatograph_detector'     => $this->chromatographDetector ?? null,
+            'chromatograph_value'        => $this->chromatographValue ?? null,
+            'chromatograph_table_items'  => $this->chromatographTableItems ?? null,
             'chart_image_path'           => $chart_image_path
         ];
     }
