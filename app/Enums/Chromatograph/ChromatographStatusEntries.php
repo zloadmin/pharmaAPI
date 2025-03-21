@@ -37,4 +37,9 @@ enum ChromatographStatusEntries: string
         return 'Внести записи';
     }
 
+    public function onClick(): string
+    {
+        return 'showModalResult';
+    }
+
 }

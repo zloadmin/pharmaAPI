@@ -40,10 +40,10 @@ class Laboratory extends Model
         ['name' => 'to', 'title' => 'до'],
     ];
     static array $chromatographTableItemTypes = [
-        'time'   => ['title' => 'Время (мин)'],
-        'a'      => ['title' => 'A(%)'],
-        'b'      => ['title' => 'B(%)'],
-        'stream' => ['title' => 'Поток(мл/мин)'],
+        'time'   => ['title' => 'Время (мин)', 'decimals' => 2],
+        'a'      => ['title' => 'A(%)', 'decimals' => 1],
+        'b'      => ['title' => 'B(%)', 'decimals' => 1],
+        'stream' => ['title' => 'Поток(мл/мин)', 'decimals' => 1],
     ];
 
     public function components(): BelongsToMany
@@ -96,5 +96,9 @@ class Laboratory extends Model
     {
 //        dd(Storage::path($this->chart_image_path));
         return Storage::path($this->chart_image_path);
+    }
+    public function getChromatographTableItems(): array
+    {
+        return $this->chromatograph_table_items ?? [];
     }
 }

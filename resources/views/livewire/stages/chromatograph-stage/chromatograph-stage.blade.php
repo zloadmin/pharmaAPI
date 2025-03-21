@@ -97,7 +97,7 @@
                           'disabled' => $chromatographStatusEntries->isDisabled(),
                           'icon_href' => $chromatographStatusEntries->getIconHref(),
                           'is_on' => $chromatographStatusEntries->isOn(),
-                          'on_click' => '$dispatch("show-modal-result")',
+                          'on_click' => $chromatographStatusEntries->onClick(),
                           'enum' => $chromatographStatusEntries,
                       ])
                 </div>

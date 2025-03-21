@@ -166,5 +166,9 @@ class ChromatographStage extends Component
         $this->background = $this->sessionModel->getChromatographBackground();
     }
 
+    public function showModalResult(): void
+    {
+        $this->dispatch('show-modal-result', session: $this->session);
+    }
 
 }

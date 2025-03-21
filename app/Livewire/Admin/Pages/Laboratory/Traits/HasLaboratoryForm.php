@@ -156,7 +156,7 @@ trait HasLaboratoryForm
 
     public function getChromatographTableItems(): array
     {
-        return $this->laboratory->chromatograph_table_items ?? [];
+        return $this->laboratory->getChromatographTableItems();
     }
 
     public function addWeightingComponents(): void

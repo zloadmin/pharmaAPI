@@ -4,6 +4,7 @@ namespace App\Livewire\Stages\ChromatographStage\SoftwarePages;
 
 
 use App\Livewire\Traits\HasSession;
+use App\Models\Laboratory;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -29,9 +30,11 @@ class ChromatographMethodPage extends Component
         ],
     ];
 
+    public array $tableItems = [];
     public function mount($session)
     {
         $this->setSession($session);
+        $this->setTableItems();
     }
 
     public function showTab(string $key): void
@@ -60,5 +63,12 @@ class ChromatographMethodPage extends Component
             'activeTab' => 'chromatograph-method-page',
             'session' => $this->session
         ]);
+    }
+
+    private function setTableItems()
+    {
+        foreach(Laboratory::$chromatographTableItemTypes as $type => $data) {
+
+        }
     }
 }

@@ -107,7 +107,7 @@
 
                         <div class="data" style="display: block;">
                             <div class="warning">
-                                <span>Для программистов: инфа к табличке: Общее значение А и Б равно 100%;  Если А 70% то = Б 30%</span>
+{{--                                <span>Для программистов: инфа к табличке: Общее значение А и Б равно 100%;  Если А 70% то = Б 30%</span>--}}
 
                                 <img src="/web/images/tmp/software/software3_img5.svg" alt="">
                             </div>
@@ -116,83 +116,36 @@
                                 <table class="schedule_table">
                                     <thead>
                                     <tr>
-                                        <th>Время (мин)</th>
-                                        <th>A(%)</th>
-                                        <th>B(%)</th>
-                                        <th>Поток<br> (мл/мин)</th>
+{{--                                        <th>Время (мин)</th>--}}
+{{--                                        <th>A(%)</th>--}}
+{{--                                        <th>B(%)</th>--}}
+{{--                                        <th>Поток<br> (мл/мин)</th>--}}
+                                        @foreach(\App\Models\Laboratory::$chromatographTableItemTypes as $name => $data)
+                                            <th>{{ $data['title'] }}</th>
+                                        @endforeach
+
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                    <tr>
-                                        <td>0.00</td>
-                                        <td>100.0</td>
-                                        <td>0.0</td>
-                                        <td>0.0</td>
-                                    </tr>
+                                    @foreach($laboratory->getChromatographTableItems() as $item)
+                                        <tr>
+                                            @foreach(\App\Models\Laboratory::$chromatographTableItemTypes as $name => $data)
+                                                <td>{{ number_format($item[$name] ?? 0, $data['decimals']) }}</td>
+                                            @endforeach
+                                        </tr>
+                                    @endforeach
 
-                                    <tr>
-                                        <td>0.00</td>
-                                        <td>100.0</td>
-                                        <td>0.0</td>
-                                        <td>0.0</td>
-                                    </tr>
 
-                                    <tr>
-                                        <td>0.00</td>
-                                        <td>100.0</td>
-                                        <td>0.0</td>
-                                        <td>0.0</td>
-                                    </tr>
 
-                                    <tr>
-                                        <td>0.00</td>
-                                        <td>100.0</td>
-                                        <td>0.0</td>
-                                        <td>0.0</td>
-                                    </tr>
+{{--                                    <tr>--}}
+{{--                                        <td>0.00</td>--}}
+{{--                                        <td>100.0</td>--}}
+{{--                                        <td>0.0</td>--}}
+{{--                                        <td>0.0</td>--}}
+{{--                                    </tr>--}}
 
-                                    <tr>
-                                        <td>0.00</td>
-                                        <td>100.0</td>
-                                        <td>0.0</td>
-                                        <td>0.0</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>0.00</td>
-                                        <td>100.0</td>
-                                        <td>0.0</td>
-                                        <td>0.0</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>0.00</td>
-                                        <td>100.0</td>
-                                        <td>0.0</td>
-                                        <td>0.0</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>0.00</td>
-                                        <td>100.0</td>
-                                        <td>0.0</td>
-                                        <td>0.0</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>0.00</td>
-                                        <td>100.0</td>
-                                        <td>0.0</td>
-                                        <td>0.0</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>0.00</td>
-                                        <td>100.0</td>
-                                        <td>0.0</td>
-                                        <td>0.0</td>
-                                    </tr>
+{{--                                   --}}
                                     </tbody>
                                 </table>
                             </div>
