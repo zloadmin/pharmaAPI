@@ -15,7 +15,7 @@ class LaboratoriesPage extends LivewireComponent
     public function render()
     {
         return view('livewire.admin.pages.laboratory.laboratories-page', [
-            'laboratories' => Laboratory::withCount('components')->latest()->paginate()
+            'laboratories' => Laboratory::withCount('components')->orderBy('name')->paginate()
         ])->layoutData([
             'breadcrumb' => $this->getLaboratoryPageBreadcrumb()
         ]);
