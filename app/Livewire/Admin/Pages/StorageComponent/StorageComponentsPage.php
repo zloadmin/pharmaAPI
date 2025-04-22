@@ -33,6 +33,7 @@ class StorageComponentsPage extends LivewireComponent
     public function getComponents()
     {
         $components = Component::query();
+        $components->with('laboratories');
         if ($this->isSetIsExample()) {
             $components->where('is_example', $this->is_example);
         }

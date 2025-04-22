@@ -10,6 +10,7 @@ use App\Livewire\Stages\StorageStage\StorageComponents\ComponentStuff;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,6 +34,11 @@ class Component extends Model
         'ph_meter_value'               => 'decimal:4'
     ];
 
+
+    public function laboratories(): BelongsToMany
+    {
+        return $this->belongsToMany(Laboratory::class);
+    }
     /**
      * Scope a query to only include by scales place.
      *

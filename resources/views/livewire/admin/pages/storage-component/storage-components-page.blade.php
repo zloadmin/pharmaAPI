@@ -43,6 +43,7 @@
             <th>Вес</th>
             <th>Положение на весах</th>
             <th>Описание</th>
+            <th>Лабораторные работы</th>
             <th>Добавлен</th>
             <th>Действия</th>
         </tr>
@@ -68,6 +69,13 @@
                     </span>
                 </td>
                 <td>{{ $component->description }}</td>
+                <td>
+                    <ul>
+                        @foreach($component->laboratories as $laboratory)
+                            <li>{{ $laboratory->name }}</li>
+                        @endforeach
+                    </ul>
+                </td>
                 <td>{{ $component->created_at->diffForHumans() }}</td>
 
                 <td class="table-action text-right">
