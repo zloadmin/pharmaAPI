@@ -16,7 +16,7 @@ class IndexPage extends Component
 
     public function mount()
     {
-        $this->laboratories = Laboratory::query()->orderBy('id')->get();
+        $this->laboratories = Laboratory::query()->orderBy('name')->get();
     }
     #[Layout('components.layouts.app-simple')]
     public function render()
