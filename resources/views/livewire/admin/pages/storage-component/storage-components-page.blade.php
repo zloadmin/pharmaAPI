@@ -100,5 +100,5 @@
         @endforeach
         </tbody>
     </table>
-    {{ $components->links() }}
+{{--    {{ $components->links() }}--}}
 </div>

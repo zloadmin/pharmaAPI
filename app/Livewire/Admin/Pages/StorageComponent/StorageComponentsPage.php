@@ -38,7 +38,7 @@ class StorageComponentsPage extends LivewireComponent
             $components->where('is_example', $this->is_example);
         }
         $components->orderBy('name');
-        return $components->paginate();
+        return $components->get();
     }
 
     public function delete($id): void
