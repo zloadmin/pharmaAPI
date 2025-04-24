@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Pages\StorageComponent;
 
+use App\Enums\Component\ComponentNamingType;
 use App\Enums\Component\ComponentType;
 use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Livewire\Admin\Pages\StorageComponent\Traits\HasStorageComponentForm;
@@ -29,6 +30,7 @@ class StorageComponentEditPage extends LivewireComponent
             'short_name'                   => ['required', 'string', 'max:15'],
             'description'                  => ['required', 'string'],
             'type'                         => ['required', Rule::in(ComponentType::values())],
+            'naming_type'                  => ['nullable', Rule::in(ComponentNamingType::values())],
             'image'                        => ['nullable', 'image'],
             'padding_top'                  => ['required', 'numeric', 'min:0.001', 'max:100'],
             'padding_right'                => ['required', 'numeric', 'min:0.001', 'max:100'],
@@ -76,6 +78,7 @@ class StorageComponentEditPage extends LivewireComponent
         $this->storageComponent->short_name = $this->short_name;
         $this->storageComponent->description = $this->description;
         $this->storageComponent->type = $this->type;
+        $this->storageComponent->naming_type = $this->naming_type;
         if ($this->image) {
             $this->storageComponent->image = $this->image->store(path: 'storage_components');
         }
@@ -112,6 +115,7 @@ class StorageComponentEditPage extends LivewireComponent
         $this->short_name = $storageComponent->short_name;
         $this->description = $storageComponent->description;
         $this->type = $storageComponent->type->value;
+        $this->naming_type = $storageComponent->naming_type->value ?? null;
         $this->padding_top = $storageComponent->padding_top;
         $this->padding_right = $storageComponent->padding_right;
         $this->on_scales_place = $storageComponent->on_scales_place->value;

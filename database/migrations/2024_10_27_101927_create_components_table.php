@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Component\ComponentNamingType;
 use App\Enums\Component\ComponentType;
 use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Models\Component;
@@ -23,6 +24,7 @@ return new class extends Migration {
             $table->text('description')->comment('Описание');
             $table->string('image')->comment('Изображение');
             $table->enum('type', ComponentType::values())->comment('type');
+            $table->enum('naming_type', ComponentNamingType::values())->nullable()->comment('naming type');
             $table->enum('on_scales_place', SessionComponentPlace::getOnScalesValues())->nullable();
             $table->enum('on_mix_place', SessionComponentPlace::getMixStuffPlaceValues())->nullable();
             $table->enum('on_filtration_examples_place', SessionComponentPlace::getFiltrationExamplesPlaceValues())->nullable();

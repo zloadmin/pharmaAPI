@@ -61,6 +61,21 @@
             </span>
         @enderror
     </div>
+    <!--- Тип Field --->
+    <div class="form-group">
+        <label for="type">Тип имени</label>
+        <select class="form-control @error('type') is-invalid @enderror" wire:model="naming_type" required>
+            <option value=""></option>
+            @foreach(\App\Enums\Component\ComponentNamingType::cases() as $item)
+                <option value="{{ $item }}">{{ $item->label() }}</option>
+            @endforeach
+        </select>
+        @error('naming_type')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
     <!--- Изображение Field --->
     <div class="form-group">
         <label for="image">Изображение</label>

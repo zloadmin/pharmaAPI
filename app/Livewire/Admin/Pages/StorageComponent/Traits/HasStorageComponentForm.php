@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Pages\StorageComponent\Traits;
 
 
+use App\Enums\Component\ComponentNamingType;
 use App\Enums\Component\ComponentType;
 use App\Enums\SessionComponent\SessionComponentPlace;
 use Illuminate\Validation\Rule;
@@ -19,6 +20,7 @@ trait HasStorageComponentForm
     public $short_name = '';
     public $description = '';
     public $type = '';
+    public $naming_type = '';
     public $image = '';
     public $padding_top = 0.0;
     public $padding_right = 0.0;
@@ -42,6 +44,7 @@ trait HasStorageComponentForm
             'short_name'                   => ['required', 'string', 'max:15'],
             'description'                  => ['required', 'string'],
             'type'                         => ['required', Rule::in(ComponentType::values())],
+            'naming_type'                  => ['nullable', Rule::in(ComponentNamingType::values())],
             'image'                        => ['required', 'image'],
             'padding_top'                  => ['required', 'numeric', 'min:0.001', 'max:100'],
             'padding_right'                => ['required', 'numeric', 'min:0.001', 'max:100'],

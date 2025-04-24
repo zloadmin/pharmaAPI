@@ -39,6 +39,7 @@ class StorageComponentCreatePage extends LivewireComponent
             'short_name'                   => $this->name,
             'description'                  => $this->description,
             'type'                         => $this->type,
+            'naming_type'                  => $this->naming_type,
             'image'                        => $this->image->store(path: 'storage_components'),
             'padding_top'                  => $this->padding_top,
             'padding_right'                => $this->padding_right,

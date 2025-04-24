@@ -217,6 +217,7 @@ return [
         'chromatographTableItems.*.a'               => 'a',
         'chromatographTableItems.*.b'               => 'b',
         'chromatographTableItems.*.stream'          => 'поток',
+        'naming_type'                               => 'тип имени',
     ],
 
 ];

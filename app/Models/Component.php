@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Component\ComponentNamingType;
 use App\Enums\Component\ComponentType;
 use App\Enums\SessionComponent\SessionComponentPlace;
 use App\Livewire\Stages\StorageStage\StorageComponents\ComponentLiquid;
@@ -22,6 +23,7 @@ class Component extends Model
     protected $guarded = [];
     protected $casts = [
         'type'                         => ComponentType::class,
+        'naming_type'                  => ComponentNamingType::class,
         'on_scales_place'              => SessionComponentPlace::class,
         'on_mix_place'                 => SessionComponentPlace::class,
         'on_filtration_examples_place' => SessionComponentPlace::class,
@@ -39,6 +41,7 @@ class Component extends Model
     {
         return $this->belongsToMany(Laboratory::class);
     }
+
     /**
      * Scope a query to only include by scales place.
      *
