@@ -5,8 +5,8 @@
             <label for="cookingComponents.{{ $index }}.stuff_component_id">Компонент</label>
             <select class="form-control @error('cookingComponents.'. $index .'.component_id') is-invalid @enderror" wire:model="cookingComponents.{{ $index }}.component_id">
                 <option value=""></option>
-                @foreach($components as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
+                @foreach($components as $component)
+                    <option value="{{ $component['id'] }}">{{ $component['name'] }}</option>
                 @endforeach
             </select>
             @error('cookingComponents.'. $index .'.component_id')
