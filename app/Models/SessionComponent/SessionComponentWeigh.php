@@ -114,6 +114,7 @@ trait SessionComponentWeigh
 
     private function getNameWeighed(): string
     {
+        // naming #1
         return sprintf('%s с %s %.04f г', $this->getComponentName(), $this->getWeighedComponentName(), $this->weighed_value_float);
     }
 

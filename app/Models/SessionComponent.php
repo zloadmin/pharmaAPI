@@ -78,8 +78,10 @@ class SessionComponent extends Model
 
     public function getName()
     {
-        $postfix = $this->bath_temperature ? ' после УЗ' : '';
-        $postfix .= $this->ph_meter_value ? ' рН ' . $this->ph_meter_value : '';
+//        $postfix = $this->bath_temperature ? ' после УЗ' : '';
+//        $postfix .= $this->ph_meter_value ? ' рН ' . $this->ph_meter_value : '';
+
+        $postfix = '';
         return $this->getNameWithoutPostfix() . $postfix;
     }
 
