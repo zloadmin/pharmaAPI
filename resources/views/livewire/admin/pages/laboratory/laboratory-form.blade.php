@@ -33,7 +33,7 @@
                     </div>
                 @endforeach
             </div> <!-- end tab-content-->
-            <button class="btn btn-primary" wire:loading.attr="disabled" wire:target="save">
+            <button class="btn btn-primary mt-2" wire:loading.attr="disabled" wire:target="save">
                 <div wire:loading.delay wire:target="save">
                     <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
                     Загрузка...
