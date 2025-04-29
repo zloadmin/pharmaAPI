@@ -14,15 +14,15 @@
 {{--    @enderror--}}
 {{--</div>--}}
 
-@foreach($components as $id => $name)
+@foreach($components as $component)
     <!--- {{ $name }} Field --->
     <div class="form-check">
-        <input class="form-check-input @error('component_ids.' .  $id) is-invalid @enderror" type="checkbox"
-               wire:model="component_ids"  value="{{ $id }}" id="checkbox_component_ids_{{ $id }}">
-        <label class="form-check-label" for="checkbox_component_ids_{{ $id }}">
-            {{ $name }}
+        <input class="form-check-input @error('component_ids.' .  $component['id']) is-invalid @enderror" type="checkbox"
+               wire:model="component_ids"  value="{{ $component['id'] }}" id="checkbox_component_ids_{{ $component['id'] }}">
+        <label class="form-check-label" for="checkbox_component_ids_{{ $component['id'] }}">
+            {{ $component['name'] }}
         </label>
-        @error('component_ids.' .  $id)
+        @error('component_ids.' .  $component['id'])
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>

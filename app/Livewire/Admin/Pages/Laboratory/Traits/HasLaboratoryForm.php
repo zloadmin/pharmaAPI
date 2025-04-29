@@ -102,7 +102,7 @@ trait HasLaboratoryForm
         //  mount dropdown values
         $this->stuffComponents = Component::getStuffComponentsDropdownArray();
         $this->filledComponents = Component::getFilledComponentsDropdownArray();
-        $this->components = Component::getDropdownArray();
+        $this->components = Component::getDropdownArraySorted();
         $this->pharmacologicalArticles = PharmacologicalArticle::getDropdownArray();
     }
 

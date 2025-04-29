@@ -58,6 +58,10 @@ class Component extends Model
     {
         return self::query()->where('is_example', false)->pluck('name', 'id')->toArray();
     }
+    public static function getDropdownArraySorted(): array
+    {
+        return self::select('name', 'id')->where('is_example', false)->orderBy('name')->get()->toArray();
+    }
 
     public static function getAnyDropdownArray(): array
     {
