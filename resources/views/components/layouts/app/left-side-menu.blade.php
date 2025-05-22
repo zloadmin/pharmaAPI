@@ -51,6 +51,13 @@
                                         <span>Фарм. статьи</span>
                                     </a>
                                 </li>
+
+                                <li class="side-nav-item">
+                                    <a href="{{ route('admin.laboratory-sessions') }}" class="side-nav-link" wire:navigate>
+                                        <i class="uil-list-ui-alt"></i>
+                                        <span>Сессии</span>
+                                    </a>
+                                </li>
 {{--                                <li class="side-nav-item">--}}
 {{--                                    <a href="{{ route('admin.videos-page') }}" class="side-nav-link" wire:navigate>--}}
 {{--                                        <i class="uil-video"></i>--}}

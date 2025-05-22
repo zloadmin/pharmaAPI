@@ -32,6 +32,10 @@ trait HasBreadcrumb
     {
         return [route('admin.pharmacological-articles-page') => 'Фармакологические статьи'];
     }
+    private function getLaboratorySessionsPageItem(): array
+    {
+        return [route('admin.laboratory-sessions') => 'Сессии'];
+    }
     private function getVideoItem(): array
     {
         return [route('admin.videos-page') => 'Видео'];
@@ -95,6 +99,10 @@ trait HasBreadcrumb
     private function getPharmacologicalArticlesPageBreadcrumb(): array
     {
         return $this->getPharmacologicalArticleItem();
+    }
+    private function getLaboratorySessionsPageBreadcrumb(): array
+    {
+        return $this->getLaboratorySessionsPageItem();
     }
     private function getVideosPageBreadcrumb(): array
     {

@@ -17,6 +17,7 @@ use App\Livewire\Admin\Pages\Video\VideoCreatePage;
 use App\Livewire\Admin\Pages\Video\VideoEditPage;
 use App\Livewire\Admin\Pages\Video\VideosPage;
 use App\Livewire\IndexPage;
+use App\Livewire\LaboratorySession\LaboratorySessionsPage;
 use App\Livewire\Stages\ChromatographStage\ChromatographStage;
 use App\Livewire\Stages\ChromatographStage\SoftwarePages\ChromatographMethodPage;
 use App\Livewire\Stages\ChromatographStage\SoftwarePages\ChromatographResultPage;
@@ -40,7 +41,6 @@ use Illuminate\Support\Facades\Route;
 //})->name('start-index-stage');
 
 
-
 Route::get('/', IndexPage::class)->name('index-page');
 Route::get('/stage/index/{session}', IndexStage::class)->name('index-stage');
 Route::get('/stage/storage/{session}', StorageStage::class)->name('storage-stage');
@@ -52,7 +52,6 @@ Route::get('/stage/chromatograph/{session}/software/status', ChromatographStatus
 Route::get('/stage/chromatograph/{session}/software/method', ChromatographMethodPage::class)->name('chromatograph-method-page');
 Route::get('/stage/chromatograph/{session}/software/single-sample', ChromatographSingleSamplePage::class)->name('chromatograph-single-sample-page');
 Route::get('/stage/chromatograph/{session}/software/result', ChromatographResultPage::class)->name('chromatograph-result-page');
-
 
 
 Route::prefix('admin')->middleware('auth.very_basic')->group(function () {
@@ -75,6 +74,10 @@ Route::prefix('admin')->middleware('auth.very_basic')->group(function () {
         Route::get('/', PharmacologicalArticlesPage::class)->name('admin.pharmacological-articles-page');
         Route::get('/create', PharmacologicalArticleCreatePage::class)->name('admin.pharmacological-article-create-page');
         Route::get('/edit/{pharmacologicalArticle}', PharmacologicalArticleEditPage::class)->name('admin.pharmacological-article-edit-page');
+    });
+
+    Route::prefix('laboratory-sessions')->group(function () {
+        Route::get('/', LaboratorySessionsPage::class)->name('admin.laboratory-sessions');
     });
 //    Route::prefix('videos')->group(function () {
 //        Route::get('/', VideosPage::class)->name('admin.videos-page');
