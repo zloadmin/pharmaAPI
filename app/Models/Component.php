@@ -58,6 +58,7 @@ class Component extends Model
     {
         return self::query()->where('is_example', false)->pluck('name', 'id')->toArray();
     }
+
     public static function getDropdownArraySorted(): array
     {
         return self::select('name', 'id')->where('is_example', false)->orderBy('name')->get()->toArray();
@@ -136,12 +137,11 @@ class Component extends Model
             case SessionComponentPlace::inFiltrationMobilePhaseBox:
                 return $this->filtration_able && $sessionComponent->isTypeMixed();
             case SessionComponentPlace::inMixBoxOne:
-                return $this->on_mix_place === $place || $sessionComponent->is_mixed;
+            case SessionComponentPlace::inMixBoxFour:
+                return in_array($place->value, $this->on_mix_place_array);
             case SessionComponentPlace::inMixBoxTwo:
             case SessionComponentPlace::inMixBoxThree:
                 return $this->on_mix_place === $place && !$sessionComponent->is_mixed;
-            case SessionComponentPlace::inMixBoxFour:
-                return $sessionComponent->is_weighed || $sessionComponent->is_mixed;
             case SessionComponentPlace::inFiltrationExampleBoxOne:
                 return $sessionComponent->isTypeMixed() && $this->on_filtration_examples_place == $place;
             case SessionComponentPlace::inFiltrationExampleBoxTwo:
@@ -155,6 +155,11 @@ class Component extends Model
                 return $this->on_scales_place === $place;
         }
 
+    }
+
+    public function getOnMixPlaceArrayAttribute(): array
+    {
+        return $this->on_mix_place ? explode(",", $this->on_mix_place->value) : [];
     }
 
     static function getStuffComponentsDropdownArray(): array

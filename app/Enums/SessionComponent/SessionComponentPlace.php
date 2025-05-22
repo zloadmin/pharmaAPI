@@ -25,6 +25,7 @@ enum SessionComponentPlace: string
     case inMixBoxTwo = 'inMixBoxTwo';
     case inMixBoxThree = 'inMixBoxThree';
     case inMixBoxFour = 'inMixBoxFour';
+    case inMixBoxOneOrFour = 'inMixBoxOne,inMixBoxFour';
 
     case inFiltrationExampleBoxOne = 'inFiltrationExampleBoxOne';
     case inFiltrationExampleBoxTwo = 'inFiltrationExampleBoxTwo';
@@ -48,6 +49,7 @@ enum SessionComponentPlace: string
             self::inMixBoxTwo => 'Миксер ячейка 2',
             self::inMixBoxThree => 'Миксер ячейка 3',
             self::inMixBoxFour => 'Миксер ячейка 4',
+            self::inMixBoxOneOrFour => 'Миксер ячейка 1 или 4',
             self::inFiltrationExampleBoxOne => 'Фильтрация ячейка 1',
             self::inFiltrationExampleBoxTwo => 'Фильтрация ячейка 2',
             self::inFiltrationExampleBoxThree => 'Фильтрация ячейка 3',
@@ -110,6 +112,8 @@ enum SessionComponentPlace: string
             self::inMixBoxOne,
             self::inMixBoxTwo,
             self::inMixBoxThree,
+            self::inMixBoxFour,
+            self::inMixBoxOneOrFour,
         ];
     }
 
