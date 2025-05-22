@@ -25,7 +25,7 @@
                 <td>{{ $session->laboratory->name ?? '' }}</td>
                 <td>{{ $session->session_components_count }}</td>
                 <td class="table-action text-right">
-                    <a href="{{ route('index-stage', $session) }}" class="btn btn-success">
+                    <a href="{{ route('index-stage', $session->uuid) }}" class="btn btn-success">
                         Войти
                     </a>
                 </td>
