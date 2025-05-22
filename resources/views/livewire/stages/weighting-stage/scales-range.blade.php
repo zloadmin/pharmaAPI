@@ -5,7 +5,7 @@
         >
             <input type="hidden" id="range1" name="range1" value="{{ $scalesRangeValue }}">
             <div class="field">
-                    <input type="text" inputmode="numeric" name="" value="{{ $scalesRangeValue }}" class="input from">
+                    <input id="range_value_input" type="number" min="0.0000" max="25.0000" step="0.0005" inputmode="numeric" name="" value="{{ $scalesRangeValue }}" class="input from">
                 <div class="unit">
                     <span>(г)</span>
                     <svg class="arr"><use xlink:href="/web/images/sprite.svg#ic_arr_ver"></use></svg>

@@ -27,6 +27,7 @@ use App\Livewire\Stages\CookingStage\CookingStage;
 use App\Livewire\Stages\IndexStage;
 use App\Livewire\Stages\StorageStage\StorageStage;
 use App\Livewire\Stages\WeightingStage\WeightingStage;
+use App\Livewire\TestPage;
 use App\Models\LaboratorySession;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', IndexPage::class)->name('index-page');
+Route::get('/test', TestPage::class)->name('index-page');
 Route::get('/stage/index/{session}', IndexStage::class)->name('index-stage');
 Route::get('/stage/storage/{session}', StorageStage::class)->name('storage-stage');
 Route::get('/stage/weighting/{session}', WeightingStage::class)->name('weighting-stage');

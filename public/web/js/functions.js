@@ -35,9 +35,9 @@ function initRange() {
 
     window.range_from = window.scalesRangeValue;
     window.range_current = window.scalesRangeValue;
-    window.range_step = 0.005;
-    window.range_min = 0.000;
-    window.range_max = 25.000;
+    window.range_step = 0.0005;
+    window.range_min = 0.0000;
+    window.range_max = 25.0000;
 
     window.range = $('.interaction_data #range1').ionRangeSlider({
         min: window.range_min,
@@ -65,6 +65,10 @@ function initRange() {
     }).data("ionRangeSlider");
     updateScalesWeight();
     $('.rangeBlock').show();
+    $('#range_value_input').on('change', function () {
+        window.scalesRangeValue = Number.parseFloat($('#range_value_input').val());
+        rangeSetValue(window.scalesRangeValue);
+    });
 }
 
 function initTimeRange() {
@@ -162,7 +166,7 @@ function updateScalesRangeValue(value) {
 function updateScalesWeight() {
     window.scalesWeight = window.scalesWeightOfComponents + window.scalesRangeValue - window.scalesWeightCalibration;
     $('#scales-value').text(window.scalesWeight.toFixed(4));
-    $('.interaction_data .range1 input.from').val(window.scalesWeight.toFixed(3));
+    $('.interaction_data .range1 input.from').val(window.scalesWeight.toFixed(4));
 }
 
 
