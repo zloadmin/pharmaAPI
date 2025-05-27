@@ -2,7 +2,7 @@
     <div class="cont row">
         <div class="current_task">
             <div class="current">
-                <div>Текущая задача: <b>1. Заполните расчетный лист в соответсвии с фармокопейной статьей</b></div>
+                <div><b>{{ $laboratory->name }}</b></div>
                 <button class="start_btn" type="button">
                     <svg class="icon"><use xlink:href="/web/images/sprite.svg#ic_video_play"></use></svg>
                     <span>начать</span>
