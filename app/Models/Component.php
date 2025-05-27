@@ -138,7 +138,7 @@ class Component extends Model
                 return $this->filtration_able && $sessionComponent->isTypeMixed();
             case SessionComponentPlace::inMixBoxOne:
             case SessionComponentPlace::inMixBoxFour:
-                return in_array($place->value, $this->on_mix_place_array) || $sessionComponent->is_weighed;
+                return in_array($place->value, $this->on_mix_place_array) || $sessionComponent->is_weighed && $sessionComponent->mobile_phase_id;
             case SessionComponentPlace::inMixBoxTwo:
             case SessionComponentPlace::inMixBoxThree:
                 return $this->on_mix_place === $place && !$sessionComponent->is_mixed;
