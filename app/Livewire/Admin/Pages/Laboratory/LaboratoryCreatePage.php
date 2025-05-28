@@ -35,7 +35,7 @@ class LaboratoryCreatePage extends LivewireComponent
         $this->createLaboratoryWeightingComponents($laboratory);
         $this->createLaboratoryCookingComponents($laboratory);
         $this->createLaboratoryCheckValues($laboratory);
-        $this->createLaboratoryMobilePhases($laboratory);
+//        $this->createLaboratoryMobilePhases($laboratory);
         $this->createLaboratoryVirtualComponents($laboratory);
         $this->redirectToLaboratoriesPage();
     }

@@ -314,27 +314,27 @@ trait HasLaboratoryForm
         ];
     }
 
-    private function mobilePhasesRules(): array
-    {
-        return [
-            'mobilePhases'                       => [ 'array' ],
-            'mobilePhases.*.name'                => [
-                'required',
-                'string',
-                'max:250'
-            ],
-            'mobilePhases.*.first_component_id'  => [
-                'required',
-                'integer',
-                Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)
-            ],
-            'mobilePhases.*.second_component_id' => [
-                'required',
-                'integer',
-                Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)
-            ],
-        ];
-    }
+//    private function mobilePhasesRules(): array
+//    {
+//        return [
+//            'mobilePhases'                       => [ 'array' ],
+//            'mobilePhases.*.name'                => [
+//                'required',
+//                'string',
+//                'max:250'
+//            ],
+//            'mobilePhases.*.first_component_id'  => [
+//                'required',
+//                'integer',
+//                Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)
+//            ],
+//            'mobilePhases.*.second_component_id' => [
+//                'required',
+//                'integer',
+//                Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)
+//            ],
+//        ];
+//    }
     private function virtualComponentsRules(): array
     {
         return [
@@ -437,7 +437,7 @@ trait HasLaboratoryForm
             $this->mainRules(), // Описание, ФС, Хроматограф
             $this->checkValueRules(), // Расчетный лист
             $this->weightingComponentRules(), // Компоненты весовой
-            $this->mobilePhasesRules(), // ПФ
+//            $this->mobilePhasesRules(), // ПФ
             $this->virtualComponentsRules(), // Виртуальные компоненты
             $this->cookingComponentsRules(), // Компоненты приготовления растворов
             $this->chromatographTableItemsRules(), // Хроматограф Таблица
