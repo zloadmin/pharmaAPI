@@ -51,10 +51,10 @@ trait HasLaboratoryForm
             'title'  => 'Растворы',
             'fields' => [ 'cookingComponents.*' ],
         ],
-        'mobile-phases'           => [
-            'title'  => 'Подвижные Фазы',
-            'fields' => [ 'mobilePhases.*' ],
-        ],
+//        'mobile-phases'           => [
+//            'title'  => 'Подвижные Фазы',
+//            'fields' => [ 'mobilePhases.*' ],
+//        ],
         'virtual-components'      => [
             'title'  => 'Виртуальные компоненты',
             'fields' => [ 'virtualComponents.*' ],
