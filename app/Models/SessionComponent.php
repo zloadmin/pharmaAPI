@@ -49,10 +49,18 @@ class SessionComponent extends Model
     {
         return $this->hasOne(LaboratoryMobilePhase::class, 'id', 'mobile_phase_id');
     }
+    public function virtualComponent(): HasOne
+    {
+        return $this->hasOne(VirtualComponent::class, 'id', 'virtual_component_id');
+    }
 
     public function getWeighedOrMainComponentId()
     {
         return $this->weighed_right_component_id ?? $this->component_id;
+    }
+    public function getWeighedOrMainOrVirtualComponentId()
+    {
+        return $this->virtual_component_id ?? $this->weighed_right_component_id ?? $this->component_id;
     }
 
     private function getComponentName(): string

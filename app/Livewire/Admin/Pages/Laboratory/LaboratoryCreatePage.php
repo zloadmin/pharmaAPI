@@ -35,6 +35,8 @@ class LaboratoryCreatePage extends LivewireComponent
         $this->createLaboratoryWeightingComponents($laboratory);
         $this->createLaboratoryCookingComponents($laboratory);
         $this->createLaboratoryCheckValues($laboratory);
+        $this->createLaboratoryMobilePhases($laboratory);
+        $this->createLaboratoryVirtualComponents($laboratory);
         $this->redirectToLaboratoriesPage();
     }
 
@@ -47,6 +49,14 @@ class LaboratoryCreatePage extends LivewireComponent
     private function createLaboratoryStorageComponents(Laboratory $laboratory): void
     {
         $laboratory->components()->sync($this->component_ids);
+    }
+    private function createLaboratoryMobilePhases(Laboratory $laboratory): void
+    {
+        $laboratory->mobilePhases()->saveMany($this->getMobilePhasesModels());
+    }
+    private function createLaboratoryVirtualComponents(Laboratory $laboratory): void
+    {
+        $laboratory->virtualComponents()->saveMany($this->getVirtualComponentsModels());
     }
 
     private function createLaboratoryWeightingComponents(Laboratory $laboratory): void

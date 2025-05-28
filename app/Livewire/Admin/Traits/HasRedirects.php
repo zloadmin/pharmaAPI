@@ -20,6 +20,13 @@ trait HasRedirects
     {
         $this->redirectRoute('admin.laboratories-page', [], true, true);
     }
+    public function redirectToLaboratoryEditPage(): void
+    {
+        $this->redirectRoute('admin.laboratory-edit-page', [
+            'laboratory' => $this->laboratory,
+            'tabPreload' => $this->currentTab,
+        ], true, true);
+    }
 
     public function redirectToPharmacologicalArticlesPage(): void
     {

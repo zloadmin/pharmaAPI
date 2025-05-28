@@ -16,6 +16,8 @@ return new class extends Migration {
         Schema::create('session_components', function (Blueprint $table) {
             $table->id();
             $table->uuid('session')->index();
+            $table->unsignedBigInteger('laboratory_id')->nullable();
+            $table->foreign('laboratory_id')->references('id')->on('laboratories')->onDelete('cascade');
             $table->enum('place', SessionComponentPlace::values())->index();
             $table->enum('type', SessionComponentType::values())->default(SessionComponentType::Simple->value)->index();
             $table->unsignedBigInteger('component_id')->nullable();
@@ -29,6 +31,12 @@ return new class extends Migration {
             $table->boolean('is_dirty')->default(false);
             $table->unsignedBigInteger('mobile_phase_id')->nullable();
             $table->foreign('mobile_phase_id')->references('id')->on('laboratory_mobile_phases')->onDelete('cascade');
+
+            // virtual component
+            $table->unsignedBigInteger('virtual_component_id')->nullable();
+            $table->foreign('virtual_component_id')->references('id')->on('components')->onDelete('cascade');
+
+
 
             $table->decimal('weighed_value', 8, 4)->nullable();
 

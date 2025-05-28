@@ -11,6 +11,7 @@ use App\Models\LaboratoryWeightingComponent;
 use App\Models\PharmacologicalArticle;
 use App\Models\Video;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component as LivewireComponent;
 
 class LaboratoryEditPage extends LivewireComponent
@@ -23,10 +24,16 @@ class LaboratoryEditPage extends LivewireComponent
     public array $pharmacologicalArticles;
     public array $videoList;
 
+    #[Url]
+    public $tabPreload = '';
+
     public function mount(Laboratory $laboratory)
     {
         $this->laboratory = $laboratory;
         $this->loadFormFields($laboratory);
+        if ($this->tabPreload && isset($this->tabs[$this->tabPreload])) {
+            $this->currentTab = $this->tabPreload;
+        }
     }
 
     public function save()
@@ -37,8 +44,14 @@ class LaboratoryEditPage extends LivewireComponent
         $this->updateLaboratoryWeightingComponents();
         $this->updateLaboratoryCookingComponents();
         $this->updateLaboratoryMobilePhases();
+        $this->updateVirtualComponents();
         $this->updateLaboratoryCheckValues();
-        $this->redirectToLaboratoriesPage();
+        $this->flashStatus();
+        $this->redirectToLaboratoryEditPage();
+    }
+    public function flashStatus() : void
+    {
+        session()->flash('status', 'Данные успешно сохранены');
     }
 
 
@@ -69,6 +82,13 @@ class LaboratoryEditPage extends LivewireComponent
         $this->laboratory->mobilePhases()->delete();
         $this->laboratory->mobilePhases()->saveMany($this->getMobilePhasesModels());
     }
+
+    private function updateVirtualComponents(): void
+    {
+        $this->laboratory->virtualComponents()->delete();
+        $this->laboratory->virtualComponents()->saveMany($this->getVirtualComponentsModels());
+    }
+
     private function updateLaboratoryCheckValues(): void
     {
         $this->laboratory->checkValues()->delete();

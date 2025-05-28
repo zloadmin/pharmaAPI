@@ -19,6 +19,21 @@
             <div class="container-fluid">
 
                 @include('components.layouts.app.page-title')
+                @if (session('status'))
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        setTimeout(function() {
+                            $(".alert").hide('slow');
+                        }, 2000);
+                    </script>
+                @endif
+
 
                 <div class="row">
                     <div class="col-12">

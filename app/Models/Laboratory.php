@@ -80,10 +80,13 @@ class Laboratory extends Model
     {
         return $this->hasMany(LaboratoryMobilePhase::class);
     }
+    public function virtualComponents(): HasMany
+    {
+        return $this->hasMany(VirtualComponent::class, 'virtual_laboratory_id', 'id');
+    }
 
     public function hasChartImage(): bool
     {
-
         return $this->chart_image_path && File::exists($this->getChartImageRealPath());
     }
 

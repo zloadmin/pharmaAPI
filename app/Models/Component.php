@@ -5,16 +5,15 @@ namespace App\Models;
 use App\Enums\Component\ComponentNamingType;
 use App\Enums\Component\ComponentType;
 use App\Enums\SessionComponent\SessionComponentPlace;
-use App\Livewire\Stages\StorageStage\StorageComponents\ComponentLiquid;
-use App\Livewire\Stages\StorageStage\StorageComponents\ComponentLoose;
-use App\Livewire\Stages\StorageStage\StorageComponents\ComponentStuff;
+use App\Models\Scopes\Component\SimpleComponentScope;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
+#[ScopedBy([ SimpleComponentScope::class ])]
 class Component extends Model
 {
     use HasFactory;
@@ -173,5 +172,19 @@ class Component extends Model
     static function getFilledComponentsDropdownArray(): array
     {
         return self::query()->where('is_example', false)->byScalesPlace(SessionComponentPlace::onScalesRightBox)->pluck('name', 'id')->toArray();
+    }
+
+    static function getFilledVirtualComponentsDropdownArray(Laboratory $laboratory = null): array
+    {
+        $notVirtualIds = Component::where('is_example', false)
+            ->byScalesPlace(SessionComponentPlace::onScalesRightBox)
+            ->pluck('id')->toArray();
+        $virtualIds = $laboratory ? VirtualComponent::byVirtualLaboratory($laboratory)
+            ->pluck('id')->toArray() : [];
+
+
+        return self::withoutGlobalScopes()
+            ->whereIn('id', array_merge($notVirtualIds, $virtualIds))
+            ->pluck('name', 'id')->toArray();
     }
 }

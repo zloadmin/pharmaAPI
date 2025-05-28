@@ -68,7 +68,7 @@ trait HasCookingThirdCase
         // Подвижная фаза А
         $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxOne, [
 //            'mobile_phase_id' => 1,
-            'type' => SessionComponentType::MobilePhase,
+            'type' => SessionComponentType::Mixed,
             'mixed_one_component_id' => 27, // Дестилированная вода
             'mixed_weighed_component_id' => 41, // Трифторуксусная кислота
         ]);
@@ -88,7 +88,7 @@ trait HasCookingThirdCase
         // Подвижная фаза Б
         $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxFour, [
 //            'mobile_phase_id' => 2,
-            'type' => SessionComponentType::MobilePhase,
+            'type' => SessionComponentType::Mixed,
             'mixed_one_component_id' => 42, // Ацетонитрил
             'mixed_weighed_component_id' => 41, // Трифторуксусная кислота
         ]);

@@ -15,6 +15,7 @@
         //   self.body.removeClass('enlarged');
         // }
     });
+
 </script>
 
 @livewireScripts

@@ -11,6 +11,7 @@ use App\Models\Component;
 use App\Models\LaboratoryMobilePhase;
 use App\Models\LaboratorySession;
 use App\Models\SessionComponent;
+use App\Models\VirtualComponent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -26,15 +27,17 @@ trait SessionComponentMix
     ): SessionComponent
     {
 
-        $mobilePhase = LaboratoryMobilePhase::getMobilePhaseOfComponents($session, $mixBoxOneSessionComponent, $mixBoxFourSessionComponent);
+
+        $virtualComponent = VirtualComponent::getComponent($session, $mixBoxOneSessionComponent, $mixBoxFourSessionComponent);
 
         return self::create([
-            'place'           => SessionComponentPlace::onCookingTable,
-            'type'            => $mobilePhase ? SessionComponentType::MobilePhase : SessionComponentType::Mixed,
-            'session'         => $session->uuid,
-            'component_id'    => $mixBoxThreeSessionComponent->component_id,
-            'is_mixed'        => true, // TODO: delete and use type everywhere
-            'mobile_phase_id' => $mobilePhase->id ?? null,
+            'place'                => SessionComponentPlace::onCookingTable,
+            'type'                 => SessionComponentType::Mixed,
+            'session'              => $session->uuid,
+            'component_id'         => $mixBoxThreeSessionComponent->component_id,
+            'is_mixed'             => true,
+            // TODO: delete and use type everywhere
+            'virtual_component_id' => $virtualComponent->id ?? null,
 
             'mixed_one_component_id'   => $mixBoxOneSessionComponent->component_id,
             'mixed_two_component_id'   => $mixBoxTwoSessionComponent->component_id,
@@ -59,11 +62,12 @@ trait SessionComponentMix
         SessionComponent $mixBoxFourSessionComponent,
     ): void
     {
-        if ($mixBoxOneSessionComponent->mobilePhase) {
-            $mixBoxOneSessionComponent->moveToCookingTable();
-        } else {
-            $mixBoxOneSessionComponent->delete();
-        }
+        $mixBoxOneSessionComponent->moveToCookingTable();
+//        if ($mixBoxOneSessionComponent->mobilePhase) {
+//            $mixBoxOneSessionComponent->moveToCookingTable();
+//        } else {
+//            $mixBoxOneSessionComponent->delete();
+//        }
 
 
         $mixBoxTwoSessionComponent->markAsDirty();
@@ -72,11 +76,12 @@ trait SessionComponentMix
         $mixBoxThreeSessionComponent->markAsDirty();
         $mixBoxThreeSessionComponent->moveToCookingTable();
 
-        if ($mixBoxOneSessionComponent->mobilePhase) {
-            $mixBoxFourSessionComponent->moveToCookingTable();
-        } else {
-            $mixBoxFourSessionComponent->delete();
-        }
+        $mixBoxFourSessionComponent->moveToCookingTable();
+//        if ($mixBoxOneSessionComponent->mobilePhase) {
+//            $mixBoxFourSessionComponent->moveToCookingTable();
+//        } else {
+//            $mixBoxFourSessionComponent->delete();
+//        }
     }
 
     public function mixedOneComponent(): HasOne
@@ -146,6 +151,17 @@ trait SessionComponentMix
 
     private function getNameMixed(): string
     {
+        return $this->virtualComponent ? $this->getNameMixedVirtualComponent() : $this->getNameMixedSimpleComponent();
+    }
+
+    private function getNameMixedVirtualComponent(): string
+    {
+        return $this->virtualComponent->name ?? '';
+
+    }
+
+    private function getNameMixedSimpleComponent(): string
+    {
         return sprintf('%s с %s и %s', $this->getMixedStuffName(), $this->getMixedFirstSessionComponentName(), $this->getMixedSecondSessionComponentName());
     }
 
@@ -206,7 +222,7 @@ trait SessionComponentMix
 
     public function getMixedStatus(): string
     {
-        $result = ['Смешивание:'];
+        $result = [ 'Смешивание:' ];
         $result[] = $this->mixedOneSessionComponent->getName();
         $result[] = $this->mixedTwoSessionComponent->getName();
         $result[] = $this->mixedThreeSessionComponent->getName();

@@ -13,6 +13,7 @@ use App\Models\LaboratoryCookingComponent;
 use App\Models\LaboratoryMobilePhase;
 use App\Models\LaboratoryWeightingComponent;
 use App\Models\PharmacologicalArticle;
+use App\Models\VirtualComponent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\WithFileUploads;
@@ -25,43 +26,55 @@ trait HasLaboratoryForm
     public array $tabs = [
         'index'                   => [
             'title'  => 'Описание',
-            'fields' => ['name', 'description']
+            'fields' => [
+                'name',
+                'description'
+            ]
         ],
         'storage'                 => [
             'title'  => 'Склад',
-            'fields' => ['component_ids']
+            'fields' => [ 'component_ids' ]
         ],
         'pharmacological-article' => [
             'title'  => 'Фарм. статья',
-            'fields' => ['pharmacological_article_id']
+            'fields' => [ 'pharmacological_article_id' ]
         ],
         'check-values'            => [
             'title'  => 'Расчетный лист',
-            'fields' => ['checkValues.*'],
+            'fields' => [ 'checkValues.*' ],
         ],
         'weighting-components'    => [
             'title'  => 'Весовая',
-            'fields' => ['weightingComponents.*'],
+            'fields' => [ 'weightingComponents.*' ],
         ],
         'cooking-components'      => [
             'title'  => 'Растворы',
-            'fields' => ['cookingComponents.*'],
+            'fields' => [ 'cookingComponents.*' ],
         ],
         'mobile-phases'           => [
             'title'  => 'Подвижные Фазы',
-            'fields' => ['mobilePhases.*'],
+            'fields' => [ 'mobilePhases.*' ],
+        ],
+        'virtual-components'      => [
+            'title'  => 'Виртуальные компоненты',
+            'fields' => [ 'virtualComponents.*' ],
         ],
         'chromatograph'           => [
             'title'  => 'Хроматограф Данные',
-            'fields' => ['chromatographColumnTemp', 'chromatographFlowSpeed', 'chromatographFlowDirection', 'chromatographValue']
+            'fields' => [
+                'chromatographColumnTemp',
+                'chromatographFlowSpeed',
+                'chromatographFlowDirection',
+                'chromatographValue'
+            ]
         ],
         'chromatograph_table'     => [
             'title'  => 'Хроматограф Таблица',
-            'fields' => ['chromatographTableItems.*']
+            'fields' => [ 'chromatographTableItems.*' ]
         ],
         'chart'                   => [
             'title'  => 'График',
-            'fields' => ['chart_image']
+            'fields' => [ 'chart_image' ]
         ],
     ];
     // index
@@ -82,11 +95,14 @@ trait HasLaboratoryForm
     // mobile-phases
     public array $mobilePhases = [];
 
+    public array $virtualComponents = [];
+
     public array $chromatographTableItems = [];
 
 
     public array $stuffComponents = [];
     public array $filledComponents = [];
+    public array $filledVirtualComponents = [];
     public array $components = [];
     // chromatograph
     public ?float $chromatographColumnTemp;
@@ -102,6 +118,7 @@ trait HasLaboratoryForm
         //  mount dropdown values
         $this->stuffComponents = Component::getStuffComponentsDropdownArray();
         $this->filledComponents = Component::getFilledComponentsDropdownArray();
+        $this->filledVirtualComponents = Component::getFilledVirtualComponentsDropdownArray($this->laboratory ?? null);
         $this->components = Component::getDropdownArraySorted();
         $this->pharmacologicalArticles = PharmacologicalArticle::getDropdownArray();
     }
@@ -120,6 +137,7 @@ trait HasLaboratoryForm
         $this->weightingComponents = $this->getWeightingComponents();
         $this->cookingComponents = $this->getCookingComponents();
         $this->mobilePhases = $this->getMobilePhases();
+        $this->virtualComponents = $this->getVirtualComponents();
         $this->checkValues = $this->getCheckValues();
         $this->chromatographTableItems = $this->getChromatographTableItems();
 
@@ -147,6 +165,11 @@ trait HasLaboratoryForm
     public function getMobilePhases()
     {
         return $this->laboratory->mobilePhases()->get()->toArray();
+    }
+    public function getVirtualComponents()
+    {
+
+        return $this->laboratory->virtualComponents()->get()->toArray();
     }
 
     public function getCheckValues()
@@ -200,6 +223,10 @@ trait HasLaboratoryForm
     {
         $this->mobilePhases[] = [];
     }
+    public function addVirtualComponent(): void
+    {
+        $this->virtualComponents[] = [];
+    }
 
     public function addCheckValue(): void
     {
@@ -208,60 +235,150 @@ trait HasLaboratoryForm
 
     public function deleteMobilePhase(int $index): void
     {
-
         unset($this->mobilePhases[$index]);
+    }
+    public function deleteVirtualComponent(int $index): void
+    {
+        unset($this->virtualComponents[$index]);
     }
 
 
     private function mainRules(): array
     {
         return [
-            'name'                       => ['required', 'string', 'max:250'],
-            'description'                => ['nullable'],
-            'pharmacological_article_id' => ['nullable', Rule::exists('pharmacological_articles', 'id')],
-            'chromatographColumnTemp'    => ['nullable', 'numeric', 'between:0.1,999.9'],
-            'chromatographFlowSpeed'     => ['nullable', 'numeric', 'between:0.001,999.999'],
-            'chromatographDetector'      => ['nullable', 'numeric', 'between:1,9999999'],
-            'chromatographValue'         => ['nullable', 'numeric', 'between:1,9999999'],
-            'chart_image'                => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:10240'],
+            'name'                       => [
+                'required',
+                'string',
+                'max:250'
+            ],
+            'description'                => [ 'nullable' ],
+            'pharmacological_article_id' => [
+                'nullable',
+                Rule::exists('pharmacological_articles', 'id')
+            ],
+            'chromatographColumnTemp'    => [
+                'nullable',
+                'numeric',
+                'between:0.1,999.9'
+            ],
+            'chromatographFlowSpeed'     => [
+                'nullable',
+                'numeric',
+                'between:0.001,999.999'
+            ],
+            'chromatographDetector'      => [
+                'nullable',
+                'numeric',
+                'between:1,9999999'
+            ],
+            'chromatographValue'         => [
+                'nullable',
+                'numeric',
+                'between:1,9999999'
+            ],
+            'chart_image'                => [
+                'nullable',
+                'image',
+                'mimes:jpeg,png,jpg',
+                'max:10240'
+            ],
         ];
     }
 
     private function weightingComponentRules(): array
     {
         return [
-            'weightingComponents'                       => ['array'],
-            'weightingComponents.*.stuff_component_id'  => ['required', 'integer', Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesLeftBox)],
-            'weightingComponents.*.filled_component_id' => ['required', 'integer', Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)],
-            'weightingComponents.*.value_min'           => ['required', 'numeric', 'min:0.0000', 'max:9999.9999'],
-            'weightingComponents.*.value_max'           => ['required', 'numeric', 'min:0.0000', 'max:9999.9999'],
+            'weightingComponents'                       => [ 'array' ],
+            'weightingComponents.*.stuff_component_id'  => [
+                'required',
+                'integer',
+                Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesLeftBox)
+            ],
+            'weightingComponents.*.filled_component_id' => [
+                'required',
+                'integer',
+                Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)
+            ],
+            'weightingComponents.*.value_min'           => [
+                'required',
+                'numeric',
+                'min:0.0000',
+                'max:9999.9999'
+            ],
+            'weightingComponents.*.value_max'           => [
+                'required',
+                'numeric',
+                'min:0.0000',
+                'max:9999.9999'
+            ],
         ];
     }
 
     private function mobilePhasesRules(): array
     {
         return [
-            'mobilePhases'                       => ['array'],
-            'mobilePhases.*.name'                => ['required', 'string', 'max:250'],
-            'mobilePhases.*.first_component_id'  => ['required', 'integer', Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)],
-            'mobilePhases.*.second_component_id' => ['required', 'integer', Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)],
+            'mobilePhases'                       => [ 'array' ],
+            'mobilePhases.*.name'                => [
+                'required',
+                'string',
+                'max:250'
+            ],
+            'mobilePhases.*.first_component_id'  => [
+                'required',
+                'integer',
+                Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)
+            ],
+            'mobilePhases.*.second_component_id' => [
+                'required',
+                'integer',
+                Rule::exists('components', 'id')->where('on_scales_place', SessionComponentPlace::onScalesRightBox)
+            ],
+        ];
+    }
+    private function virtualComponentsRules(): array
+    {
+        return [
+            'virtualComponents'                       => [ 'array' ],
+            'virtualComponents.*.name'                => [
+                'required',
+                'string',
+                'max:250'
+            ],
+            'virtualComponents.*.virtual_component_left_id'  => [
+                'required',
+                'integer',
+                Rule::exists('components', 'id')
+            ],
+            'virtualComponents.*.virtual_component_right_id' => [
+                'required',
+                'integer',
+                Rule::exists('components', 'id')
+            ],
         ];
     }
 
     private function cookingComponentsRules(): array
     {
         return [
-            'cookingComponents'                => ['array'],
-            'cookingComponents.*.component_id' => ['required', 'integer', Rule::exists('components', 'id')],
+            'cookingComponents'                => [ 'array' ],
+            'cookingComponents.*.component_id' => [
+                'required',
+                'integer',
+                Rule::exists('components', 'id')
+            ],
         ];
     }
 
     private function chromatographTableItemsRules(): array
     {
         $rules = [];
-        $rules['chromatographTableItems'] = ['array'];
+        $rules['chromatographTableItems'] = [ 'array' ];
         foreach (Laboratory::$chromatographTableItemTypes as $name => $data) {
-            $rules['chromatographTableItems.*.' . $name] = ['required', 'numeric', 'min:0.00'];
+            $rules['chromatographTableItems.*.' . $name] = [
+                'required',
+                'numeric',
+                'min:0.00'
+            ];
         }
         return $rules;
     }
@@ -269,10 +386,24 @@ trait HasLaboratoryForm
     private function checkValueRules(): array
     {
         return [
-            'checkValues'             => ['array'],
-            'checkValues.*.name'      => ['required', 'string', 'max:250'],
-            'checkValues.*.value_min' => ['required', 'numeric', 'min:0.0000', 'max:9999.9999'],
-            'checkValues.*.value_max' => ['required', 'numeric', 'min:0.0000', 'max:9999.9999'],
+            'checkValues'             => [ 'array' ],
+            'checkValues.*.name'      => [
+                'required',
+                'string',
+                'max:250'
+            ],
+            'checkValues.*.value_min' => [
+                'required',
+                'numeric',
+                'min:0.0000',
+                'max:9999.9999'
+            ],
+            'checkValues.*.value_max' => [
+                'required',
+                'numeric',
+                'min:0.0000',
+                'max:9999.9999'
+            ],
         ];
     }
 
@@ -307,6 +438,7 @@ trait HasLaboratoryForm
             $this->checkValueRules(), // Расчетный лист
             $this->weightingComponentRules(), // Компоненты весовой
             $this->mobilePhasesRules(), // ПФ
+            $this->virtualComponentsRules(), // Виртуальные компоненты
             $this->cookingComponentsRules(), // Компоненты приготовления растворов
             $this->chromatographTableItemsRules(), // Хроматограф Таблица
         );
@@ -335,6 +467,14 @@ trait HasLaboratoryForm
         $result = [];
         foreach ($this->mobilePhases as $mobilePhase) {
             $result[] = new LaboratoryMobilePhase($mobilePhase);
+        }
+        return $result;
+    }
+    public function getVirtualComponentsModels(): array
+    {
+        $result = [];
+        foreach ($this->virtualComponents as $virtualComponent) {
+            $result[] = new VirtualComponent($virtualComponent);
         }
         return $result;
     }
