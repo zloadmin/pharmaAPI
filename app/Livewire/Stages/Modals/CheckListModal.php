@@ -46,8 +46,10 @@ class CheckListModal extends Component
 
     public function check(): void
     {
-        $this->validate();
-        $this->updateCheckValues();
+        if($this->rules()) {
+            $this->validate();
+            $this->updateCheckValues();
+        }
         $this->init($this->session);
     }
 
