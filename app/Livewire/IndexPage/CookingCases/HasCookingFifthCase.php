@@ -54,7 +54,7 @@ trait HasCookingFifthCase
         // Result of mix number 4 - мерная колба 50 мл с промежуточным испытуемым раствором бикалутамида
         $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxOne, [
             'is_mixed'                   => true,
-            'place'                      => 'inCart',
+//            'place'                      => 'inCart',
             'mixed_weighed_component_id' => 41, // Трифторуксусная кислота
             'mixed_one_component_id'     => 26, // Бюкс
             'mixed_two_component_id'     => 2, // Воронка средняя
@@ -78,7 +78,7 @@ trait HasCookingFifthCase
         // Result of mix number 3 - Растворитель в химическом стакане 200 мл
         $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxFour, [
             'is_mixed'                   => true,
-            'place'                      => 'inCart',
+//            'place'                      => 'inCart',
             'mixed_weighed_component_id' => 41, // Трифторуксусная кислота
             'mixed_one_component_id'     => 4, // Мерная колба 1л
             'mixed_two_component_id'     => 2, // Воронка средняя

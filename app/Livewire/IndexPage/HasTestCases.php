@@ -93,26 +93,26 @@ trait HasTestCases
 
             ['title' => '[Приготовление растворов]Бикалутамид - легкий - перенесено на стол приготовление растворов', 'method' => 'bicalutamideCookingMoveToTableTestCase'],
 
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление Подвижной фазы А - перенесено в смешивание', 'method' => 'bicalutamideCookingMixFirstStageMovedOnMixTestCase'],
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление Подвижной фазы А - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixFirstStageDoneTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] ПФА - перенесено в смешивание', 'method' => 'bicalutamideCookingMixFirstStageMovedOnMixTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] ПФА - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixFirstStageDoneTestCase'],
 
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление Подвижной фазы Б - перенесено в смешивание', 'method' => 'bicalutamideCookingMixSecondStageMovedOnMixTestCase'],
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление Подвижной фазы Б - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixSecondStageDoneTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] ПФБ - перенесено в смешивание', 'method' => 'bicalutamideCookingMixSecondStageMovedOnMixTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] ПФБ - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixSecondStageDoneTestCase'],
 
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление Химический стакан 200 мл с растворителем - перенесено в смешивание', 'method' => 'bicalutamideCookingMixThirdStageMovedOnMixTestCase'],
-            ['title' => 'ПОВТОР 4 РАЗА [Приготовление растворов]Бикалутамид - легкий - приготовление Химический стакан 200 мл с растворителем - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixThirdStageDoneTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] РАСТВОРИТЕЛЬ ПФА+ПФБ - перенесено в смешивание', 'method' => 'bicalutamideCookingMixThirdStageMovedOnMixTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] РАСТВОРИТЕЛЬ ПФА+ПФБ - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixThirdStageDoneTestCase'],
 
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы 50 мл с промежуточным испытуемым раствором бикалутамида - перенесено в смешивание', 'method' => 'bicalutamideCookingMixFourthMovedOnMixTestCase'],
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы 50 мл с промежуточным испытуемым раствором бикалутамида - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixFourthDoneTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] - ИСПЫТУЕМЫЙ РАСТВОР №1 - перенесено в смешивание', 'method' => 'bicalutamideCookingMixFourthMovedOnMixTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] - ИСПЫТУЕМЫЙ РАСТВОР №1 - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixFourthDoneTestCase'],
 
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы на 10 мл с готовым испытуемым раствором бикалутамида - перенесено в смешивание', 'method' => 'bicalutamideCookingMixFifthMovedOnMixTestCase'],
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы на 10 мл с готовым испытуемым раствором бикалутамида - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixFifthDoneTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] - ИСПЫТУЕМЫЙ РАСТВОР №2 - перенесено в смешивание', 'method' => 'bicalutamideCookingMixFifthMovedOnMixTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] - ИСПЫТУЕМЫЙ РАСТВОР №2 - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixFifthDoneTestCase'],
 
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы на 10 мл с промежуточным раствором СО бикалутамида - перенесено в смешивание', 'method' => 'bicalutamideCookingMixSixthMovedOnMixTestCase'],
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы на 10 мл с промежуточным раствором СО бикалутамида - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixSixthDoneTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] - РАССТВОР СТАНДАРТНОГО ОБРАЗЦА БИКЛОТАМИДА №1 - перенесено в смешивание', 'method' => 'bicalutamideCookingMixSixthMovedOnMixTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] - РАССТВОР СТАНДАРТНОГО ОБРАЗЦА БИКЛОТАМИДА №1 - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixSixthDoneTestCase'],
 
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы на 20 мл с готовым раствором СО бикалутамида - перенесено в смешивание', 'method' => 'bicalutamideCookingMixSeventhMovedOnMixTestCase'],
-            ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление мерной колбы на 20 мл с готовым раствором СО бикалутамида - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixSeventhDoneTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] - РАССТВОР СТАНДАРТНОГО ОБРАЗЦА БИКЛОТАМИДА №2 - перенесено в смешивание', 'method' => 'bicalutamideCookingMixSeventhMovedOnMixTestCase'],
+            ['title' => '[СМЕШИВАНИЕ] - РАССТВОР СТАНДАРТНОГО ОБРАЗЦА БИКЛОТАМИДА №2 - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixSeventhDoneTestCase'],
 
             ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление химического стакана с готовой конечной подвижной фазой - перенесено в смешивание', 'method' => 'bicalutamideCookingMixEighthMovedOnMixTestCase'],
             ['title' => '[Приготовление растворов]Бикалутамид - легкий - приготовление химического стакана с готовой конечной подвижной фазой - смешено, перенесено в инвентарь', 'method' => 'bicalutamideCookingMixEighthDoneTestCase'],

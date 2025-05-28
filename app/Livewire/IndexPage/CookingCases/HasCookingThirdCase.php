@@ -50,11 +50,14 @@ trait HasCookingThirdCase
     private function bicalutamideCookingMixThirdStageDone() : LaboratorySession
     {
         $laboratorySession = $this->bicalutamideCookingMixThirdStageMovedOnMix();
-        for ($i = 0; $i < 4; $i++) {
-            $this->bicalutamideCookingMixThirdStageMoveToMixComponent($laboratorySession);
-            $mixedComponent = $this->mix($laboratorySession);
-            $mixedComponent->moveToCart();
-        }
+        $this->bicalutamideCookingMixThirdStageMoveToMixComponent($laboratorySession);
+        $mixedComponent = $this->mix($laboratorySession);
+        $mixedComponent->moveToCart();
+//        for ($i = 0; $i < 4; $i++) {
+//            $this->bicalutamideCookingMixThirdStageMoveToMixComponent($laboratorySession);
+//            $mixedComponent = $this->mix($laboratorySession);
+//            $mixedComponent->moveToCart();
+//        }
         return  $laboratorySession;
     }
     private function bicalutamideCookingMixThirdStageMovedOnMix() : LaboratorySession

@@ -54,7 +54,7 @@ trait HasCookingSeventhCase
         // Мерная колба 10 мл с СО бикалутамида (промеж)
         $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxOne, [
             'is_mixed'                   => true,
-            'place'                      => 'inCart',
+//            'place'                      => 'inCart',
             'mixed_one_component_id' => 26, // Бюкс
             'mixed_two_component_id' => 2, // Воронка средняя
             'mixed_three_component_id' => 22, // Мерная колба УФ
@@ -77,7 +77,7 @@ trait HasCookingSeventhCase
         // Result of mix number 3 - Растворитель в химическом стакане 200 мл
         $this->moveToPlaceComponent($laboratorySession, SessionComponentPlace::inMixBoxFour, [
             'is_mixed'                   => true,
-            'place'                      => 'inCart',
+//            'place'                      => 'inCart',
             'mixed_weighed_component_id' => 41, // Трифторуксусная кислота
             'mixed_one_component_id'     => 4, // Мерная колба 1л
             'mixed_two_component_id'     => 2, // Воронка средняя
@@ -85,5 +85,5 @@ trait HasCookingSeventhCase
             'mixed_four_component_id'    => 4, // Мерная колба 1л
         ]);
     }
-  
+
 }
