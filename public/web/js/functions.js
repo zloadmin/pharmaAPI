@@ -65,9 +65,10 @@ function initRange() {
     }).data("ionRangeSlider");
     updateScalesWeight();
     $('.rangeBlock').show();
-    $('#range_value_input').on('change', function () {
+    $('#range_value_input').on('input', function () {
         window.scalesRangeValue = Number.parseFloat($('#range_value_input').val());
         rangeSetValue(window.scalesRangeValue);
+        updateScalesRangeValue(window.scalesRangeValue);
     });
 }
 

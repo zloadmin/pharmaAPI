@@ -42,6 +42,6 @@
     <script src="/web/js/fancybox.js"></script>
     <script src="/web/js/imask.js"></script>
     <script src="/web/js/ion.rangeSlider.min.js"></script>
-    <script src="/web/js/functions.js?v=2"></script>
+    <script src="/web/js/functions.js?v=3"></script>
 
 </head>
