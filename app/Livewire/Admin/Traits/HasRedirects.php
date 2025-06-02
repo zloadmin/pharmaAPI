@@ -27,6 +27,14 @@ trait HasRedirects
             'tabPreload' => $this->currentTab,
         ], true, true);
     }
+    public function redirectToDashboardPagePage(): void
+    {
+        $this->redirectRoute('admin.dashboard-page', [], true, true);
+    }
+    public function redirectToIndexPage(): void
+    {
+        $this->redirectRoute('index-page', [], true, true);
+    }
 
     public function redirectToPharmacologicalArticlesPage(): void
     {

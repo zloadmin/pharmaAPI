@@ -169,4 +169,16 @@ trait HasBreadcrumb
     {
         return $this->getVideoItem() + $this->getVideoCreateItem();
     }
+    private function getStudentsPageItem(): array
+    {
+        return [route('admin.students-page') => 'Студенты'];
+    }
+    private function getTeachersPageItem(): array
+    {
+        return [route('admin.teachers-page') => 'Преподаватели'];
+    }
+    private function getGroupsPageItem(): array
+    {
+        return [route('admin.groups-page') => 'Группы'];
+    }
 }

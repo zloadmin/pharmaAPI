@@ -218,6 +218,7 @@ return [
         'chromatographTableItems.*.b'               => 'b',
         'chromatographTableItems.*.stream'          => 'поток',
         'naming_type'                               => 'тип имени',
+        'group_id'                               => 'группа',
     ],
 
 ];

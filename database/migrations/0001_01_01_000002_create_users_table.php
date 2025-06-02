@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('email')->nullable()->unique()->comment('Электронная почта');
 //            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable()->comment('Пароль');
+
             $table->enum('role', UserRole::values())->default(UserRole::Student)->index()->comment('Роль');
             // Teacher
             $table->unsignedBigInteger('department_id')->nullable()->comment('Кафедра');
@@ -30,10 +31,11 @@ return new class extends Migration {
             $table->date('date_of_birth')->nullable()->comment('Дата рождения');
             $table->enum('education_mode', EducationMode::values())->nullable()->comment('Режим обучения');
             $table->enum('education_status', EducationStatus::values())->nullable()->comment('Статус');
-
+            $table->unsignedBigInteger('group_id')->nullable()->comment('Группа');
 
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('users', function (Blueprint $table) {

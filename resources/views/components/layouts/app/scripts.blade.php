@@ -17,6 +17,7 @@
     });
 
 </script>
-
+@persist('player') <livewire:modals/> @endpersist
 @livewireScripts
+@vite('resources/js/app.js')
 @stack('scripts')

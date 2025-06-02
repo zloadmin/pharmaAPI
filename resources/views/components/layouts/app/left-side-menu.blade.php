@@ -32,45 +32,66 @@
                                         <span>Панель</span>
                                     </a>
                                 </li>
-                                <li class="side-nav-item">
-                                    <a href="{{ route('admin.components-page') }}" class="side-nav-link"
-                                       wire:navigate>
-                                        <i class="uil-flask"></i>
-                                        <span>Компоненты</span>
-                                    </a>
-                                </li>
-                                <li class="side-nav-item">
-                                    <a href="{{ route('admin.laboratories-page') }}" class="side-nav-link" wire:navigate>
-                                        <i class="uil-book-open"></i>
-                                        <span>Лабораторные работы</span>
-                                    </a>
-                                </li>
-                                <li class="side-nav-item">
-                                    <a href="{{ route('admin.pharmacological-articles-page') }}" class="side-nav-link" wire:navigate>
-                                        <i class="uil-book-reader"></i>
-                                        <span>Фарм. статьи</span>
-                                    </a>
-                                </li>
+                                @if (auth()->user()->isAdmin())
+                                    <li class="side-nav-item">
+                                        <a href="{{ route('admin.groups-page') }}" class="side-nav-link"
+                                           wire:navigate>
+                                            <i class="uil-user-square"></i>
+                                            <span>Группы</span>
+                                        </a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="{{ route('admin.teachers-page') }}" class="side-nav-link"
+                                           wire:navigate>
+                                            <i class="uil-science"></i>
+                                            <span>Преподаватели</span>
+                                        </a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="{{ route('admin.students-page') }}" class="side-nav-link"
+                                           wire:navigate>
+                                            <i class="uil-users-alt"></i>
+                                            <span>Студенты</span>
+                                        </a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="{{ route('admin.components-page') }}" class="side-nav-link"
+                                           wire:navigate>
+                                            <i class="uil-flask"></i>
+                                            <span>Компоненты</span>
+                                        </a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="{{ route('admin.laboratories-page') }}" class="side-nav-link" wire:navigate>
+                                            <i class="uil-book-open"></i>
+                                            <span>Лабораторные работы</span>
+                                        </a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="{{ route('admin.pharmacological-articles-page') }}" class="side-nav-link" wire:navigate>
+                                            <i class="uil-book-reader"></i>
+                                            <span>Фарм. статьи</span>
+                                        </a>
+                                    </li>
 
-                                <li class="side-nav-item">
-                                    <a href="{{ route('admin.laboratory-sessions') }}" class="side-nav-link" wire:navigate>
-                                        <i class="uil-list-ui-alt"></i>
-                                        <span>Сессии</span>
-                                    </a>
-                                </li>
-{{--                                <li class="side-nav-item">--}}
-{{--                                    <a href="{{ route('admin.videos-page') }}" class="side-nav-link" wire:navigate>--}}
-{{--                                        <i class="uil-video"></i>--}}
-{{--                                        <span>Видео</span>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
-                                {{--                                <li class="side-nav-item">--}}
-                                {{--                                    <a href="{{ route('quizzes-page') }}" class="side-nav-link" wire:navigate>--}}
-                                {{--                                        <i class="uil-science"></i>--}}
-                                {{--                                        <span>Квизы</span>--}}
-                                {{--                                    </a>--}}
-                                {{--                                </li>--}}
-                                {{--                               --}}
+                                    <li class="side-nav-item">
+                                        <a href="{{ route('admin.laboratory-sessions') }}" class="side-nav-link" wire:navigate>
+                                            <i class="uil-list-ui-alt"></i>
+                                            <span>Сессии</span>
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if (auth()->user()->isTeacher())
+                                    <li class="side-nav-item">
+                                        <a href="{{ route('admin.components-page') }}" class="side-nav-link"
+                                           wire:navigate>
+                                            <i class="uil-users-alt"></i>
+                                            <span>Студенты</span>
+                                        </a>
+                                    </li>
+                                @endif
+
 
                             </ul>
 

@@ -12,7 +12,9 @@
         "livewire/livewire": "^3.5",
         "maatwebsite/excel": "^3.1",
         "olssonm/l5-very-basic-auth": "^7.2",
-        "syamsoul/laravel-set-env": "^1.1"
+        "syamsoul/laravel-set-env": "^1.1",
+        "rappasoft/laravel-livewire-tables": "^3.4",
+        "aliqasemzadeh/livewire-bootstrap-modal": "^2.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",

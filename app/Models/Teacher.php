@@ -49,7 +49,7 @@ class Teacher extends User
 
     public function group(): HasOne
     {
-        return $this->hasOne(Group::class, 'teacher_id', 'id');
+        return $this->hasOne(Group::class, 'id', 'group_id');
     }
 
     public function updateFromStoreTeacherRequest(StoreTeacherRequest $request): void

@@ -68,4 +68,17 @@ class User extends Authenticatable
         }
         $this->update();
     }
+
+    public function isStudent(): bool
+    {
+        return $this->role === UserRole::Student;
+    }
+    public function isAdmin(): bool
+    {
+        return $this->role === UserRole::Admin;
+    }
+    public function isTeacher(): bool
+    {
+        return $this->role === UserRole::Teacher;
+    }
 }

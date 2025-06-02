@@ -9,6 +9,7 @@ use App\Http\Requests\Student\UpdateStudentRequest;
 use App\Models\Scopes\User\StudentRoleScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Hash;
 
 #[ScopedBy([StudentRoleScope::class])]
@@ -78,8 +79,12 @@ class Student extends User
         return $this->belongsTo(Teacher::class);
     }
 
-    public function group()
+    public function group(): HasOne
     {
-        return $this->hasOneThrough(Group::class, GroupStudent::class, 'student_id', 'id', 'id', 'group_id');
+        return $this->hasOne(Group::class, 'id', 'group_id');
     }
+//    public function group()
+//    {
+//        return $this->hasOneThrough(Group::class, GroupStudent::class, 'student_id', 'id', 'id', 'group_id');
+//    }
 }
