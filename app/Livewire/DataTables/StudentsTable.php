@@ -25,7 +25,11 @@ class StudentsTable extends DataTableComponent
 
     public function builder(): Builder
     {
-        return Student::query();
+        if(auth()->user()->isAdmin()) {
+            return Student::query();
+        }
+        $groupId = auth()->user()->group_id;
+        return Student::query()->whereIn('group_id', $groupId ? [$groupId] : [0]);
     }
 
 
@@ -45,21 +49,37 @@ class StudentsTable extends DataTableComponent
 
     public function filters(): array
     {
+        if(auth()->user()->isAdmin()) {
+            return [
+                $this->getIdFilter(),
+                $this->getFullNameFilter(),
+                $this->getEmailFilter(),
+                $this->getGroupFilter(),
+            ];
+        }
         return [
             $this->getIdFilter(),
             $this->getFullNameFilter(),
             $this->getEmailFilter(),
-            $this->getGroupFilter(),
         ];
     }
 
     public function columns(): array
     {
+        if(auth()->user()->isAdmin()) {
+            return [
+                $this->getIdColumn(),
+                $this->getFullNameColumn(),
+                $this->getEmailColumn(),
+                $this->getGroupColumn(),
+                $this->getDateOfBirthColumn(),
+                $this->getActionColumn()
+            ];
+        }
         return [
             $this->getIdColumn(),
             $this->getFullNameColumn(),
             $this->getEmailColumn(),
-            $this->getGroupColumn(),
             $this->getDateOfBirthColumn(),
             $this->getActionColumn()
         ];
@@ -79,7 +99,25 @@ class StudentsTable extends DataTableComponent
         $this->refreshTable();
     }
 
-    public function getActionHTML(Student $student): string
+    public function getActionHTML(Student $student)
+    {
+        if(auth()->user()->isAdmin()) {
+            return $this->getActionAdminHTML($student);
+        }
+        return $this->getActionTeacherHTML($student);
+    }
+
+    public function getActionTeacherHTML(Student $student): string
+    {
+        $click = "\$dispatch('showModal', {data: {'alias' : 'modals.student.show-student-modal','params' :{'studentId': $student->id}}})";
+
+        return <<<HTML
+           <button type="button"  wire:click="$click" class="btn btn-link action-icon" >
+                <i class="mdi mdi-card-account-details"></i>
+            </button>
+        HTML;
+    }
+    public function getActionAdminHTML(Student $student): string
     {
 
         $click = "\$dispatch('showModal', {data: {'alias' : 'modals.student.edit-student-modal','params' :{'studentId': $student->id}}})";

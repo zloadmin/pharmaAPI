@@ -22,5 +22,18 @@
 {{--    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">--}}
 
     @stack('styles')
+    <style>
+        .file_input_hidden {
+            position: absolute;
+            font-size: 50px;
+            opacity: 0;
+            right: 0;
+            top: 0;
+        }
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
     @livewireStyles
 </head>

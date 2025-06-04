@@ -1,7 +1,7 @@
 <div class="card-body p-4">
     <div class="text-center w-75 m-auto">
-        <h4 class="text-dark-50 text-center mt-0 font-weight-bold">Вход</h4>
-        <p class="text-muted mb-4">Введите email и пароль.</p>
+        <h4 class="text-dark-50 text-center mt-0 font-weight-bold">Восстановить пароль</h4>
+        <p class="text-muted mb-4">Введите email.</p>
     </div>
 
     <form wire:submit.prevent="login">
@@ -17,6 +17,7 @@
         </div>
         <!--- Password Field --->
         <div class="form-group mb-3">
+            <a href="{{ route('recover-password') }}" class="text-muted float-right"><small>Забыли пароль?</small></a>
             <label for="password">Пароль</label>
             <input class="form-control @error('password') is-invalid @enderror" type="password" wire:model="password" placeholder="Введите ваш пароль" id="password">
             @error('password')

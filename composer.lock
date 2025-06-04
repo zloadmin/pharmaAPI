@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc85150e29389d7e976284a06cbb259d",
+    "content-hash": "186d4ee5638295812d52c37360dc7507",
     "packages": [
         {
             "name": "aliqasemzadeh/livewire-bootstrap-modal",

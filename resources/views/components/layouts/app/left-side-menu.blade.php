@@ -84,7 +84,7 @@
 
                                 @if (auth()->user()->isTeacher())
                                     <li class="side-nav-item">
-                                        <a href="{{ route('admin.components-page') }}" class="side-nav-link"
+                                        <a href="{{ route('teacher.students-page') }}" class="side-nav-link"
                                            wire:navigate>
                                             <i class="uil-users-alt"></i>
                                             <span>Студенты</span>

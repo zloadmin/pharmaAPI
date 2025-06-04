@@ -15,6 +15,7 @@ use App\Livewire\Admin\Pages\StorageComponent\StorageComponentEditPage;
 use App\Livewire\Admin\Pages\StorageComponent\StorageComponentsPage;
 use App\Livewire\Admin\Pages\Group\GroupsPage;
 use App\Livewire\Admin\Pages\Student\StudentsPage;
+use App\Livewire\Admin\Pages\Student\TeacherStudentsPage;
 use App\Livewire\Admin\Pages\Teacher\TeachersPage;
 use App\Livewire\Admin\Pages\Video\VideoCreatePage;
 use App\Livewire\Admin\Pages\Video\VideoEditPage;
@@ -22,6 +23,7 @@ use App\Livewire\Admin\Pages\Video\VideosPage;
 use App\Livewire\IndexPage;
 use App\Livewire\LaboratorySession\LaboratorySessionsPage;
 use App\Livewire\LoginPage;
+use App\Livewire\RecoverPasswordPage;
 use App\Livewire\Stages\ChromatographStage\ChromatographStage;
 use App\Livewire\Stages\ChromatographStage\SoftwarePages\ChromatographMethodPage;
 use App\Livewire\Stages\ChromatographStage\SoftwarePages\ChromatographResultPage;
@@ -38,6 +40,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', LoginPage::class)
     ->middleware('guest')
     ->name('login');
+Route::get('/recover-password', RecoverPasswordPage::class)
+    ->middleware('guest')
+    ->name('recover-password');
 Route::middleware('auth')->group(function () {
     Route::post('logout', function () {
         Auth::logout();
@@ -91,7 +96,7 @@ Route::middleware('auth')->group(function () {
 
         Route::middleware('role:admin,teacher')->group(function () {
 
-
+            Route::get('teacher-students', TeacherStudentsPage::class)->name('teacher.students-page');
         });
     });
 

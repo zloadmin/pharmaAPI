@@ -6,15 +6,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "aliqasemzadeh/livewire-bootstrap-modal": "^2.3",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "maatwebsite/excel": "^3.1",
         "olssonm/l5-very-basic-auth": "^7.2",
-        "syamsoul/laravel-set-env": "^1.1",
         "rappasoft/laravel-livewire-tables": "^3.4",
-        "aliqasemzadeh/livewire-bootstrap-modal": "^2.3"
+        "syamsoul/laravel-set-env": "^1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",

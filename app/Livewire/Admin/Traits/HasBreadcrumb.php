@@ -173,6 +173,10 @@ trait HasBreadcrumb
     {
         return [route('admin.students-page') => 'Студенты'];
     }
+    private function getTeacherStudentsPageItem(): array
+    {
+        return [route('teacher.students-page') => 'Студенты'];
+    }
     private function getTeachersPageItem(): array
     {
         return [route('admin.teachers-page') => 'Преподаватели'];

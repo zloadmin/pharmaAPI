@@ -50,7 +50,7 @@ class LoginPage extends Component
                 $this->redirectToDashboardPagePage();
             }
         }
-        $this->addError('username', 'Неверный логин или пароль.');
+        $this->addError('email', 'Неверный логин или пароль.');
     }
 
     public function render()

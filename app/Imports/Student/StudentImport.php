@@ -3,7 +3,9 @@
 namespace App\Imports\Student;
 
 use App\Mail\Student\StudentAccessEmail;
+use App\Models\Group;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -65,12 +67,12 @@ class StudentImport extends DefaultValueBinder implements
     public function model(array $row, string $password): Student
     {
 
-
         return new Student([
-            'full_name'     => $row[0],
-            'date_of_birth' => $row[1],
-            'email'         => $row[2],
-            'password'      => Hash::make($password)
+            'full_name'       => $row[0],
+            'date_of_birth'   => Carbon::parse($row[1])->toDateString(),
+            'email'           => $row[2],
+            'password'        => Hash::make($password),
+            'group_id'        => $row[3] ? Group::firstOrCreate([ 'name' => $row[3] ])->id : null,
         ]);
     }
 
@@ -78,9 +80,29 @@ class StudentImport extends DefaultValueBinder implements
     public function rules(): array
     {
         return [
-            '0' => ['required', 'string', 'max:250'], // full_name
-            '1' => ['required', 'date', 'date_format:d.m.Y'], // date_of_birth
-            '2' => ['required', 'email', Rule::unique('users', 'email')], // email
+            '0' => [
+                'required',
+                'string',
+                'max:250'
+            ],
+            // full_name
+            '1' => [
+                'required',
+                'date',
+//                'date_format:d.m.Y'
+            ],
+            // date_of_birth
+            '2' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')
+            ],
+            // email
+            '3' => [
+                'nullable',
+                'string',
+                'max:250'
+            ],
         ];
     }
 
@@ -96,6 +118,7 @@ class StudentImport extends DefaultValueBinder implements
             '2.required'    => 'Поле email обязательно для заполнения.',
             '2.email'       => 'Значение поля email должно быть действительным электронным адресом.',
             '2.unique'      => 'Такое значение поля email уже существует.',
+            '3.max'         => 'Название группы слишком длинное',
         ];
     }
 
