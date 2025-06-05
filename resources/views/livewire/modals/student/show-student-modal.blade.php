@@ -10,7 +10,7 @@
             <p class="text-muted"><strong>ID:</strong> <span class="ms-2">{{ $student->id }}</span></p>
             <p class="text-muted"><strong>Email:</strong> <span class="ms-2">{{ $student->email }}</span></p>
             <p class="text-muted"><strong>ФИО:</strong> <span class="ms-2">{{ $student->full_name }}</span></p>
-            <p class="text-muted"><strong>Дата рождения:</strong> <span class="ms-2">{{ $student->date_of_birth->format('d.m.Y') }}</span></p>
+            <p class="text-muted"><strong>Дата рождения:</strong> <span class="ms-2">{{ $student->date_of_birth ? $student->date_of_birth->format('d.m.Y') : '' }}</span></p>
             <p class="text-muted"><strong>Группа:</strong> <span class="ms-2">{{ $student->group->name ?? '' }}</span></p>
             <p class="text-muted"><strong>Создан:</strong> <span class="ms-2">{{ $student->created_at->diffForHumans() }}</span></p>
             <p class="text-muted"><strong>Изменен:</strong> <span class="ms-2">{{ $student->updated_at->diffForHumans() }}</span></p>
