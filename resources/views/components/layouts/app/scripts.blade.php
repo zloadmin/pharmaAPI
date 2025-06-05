@@ -8,12 +8,6 @@
     $(document).on('click', '.button-menu-mobile', function(e) {
         e.preventDefault();
         $('body').toggleClass('sidebar-enable');
-
-        // if (self.window.width() >= 768) {
-        //   self.body.toggleClass('enlarged');
-        // } else {
-        //   self.body.removeClass('enlarged');
-        // }
     });
 
 </script>

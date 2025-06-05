@@ -97,6 +97,9 @@ Route::middleware('auth')->group(function () {
         Route::middleware('role:admin,teacher')->group(function () {
 
             Route::get('teacher-students', TeacherStudentsPage::class)->name('teacher.students-page');
+            Route::prefix('laboratory-sessions')->group(function () {
+                Route::get('/', LaboratorySessionsPage::class)->name('admin.laboratory-sessions');
+            });
         });
     });
 

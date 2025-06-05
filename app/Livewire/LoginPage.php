@@ -45,9 +45,11 @@ class LoginPage extends Component
             'password' => $this->password,
         ])) {
             if (Auth::user()->isStudent()) {
-                $this->redirectToIndexPage();
+//                $this->redirectToIndexPage();
+                return redirect()->route('index-page');
             } else {
-                $this->redirectToDashboardPagePage();
+                return redirect()->route('admin.dashboard-page');
+//                $this->redirectToDashboardPagePage();
             }
         }
         $this->addError('email', 'Неверный логин или пароль.');

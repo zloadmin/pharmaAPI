@@ -1,4 +1,4 @@
-<div>
+<div class="col-md-12">
     <h3>Лабораторные работы</h3>
     <table class="table">
       <thead>

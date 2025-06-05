@@ -18,7 +18,7 @@ class IndexPage extends Component
     {
         $this->laboratories = Laboratory::query()->orderBy('name')->get();
     }
-    #[Layout('components.layouts.app-simple')]
+    #[Layout('components.layouts.app-no-sidebar')]
     public function render()
     {
         return view('livewire.index-page');

@@ -1,7 +1,7 @@
 <div class="card-body p-4">
     <div class="text-center w-75 m-auto">
         <h4 class="text-dark-50 text-center mt-0 font-weight-bold">Вход в систему</h4>
-        <p class="text-muted mb-4">Введите email.</p>
+        <p class="text-muted mb-4">Введите email и пароль.</p>
     </div>
 
     <form wire:submit.prevent="login">
