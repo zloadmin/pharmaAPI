@@ -47,6 +47,7 @@ trait HasUnlockStages
     }
     public function checkChromatographRoomLock(): void
     {
+
         if (
             $this->sessionModel->isCookingRoomUnlocked() &&
             $this->sessionModel->isChromatographRoomLocked() &&

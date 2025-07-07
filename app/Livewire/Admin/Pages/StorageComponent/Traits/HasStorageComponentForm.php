@@ -33,6 +33,7 @@ trait HasStorageComponentForm
     public $on_mix_place = null;
     public $on_filtration_examples_place = null;
     public $bath_able = false;
+    public $is_special = false;
     public $filtration_able = false;
     public $is_example = false;
 
@@ -57,6 +58,7 @@ trait HasStorageComponentForm
             'on_mix_place'                 => ['nullable', Rule::in(SessionComponentPlace::getMixStuffPlaceValues())],
             'on_filtration_examples_place' => ['nullable', Rule::in(SessionComponentPlace::getFiltrationExamplesPlaceValues())],
             'bath_able'                    => ['required', 'boolean'],
+            'is_special'                    => ['required', 'boolean'],
             'filtration_able'              => ['required', 'boolean'],
             'is_example'                   => ['required', 'boolean'],
 

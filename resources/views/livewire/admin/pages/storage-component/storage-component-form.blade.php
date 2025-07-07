@@ -230,6 +230,16 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
+    <!--- УЗ ванна Field --->
+    <div class="form-check mb-3">
+        <input class="form-check-input @error('is_special') is-invalid @enderror" type="checkbox" wire:model="is_special" id="checkbox_is_special">
+        <label class="form-check-label" for="checkbox_is_special">
+            Специальный компонент (проход в хроматограф без наполнения)
+        </label>
+        @error('is_special')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
     @include('livewire.admin.blocks.form-header', ['title' => 'Установка фильтрации'])
     <!--- УЗ ванна Field --->
     <div class="form-check mb-3">

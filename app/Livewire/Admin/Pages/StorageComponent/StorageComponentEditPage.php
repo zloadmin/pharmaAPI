@@ -42,6 +42,7 @@ class StorageComponentEditPage extends LivewireComponent
             'on_mix_place'                 => ['nullable', Rule::in(SessionComponentPlace::getMixStuffPlaceValues())],
             'on_filtration_examples_place' => ['nullable', Rule::in(SessionComponentPlace::getFiltrationExamplesPlaceValues())],
             'bath_able'                    => ['required', 'boolean'],
+            'is_special'                    => ['required', 'boolean'],
             'filtration_able'              => ['required', 'boolean'],
             'is_example'                   => ['required', 'boolean'],
         ];
@@ -93,6 +94,7 @@ class StorageComponentEditPage extends LivewireComponent
         $this->storageComponent->on_mix_place = $this->on_mix_place ?: null;
         $this->storageComponent->on_filtration_examples_place = $this->on_filtration_examples_place ?: null;
         $this->storageComponent->bath_able = $this->bath_able;
+        $this->storageComponent->is_special = $this->is_special;
         $this->storageComponent->filtration_able = $this->filtration_able;
         $this->storageComponent->is_example = $this->is_example;
 
@@ -127,6 +129,7 @@ class StorageComponentEditPage extends LivewireComponent
         $this->on_mix_place = $storageComponent->on_mix_place->value ?? '';
         $this->on_filtration_examples_place = $storageComponent->on_filtration_examples_place->value ?? '';
         $this->bath_able = $storageComponent->bath_able;
+        $this->is_special = $storageComponent->is_special;
         $this->filtration_able = $storageComponent->filtration_able;
         $this->is_example = $storageComponent->is_example;
     }

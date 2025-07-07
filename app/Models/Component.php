@@ -29,6 +29,7 @@ class Component extends Model
         'ph_meter_able'                => 'bool',
         'mixer_able'                   => 'bool',
         'bath_able'                    => 'bool',
+        'is_special'                    => 'bool',
         'filtration_able'              => 'bool',
         'mix_able'                     => 'bool',
         'is_example'                   => 'bool',

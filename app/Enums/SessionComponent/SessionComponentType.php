@@ -14,5 +14,6 @@ enum SessionComponentType : string
     case MobilePhase = 'mobilePhase';
     case FilteredExample = 'filteredExample';
     case FilteredMobilePhase = 'filteredMobilePhase';
+    case SpecialStaff = 'specialStaff';
 
 }

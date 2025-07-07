@@ -21,9 +21,9 @@ return new class extends Migration {
         Schema::create('laboratory_sessions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+//            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('laboratory_id');
-            $table->foreign('laboratory_id')->references('id')->on('laboratories')->onDelete('cascade');
+//            $table->foreign('laboratory_id')->references('id')->on('laboratories')->onDelete('cascade');
             $table->uuid();
             $table->json('settings')->nullable();
             // rooms

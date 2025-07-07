@@ -4,6 +4,7 @@ namespace App\Livewire\Stages\Components\Modals;
 
 use App\Enums\Component\ComponentType;
 use App\Enums\SessionComponent\SessionComponentPlace;
+use App\Enums\SessionComponent\SessionComponentType as SessionComponentTypeEnum;
 use App\Livewire\Traits\HasSession;
 use App\Models\SessionComponent;
 use App\Models\Component;
@@ -105,6 +106,7 @@ class ModalStorageComponent extends ModalBase
             'place'                               => SessionComponentPlace::inCart,
             'component_id'                        => $this->component->id,
             $this->component->getValueFieldName() => $value,
+            'type' => $this->component->is_special ? SessionComponentTypeEnum::SpecialStaff : SessionComponentTypeEnum::Simple,
         ]);
     }
 

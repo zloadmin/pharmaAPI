@@ -145,10 +145,13 @@ class LaboratorySession extends Model
     public function checkChromatographRoomAbleUnlock(): bool
     {
         $cookingComponentIds = $this->laboratory->cookingComponents()->pluck('component_id', 'id')->toArray();
+dd($cookingComponentIds);
+
         $sessionComponentIds = $this->sessionComponents()
             ->where('type', '!=', SessionComponentType::Simple)
             ->whereIn('component_id', $cookingComponentIds)
             ->pluck('component_id', 'id')->toArray();
+
         foreach ($sessionComponentIds as $sessionComponentId) {
             foreach ($cookingComponentIds as $cookingComponentKey => $cookingComponentId) {
                 if ($sessionComponentId == $cookingComponentId) {
