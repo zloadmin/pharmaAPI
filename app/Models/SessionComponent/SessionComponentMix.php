@@ -228,6 +228,25 @@ trait SessionComponentMix
         $result[] = $this->mixedThreeSessionComponent->getName();
         $result[] = $this->mixedFourSessionComponent->getName();
 
+        if ($this->is_dirty) {
+            $result[] = 'Грязный';
+        }
+        if ($this->ph_meter_value) {
+            $result[] = sprintf('PH: %03.4f', $this->ph_meter_value);
+        }
+        if ($this->mixer_seconds) {
+            $result[] = sprintf('Время в мешалке %d сек', $this->mixer_seconds);
+        }
+        if ($this->bath_temperature) {
+            $result[] = sprintf('УК ванна %d C&deg;', $this->bath_temperature);
+        }
+        if ($this->bath_seconds) {
+            $result[] = sprintf('УК ванна %d сек.', $this->bath_seconds);
+        }
+        if ($this->filtered) {
+            $result[] = 'Прошло фильтрацию';
+        }
+
         return implode('<br>', $result);
     }
 

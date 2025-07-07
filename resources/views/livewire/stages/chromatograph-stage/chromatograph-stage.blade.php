@@ -7,7 +7,7 @@
         <div class="main_data">
             <div class="row">
                 <div class="section big">
-                    <div class="title">Хроматограф {{ $background }}</div>
+                    <div class="title">Хроматограф </div>
 
                     <div class="row">
                         @include('livewire.stages.chromatograph-stage.button', [

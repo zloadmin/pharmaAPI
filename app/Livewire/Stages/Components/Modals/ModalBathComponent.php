@@ -87,7 +87,7 @@ class ModalBathComponent extends ModalBase
     public function run(): void
     {
 
-        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
+//        $this->dispatch('show-modal-video', fileName: 'filtration.mp4');
 
         if ($this->leftBoxSessionComponent) {
             $this->leftBoxSessionComponent->addBathData($this->seconds, $this->temperature);
