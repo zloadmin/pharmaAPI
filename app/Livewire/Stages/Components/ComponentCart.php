@@ -135,7 +135,7 @@ class ComponentCart extends LivewireComponent
     #[On('session-component-moved-to-chromatograph-example')]
     public function updateList(): void
     {
-        $this->setCartStageComponent($this->session);
+        $this->setCartStageComponent();
         $this->checkCookingRoomLock();
         $this->checkChromatographRoomLock();
     }

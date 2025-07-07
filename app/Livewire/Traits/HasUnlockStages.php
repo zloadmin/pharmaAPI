@@ -40,6 +40,7 @@ trait HasUnlockStages
 
     public function checkCookingRoomLock(): void
     {
+
         if ($this->sessionModel->isCookingRoomLocked() && $this->sessionModel->checkCookingRoomAbleUnlock()) {
             $this->sessionModel->unlockStage(Stage::cooking);
             $this->dispatchUnlockedEvent(Stage::cooking);

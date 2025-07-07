@@ -5,7 +5,7 @@
         </button>
         <div class="data">
             <div class="head">
-                <div class="title">Взаимойдествие с<br> установкой фильтрации</div>
+                <div class="title">Взаимодействие с<br> установкой фильтрации</div>
             </div>
 
             <div class="objects">

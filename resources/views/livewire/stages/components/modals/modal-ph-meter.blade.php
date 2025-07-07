@@ -6,7 +6,7 @@
             </svg>
         </button>
 
-        <div class="title">Взаимойдествие с ph-Meter
+        <div class="title">Взаимодействие с ph-Meter
 {{--            {{ $this->cookingTableChooseMode ?? '' }}--}}
         </div>
         @if($sessionComponent)

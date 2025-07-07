@@ -6,7 +6,7 @@
             </svg>
         </button>
 
-        <div class="title">Взаимойдествие с мешалкой</div>
+        <div class="title">Взаимодействие с мешалкой</div>
         @if ($sessionComponent)
             <div class="border">
                 <button class="remove_btn" type="button" wire:click="moveToCookingTable('{{ $sessionComponent->place }}')">

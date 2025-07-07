@@ -7,7 +7,7 @@
         </button>
         <div class="data">
             <div class="head">
-                <div class="title">Взаимойдествие<br> с УЗ ванной </div>
+                <div class="title">Взаимодействие<br> с УЗ ванной </div>
             </div>
 
             <div class="objects">
