@@ -70,6 +70,10 @@ class Laboratory extends Model
     {
         return $this->hasMany(LaboratoryCheckValue::class);
     }
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(LaboratoryTask::class);
+    }
 
     public function cookingComponents(): HasMany
     {

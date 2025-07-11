@@ -26,6 +26,7 @@ trait HasSession
         $this->session = $session;
         $this->sessionModel = $this->getSession();
         $this->laboratory = $this->sessionModel->laboratory;
+        $this->laboratory->load('tasks');
         $this->pharmacologicalArticle = $this->sessionModel->laboratory->pharmacologicalArticle;
     }
 

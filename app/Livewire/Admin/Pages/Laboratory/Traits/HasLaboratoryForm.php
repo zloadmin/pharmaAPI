@@ -11,6 +11,7 @@ use App\Models\Laboratory;
 use App\Models\LaboratoryCheckValue;
 use App\Models\LaboratoryCookingComponent;
 use App\Models\LaboratoryMobilePhase;
+use App\Models\LaboratoryTask;
 use App\Models\LaboratoryWeightingComponent;
 use App\Models\PharmacologicalArticle;
 use App\Models\VirtualComponent;
@@ -33,31 +34,35 @@ trait HasLaboratoryForm
         ],
         'storage'                 => [
             'title'  => 'Склад',
-            'fields' => [ 'component_ids' ]
+            'fields' => ['component_ids']
         ],
         'pharmacological-article' => [
             'title'  => 'Фарм. статья',
-            'fields' => [ 'pharmacological_article_id' ]
+            'fields' => ['pharmacological_article_id']
         ],
         'check-values'            => [
             'title'  => 'Расчетный лист',
-            'fields' => [ 'checkValues.*' ],
+            'fields' => ['checkValues.*'],
+        ],
+        'tasks'                   => [
+            'title'  => 'Задачи',
+            'fields' => ['tasks.*'],
         ],
         'weighting-components'    => [
             'title'  => 'Весовая',
-            'fields' => [ 'weightingComponents.*' ],
+            'fields' => ['weightingComponents.*'],
         ],
         'cooking-components'      => [
             'title'  => 'Растворы',
-            'fields' => [ 'cookingComponents.*' ],
+            'fields' => ['cookingComponents.*'],
         ],
-//        'mobile-phases'           => [
-//            'title'  => 'Подвижные Фазы',
-//            'fields' => [ 'mobilePhases.*' ],
-//        ],
+        //        'mobile-phases'           => [
+        //            'title'  => 'Подвижные Фазы',
+        //            'fields' => [ 'mobilePhases.*' ],
+        //        ],
         'virtual-components'      => [
             'title'  => 'Виртуальные компоненты',
-            'fields' => [ 'virtualComponents.*' ],
+            'fields' => ['virtualComponents.*'],
         ],
         'chromatograph'           => [
             'title'  => 'Хроматограф Данные',
@@ -70,11 +75,11 @@ trait HasLaboratoryForm
         ],
         'chromatograph_table'     => [
             'title'  => 'Хроматограф Таблица',
-            'fields' => [ 'chromatographTableItems.*' ]
+            'fields' => ['chromatographTableItems.*']
         ],
         'chart'                   => [
             'title'  => 'График',
-            'fields' => [ 'chart_image' ]
+            'fields' => ['chart_image']
         ],
     ];
     // index
@@ -86,6 +91,8 @@ trait HasLaboratoryForm
     public ?int $pharmacological_article_id = null;
     // check-list
     public array $checkValues = [];
+    // tasks
+    public array $tasks = [];
     // videos
     // public ?array $videos = [];
     // weighting-components
@@ -139,6 +146,7 @@ trait HasLaboratoryForm
         $this->mobilePhases = $this->getMobilePhases();
         $this->virtualComponents = $this->getVirtualComponents();
         $this->checkValues = $this->getCheckValues();
+        $this->tasks = $this->getTasks();
         $this->chromatographTableItems = $this->getChromatographTableItems();
 
         $this->chromatographColumnTemp = $laboratory->chromatograph_column_temp;
@@ -166,6 +174,7 @@ trait HasLaboratoryForm
     {
         return $this->laboratory->mobilePhases()->get()->toArray();
     }
+
     public function getVirtualComponents()
     {
 
@@ -175,6 +184,11 @@ trait HasLaboratoryForm
     public function getCheckValues()
     {
         return $this->laboratory->checkValues()->get()->toArray();
+    }
+
+    public function getTasks()
+    {
+        return $this->laboratory->tasks()->get()->toArray();
     }
 
     public function getChromatographTableItems(): array
@@ -208,6 +222,11 @@ trait HasLaboratoryForm
         unset($this->checkValues[$index]);
     }
 
+    public function deleteTask(int $index): void
+    {
+        unset($this->tasks[$index]);
+    }
+
     public function deleteChromatographTableItem(int $index): void
     {
         unset($this->chromatographTableItems[$index]);
@@ -223,6 +242,7 @@ trait HasLaboratoryForm
     {
         $this->mobilePhases[] = [];
     }
+
     public function addVirtualComponent(): void
     {
         $this->virtualComponents[] = [];
@@ -233,10 +253,16 @@ trait HasLaboratoryForm
         $this->checkValues[] = [];
     }
 
+    public function addTask(): void
+    {
+        $this->tasks[] = [];
+    }
+
     public function deleteMobilePhase(int $index): void
     {
         unset($this->mobilePhases[$index]);
     }
+
     public function deleteVirtualComponent(int $index): void
     {
         unset($this->virtualComponents[$index]);
@@ -251,7 +277,7 @@ trait HasLaboratoryForm
                 'string',
                 'max:250'
             ],
-            'description'                => [ 'nullable' ],
+            'description'                => ['nullable'],
             'pharmacological_article_id' => [
                 'nullable',
                 Rule::exists('pharmacological_articles', 'id')
@@ -288,7 +314,7 @@ trait HasLaboratoryForm
     private function weightingComponentRules(): array
     {
         return [
-            'weightingComponents'                       => [ 'array' ],
+            'weightingComponents'                       => ['array'],
             'weightingComponents.*.stuff_component_id'  => [
                 'required',
                 'integer',
@@ -338,8 +364,8 @@ trait HasLaboratoryForm
     private function virtualComponentsRules(): array
     {
         return [
-            'virtualComponents'                       => [ 'array' ],
-            'virtualComponents.*.name'                => [
+            'virtualComponents'                              => ['array'],
+            'virtualComponents.*.name'                       => [
                 'required',
                 'string',
                 'max:250'
@@ -360,7 +386,7 @@ trait HasLaboratoryForm
     private function cookingComponentsRules(): array
     {
         return [
-            'cookingComponents'                => [ 'array' ],
+            'cookingComponents'                => ['array'],
             'cookingComponents.*.component_id' => [
                 'required',
                 'integer',
@@ -372,7 +398,7 @@ trait HasLaboratoryForm
     private function chromatographTableItemsRules(): array
     {
         $rules = [];
-        $rules['chromatographTableItems'] = [ 'array' ];
+        $rules['chromatographTableItems'] = ['array'];
         foreach (Laboratory::$chromatographTableItemTypes as $name => $data) {
             $rules['chromatographTableItems.*.' . $name] = [
                 'required',
@@ -383,10 +409,26 @@ trait HasLaboratoryForm
         return $rules;
     }
 
+    private function tasksRules(): array
+    {
+        return [
+            'tasks'               => ['array'],
+            'tasks.*.name'        => [
+                'required',
+                'string',
+                'max:250'
+            ],
+            'tasks.*.description' => [
+                'required',
+                'string',
+            ],
+        ];
+    }
+
     private function checkValueRules(): array
     {
         return [
-            'checkValues'             => [ 'array' ],
+            'checkValues'             => ['array'],
             'checkValues.*.name'      => [
                 'required',
                 'string',
@@ -436,6 +478,7 @@ trait HasLaboratoryForm
         return array_merge(
             $this->mainRules(), // Описание, ФС, Хроматограф
             $this->checkValueRules(), // Расчетный лист
+            $this->tasksRules(), // Задачи
             $this->weightingComponentRules(), // Компоненты весовой
 //            $this->mobilePhasesRules(), // ПФ
             $this->virtualComponentsRules(), // Виртуальные компоненты
@@ -470,6 +513,7 @@ trait HasLaboratoryForm
         }
         return $result;
     }
+
     public function getVirtualComponentsModels(): array
     {
         $result = [];
@@ -484,6 +528,15 @@ trait HasLaboratoryForm
         $result = [];
         foreach ($this->checkValues as $checkValue) {
             $result[] = new LaboratoryCheckValue($checkValue);
+        }
+        return $result;
+    }
+
+    public function getTasksModels(): array
+    {
+        $result = [];
+        foreach ($this->tasks as $task) {
+            $result[] = new LaboratoryTask($task);
         }
         return $result;
     }

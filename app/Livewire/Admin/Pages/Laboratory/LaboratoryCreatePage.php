@@ -35,6 +35,7 @@ class LaboratoryCreatePage extends LivewireComponent
         $this->createLaboratoryWeightingComponents($laboratory);
         $this->createLaboratoryCookingComponents($laboratory);
         $this->createLaboratoryCheckValues($laboratory);
+        $this->createLaboratoryTasks($laboratory);
 //        $this->createLaboratoryMobilePhases($laboratory);
         $this->createLaboratoryVirtualComponents($laboratory);
         $this->redirectToLaboratoriesPage();
@@ -72,6 +73,10 @@ class LaboratoryCreatePage extends LivewireComponent
     private function createLaboratoryCheckValues(Laboratory $laboratory): void
     {
         $laboratory->checkValues()->saveMany($this->getCheckValuesModels());
+    }
+    private function createLaboratoryTasks(Laboratory $laboratory): void
+    {
+        $laboratory->tasks()->saveMany($this->getTasksModels());
     }
 
     #[Title('Создать')]
