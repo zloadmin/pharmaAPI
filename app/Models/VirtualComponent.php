@@ -16,16 +16,17 @@ class VirtualComponent extends Component
     protected $attributes = [
         'is_virtual' => true
     ];
-     /**
-      * Scope a query to only include by laboratory.
-      *
-      * @param  \Illuminate\Database\Eloquent\Builder  $query
-      * @return \Illuminate\Database\Eloquent\Builder
-      */
-     public function scopeByVirtualLaboratory($query, Laboratory $laboratory)
-     {
-         return $query->where('virtual_laboratory_id', $laboratory->id);
-     }
+
+    /**
+     * Scope a query to only include by laboratory.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByVirtualLaboratory($query, Laboratory $laboratory)
+    {
+        return $query->where('virtual_laboratory_id', $laboratory->id);
+    }
 
 
     static function getComponent(LaboratorySession $session, SessionComponent $firstComponent, SessionComponent $secondComponent): null|self
@@ -36,6 +37,6 @@ class VirtualComponent extends Component
         })->orWhere(function ($query) use ($session, $firstComponent, $secondComponent) {
             $query->where('virtual_component_left_id', $secondComponent->getWeighedOrMainOrVirtualComponentId())
                 ->where('virtual_component_right_id', $firstComponent->getWeighedOrMainOrVirtualComponentId());
-        })->first();
+        })->where('virtual_laboratory_id', $session->laboratory_id)->first();
     }
 }
