@@ -216,6 +216,6 @@ class LaboratorySession extends Model
 //            return 'chromatograph_installed_one.jpg';
 //        }
 
-        return 'chromatograph_default.jpg';
+        return 'chromatograph_img.jpg';
     }
 }
