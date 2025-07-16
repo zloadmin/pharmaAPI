@@ -46,6 +46,7 @@ class LaboratoryEditPage extends LivewireComponent
         $this->updateLaboratoryMobilePhases();
         $this->updateVirtualComponents();
         $this->updateLaboratoryCheckValues();
+        $this->updateLaboratoryTasks();
         $this->flashStatus();
         $this->redirectToLaboratoryEditPage();
     }
@@ -93,6 +94,11 @@ class LaboratoryEditPage extends LivewireComponent
     {
         $this->laboratory->checkValues()->delete();
         $this->laboratory->checkValues()->saveMany($this->getCheckValuesModels());
+    }
+    private function updateLaboratoryTasks(): void
+    {
+        $this->laboratory->tasks()->delete();
+        $this->laboratory->tasks()->saveMany($this->getTasksModels());
     }
 
     #[Title('Редактировать')]
